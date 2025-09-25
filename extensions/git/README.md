@@ -1,6 +1,6 @@
-# Git integration for Visual Studio Code
+# Git integration for VSBlocks
 
-**Notice:** This extension is bundled with Visual Studio Code. It can be disabled but not uninstalled.
+**Notice:** This extension is bundled with VSBlocks. It can be disabled but not uninstalled.
 
 ## Features
 

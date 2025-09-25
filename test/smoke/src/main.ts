@@ -325,7 +325,7 @@ async function ensureStableCode(): Promise<void> {
 		}));
 
 		if (process.platform === 'darwin') {
-			// Visual Studio Code.app/Contents/MacOS/Electron
+			// VSBlocks.app/Contents/MacOS/Electron
 			stableCodePath = path.dirname(path.dirname(path.dirname(stableCodeExecutable)));
 		} else {
 			// VSCode/Code.exe (Windows) | VSCode/code (Linux)

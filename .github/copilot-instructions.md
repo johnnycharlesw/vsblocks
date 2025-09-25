@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Visual Studio Code is built with a layered architecture using TypeScript, web APIs and Electron, combining web technologies with native app capabilities. The codebase is organized into key architectural layers:
+VSBlocks is built with a layered architecture using TypeScript, web APIs and Electron, combining web technologies with native app capabilities. The codebase is organized into key architectural layers:
 
 ### Root Folders
 - `src/`: Main TypeScript source code with unit tests in `src/vs/*/test/` folders
