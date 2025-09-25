@@ -27,7 +27,7 @@ suite('getFlows', () => {
 
 	const testCases: Array<{ label: string; query: IFlowQuery; expectedFlows: Flows[] }> = [
 		{
-			label: 'VS Code Desktop. Local filesystem. GitHub.com',
+			label: 'VSBlocks Desktop. Local filesystem. GitHub.com',
 			query: {
 				extensionHost: ExtensionHost.Local,
 				isSupportedClient: true,
@@ -40,7 +40,7 @@ suite('getFlows', () => {
 			]
 		},
 		{
-			label: 'VS Code Desktop. Local filesystem. GitHub Hosted Enterprise',
+			label: 'VSBlocks Desktop. Local filesystem. GitHub Hosted Enterprise',
 			query: {
 				extensionHost: ExtensionHost.Local,
 				isSupportedClient: true,
@@ -54,7 +54,7 @@ suite('getFlows', () => {
 			]
 		},
 		{
-			label: 'VS Code Desktop. Local filesystem. GitHub Enterprise Server',
+			label: 'VSBlocks Desktop. Local filesystem. GitHub Enterprise Server',
 			query: {
 				extensionHost: ExtensionHost.Local,
 				isSupportedClient: true,

@@ -10,27 +10,27 @@ import type { Server } from '@modelcontextprotocol/sdk/server/index.js';
 
 export async function getServer(appService: ApplicationService): Promise<Server> {
 	const server = new McpServer({
-		name: 'VS Code Automation Server',
+		name: 'VSBlocks Automation Server',
 		version: '1.0.0',
-		title: 'An MCP Server that can interact with a local build of VS Code. Used for verifying UI behavior.'
+		title: 'An MCP Server that can interact with a local build of VSBlocks. Used for verifying UI behavior.'
 	}, { capabilities: { logging: {} } });
 
 	server.tool(
 		'vscode_automation_start',
-		'Start VS Code Build',
+		'Start VSBlocks Build',
 		{},
 		async () => {
 			const app = await appService.getOrCreateApplication();
 			return {
 				content: [{
 					type: 'text' as const,
-					text: app ? `VS Code started successfully` : `Failed to start VS Code`
+					text: app ? `VSBlocks started successfully` : `Failed to start VSBlocks`
 				}]
 			};
 		}
 	);
 
-	// Apply all VS Code automation tools using the modular structure
+	// Apply all VSBlocks automation tools using the modular structure
 	const registeredTools = applyAllTools(server, appService);
 	const app = appService.application;
 	if (app) {

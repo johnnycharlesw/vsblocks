@@ -10687,7 +10687,7 @@ declare module 'vscode' {
 	export namespace env {
 
 		/**
-		 * The application name of the editor, like 'VS Code'.
+		 * The application name of the editor, like 'VSBlocks'.
 		 */
 		export const appName: string;
 

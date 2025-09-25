@@ -158,7 +158,7 @@ name: "$(Date:yyyyMMdd).$(Rev:r) (${{ parameters.VSCODE_QUALITY }})"
 resources:
   pipelines:
     - pipeline: vscode-7pm-kick-off
-      source: 'VS Code 7PM Kick-Off'
+      source: 'VSBlocks 7PM Kick-Off'
       trigger: true
   repositories:
     - repository: 1ESPipelines
@@ -405,7 +405,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_setup
                       displayName: Publish system setup
                       sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH) System Setup"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) System Setup"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['SYSTEM_SETUP_PATH'], ''))
                     - output: pipelineArtifact
@@ -413,7 +413,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_user-setup
                       displayName: Publish user setup
                       sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH) User Setup"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) User Setup"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['USER_SETUP_PATH'], ''))
                     - output: pipelineArtifact
@@ -421,7 +421,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_archive
                       displayName: Publish archive
                       sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH)"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH)"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['CLIENT_PATH'], ''))
                     - output: pipelineArtifact
@@ -429,7 +429,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_server_win32_$(VSCODE_ARCH)_archive
                       displayName: Publish server archive
                       sbomBuildDropPath: $(Agent.BuildDirectory)/vscode-server-win32-$(VSCODE_ARCH)
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH) Server"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) Server"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['SERVER_PATH'], ''))
                     - output: pipelineArtifact
@@ -437,7 +437,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_web_win32_$(VSCODE_ARCH)_archive
                       displayName: Publish web server archive
                       sbomBuildDropPath: $(Agent.BuildDirectory)/vscode-server-win32-$(VSCODE_ARCH)-web
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH) Web"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) Web"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['WEB_PATH'], ''))
                   sdl:
@@ -472,7 +472,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_setup
                       displayName: Publish system setup
                       sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH) System Setup"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) System Setup"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['SYSTEM_SETUP_PATH'], ''))
                     - output: pipelineArtifact
@@ -480,7 +480,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_user-setup
                       displayName: Publish user setup
                       sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH) User Setup"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) User Setup"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['USER_SETUP_PATH'], ''))
                     - output: pipelineArtifact
@@ -488,7 +488,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_archive
                       displayName: Publish archive
                       sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH)"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH)"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['CLIENT_PATH'], ''))
                     - output: pipelineArtifact
@@ -496,7 +496,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_server_win32_$(VSCODE_ARCH)_archive
                       displayName: Publish server archive
                       sbomBuildDropPath: $(Agent.BuildDirectory)/vscode-server-win32-$(VSCODE_ARCH)
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH) Server"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) Server"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['SERVER_PATH'], ''))
                     - output: pipelineArtifact
@@ -504,7 +504,7 @@ extends:
                       artifactName: $(ARTIFACT_PREFIX)vscode_web_win32_$(VSCODE_ARCH)_archive
                       displayName: Publish web server archive
                       sbomBuildDropPath: $(Agent.BuildDirectory)/vscode-server-win32-$(VSCODE_ARCH)-web
-                      sbomPackageName: "VS Code Windows $(VSCODE_ARCH) Web"
+                      sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) Web"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['WEB_PATH'], ''))
                   sdl:

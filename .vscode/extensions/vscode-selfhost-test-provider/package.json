@@ -1,7 +1,7 @@
 {
   "name": "vscode-selfhost-test-provider",
-  "displayName": "VS Code Selfhost Test Provider",
-  "description": "Test provider for the VS Code project",
+  "displayName": "VSBlocks Selfhost Test Provider",
+  "description": "Test provider for the VSBlocks project",
   "enabledApiProposals": [
     "testObserver",
     "testRelatedCode"

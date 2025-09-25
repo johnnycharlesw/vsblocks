@@ -169,6 +169,6 @@ steps:
       artifactName: $(ARTIFACT_PREFIX)vscode_web_linux_standalone_archive-unsigned
       displayName: Publish web archive
       sbomBuildDropPath: $(Agent.BuildDirectory)/vscode-web
-      sbomPackageName: "VS Code Web"
+      sbomPackageName: "VSBlocks Web"
       sbomPackageVersion: $(Build.SourceVersion)
       condition: and(succeededOrFailed(), ne(variables['WEB_PATH'], ''))

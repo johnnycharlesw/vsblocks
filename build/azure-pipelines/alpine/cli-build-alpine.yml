@@ -94,7 +94,7 @@ steps:
           artifactName: vscode_cli_alpine_arm64_cli
           displayName: Publish vscode_cli_alpine_arm64_cli artifact
           sbomBuildDropPath: $(Build.ArtifactStagingDirectory)/cli
-          sbomPackageName: "VS Code Alpine arm64 CLI"
+          sbomPackageName: "VSBlocks Alpine arm64 CLI"
           sbomPackageVersion: $(Build.SourceVersion)
 
     - ${{ if eq(parameters.VSCODE_BUILD_ALPINE, true) }}:
@@ -104,5 +104,5 @@ steps:
           artifactName: vscode_cli_alpine_x64_cli
           displayName: Publish vscode_cli_alpine_x64_cli artifact
           sbomBuildDropPath: $(Build.ArtifactStagingDirectory)/cli
-          sbomPackageName: "VS Code Alpine x64 CLI"
+          sbomPackageName: "VSBlocks Alpine x64 CLI"
           sbomPackageVersion: $(Build.SourceVersion)

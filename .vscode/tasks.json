@@ -58,7 +58,7 @@
 			}
 		},
 		{
-			"label": "VS Code - Build",
+			"label": "VSBlocks - Build",
 			"dependsOn": [
 				"Core - Build",
 				"Ext - Build"
@@ -94,7 +94,7 @@
 			"problemMatcher": "$tsc"
 		},
 		{
-			"label": "Kill VS Code - Build",
+			"label": "Kill VSBlocks - Build",
 			"dependsOn": [
 				"Kill Core - Build",
 				"Kill Ext - Build"
@@ -103,21 +103,21 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Restart VS Code - Build",
+			"label": "Restart VSBlocks - Build",
 			"dependsOn": [
-				"Kill VS Code - Build",
-				"VS Code - Build"
+				"Kill VSBlocks - Build",
+				"VSBlocks - Build"
 			],
 			"group": "build",
 			"dependsOrder": "sequence",
 			"problemMatcher": []
 		},
 		{
-			"label": "Kill VS Code - Build, Npm, VS Code - Build",
+			"label": "Kill VSBlocks - Build, Npm, VSBlocks - Build",
 			"dependsOn": [
-				"Kill VS Code - Build",
+				"Kill VSBlocks - Build",
 				"npm: install",
-				"VS Code - Build"
+				"VSBlocks - Build"
 			],
 			"group": "build",
 			"dependsOrder": "sequence",

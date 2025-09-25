@@ -4,6 +4,6 @@
 
 ## Features
 
-This extension provides the following notebook renderers for VS Code:
+This extension provides the following notebook renderers for VSBlocks:
 
 - Image renderer for png, jpeg and gif
