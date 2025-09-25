@@ -15,7 +15,7 @@ jobs:
     env:
       RUSTUP_TOOLCHAIN: ${{ inputs.rustup_toolchain }}
     steps:
-      - name: Checkout microsoft/vscode
+      - name: Checkout johnnycharlesw/vsblocks
         uses: actions/checkout@v5
 
       - name: Install Rust

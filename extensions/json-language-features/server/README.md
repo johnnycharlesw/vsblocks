@@ -229,15 +229,15 @@ To connect to the server from NodeJS, see Remy Suen's great write-up on [how to 
 
 ## Participate
 
-The source code of the JSON language server can be found in the [VSCode repository](https://github.com/microsoft/vscode) at [extensions/json-language-features/server](https://github.com/microsoft/vscode/tree/master/extensions/json-language-features/server).
+The source code of the JSON language server can be found in the [VSCode repository](https://github.com/johnnycharlesw/vsblocks) at [extensions/json-language-features/server](https://github.com/johnnycharlesw/vsblocks/tree/master/extensions/json-language-features/server).
 
-File issues and pull requests in the [VSCode GitHub Issues](https://github.com/microsoft/vscode/issues). See the document [How to Contribute](https://github.com/microsoft/vscode/wiki/How-to-Contribute) on how to build and run from source.
+File issues and pull requests in the [VSCode GitHub Issues](https://github.com/johnnycharlesw/vsblocks/issues). See the document [How to Contribute](https://github.com/johnnycharlesw/vsblocks/wiki/How-to-Contribute) on how to build and run from source.
 
 Most of the functionality of the server is located in libraries:
 
 - [jsonc-parser](https://github.com/microsoft/node-jsonc-parser) contains the JSON parser and scanner.
-- [vscode-json-languageservice](https://github.com/microsoft/vscode-json-languageservice) contains the implementation of all features as a re-usable library.
-- [vscode-languageserver-node](https://github.com/microsoft/vscode-languageserver-node) contains the implementation of language server for NodeJS.
+- [vscode-json-languageservice](https://github.com/johnnycharlesw/vsblocks-json-languageservice) contains the implementation of all features as a re-usable library.
+- [vscode-languageserver-node](https://github.com/johnnycharlesw/vsblocks-languageserver-node) contains the implementation of language server for NodeJS.
 
 Help on any of these projects is very welcome.
 
@@ -249,4 +249,4 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 Copyright (c) Microsoft Corporation. All rights reserved.
 
-Licensed under the [MIT](https://github.com/microsoft/vscode/blob/master/LICENSE.txt) License.
+Licensed under the [MIT](https://github.com/johnnycharlesw/vsblocks/blob/master/LICENSE.txt) License.

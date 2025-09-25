@@ -540,7 +540,7 @@ export function startServer(connection: Connection, runtime: RuntimeEnvironment)
 	});
 
 	connection.languages.onLinkedEditingRange((params, token) => {
-		return <any> /* todo remove when microsoft/vscode-languageserver-node#700 fixed */ runSafe(runtime, async () => {
+		return <any> /* todo remove when johnnycharlesw/vsblocks-languageserver-node#700 fixed */ runSafe(runtime, async () => {
 			const document = documents.get(params.textDocument.uri);
 			if (document) {
 				const pos = params.position;

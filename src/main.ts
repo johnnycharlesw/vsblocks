@@ -87,7 +87,7 @@ perf.mark('code/didStartCrashReporter');
 // Set logs path before app 'ready' event if running portable
 // to ensure that no 'logs' folder is created on disk at a
 // location outside of the portable directory
-// (https://github.com/microsoft/vscode/issues/56651)
+// (https://github.com/johnnycharlesw/vsblocks/issues/56651)
 if (portable && portable.isPortable) {
 	app.setAppLogsPath(path.join(userDataPath, 'logs'));
 }
@@ -133,7 +133,7 @@ if (userLocale) {
 // Pass in the locale to Electron so that the
 // Windows Control Overlay is rendered correctly on Windows.
 // For now, don't pass in the locale on macOS due to
-// https://github.com/microsoft/vscode/issues/167543.
+// https://github.com/johnnycharlesw/vsblocks/issues/167543.
 // If the locale is `qps-ploc`, the Microsoft
 // Pseudo Language Language Pack is being used.
 // In that case, use `en` as the Electron locale.
@@ -241,7 +241,7 @@ function configureCommandlineSwitchesSync(cliArgs: NativeParsedArgs) {
 
 	const SUPPORTED_MAIN_PROCESS_SWITCHES = [
 
-		// Persistently enable proposed api via argv.json: https://github.com/microsoft/vscode/issues/99775
+		// Persistently enable proposed api via argv.json: https://github.com/johnnycharlesw/vsblocks/issues/99775
 		'enable-proposed-api',
 
 		// Log level to use. Default is 'info'. Allowed values are 'error', 'warn', 'info', 'debug', 'trace', 'off'.
@@ -329,14 +329,14 @@ function configureCommandlineSwitchesSync(cliArgs: NativeParsedArgs) {
 
 	// Following features are disabled from the runtime:
 	// `CalculateNativeWinOcclusion` - Disable native window occlusion tracker (https://groups.google.com/a/chromium.org/g/embedder-dev/c/ZF3uHHyWLKw/m/VDN2hDXMAAAJ)
-	// `FontationsLinuxSystemFonts` - Revert to FreeType for system fonts on Linux Refs https://github.com/microsoft/vscode/issues/260391
+	// `FontationsLinuxSystemFonts` - Revert to FreeType for system fonts on Linux Refs https://github.com/johnnycharlesw/vsblocks/issues/260391
 	const featuresToDisable =
 		`CalculateNativeWinOcclusion,FontationsLinuxSystemFonts,${app.commandLine.getSwitchValue('disable-features')}`;
 	app.commandLine.appendSwitch('disable-features', featuresToDisable);
 
 	// Blink features to configure.
-	// `FontMatchingCTMigration` - Siwtch font matching on macOS to Appkit (Refs https://github.com/microsoft/vscode/issues/224496#issuecomment-2270418470).
-	// `StandardizedBrowserZoom` - Disable zoom adjustment for bounding box (https://github.com/microsoft/vscode/issues/232750#issuecomment-2459495394)
+	// `FontMatchingCTMigration` - Siwtch font matching on macOS to Appkit (Refs https://github.com/johnnycharlesw/vsblocks/issues/224496#issuecomment-2270418470).
+	// `StandardizedBrowserZoom` - Disable zoom adjustment for bounding box (https://github.com/johnnycharlesw/vsblocks/issues/232750#issuecomment-2459495394)
 	const blinkFeaturesToDisable =
 		`FontMatchingCTMigration,StandardizedBrowserZoom,${app.commandLine.getSwitchValue('disable-blink-features')}`;
 	app.commandLine.appendSwitch('disable-blink-features', blinkFeaturesToDisable);
@@ -348,7 +348,7 @@ function configureCommandlineSwitchesSync(cliArgs: NativeParsedArgs) {
 	}
 
 	// Use portal version 4 that supports current_folder option
-	// to address https://github.com/microsoft/vscode/issues/213780
+	// to address https://github.com/johnnycharlesw/vsblocks/issues/213780
 	// Runtime sets the default version to 3, refs https://github.com/electron/electron/pull/44426
 	app.commandLine.appendSwitch('xdg-portal-required-version', '4');
 

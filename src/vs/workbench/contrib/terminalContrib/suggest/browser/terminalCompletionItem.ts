@@ -36,7 +36,7 @@ export enum TerminalCompletionItemKind {
 
 // Maps CompletionItemKind from language server based completion to TerminalCompletionItemKind
 export function mapLspKindToTerminalKind(lspKind: CompletionItemKind): TerminalCompletionItemKind {
-	// TODO: Add more types for different [LSP providers](https://github.com/microsoft/vscode/issues/249480)
+	// TODO: Add more types for different [LSP providers](https://github.com/johnnycharlesw/vsblocks/issues/249480)
 
 	switch (lspKind) {
 		case CompletionItemKind.File:
@@ -133,7 +133,7 @@ export class TerminalCompletionItem extends SimpleCompletionItem {
 
 		// HACK: Treat branch as a path separator, otherwise they get filtered out. Hard code the
 		// documentation for now, but this would be better to come in through a `kind`
-		// See https://github.com/microsoft/vscode/issues/255864
+		// See https://github.com/johnnycharlesw/vsblocks/issues/255864
 		if (isFile(completion) || completion.kind === TerminalCompletionItemKind.Branch) {
 			if (isWindows) {
 				this.labelLow = this.labelLow.replaceAll('/', '\\');

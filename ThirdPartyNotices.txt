@@ -2034,8 +2034,8 @@ THE SOFTWARE.
 
 ---------------------------------------------------------
 
-microsoft/vscode-css 0.0.0 - MIT License
-https://github.com/microsoft/vscode-css
+johnnycharlesw/vsblocks-css 0.0.0 - MIT License
+https://github.com/johnnycharlesw/vsblocks-css
 
 MIT License
 
@@ -2074,8 +2074,8 @@ suitability for any purpose.
 
 ---------------------------------------------------------
 
-microsoft/vscode-JSON.tmLanguage 0.0.0 - MIT
-https://github.com/microsoft/vscode-JSON.tmLanguage
+johnnycharlesw/vsblocks-JSON.tmLanguage 0.0.0 - MIT
+https://github.com/johnnycharlesw/vsblocks-JSON.tmLanguage
 
 vscode-JSON.tmLanguage
 
@@ -2100,8 +2100,8 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 
 ---------------------------------------------------------
 
-microsoft/vscode-markdown-tm-grammar 1.0.0 - MIT
-https://github.com/microsoft/vscode-markdown-tm-grammar
+johnnycharlesw/vsblocks-markdown-tm-grammar 1.0.0 - MIT
+https://github.com/johnnycharlesw/vsblocks-markdown-tm-grammar
 
 The MIT License (MIT)
 
@@ -2128,8 +2128,8 @@ SOFTWARE.
 
 ---------------------------------------------------------
 
-microsoft/vscode-mssql 1.34.0 - MIT
-https://github.com/microsoft/vscode-mssql
+johnnycharlesw/vsblocks-mssql 1.34.0 - MIT
+https://github.com/johnnycharlesw/vsblocks-mssql
 
 ------------------------------------------ START OF LICENSE -----------------------------------------
 vscode-mssql
@@ -2795,7 +2795,7 @@ written authorization of the copyright holder.
 ---------------------------------------------------------
 
 vscode-codicons 0.0.14 - MIT and Creative Commons Attribution 4.0
-https://github.com/microsoft/vscode-codicons
+https://github.com/johnnycharlesw/vsblocks-codicons
 
 Attribution 4.0 International
 
@@ -3252,7 +3252,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 ---------------------------------------------------------
 
 vscode-win32-app-container-tokens
-https://github.com/microsoft/vscode-win32-app-container-tokens
+https://github.com/johnnycharlesw/vsblocks-win32-app-container-tokens
 
 MIT License
 

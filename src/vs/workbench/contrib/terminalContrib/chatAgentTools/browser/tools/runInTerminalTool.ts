@@ -68,7 +68,7 @@ export const RunInTerminalToolData: IToolData = {
 		'',
 		'Command Execution:',
 		// TODO: Multi-line command execution does work, but it requires AST parsing to pull
-		// sub-commands out reliably https://github.com/microsoft/vscode/issues/261794
+		// sub-commands out reliably https://github.com/johnnycharlesw/vsblocks/issues/261794
 		'- Does NOT support multi-line commands',
 		'',
 		'Directory Management:',

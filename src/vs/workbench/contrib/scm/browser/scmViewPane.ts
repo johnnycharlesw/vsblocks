@@ -1662,7 +1662,7 @@ class SCMInputWidget {
 	private _validationTimer: Timeout | undefined;
 
 	// This is due to "Setup height change listener on next tick" above
-	// https://github.com/microsoft/vscode/issues/108067
+	// https://github.com/johnnycharlesw/vsblocks/issues/108067
 	private lastLayoutWasTrash = false;
 	private shouldFocusAfterLayout = false;
 

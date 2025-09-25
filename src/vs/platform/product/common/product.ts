@@ -66,10 +66,10 @@ else {
 			applicationName: 'code-oss',
 			dataFolderName: '.vscode-oss',
 			urlProtocol: 'code-oss',
-			reportIssueUrl: 'https://github.com/microsoft/vscode/issues/new',
+			reportIssueUrl: 'https://github.com/johnnycharlesw/vsblocks/issues/new',
 			licenseName: 'MIT',
-			licenseUrl: 'https://github.com/microsoft/vscode/blob/main/LICENSE.txt',
-			serverLicenseUrl: 'https://github.com/microsoft/vscode/blob/main/LICENSE.txt'
+			licenseUrl: 'https://github.com/johnnycharlesw/vsblocks/blob/main/LICENSE.txt',
+			serverLicenseUrl: 'https://github.com/johnnycharlesw/vsblocks/blob/main/LICENSE.txt'
 		});
 	}
 }

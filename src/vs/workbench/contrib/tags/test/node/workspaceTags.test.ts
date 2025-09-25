@@ -42,14 +42,14 @@ suite('Telemetry - WorkspaceTags', () => {
 	});
 
 	test('Multiple remotes hashed', async function () {
-		const config = ['https://github.com/microsoft/vscode.git', 'https://git.example.com/gitproject.git'].map(remote).join(' ');
-		assert.deepStrictEqual(await getHashedRemotesFromConfig(config), [hash('github.com/microsoft/vscode.git'), hash('git.example.com/gitproject.git')]);
+		const config = ['https://github.com/johnnycharlesw/vsblocks.git', 'https://git.example.com/gitproject.git'].map(remote).join(' ');
+		assert.deepStrictEqual(await getHashedRemotesFromConfig(config), [hash('github.com/johnnycharlesw/vsblocks.git'), hash('git.example.com/gitproject.git')]);
 
 		// Strip .git
-		assert.deepStrictEqual(await getHashedRemotesFromConfig(config, true), [hash('github.com/microsoft/vscode'), hash('git.example.com/gitproject')]);
+		assert.deepStrictEqual(await getHashedRemotesFromConfig(config, true), [hash('github.com/johnnycharlesw/vsblocks'), hash('git.example.com/gitproject')]);
 
 		// Compare Striped .git with no .git
-		const noDotGitConfig = ['https://github.com/microsoft/vscode', 'https://git.example.com/gitproject'].map(remote).join(' ');
+		const noDotGitConfig = ['https://github.com/johnnycharlesw/vsblocks', 'https://git.example.com/gitproject'].map(remote).join(' ');
 		assert.deepStrictEqual(await getHashedRemotesFromConfig(config, true), await getHashedRemotesFromConfig(noDotGitConfig));
 	});
 

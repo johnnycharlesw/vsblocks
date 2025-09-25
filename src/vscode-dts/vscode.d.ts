@@ -3003,7 +3003,7 @@ declare module 'vscode' {
 		 * that appear in the markdown text. This means you can only use markdown syntax for rendering.
 		 *
 		 * When `supportHtml` is true, the markdown render will also allow a safe subset of html tags
-		 * and attributes to be rendered. See https://github.com/microsoft/vscode/blob/6d2920473c6f13759c978dd89104c4270a83422d/src/vs/base/browser/markdownRenderer.ts#L296
+		 * and attributes to be rendered. See https://github.com/johnnycharlesw/vsblocks/blob/6d2920473c6f13759c978dd89104c4270a83422d/src/vs/base/browser/markdownRenderer.ts#L296
 		 * for a list of all supported tags and attributes.
 		 */
 		supportHtml?: boolean;
@@ -18053,7 +18053,7 @@ declare module 'vscode' {
 	 * Namespace for localization-related functionality in the extension API. To use this properly,
 	 * you must have `l10n` defined in your extension manifest and have bundle.l10n.<language>.json files.
 	 * For more information on how to generate bundle.l10n.<language>.json files, check out the
-	 * [vscode-l10n repo](https://github.com/microsoft/vscode-l10n).
+	 * [vscode-l10n repo](https://github.com/johnnycharlesw/vsblocks-l10n).
 	 *
 	 * Note: Built-in extensions (for example, Git, TypeScript Language Features, GitHub Authentication)
 	 * are excluded from the `l10n` property requirement. In other words, they do not need to specify

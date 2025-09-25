@@ -1101,7 +1101,7 @@ export class TerminalInstance extends Disposable implements ITerminalInstance {
 			}
 
 			// Prevent default when shift+tab is being sent to the terminal to avoid it bubbling up
-			// and changing focus https://github.com/microsoft/vscode/issues/188329
+			// and changing focus https://github.com/johnnycharlesw/vsblocks/issues/188329
 			if (event.key === 'Tab' && event.shiftKey) {
 				event.preventDefault();
 				return true;
@@ -1237,13 +1237,13 @@ export class TerminalInstance extends Disposable implements ITerminalInstance {
 		try {
 			this.xterm?.dispose();
 		} catch (err: unknown) {
-			// See https://github.com/microsoft/vscode/issues/153486
+			// See https://github.com/johnnycharlesw/vsblocks/issues/153486
 			this._logService.error('Exception occurred during xterm disposal', err);
 		}
 
 		// HACK: Workaround for Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=559561,
 		// as 'blur' event in xterm.raw.textarea is not triggered on xterm.dispose()
-		// See https://github.com/microsoft/vscode/issues/138358
+		// See https://github.com/johnnycharlesw/vsblocks/issues/138358
 		if (isFirefox) {
 			this.resetFocusContextKey();
 			this._terminalHasTextContextKey.reset();

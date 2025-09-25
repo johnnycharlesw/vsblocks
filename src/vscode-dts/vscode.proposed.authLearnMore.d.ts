@@ -5,7 +5,7 @@
 
 declare module 'vscode' {
 
-	// https://github.com/microsoft/vscode/issues/206587
+	// https://github.com/johnnycharlesw/vsblocks/issues/206587
 
 	export interface AuthenticationGetSessionPresentationOptions {
 		/**

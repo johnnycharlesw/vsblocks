@@ -175,7 +175,7 @@ export class CodeApplication extends Disposable {
 			'clipboard-read',
 			'clipboard-sanitized-write',
 			// TODO(deepak1556): Should be removed once migration is complete
-			// https://github.com/microsoft/vscode/issues/239228
+			// https://github.com/johnnycharlesw/vsblocks/issues/239228
 			'deprecated-sync-clipboard-read',
 		]);
 
@@ -184,7 +184,7 @@ export class CodeApplication extends Disposable {
 			'media',
 			'local-fonts',
 			// TODO(deepak1556): Should be removed once migration is complete
-			// https://github.com/microsoft/vscode/issues/239228
+			// https://github.com/johnnycharlesw/vsblocks/issues/239228
 			'deprecated-sync-clipboard-read',
 		]);
 
@@ -296,7 +296,7 @@ export class CodeApplication extends Disposable {
 		});
 
 		// Configure SVG header content type properly
-		// https://github.com/microsoft/vscode/issues/97564
+		// https://github.com/johnnycharlesw/vsblocks/issues/97564
 		session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
 			const responseHeaders = details.responseHeaders as Record<string, (string) | (string[])>;
 			const contentTypes = (responseHeaders['content-type'] || responseHeaders['Content-Type']);
@@ -325,7 +325,7 @@ export class CodeApplication extends Disposable {
 
 		//#region Allow CORS for the PRSS CDN
 
-		// https://github.com/microsoft/vscode-remote-release/issues/9246
+		// https://github.com/johnnycharlesw/vsblocks-remote-release/issues/9246
 		session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
 			if (details.url.startsWith('https://vscode.download.prss.microsoft.com/')) {
 				const responseHeaders = details.responseHeaders ?? Object.create(null);
@@ -356,7 +356,7 @@ export class CodeApplication extends Disposable {
 			// Make sure to partition Chrome's code cache folder
 			// in the same way as our code cache path to help
 			// invalidate caches that we know are invalid
-			// (https://github.com/microsoft/vscode/issues/120655)
+			// (https://github.com/johnnycharlesw/vsblocks/issues/120655)
 			defaultSession.setCodeCachePath(join(this.environmentMainService.codeCachePath, 'chrome'));
 		}
 
@@ -542,7 +542,7 @@ export class CodeApplication extends Disposable {
 		// "com.microsoft.", which breaks native tabs for VSBlocks when using this
 		// identifier (from the official build).
 		// Explicitly opt out of the patch here before creating any windows.
-		// See: https://github.com/microsoft/vscode/issues/35361#issuecomment-399794085
+		// See: https://github.com/johnnycharlesw/vsblocks/issues/35361#issuecomment-399794085
 		try {
 			if (isMacintosh && this.configurationService.getValue('window.nativeTabs') === true && !systemPreferences.getUserDefault('NSUseImprovedLayoutPass', 'boolean')) {
 				systemPreferences.setUserDefault('NSUseImprovedLayoutPass', 'boolean', true as any);
@@ -792,7 +792,7 @@ export class CodeApplication extends Disposable {
 		}
 
 		if (checkboxChecked) {
-			// Due to https://github.com/microsoft/vscode/issues/195436, we can only
+			// Due to https://github.com/johnnycharlesw/vsblocks/issues/195436, we can only
 			// update settings from within a window. But we do not know if a window
 			// is about to open or can already handle the request, so we have to send
 			// to any current window and any newly opening window.
@@ -842,7 +842,7 @@ export class CodeApplication extends Disposable {
 			const params = new URLSearchParams(uri.query);
 			if (params.get('windowId') === '_blank') {
 				// Make sure to unset any `windowId=_blank` here
-				// https://github.com/microsoft/vscode/issues/191902
+				// https://github.com/johnnycharlesw/vsblocks/issues/191902
 				params.delete('windowId');
 				query = params.toString();
 			}
@@ -866,7 +866,7 @@ export class CodeApplication extends Disposable {
 	private async handleProtocolUrl(windowsMainService: IWindowsMainService, dialogMainService: IDialogMainService, urlService: IURLService, uri: URI, options?: IOpenURLOptions): Promise<boolean> {
 		this.logService.trace('app#handleProtocolUrl():', uri.toString(true), options);
 
-		// Support 'workspace' URLs (https://github.com/microsoft/vscode/issues/124263)
+		// Support 'workspace' URLs (https://github.com/johnnycharlesw/vsblocks/issues/124263)
 		if (uri.scheme === this.productService.urlProtocol && uri.path === 'workspace') {
 			uri = uri.with({
 				authority: 'file',
@@ -1466,7 +1466,7 @@ export class CodeApplication extends Disposable {
 	private eventuallyAfterWindowOpen(): void {
 
 		// Validate Device ID is up to date (delay this as it has shown significant perf impact)
-		// Refs: https://github.com/microsoft/vscode/issues/234064
+		// Refs: https://github.com/johnnycharlesw/vsblocks/issues/234064
 		validateDevDeviceId(this.stateService, this.logService);
 	}
 }

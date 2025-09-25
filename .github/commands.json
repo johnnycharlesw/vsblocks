@@ -35,7 +35,7 @@
 		"name": "*dev-question",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "We have a great extension developer community over on [GitHub discussions](https://github.com/microsoft/vscode-discussions/discussions) and [Slack](https://vscode-dev-community.slack.com/) where extension authors help each other. This is a great place for you to ask questions and find support.\n\nHappy Coding!"
+		"comment": "We have a great extension developer community over on [GitHub discussions](https://github.com/johnnycharlesw/vsblocks-discussions/discussions) and [Slack](https://vscode-dev-community.slack.com/) where extension authors help each other. This is a great place for you to ask questions and find support.\n\nHappy Coding!"
 	},
 	{
 		"type": "label",
@@ -63,7 +63,7 @@
 		"name": "wont-fix",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "We closed this issue because we [don't plan to address it](https://github.com/microsoft/vscode/wiki/Issue-Grooming#wont-fix-bugs).\n\nThanks for your understanding, and happy coding!"
+		"comment": "We closed this issue because we [don't plan to address it](https://github.com/johnnycharlesw/vsblocks/wiki/Issue-Grooming#wont-fix-bugs).\n\nThanks for your understanding, and happy coding!"
 	},
 	{
 		"type": "comment",
@@ -178,7 +178,7 @@
 			"IllusionMH"
 		],
 		"addLabel": "info-needed",
-		"comment": "Thanks for creating this issue regarding performance! Please follow this guide to help us diagnose performance issues: https://github.com/microsoft/vscode/wiki/Performance-Issues \n\nHappy Coding!"
+		"comment": "Thanks for creating this issue regarding performance! Please follow this guide to help us diagnose performance issues: https://github.com/johnnycharlesw/vsblocks/wiki/Performance-Issues \n\nHappy Coding!"
 	},
 	{
 		"type": "comment",
@@ -247,7 +247,7 @@
 		"action": "close",
 		"reason": "not_planned",
 		"addLabel": "*caused-by-extension",
-		"comment": "It looks like this is caused by the Python extension. Please file the issue to the [Python extension repository](https://github.com/microsoft/vscode-python). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
+		"comment": "It looks like this is caused by the Python extension. Please file the issue to the [Python extension repository](https://github.com/johnnycharlesw/vsblocks-python). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
 	},
 	{
 		"type": "comment",
@@ -261,7 +261,7 @@
 		"action": "close",
 		"reason": "not_planned",
 		"addLabel": "*caused-by-extension",
-		"comment": "It looks like this is caused by the Jupyter extension. Please file the issue to the [Jupyter extension repository](https://github.com/microsoft/vscode-jupyter). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
+		"comment": "It looks like this is caused by the Jupyter extension. Please file the issue to the [Jupyter extension repository](https://github.com/johnnycharlesw/vsblocks-jupyter). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
 	},
 	{
 		"type": "comment",
@@ -275,7 +275,7 @@
 		"action": "close",
 		"reason": "not_planned",
 		"addLabel": "*caused-by-extension",
-		"comment": "It looks like this is caused by the C extension. Please file the issue to the [C extension repository](https://github.com/microsoft/vscode-cpptools). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
+		"comment": "It looks like this is caused by the C extension. Please file the issue to the [C extension repository](https://github.com/johnnycharlesw/vsblocks-cpptools). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
 	},
 	{
 		"type": "comment",
@@ -289,7 +289,7 @@
 		"action": "close",
 		"reason": "not_planned",
 		"addLabel": "*caused-by-extension",
-		"comment": "It looks like this is caused by the C++ extension. Please file the issue to the [C++ extension repository](https://github.com/microsoft/vscode-cpptools). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
+		"comment": "It looks like this is caused by the C++ extension. Please file the issue to the [C++ extension repository](https://github.com/johnnycharlesw/vsblocks-cpptools). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
 	},
 	{
 		"type": "comment",
@@ -303,7 +303,7 @@
 		"action": "close",
 		"reason": "not_planned",
 		"addLabel": "*caused-by-extension",
-		"comment": "It looks like this is caused by the C++ extension. Please file the issue to the [C++ extension repository](https://github.com/microsoft/vscode-cpptools). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
+		"comment": "It looks like this is caused by the C++ extension. Please file the issue to the [C++ extension repository](https://github.com/johnnycharlesw/vsblocks-cpptools). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
 	},
 	{
 		"type": "comment",
@@ -400,7 +400,7 @@
 		"action": "close",
 		"reason": "not_planned",
 		"addLabel": "*caused-by-extension",
-		"comment": "It looks like this is caused by the Docker extension. Please file the issue to the [Docker extension repository](https://github.com/microsoft/vscode-docker). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
+		"comment": "It looks like this is caused by the Docker extension. Please file the issue to the [Docker extension repository](https://github.com/johnnycharlesw/vsblocks-docker). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
 	},
 	{
 		"type": "comment",
@@ -428,7 +428,7 @@
 		"action": "close",
 		"reason": "not_planned",
 		"addLabel": "*caused-by-extension",
-		"comment": "It looks like this is caused by the Java Debugger extension. Please file the issue to the [Java Debugger repository](https://github.com/microsoft/vscode-java-debug). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
+		"comment": "It looks like this is caused by the Java Debugger extension. Please file the issue to the [Java Debugger repository](https://github.com/johnnycharlesw/vsblocks-java-debug). Make sure to check their issue reporting template and provide them relevant information such as the extension version you're using. See also our [issue reporting guidelines](https://aka.ms/vscodeissuereporting) for more information.\n\nHappy Coding!"
 	},
 	{
 		"type": "comment",
@@ -521,7 +521,7 @@
 		"action": "updateLabels",
 		"addLabel": "info-needed",
 		"removeLabel": "~info-needed",
-		"comment": "Thanks for creating this issue! We figured it's missing some basic information or in some other way doesn't follow our [issue reporting guidelines](https://aka.ms/vscodeissuereporting). Please take the time to review these and update the issue.\n\nFor Copilot Issues, be sure to visit our [Copilot-specific guidelines](https://github.com/microsoft/vscode/wiki/Copilot-Issues) page for details on the necessary information.\n\nHappy Coding!"
+		"comment": "Thanks for creating this issue! We figured it's missing some basic information or in some other way doesn't follow our [issue reporting guidelines](https://aka.ms/vscodeissuereporting). Please take the time to review these and update the issue.\n\nFor Copilot Issues, be sure to visit our [Copilot-specific guidelines](https://github.com/johnnycharlesw/vsblocks/wiki/Copilot-Issues) page for details on the necessary information.\n\nHappy Coding!"
 	},
 	{
 		"type": "label",
@@ -545,7 +545,7 @@
 		"removeLabel": "~chat-rate-limiting",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "This issue is a duplicate of https://github.com/microsoft/vscode/issues/253124. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
+		"comment": "This issue is a duplicate of https://github.com/johnnycharlesw/vsblocks/issues/253124. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
 	},
 	{
 		"type": "label",
@@ -553,7 +553,7 @@
 		"removeLabel": "~chat-request-failed",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "This issue is a duplicate of https://github.com/microsoft/vscode/issues/253136. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
+		"comment": "This issue is a duplicate of https://github.com/johnnycharlesw/vsblocks/issues/253136. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
 	},
 	{
 		"type": "label",
@@ -561,7 +561,7 @@
 		"removeLabel": "~chat-rai-content-filters",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "This issue is a duplicate of https://github.com/microsoft/vscode/issues/253130. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
+		"comment": "This issue is a duplicate of https://github.com/johnnycharlesw/vsblocks/issues/253130. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
 	},
 	{
 		"type": "label",
@@ -569,7 +569,7 @@
 		"removeLabel": "~chat-public-code-blocking",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "This issue is a duplicate of https://github.com/microsoft/vscode/issues/253129. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
+		"comment": "This issue is a duplicate of https://github.com/johnnycharlesw/vsblocks/issues/253129. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
 	},
 	{
 		"type": "label",
@@ -577,7 +577,7 @@
 		"removeLabel": "~chat-lm-unavailable",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "This issue is a duplicate of https://github.com/microsoft/vscode/issues/253137. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
+		"comment": "This issue is a duplicate of https://github.com/johnnycharlesw/vsblocks/issues/253137. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
 	},
 	{
 		"type": "label",
@@ -585,7 +585,7 @@
 		"removeLabel": "~chat-authentication",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "Please look at the following meta issue: https://github.com/microsoft/vscode/issues/253132, if the bug you are experiencing is not there, please comment on this closed issue thread so we can re-open it.",
+		"comment": "Please look at the following meta issue: https://github.com/johnnycharlesw/vsblocks/issues/253132, if the bug you are experiencing is not there, please comment on this closed issue thread so we can re-open it.",
 		"assign": ["TylerLeonhardt"]
 	},
 	{
@@ -594,7 +594,7 @@
 		"removeLabel": "~chat-no-response-returned",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "Please look at the following meta issue: https://github.com/microsoft/vscode/issues/253126. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
+		"comment": "Please look at the following meta issue: https://github.com/johnnycharlesw/vsblocks/issues/253126. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
 	},
 	{
 		"type": "label",
@@ -603,7 +603,7 @@
 		"addLabel":"chat-billing",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "Please look at the following meta issue: https://github.com/microsoft/vscode/issues/252230. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
+		"comment": "Please look at the following meta issue: https://github.com/johnnycharlesw/vsblocks/issues/252230. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
 	},
 	{
 		"type": "label",
@@ -612,7 +612,7 @@
 		"addLabel":"chat-infinite-response-loop",
 		"action": "close",
 		"reason": "not_planned",
-		"comment": "Please look at the following meta issue: https://github.com/microsoft/vscode/issues/253134. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
+		"comment": "Please look at the following meta issue: https://github.com/johnnycharlesw/vsblocks/issues/253134. Please refer to that issue for updates and discussions. Feel free to open a new issue if you think this is a different problem."
 	},
 	{
 		"type": "label",

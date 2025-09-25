@@ -230,7 +230,7 @@ function digitCount(n: number): number {
 function getExtraEditorClassName(): string {
 	let extra = '';
 	if (browser.isSafari || browser.isWebkitWebView) {
-		// See https://github.com/microsoft/vscode/issues/108822
+		// See https://github.com/johnnycharlesw/vsblocks/issues/108822
 		extra += 'no-minimap-shadow ';
 		extra += 'enable-user-select ';
 	} else {

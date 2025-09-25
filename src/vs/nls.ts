@@ -208,7 +208,7 @@ export interface INLSConfiguration {
 	/**
 	 * Below properties are deprecated and only there to continue support
 	 * for `vscode-nls` module that depends on them.
-	 * Refs https://github.com/microsoft/vscode-nls/blob/main/src/node/main.ts#L36-L46
+	 * Refs https://github.com/johnnycharlesw/vsblocks-nls/blob/main/src/node/main.ts#L36-L46
 	 */
 	/** @deprecated */
 	readonly locale: string;

@@ -140,7 +140,7 @@ function getTestTypeSuffix(): string {
 	}
 }
 
-const testRepoUrl = 'https://github.com/microsoft/vscode-smoketest-express';
+const testRepoUrl = 'https://github.com/johnnycharlesw/vsblocks-smoketest-express';
 const workspacePath = path.join(testDataPath, `vscode-smoketest-express-${getTestTypeSuffix()}`);
 const extensionsPath = path.join(testDataPath, 'extensions-dir');
 fs.mkdirSync(extensionsPath, { recursive: true });

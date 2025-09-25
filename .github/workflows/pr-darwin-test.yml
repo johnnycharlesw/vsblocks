@@ -23,7 +23,7 @@ jobs:
       NPM_ARCH: arm64
       VSCODE_ARCH: arm64
     steps:
-      - name: Checkout microsoft/vscode
+      - name: Checkout johnnycharlesw/vsblocks
         uses: actions/checkout@v5
 
       - name: Setup Node.js

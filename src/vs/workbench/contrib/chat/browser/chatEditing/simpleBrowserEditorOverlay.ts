@@ -454,7 +454,7 @@ export class SimpleBrowserOverlay implements IWorkbenchContribution {
 			for (const group of groups) {
 
 				if (!(group instanceof EditorGroupView)) {
-					// TODO@jrieken better with https://github.com/microsoft/vscode/tree/ben/layout-group-container
+					// TODO@jrieken better with https://github.com/johnnycharlesw/vsblocks/tree/ben/layout-group-container
 					continue;
 				}
 

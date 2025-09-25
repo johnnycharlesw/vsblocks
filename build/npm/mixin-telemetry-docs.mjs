@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 
 const rootPath = resolve(fileURLToPath(import.meta.url), '..', '..', '..');
 const telemetryDocsPath = join(rootPath, 'vscode-telemetry-docs');
-const repoUrl = 'https://github.com/microsoft/vscode-telemetry-docs';
+const repoUrl = 'https://github.com/johnnycharlesw/vsblocks-telemetry-docs';
 
 console.log('Cloning vscode-telemetry-docs repository...');
 

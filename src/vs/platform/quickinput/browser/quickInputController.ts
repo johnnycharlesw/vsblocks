@@ -104,7 +104,7 @@ export class QuickInputController extends Disposable {
 				// The window this quick input is contained in is about to
 				// close, so we have to make sure to reparent it back to an
 				// existing parent to not loose functionality.
-				// (https://github.com/microsoft/vscode/issues/195870)
+				// (https://github.com/johnnycharlesw/vsblocks/issues/195870)
 				this.reparentUI(this.layoutService.mainContainer);
 				this.layout(this.layoutService.mainContainerDimension, this.layoutService.mainContainerOffset.quickPickTop);
 			}
@@ -231,7 +231,7 @@ export class QuickInputController extends Disposable {
 		}));
 		this._register(list.onLeave(() => {
 			// Defer to avoid the input field reacting to the triggering key.
-			// TODO@TylerLeonhardt https://github.com/microsoft/vscode/issues/203675
+			// TODO@TylerLeonhardt https://github.com/johnnycharlesw/vsblocks/issues/203675
 			setTimeout(() => {
 				if (!this.controller) {
 					return;
@@ -256,7 +256,7 @@ export class QuickInputController extends Disposable {
 		}));
 		this._register(tree.onLeave(() => {
 			// Defer to avoid the input field reacting to the triggering key.
-			// TODO@TylerLeonhardt https://github.com/microsoft/vscode/issues/203675
+			// TODO@TylerLeonhardt https://github.com/johnnycharlesw/vsblocks/issues/203675
 			setTimeout(() => {
 				if (!this.controller) {
 					return;

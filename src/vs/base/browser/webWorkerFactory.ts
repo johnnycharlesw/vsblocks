@@ -15,7 +15,7 @@ import { Emitter } from '../common/event.js';
 
 // Reuse the trusted types policy defined from worker bootstrap
 // when available.
-// Refs https://github.com/microsoft/vscode/issues/222193
+// Refs https://github.com/johnnycharlesw/vsblocks/issues/222193
 let ttPolicy: ReturnType<typeof createTrustedTypesPolicy>;
 if (typeof self === 'object' && self.constructor && self.constructor.name === 'DedicatedWorkerGlobalScope' && (globalThis as any).workerttPolicy !== undefined) {
 	ttPolicy = (globalThis as any).workerttPolicy;
