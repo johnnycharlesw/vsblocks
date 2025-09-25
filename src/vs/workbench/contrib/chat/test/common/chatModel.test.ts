@@ -16,7 +16,7 @@ import { IContextKeyService } from '../../../../../platform/contextkey/common/co
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { MockContextKeyService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { IExtensionService } from '../../../../services/extensions/common/extensions.js';
 import { TestExtensionService, TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { ChatAgentService, IChatAgentService } from '../../common/chatAgents.js';
@@ -31,7 +31,7 @@ suite('ChatModel', () => {
 
 	setup(async () => {
 		instantiationService = testDisposables.add(new TestInstantiationService());
-		instantiationService.stub(IStorageService, testDisposables.add(new TestStorageService()));
+		instantiationService.stub(StorageServiceInterface, testDisposables.add(new TestStorageService()));
 		instantiationService.stub(ILogService, new NullLogService());
 		instantiationService.stub(IExtensionService, new TestExtensionService());
 		instantiationService.stub(IContextKeyService, new MockContextKeyService());

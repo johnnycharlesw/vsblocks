@@ -8,7 +8,7 @@ import { IDisposable, Disposable, dispose, DisposableStore } from '../../../../b
 import { URI } from '../../../../base/common/uri.js';
 import { IConfigurationService, IConfigurationChangeEvent } from '../../../../platform/configuration/common/configuration.js';
 import { IFileService, IFilesConfiguration } from '../../../../platform/files/common/files.js';
-import { IWorkspaceContextService, IWorkspaceFolder, IWorkspaceFoldersChangeEvent } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkspaceInterfaceFoldersChangeEvent } from '../../../../platform/workspace/common/workspace.js';
 import { ResourceMap } from '../../../../base/common/map.js';
 import { INotificationService, Severity, NeverShowAgainScope, NotificationPriority } from '../../../../platform/notification/common/notification.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
@@ -26,7 +26,7 @@ export class WorkspaceWatcher extends Disposable {
 	constructor(
 		@IFileService private readonly fileService: IFileService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@INotificationService private readonly notificationService: INotificationService,
 		@IOpenerService private readonly openerService: IOpenerService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
@@ -47,7 +47,7 @@ export class WorkspaceWatcher extends Disposable {
 		this._register(this.fileService.onDidWatchError(error => this.onDidWatchError(error)));
 	}
 
-	private onDidChangeWorkspaceFolders(e: IWorkspaceFoldersChangeEvent): void {
+	private onDidChangeWorkspaceFolders(e: WorkspaceInterfaceFoldersChangeEvent): void {
 
 		// Removed workspace: Unwatch
 		for (const removed of e.removed) {
@@ -130,7 +130,7 @@ export class WorkspaceWatcher extends Disposable {
 		}
 	}
 
-	private watchWorkspace(workspace: IWorkspaceFolder): void {
+	private watchWorkspace(workspace: WorkspaceInterfaceFolder): void {
 
 		// Compute the watcher exclude rules from configuration
 		const excludes: string[] = [];
@@ -179,7 +179,7 @@ export class WorkspaceWatcher extends Disposable {
 		this.watchedWorkspaces.set(workspace.uri, disposables);
 	}
 
-	private unwatchWorkspace(workspace: IWorkspaceFolder): void {
+	private unwatchWorkspace(workspace: WorkspaceInterfaceFolder): void {
 		if (this.watchedWorkspaces.has(workspace.uri)) {
 			dispose(this.watchedWorkspaces.get(workspace.uri));
 			this.watchedWorkspaces.delete(workspace.uri);

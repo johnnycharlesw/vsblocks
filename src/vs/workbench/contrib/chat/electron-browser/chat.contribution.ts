@@ -17,7 +17,7 @@ import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
-import { IWorkspaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IWorkbenchContribution, WorkbenchPhase, registerWorkbenchContribution2 } from '../../../common/contributions.js';
 import { ViewContainerLocation } from '../../../common/views.js';
 import { INativeWorkbenchEnvironmentService } from '../../../services/environment/electron-browser/environmentService.js';
@@ -57,7 +57,7 @@ class ChatCommandLineHandler extends Disposable {
 	constructor(
 		@INativeWorkbenchEnvironmentService private readonly environmentService: INativeWorkbenchEnvironmentService,
 		@ICommandService private readonly commandService: ICommandService,
-		@IWorkspaceTrustRequestService private readonly workspaceTrustRequestService: IWorkspaceTrustRequestService,
+		@WorkspaceInterfaceTrustRequestService private readonly workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
 		@IViewsService private readonly viewsService: IViewsService,
 		@ILogService private readonly logService: ILogService,
 		@IWorkbenchLayoutService private readonly layoutService: IWorkbenchLayoutService,

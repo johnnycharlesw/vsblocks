@@ -7,7 +7,7 @@ import './media/sidebarpart.css';
 import './sidebarActions.js';
 import { ActivityBarPosition, IWorkbenchLayoutService, LayoutSettings, Parts, Position as SideBarPosition } from '../../../services/layout/browser/layoutService.js';
 import { SidebarFocusContext, ActiveViewletContext } from '../../../common/contextkeys.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IContextMenuService } from '../../../../platform/contextview/browser/contextView.js';
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
@@ -68,7 +68,7 @@ export class SidebarPart extends AbstractPaneCompositePart {
 
 	constructor(
 		@INotificationService notificationService: INotificationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IKeybindingService keybindingService: IKeybindingService,

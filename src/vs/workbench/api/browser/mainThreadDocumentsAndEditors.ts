@@ -27,7 +27,7 @@ import { IWorkbenchEnvironmentService } from '../../services/environment/common/
 import { IWorkingCopyFileService } from '../../services/workingCopy/common/workingCopyFileService.js';
 import { IUriIdentityService } from '../../../platform/uriIdentity/common/uriIdentity.js';
 import { IClipboardService } from '../../../platform/clipboard/common/clipboardService.js';
-import { IPathService } from '../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../services/path/common/pathService.js';
 import { diffSets, diffMaps } from '../../../base/common/collections.js';
 import { IPaneCompositePartService } from '../../services/panecomposite/browser/panecomposite.js';
 import { ViewContainerLocation } from '../../common/views.js';
@@ -296,7 +296,7 @@ export class MainThreadDocumentsAndEditors {
 		@IWorkingCopyFileService workingCopyFileService: IWorkingCopyFileService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@IClipboardService private readonly _clipboardService: IClipboardService,
-		@IPathService pathService: IPathService,
+		@PathInterfaceService pathService: PathInterfaceService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IQuickDiffModelService quickDiffModelService: IQuickDiffModelService
 	) {

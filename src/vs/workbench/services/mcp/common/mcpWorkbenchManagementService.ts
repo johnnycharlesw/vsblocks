@@ -9,7 +9,7 @@ import { IInstantiationService, refineServiceDecorator } from '../../../../platf
 import { IUserDataProfileService } from '../../../services/userDataProfile/common/userDataProfile.js';
 import { Emitter, Event } from '../../../../base/common/event.js';
 import { IMcpResourceScannerService, McpResourceTarget } from '../../../../platform/mcp/common/mcpResourceScannerService.js';
-import { isWorkspaceFolder, IWorkspaceContextService, IWorkspaceFolder, IWorkspaceFoldersChangeEvent } from '../../../../platform/workspace/common/workspace.js';
+import { isWorkspaceFolder, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkspaceInterfaceFoldersChangeEvent } from '../../../../platform/workspace/common/workspace.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { MCP_CONFIGURATION_KEY, WORKSPACE_STANDALONE_CONFIGURATIONS } from '../../configuration/common/configuration.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
@@ -30,7 +30,7 @@ export const WORKSPACE_CONFIG_ID = 'workspace';
 export const WORKSPACE_FOLDER_CONFIG_ID_PREFIX = 'ws';
 
 export interface IWorkbencMcpServerInstallOptions extends InstallOptions {
-	target?: ConfigurationTarget | IWorkspaceFolder;
+	target?: ConfigurationTarget | WorkspaceInterfaceFolder;
 }
 
 export const enum LocalMcpServerScope {
@@ -120,7 +120,7 @@ export class WorkbenchMcpManagementService extends AbstractMcpManagementService 
 		@IAllowedMcpServersService allowedMcpServersService: IAllowedMcpServersService,
 		@IUserDataProfileService private readonly userDataProfileService: IUserDataProfileService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IRemoteUserDataProfilesService private readonly remoteUserDataProfilesService: IRemoteUserDataProfilesService,
@@ -468,7 +468,7 @@ class WorkspaceMcpManagementService extends AbstractMcpManagementService impleme
 		@IAllowedMcpServersService allowedMcpServersService: IAllowedMcpServersService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@ILogService private readonly logService: ILogService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 	) {
 		super(allowedMcpServersService);
@@ -496,7 +496,7 @@ class WorkspaceMcpManagementService extends AbstractMcpManagementService impleme
 		}
 	}
 
-	private async onDidChangeWorkspaceFolders(e: IWorkspaceFoldersChangeEvent): Promise<void> {
+	private async onDidChangeWorkspaceFolders(e: WorkspaceInterfaceFoldersChangeEvent): Promise<void> {
 		try {
 			await Promise.allSettled(e.removed.map(folder => this.removeWorkspaceService(folder.toResource(WORKSPACE_STANDALONE_CONFIGURATIONS[MCP_CONFIGURATION_KEY]))));
 		} catch (error) {

@@ -10,7 +10,7 @@ import { IThemeService } from '../../../../../platform/theme/common/themeService
 import { EditorInput } from '../../../../common/editor/editorInput.js';
 import { FileEditorInput } from './fileEditorInput.js';
 import { BINARY_FILE_EDITOR_ID, BINARY_TEXT_FILE_MODE } from '../../common/files.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { EditorResolution, IEditorOptions } from '../../../../../platform/editor/common/editor.js';
 import { IEditorResolverService, ResolvedStatus, ResolvedEditor } from '../../../../services/editor/common/editorResolverService.js';
 import { isEditorInputWithOptions } from '../../../../common/editor.js';
@@ -29,7 +29,7 @@ export class BinaryFileEditor extends BaseBinaryResourceEditor {
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
 		@IEditorResolverService private readonly editorResolverService: IEditorResolverService,
-		@IStorageService storageService: IStorageService
+		@StorageServiceInterface storageService: StorageServiceInterface
 	) {
 		super(
 			BinaryFileEditor.ID,
@@ -51,7 +51,7 @@ export class BinaryFileEditor extends BaseBinaryResourceEditor {
 			// diff editor.
 			// Since `openInternal` can only ever be selected from the
 			// active editor of the group, this is a safe assumption.
-			// (https://github.com/microsoft/vscode/issues/124222)
+			// (https://github.com/johnnycharlesw/vsblocks/issues/124222)
 			const activeEditor = this.group.activeEditor;
 			const untypedActiveEditor = activeEditor?.toUntyped();
 			if (!untypedActiveEditor) {
@@ -79,7 +79,7 @@ export class BinaryFileEditor extends BaseBinaryResourceEditor {
 				for (const editor of resolvedEditor.editor instanceof DiffEditorInput ? [resolvedEditor.editor.original, resolvedEditor.editor.modified] : [resolvedEditor.editor]) {
 					if (editor instanceof FileEditorInput) {
 						editor.setForceOpenAsText();
-						editor.setPreferredLanguageId(BINARY_TEXT_FILE_MODE); // https://github.com/microsoft/vscode/issues/131076
+						editor.setPreferredLanguageId(BINARY_TEXT_FILE_MODE); // https://github.com/johnnycharlesw/vsblocks/issues/131076
 					}
 				}
 			}

@@ -24,7 +24,7 @@ import { IInstantiationService, ServicesAccessor, createDecorator } from '../../
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { IV8Profile, Utils } from '../../../../platform/profiling/common/profiling.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { ActiveEditorContext } from '../../../common/contextkeys.js';
@@ -82,7 +82,7 @@ export class RuntimeExtensionsEditor extends AbstractRuntimeExtensionsEditor {
 		@INotificationService notificationService: INotificationService,
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IInstantiationService instantiationService: IInstantiationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILabelService labelService: ILabelService,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
 		@IClipboardService clipboardService: IClipboardService,

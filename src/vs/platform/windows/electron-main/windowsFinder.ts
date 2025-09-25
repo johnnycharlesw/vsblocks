@@ -6,9 +6,9 @@
 import { extUriBiasedIgnorePathCase } from '../../../base/common/resources.js';
 import { URI } from '../../../base/common/uri.js';
 import { ICodeWindow } from '../../window/electron-main/window.js';
-import { IResolvedWorkspace, ISingleFolderWorkspaceIdentifier, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { IResolvedWorkspace, SingleFolderWorkspaceIdentifierInterface, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
-export async function findWindowOnFile(windows: ICodeWindow[], fileUri: URI, localWorkspaceResolver: (workspace: IWorkspaceIdentifier) => Promise<IResolvedWorkspace | undefined>): Promise<ICodeWindow | undefined> {
+export async function findWindowOnFile(windows: ICodeWindow[], fileUri: URI, localWorkspaceResolver: (workspace: WorkspaceIdentifierInterface) => Promise<IResolvedWorkspace | undefined>): Promise<ICodeWindow | undefined> {
 
 	// First check for windows with workspaces that have a parent folder of the provided path opened
 	for (const window of windows) {
@@ -35,7 +35,7 @@ export async function findWindowOnFile(windows: ICodeWindow[], fileUri: URI, loc
 	// Then go with single folder windows that are parent of the provided file path
 	const singleFolderWindowsOnFilePath = windows.filter(window => isSingleFolderWorkspaceIdentifier(window.openedWorkspace) && extUriBiasedIgnorePathCase.isEqualOrParent(fileUri, window.openedWorkspace.uri));
 	if (singleFolderWindowsOnFilePath.length) {
-		return singleFolderWindowsOnFilePath.sort((windowA, windowB) => -((windowA.openedWorkspace as ISingleFolderWorkspaceIdentifier).uri.path.length - (windowB.openedWorkspace as ISingleFolderWorkspaceIdentifier).uri.path.length))[0];
+		return singleFolderWindowsOnFilePath.sort((windowA, windowB) => -((windowA.openedWorkspace as SingleFolderWorkspaceIdentifierInterface).uri.path.length - (windowB.openedWorkspace as SingleFolderWorkspaceIdentifierInterface).uri.path.length))[0];
 	}
 
 	return undefined;

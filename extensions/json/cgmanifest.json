@@ -4,8 +4,8 @@
 			"component": {
 				"type": "git",
 				"git": {
-					"name": "microsoft/vscode-JSON.tmLanguage",
-					"repositoryUrl": "https://github.com/microsoft/vscode-JSON.tmLanguage",
+					"name": "johnnycharlesw/vsblocks-JSON.tmLanguage",
+					"repositoryUrl": "https://github.com/johnnycharlesw/vsblocks-JSON.tmLanguage",
 					"commitHash": "9bd83f1c252b375e957203f21793316203f61f70"
 				}
 			},

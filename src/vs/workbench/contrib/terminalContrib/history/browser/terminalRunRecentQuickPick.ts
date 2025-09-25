@@ -23,7 +23,7 @@ import { URI } from '../../../../../base/common/uri.js';
 import { fromNow } from '../../../../../base/common/date.js';
 import { IEditorService } from '../../../../services/editor/common/editorService.js';
 import { showWithPinnedItems } from '../../../../../platform/quickinput/browser/quickPickPin.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { IContextKey } from '../../../../../platform/contextkey/common/contextkey.js';
 import { AccessibleViewProviderId, IAccessibleViewService } from '../../../../../platform/accessibility/browser/accessibleView.js';
 import { Disposable, DisposableStore } from '../../../../../base/common/lifecycle.js';
@@ -45,7 +45,7 @@ export async function showRunRecentQuickPick(
 	const editorService = accessor.get(IEditorService);
 	const instantiationService = accessor.get(IInstantiationService);
 	const quickInputService = accessor.get(IQuickInputService);
-	const storageService = accessor.get(IStorageService);
+	const storageService = accessor.get(StorageServiceInterface);
 
 	const runRecentStorageKey = `${TerminalStorageKeys.PinnedRecentCommandsPrefix}.${instance.shellType}`;
 	let placeholder: string;

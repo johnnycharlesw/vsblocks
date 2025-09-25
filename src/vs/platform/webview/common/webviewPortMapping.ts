@@ -9,7 +9,7 @@ import { URI } from '../../../base/common/uri.js';
 import { IAddress } from '../../remote/common/remoteAgentConnection.js';
 import { extractLocalHostUriMetaDataForPortMapping, ITunnelService, RemoteTunnel } from '../../tunnel/common/tunnel.js';
 
-export interface IWebviewPortMapping {
+export interface WebviewPortMappingInterface {
 	readonly webviewPort: number;
 	readonly extensionHostPort: number;
 }
@@ -23,7 +23,7 @@ export class WebviewPortMappingManager implements IDisposable {
 
 	constructor(
 		private readonly _getExtensionLocation: () => URI | undefined,
-		private readonly _getMappings: () => readonly IWebviewPortMapping[],
+		private readonly _getMappings: () => readonly WebviewPortMappingInterface[],
 		private readonly tunnelService: ITunnelService
 	) { }
 

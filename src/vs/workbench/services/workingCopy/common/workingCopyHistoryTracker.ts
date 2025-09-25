@@ -14,7 +14,7 @@ import { IUndoRedoService } from '../../../../platform/undoRedo/common/undoRedo.
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { SaveSource, SaveSourceRegistry } from '../../../common/editor.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { isStoredFileWorkingCopySaveEvent, IStoredFileWorkingCopyModel } from './storedFileWorkingCopy.js';
 import { IStoredFileWorkingCopySaveEvent } from './storedFileWorkingCopyManager.js';
 import { IWorkingCopy } from './workingCopy.js';
@@ -22,7 +22,7 @@ import { IWorkingCopyHistoryService, MAX_PARALLEL_HISTORY_IO_OPS } from './worki
 import { IWorkingCopySaveEvent, IWorkingCopyService } from './workingCopyService.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { ResourceGlobMatcher } from '../../../common/resources.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { FileOperation, FileOperationEvent, IFileOperationEventWithMetadata, IFileService, IFileStatWithMetadata } from '../../../../platform/files/common/files.js';
 
 export class WorkingCopyHistoryTracker extends Disposable implements IWorkbenchContribution {
@@ -57,10 +57,10 @@ export class WorkingCopyHistoryTracker extends Disposable implements IWorkbenchC
 		@IWorkingCopyService private readonly workingCopyService: IWorkingCopyService,
 		@IWorkingCopyHistoryService private readonly workingCopyHistoryService: IWorkingCopyHistoryService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IUndoRedoService private readonly undoRedoService: IUndoRedoService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IFileService private readonly fileService: IFileService
 	) {
 		super();
@@ -92,7 +92,7 @@ export class WorkingCopyHistoryTracker extends Disposable implements IWorkbenchC
 		// Make sure to track the content version of each entry that
 		// was moved in our map. This ensures that a subsequent save
 		// without a content change does not add a redundant entry
-		// (https://github.com/microsoft/vscode/issues/145881)
+		// (https://github.com/johnnycharlesw/vsblocks/issues/145881)
 		for (const resource of resources) {
 			const contentVersion = this.getContentVersion(resource);
 			this.historyEntryContentVersion.set(resource, contentVersion);

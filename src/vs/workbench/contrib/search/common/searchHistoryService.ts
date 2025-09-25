@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Emitter, Event } from '../../../../base/common/event.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { isEmptyObject } from '../../../../base/common/types.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 
@@ -34,7 +34,7 @@ export class SearchHistoryService implements ISearchHistoryService {
 	readonly onDidClearHistory: Event<void> = this._onDidClearHistory.event;
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) { }
 
 	clearHistory(): void {

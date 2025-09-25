@@ -12,7 +12,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { MRUCache } from '../../../../base/common/map.js';
 
 interface ICustomEditorLabelObject {
@@ -44,7 +44,7 @@ export class CustomEditorLabelService extends Disposable implements ICustomEdito
 
 	constructor(
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 

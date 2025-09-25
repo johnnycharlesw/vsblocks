@@ -20,7 +20,7 @@ import { ServiceCollection } from '../../../../../platform/instantiation/common/
 import { MockContextKeyService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
 import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { EndOfLineSequence } from '../../../../common/model.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 
@@ -61,7 +61,7 @@ suite('SnippetController2', function () {
 		model = createTextModel('if\n    $state\nfi');
 		const serviceCollection = new ServiceCollection(
 			[ILabelService, new class extends mock<ILabelService>() { }],
-			[IWorkspaceContextService, new class extends mock<IWorkspaceContextService>() {
+			[WorkspaceContextServiceInterface, new class extends mock<WorkspaceContextServiceInterface>() {
 				override getWorkspace() {
 					return { id: 'foo', folders: [] };
 				}

@@ -16,7 +16,7 @@ import { TestInstantiationService } from '../../../../../platform/instantiation/
 import { TerminalCapability } from '../../../../../platform/terminal/common/capabilities/capabilities.js';
 import { TerminalCapabilityStore } from '../../../../../platform/terminal/common/capabilities/terminalCapabilityStore.js';
 import { GeneralShellType, ITerminalChildProcess, ITerminalProfile } from '../../../../../platform/terminal/common/terminal.js';
-import { IWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../../platform/workspace/common/workspace.js';
 import { IViewDescriptorService } from '../../../../common/views.js';
 import { ITerminalConfigurationService, ITerminalInstance, ITerminalInstanceService } from '../../browser/terminal.js';
 import { TerminalConfigurationService } from '../../browser/terminalConfigurationService.js';
@@ -316,7 +316,7 @@ suite('Workbench - TerminalInstance', () => {
 		});
 		test('should resolve workspaceFolder', () => {
 			const terminalLabelComputer = createLabelComputer({ terminal: { integrated: { tabs: { separator: ' - ', title: '${workspaceFolder}', description: '${workspaceFolder}' } } } });
-			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'zsh', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: 'folder' }) } as IWorkspaceFolder }));
+			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'zsh', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: 'folder' }) } as WorkspaceInterfaceFolder }));
 			strictEqual(terminalLabelComputer.title, 'folder');
 			strictEqual(terminalLabelComputer.description, 'folder');
 		});
@@ -352,18 +352,18 @@ suite('Workbench - TerminalInstance', () => {
 		});
 		test('should always return static title when specified', () => {
 			const terminalLabelComputer = createLabelComputer({ terminal: { integrated: { tabs: { separator: ' ~ ', title: '${process}', description: '${workspaceFolder}' } } } });
-			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: 'folder' }) } as IWorkspaceFolder, staticTitle: 'my-title' }));
+			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: 'folder' }) } as WorkspaceInterfaceFolder, staticTitle: 'my-title' }));
 			strictEqual(terminalLabelComputer.title, 'my-title');
 			strictEqual(terminalLabelComputer.description, 'folder');
 		});
 		test('should provide cwdFolder for all cwds only when in multi-root', () => {
 			const terminalLabelComputer = createLabelComputer({ terminal: { integrated: { tabs: { separator: ' ~ ', title: '${process}${separator}${cwdFolder}', description: '${cwdFolder}' } } } });
-			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: ROOT_1 }) } as IWorkspaceFolder, cwd: ROOT_1 }));
+			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: ROOT_1 }) } as WorkspaceInterfaceFolder, cwd: ROOT_1 }));
 			// single-root, cwd is same as root
 			strictEqual(terminalLabelComputer.title, 'process');
 			strictEqual(terminalLabelComputer.description, '');
 			// multi-root
-			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: ROOT_1 }) } as IWorkspaceFolder, cwd: ROOT_2 }));
+			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: ROOT_1 }) } as WorkspaceInterfaceFolder, cwd: ROOT_2 }));
 			if (isWindows) {
 				strictEqual(terminalLabelComputer.title, 'process');
 				strictEqual(terminalLabelComputer.description, '');
@@ -374,12 +374,12 @@ suite('Workbench - TerminalInstance', () => {
 		});
 		test('should hide cwdFolder in single folder workspaces when cwd matches the workspace\'s default cwd even when slashes differ', async () => {
 			let terminalLabelComputer = createLabelComputer({ terminal: { integrated: { tabs: { separator: ' ~ ', title: '${process}${separator}${cwdFolder}', description: '${cwdFolder}' } } } });
-			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: ROOT_1 }) } as IWorkspaceFolder, cwd: ROOT_1 }));
+			terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: ROOT_1 }) } as WorkspaceInterfaceFolder, cwd: ROOT_1 }));
 			strictEqual(terminalLabelComputer.title, 'process');
 			strictEqual(terminalLabelComputer.description, '');
 			if (!isWindows) {
 				terminalLabelComputer = createLabelComputer({ terminal: { integrated: { tabs: { separator: ' ~ ', title: '${process}${separator}${cwdFolder}', description: '${cwdFolder}' } } } });
-				terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: ROOT_1 }) } as IWorkspaceFolder, cwd: ROOT_2 }));
+				terminalLabelComputer.refreshLabel(createInstance({ capabilities, processName: 'process', workspaceFolder: { uri: URI.from({ scheme: Schemas.file, path: ROOT_1 }) } as WorkspaceInterfaceFolder, cwd: ROOT_2 }));
 				strictEqual(terminalLabelComputer.title, 'process ~ root2');
 				strictEqual(terminalLabelComputer.description, 'root2');
 			}

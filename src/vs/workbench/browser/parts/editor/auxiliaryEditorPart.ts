@@ -12,7 +12,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { ContextKeyExpr, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ServiceCollection } from '../../../../platform/instantiation/common/serviceCollection.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { hasCustomTitlebar } from '../../../../platform/window/common/window.js';
 import { IEditorGroupView, IEditorPartsView } from './editor.js';
@@ -345,7 +345,7 @@ class AuxiliaryEditorPartImpl extends EditorPart implements IAuxiliaryEditorPart
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IHostService hostService: IHostService,
 		@IContextKeyService contextKeyService: IContextKeyService

@@ -11,7 +11,7 @@ import { assertDefined } from '../../../../base/common/types.js';
 import { dirname, joinPath } from '../../../../base/common/resources.js';
 import { IStringDictionary } from '../../../../base/common/collections.js';
 import { PromptsSynchronizer } from '../../common/promptsSync/promptsSync.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { UserDataSyncClient, UserDataSyncTestServer } from './userDataSyncClient.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../../userDataProfile/common/userDataProfile.js';
@@ -200,7 +200,7 @@ suite('PromptsSync', () => {
 
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
 
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local = joinPath(
 			environmentService.userDataSyncHome,
 			testObject.resource, PREVIEW_DIR_NAME,
@@ -246,7 +246,7 @@ suite('PromptsSync', () => {
 		await testObject.sync(await testClient.getLatestRef(SyncResource.Prompts));
 
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local1 = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'prompt3.prompt.md');
 		const local2 = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'prompt1.prompt.md');
 		assertPreviews(testObject.conflicts.conflicts, [local1, local2]);
@@ -266,7 +266,7 @@ suite('PromptsSync', () => {
 
 		conflicts = testObject.conflicts.conflicts;
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'prompt1.prompt.md');
 		assertPreviews(testObject.conflicts.conflicts, [local]);
 	});
@@ -386,7 +386,7 @@ suite('PromptsSync', () => {
 		await updatePrompt('some.prompt.md', PROMPT5_TEXT, testClient);
 		await testObject.sync(await testClient.getLatestRef(SyncResource.Prompts));
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'some.prompt.md');
 		assertPreviews(testObject.conflicts.conflicts, [local]);
 	});
@@ -494,7 +494,7 @@ suite('PromptsSync', () => {
 		await testObject.sync(await testClient.getLatestRef(SyncResource.Prompts));
 
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'common.prompt.md');
 		assertPreviews(testObject.conflicts.conflicts, [local]);
 	});
@@ -627,7 +627,7 @@ suite('PromptsSync', () => {
 	});
 
 	test('merge when there are multiple prompts and all prompts are merged', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updatePrompt('sublime.prompt.md', PROMPT4_TEXT, testClient);
 		await updatePrompt('tests.prompt.md', PROMPT2_TEXT, testClient);
@@ -654,7 +654,7 @@ suite('PromptsSync', () => {
 	});
 
 	test('merge when there are multiple prompts and one prompt has no changes and one prompt is merged', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updatePrompt('coding.prompt.md', PROMPT3_TEXT, client2);
 		await client2.sync();
@@ -688,7 +688,7 @@ suite('PromptsSync', () => {
 	});
 
 	test('merge when there are multiple prompts with conflicts and all prompts are merged', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updatePrompt('reverse.prompt.md', PROMPT3_TEXT, client2);
 		await updatePrompt('recycle.prompt.md', PROMPT1_TEXT, client2);
@@ -712,7 +712,7 @@ suite('PromptsSync', () => {
 	});
 
 	test('accept when there are multiple prompts with conflicts and only one prompt is accepted', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updatePrompt('current.prompt.md', PROMPT3_TEXT, client2);
 		await updatePrompt('future.prompt.md', PROMPT1_TEXT, client2);
@@ -749,7 +749,7 @@ suite('PromptsSync', () => {
 	});
 
 	test('accept when there are multiple prompts with conflicts and all prompts are accepted', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updatePrompt('dynamic.prompt.md', PROMPT3_TEXT, client2);
 		await updatePrompt('static.prompt.md', PROMPT1_TEXT, client2);
@@ -784,7 +784,7 @@ suite('PromptsSync', () => {
 	});
 
 	test('accept when there are multiple prompts with conflicts and all prompts are accepted and applied', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		await updatePrompt('edicational.prompt.md', PROMPT3_TEXT, client2);
 		await updatePrompt('unknown.prompt.md', PROMPT1_TEXT, client2);
 		await client2.sync();

@@ -10,14 +10,14 @@ import { WorkingCopyBackupService } from '../common/workingCopyBackupService.js'
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IWorkingCopyBackupService } from '../common/workingCopyBackup.js';
 import { joinPath } from '../../../../base/common/resources.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { WorkbenchPhase, registerWorkbenchContribution2 } from '../../../common/contributions.js';
 import { BrowserWorkingCopyBackupTracker } from './workingCopyBackupTracker.js';
 
 export class BrowserWorkingCopyBackupService extends WorkingCopyBackupService {
 
 	constructor(
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
 		@IFileService fileService: IFileService,
 		@ILogService logService: ILogService

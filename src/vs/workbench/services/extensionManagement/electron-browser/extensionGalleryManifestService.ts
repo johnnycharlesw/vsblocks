@@ -8,7 +8,7 @@ import { Emitter } from '../../../../base/common/event.js';
 import { IHeaders } from '../../../../base/parts/request/common/request.js';
 import { localize } from '../../../../nls.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IExtensionGalleryManifestService, IExtensionGalleryManifest, ExtensionGalleryServiceUrlConfigKey, ExtensionGalleryManifestStatus } from '../../../../platform/extensionManagement/common/extensionGalleryManifest.js';
 import { ExtensionGalleryManifestService as ExtensionGalleryManifestService } from '../../../../platform/extensionManagement/common/extensionGalleryManifestService.js';
 import { resolveMarketplaceHeaders } from '../../../../platform/externalServices/common/marketplace.js';
@@ -18,7 +18,7 @@ import { ISharedProcessService } from '../../../../platform/ipc/electron-browser
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { asJson, IRequestService } from '../../../../platform/request/common/request.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IDefaultAccountService } from '../../accounts/common/defaultAccount.js';
 import { IRemoteAgentService } from '../../remote/common/remoteAgentService.js';
@@ -41,10 +41,10 @@ export class WorkbenchExtensionGalleryManifestService extends ExtensionGalleryMa
 
 	constructor(
 		@IProductService productService: IProductService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
 		@ITelemetryService telemetryService: ITelemetryService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService,
 		@ISharedProcessService sharedProcessService: ISharedProcessService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,

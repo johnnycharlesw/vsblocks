@@ -12,10 +12,10 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { ExplorerView } from './views/explorerView.js';
 import { EmptyView } from './views/emptyView.js';
 import { OpenEditorsView } from './views/openEditorsView.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IContextKeyService, IContextKey, ContextKeyExpr } from '../../../../platform/contextkey/common/contextkey.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
@@ -47,7 +47,7 @@ export class ExplorerViewletViewsContribution extends Disposable implements IWor
 	static readonly ID = 'workbench.contrib.explorerViewletViews';
 
 	constructor(
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IProgressService progressService: IProgressService
 	) {
 		super();
@@ -159,8 +159,8 @@ export class ExplorerViewPaneContainer extends ViewPaneContainer {
 	constructor(
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@ITelemetryService telemetryService: ITelemetryService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
-		@IStorageService storageService: IStorageService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IContextKeyService contextKeyService: IContextKeyService,

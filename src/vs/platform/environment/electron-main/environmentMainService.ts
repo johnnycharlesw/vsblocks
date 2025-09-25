@@ -7,17 +7,17 @@ import { memoize } from '../../../base/common/decorators.js';
 import { join } from '../../../base/common/path.js';
 import { isLinux } from '../../../base/common/platform.js';
 import { createStaticIPCHandle } from '../../../base/parts/ipc/node/ipc.net.js';
-import { IEnvironmentService, INativeEnvironmentService } from '../common/environment.js';
+import { EnvironmentServiceInterface, NativeEnvironmentServiceInterface } from '../common/environment.js';
 import { NativeEnvironmentService } from '../node/environmentService.js';
 import { refineServiceDecorator } from '../../instantiation/common/instantiation.js';
 
-export const IEnvironmentMainService = refineServiceDecorator<IEnvironmentService, IEnvironmentMainService>(IEnvironmentService);
+export const IEnvironmentMainService = refineServiceDecorator<EnvironmentServiceInterface, IEnvironmentMainService>(EnvironmentServiceInterface);
 
 /**
- * A subclass of the `INativeEnvironmentService` to be used only in electron-main
+ * A subclass of the `NativeEnvironmentServiceInterface` to be used only in electron-main
  * environments.
  */
-export interface IEnvironmentMainService extends INativeEnvironmentService {
+export interface IEnvironmentMainService extends NativeEnvironmentServiceInterface {
 
 	// --- backup paths
 	readonly backupHome: string;

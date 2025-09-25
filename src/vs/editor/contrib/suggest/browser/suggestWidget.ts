@@ -24,7 +24,7 @@ import '../../symbolIcons/browser/symbolIcons.js'; // The codicon symbol colors 
 import * as nls from '../../../../nls.js';
 import { IContextKey, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { activeContrastBorder, editorForeground, editorWidgetBackground, editorWidgetBorder, listFocusHighlightForeground, listHighlightForeground, quickInputListFocusBackground, quickInputListFocusForeground, quickInputListFocusIconForeground, registerColor, transparent } from '../../../../platform/theme/common/colorRegistry.js';
 import { isHighContrast } from '../../../../platform/theme/common/theme.js';
 import { IColorTheme, IThemeService } from '../../../../platform/theme/common/themeService.js';
@@ -72,7 +72,7 @@ class PersistedWidgetSize {
 	private readonly _key: string;
 
 	constructor(
-		private readonly _service: IStorageService,
+		private readonly _service: StorageServiceInterface,
 		editor: ICodeEditor
 	) {
 		this._key = `suggestWidget.size/${editor.getEditorType()}/${editor instanceof EmbeddedCodeEditorWidget}`;
@@ -151,7 +151,7 @@ export class SuggestWidget implements IDisposable {
 
 	constructor(
 		private readonly editor: ICodeEditor,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IContextKeyService _contextKeyService: IContextKeyService,
 		@IThemeService _themeService: IThemeService,
 		@IInstantiationService instantiationService: IInstantiationService,

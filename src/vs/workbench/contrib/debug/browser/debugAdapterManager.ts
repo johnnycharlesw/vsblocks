@@ -23,7 +23,7 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { Extensions as JSONExtensions, IJSONContributionRegistry } from '../../../../platform/jsonschemas/common/jsonContributionRegistry.js';
 import { IQuickInputService, IQuickPickItem } from '../../../../platform/quickinput/common/quickInput.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { Breakpoints } from '../common/breakpoints.js';
 import { CONTEXT_DEBUGGERS_AVAILABLE, CONTEXT_DEBUG_EXTENSION_AVAILABLE, IAdapterDescriptor, IAdapterManager, IConfig, IConfigurationManager, IDebugAdapter, IDebugAdapterDescriptorFactory, IDebugAdapterFactory, IDebugConfiguration, IDebugSession, IGuessedDebugger, INTERNAL_CONSOLE_OPTIONS_SCHEMA } from '../common/debug.js';
 import { Debugger } from '../common/debugger.js';
@@ -253,7 +253,7 @@ export class AdapterManager extends Disposable implements IAdapterManager {
 		return undefined;
 	}
 
-	substituteVariables(debugType: string, folder: IWorkspaceFolder | undefined, config: IConfig): Promise<IConfig> {
+	substituteVariables(debugType: string, folder: WorkspaceInterfaceFolder | undefined, config: IConfig): Promise<IConfig> {
 		const factory = this.debugAdapterFactories.get(debugType);
 		if (factory) {
 			return factory.substituteVariables(folder, config);

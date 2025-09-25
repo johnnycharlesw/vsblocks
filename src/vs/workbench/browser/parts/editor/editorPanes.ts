@@ -19,7 +19,7 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { IEditorProgressService, LongRunningOperation } from '../../../../platform/progress/common/progress.js';
 import { IEditorGroupView, DEFAULT_EDITOR_MIN_DIMENSIONS, DEFAULT_EDITOR_MAX_DIMENSIONS, IInternalEditorOpenOptions } from './editor.js';
 import { assertReturnsDefined } from '../../../../base/common/types.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { ErrorPlaceholderEditor, IErrorEditorPlaceholderOptions, WorkspaceTrustRequiredPlaceholderEditor } from './editorPlaceholder.js';
 import { EditorOpenSource, IEditorOptions } from '../../../../platform/editor/common/editor.js';
 import { isCancellationError } from '../../../../base/common/errors.js';
@@ -101,7 +101,7 @@ export class EditorPanes extends Disposable {
 		@IWorkbenchLayoutService private readonly layoutService: IWorkbenchLayoutService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IEditorProgressService editorProgressService: IEditorProgressService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustService: WorkspaceInterfaceTrustManagementService,
 		@ILogService private readonly logService: ILogService,
 		@IDialogService private readonly dialogService: IDialogService,
 		@IHostService private readonly hostService: IHostService
@@ -457,7 +457,7 @@ export class EditorPanes extends Disposable {
 			// Clear the current input before setting new input
 			// This ensures that a slow loading input will not
 			// be visible for the duration of the new input to
-			// load (https://github.com/microsoft/vscode/issues/34697)
+			// load (https://github.com/johnnycharlesw/vsblocks/issues/34697)
 			editorPane.clearInput();
 
 			// Set the input to the editor pane and keep track of it

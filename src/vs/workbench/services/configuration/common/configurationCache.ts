@@ -9,7 +9,7 @@ import { FileOperationError, FileOperationResult, IFileService } from '../../../
 import { joinPath } from '../../../../base/common/resources.js';
 import { VSBuffer } from '../../../../base/common/buffer.js';
 import { Queue } from '../../../../base/common/async.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 
 export class ConfigurationCache implements IConfigurationCache {
 
@@ -18,7 +18,7 @@ export class ConfigurationCache implements IConfigurationCache {
 
 	constructor(
 		private readonly donotCacheResourcesWithSchemes: string[],
-		environmentService: IEnvironmentService,
+		environmentService: EnvironmentServiceInterface,
 		private readonly fileService: IFileService
 	) {
 		this.cacheHome = environmentService.cacheHome;

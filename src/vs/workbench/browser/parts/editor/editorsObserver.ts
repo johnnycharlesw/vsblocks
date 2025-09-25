@@ -7,7 +7,7 @@ import { IEditorFactoryRegistry, IEditorIdentifier, GroupIdentifier, EditorExten
 import { EditorInput } from '../../../common/editor/editorInput.js';
 import { SideBySideEditorInput } from '../../../common/editor/sideBySideEditorInput.js';
 import { dispose, Disposable, DisposableStore } from '../../../../base/common/lifecycle.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { Event, Emitter } from '../../../../base/common/event.js';
 import { IEditorGroupsService, IEditorGroup, GroupsOrder, IEditorGroupsContainer } from '../../../services/editor/common/editorGroupsService.js';
@@ -84,7 +84,7 @@ export class EditorsObserver extends Disposable {
 	constructor(
 		editorGroupsContainer: IEditorGroupsContainer | undefined,
 		@IEditorGroupsService private editorGroupService: IEditorGroupsService,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		super();
 

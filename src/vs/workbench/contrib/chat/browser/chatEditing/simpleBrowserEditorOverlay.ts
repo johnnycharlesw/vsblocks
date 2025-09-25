@@ -28,7 +28,7 @@ import { addDisposableListener } from '../../../../../base/browser/dom.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { cleanupOldImages, createFileForMedia } from '../imageUtils.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { URI } from '../../../../../base/common/uri.js';
 import { ILogService } from '../../../../../platform/log/common/log.js';
 import { IChatRequestVariableEntry } from '../../common/chatVariableEntries.js';
@@ -57,7 +57,7 @@ class SimpleBrowserOverlayWidget {
 		@IChatWidgetService private readonly _chatWidgetService: IChatWidgetService,
 		@IViewsService private readonly _viewService: IViewsService,
 		@IFileService private readonly fileService: IFileService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@ILogService private readonly logService: ILogService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IPreferencesService private readonly _preferencesService: IPreferencesService,
@@ -454,7 +454,7 @@ export class SimpleBrowserOverlay implements IWorkbenchContribution {
 			for (const group of groups) {
 
 				if (!(group instanceof EditorGroupView)) {
-					// TODO@jrieken better with https://github.com/microsoft/vscode/tree/ben/layout-group-container
+					// TODO@jrieken better with https://github.com/johnnycharlesw/vsblocks/tree/ben/layout-group-container
 					continue;
 				}
 

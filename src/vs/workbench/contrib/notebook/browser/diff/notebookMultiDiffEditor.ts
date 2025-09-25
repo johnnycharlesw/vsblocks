@@ -5,7 +5,7 @@
 
 import * as DOM from '../../../../../base/browser/dom.js';
 import { IWorkbenchUIElementFactory, type IResourceLabel } from '../../../../../editor/browser/widget/multiDiffEditor/workbenchUIElementFactory.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../../../../platform/theme/common/themeService.js';
 import { IEditorOpenContext } from '../../../../common/editor.js';
@@ -69,7 +69,7 @@ export class NotebookMultiTextDiffEditor extends EditorPane {
 		@INotebookEditorWorkerService private readonly notebookEditorWorkerService: INotebookEditorWorkerService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ITelemetryService telemetryService: ITelemetryService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@INotebookService private readonly notebookService: INotebookService,
 	) {
 		super(NotebookMultiTextDiffEditor.ID, group, telemetryService, themeService, storageService);

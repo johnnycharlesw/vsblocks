@@ -14,7 +14,7 @@ import type { ServicesAccessor } from '../../../../../platform/instantiation/com
 import { KeybindingsRegistry, KeybindingWeight, type IKeybindings } from '../../../../../platform/keybinding/common/keybindingsRegistry.js';
 import { IQuickInputService } from '../../../../../platform/quickinput/common/quickInput.js';
 import { GeneralShellType, WindowsShellType } from '../../../../../platform/terminal/common/terminal.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { IConfigurationResolverService } from '../../../../services/configurationResolver/common/configurationResolver.js';
 import { IHistoryService } from '../../../../services/history/common/history.js';
 import { ITerminalService } from '../../../terminal/browser/terminal.js';
@@ -32,7 +32,7 @@ function toOptionalString(obj: unknown): string | undefined {
 export const terminalSendSequenceCommand = async (accessor: ServicesAccessor, args: unknown) => {
 	const quickInputService = accessor.get(IQuickInputService);
 	const configurationResolverService = accessor.get(IConfigurationResolverService);
-	const workspaceContextService = accessor.get(IWorkspaceContextService);
+	const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 	const historyService = accessor.get(IHistoryService);
 	const terminalService = accessor.get(ITerminalService);
 
@@ -159,7 +159,7 @@ registerSendSequenceKeybinding('\x1b[1;2H', { // Shift+home
 
 // Map alt+arrow to ctrl+arrow to allow word navigation in most shells to just work with alt. This
 // is non-standard behavior, but a lot of terminals act like this (see
-// https://github.com/microsoft/vscode/issues/190629). Note that macOS uses different sequences here
+// https://github.com/johnnycharlesw/vsblocks/issues/190629). Note that macOS uses different sequences here
 // to get the desired behavior.
 registerSendSequenceKeybinding('\x1b[1;5A', {
 	when: ContextKeyExpr.and(TerminalContextKeys.focus),

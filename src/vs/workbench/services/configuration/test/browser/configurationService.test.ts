@@ -7,12 +7,12 @@ import assert from 'assert';
 import * as sinon from 'sinon';
 import { URI } from '../../../../../base/common/uri.js';
 import { Registry } from '../../../../../platform/registry/common/platform.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { IConfigurationRegistry, Extensions as ConfigurationExtensions, ConfigurationScope, keyFromOverrideIdentifiers } from '../../../../../platform/configuration/common/configurationRegistry.js';
 import { WorkspaceService } from '../../browser/configurationService.js';
 import { ConfigurationEditingErrorCode } from '../../common/configurationEditing.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
-import { IWorkspaceContextService, WorkbenchState, IWorkspaceFoldersChangeEvent, ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState, WorkspaceInterfaceFoldersChangeEvent, SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { ConfigurationTarget, IConfigurationService, IConfigurationChangeEvent } from '../../../../../platform/configuration/common/configuration.js';
 import { workbenchInstantiationService, RemoteFileSystemProvider, TestEnvironmentService, TestTextFileService } from '../../../../test/browser/workbenchTestServices.js';
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
@@ -53,7 +53,7 @@ import { TasksSchemaProperties } from '../../../../contrib/tasks/common/tasks.js
 import { RemoteSocketFactoryService } from '../../../../../platform/remote/common/remoteSocketFactoryService.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 
-function convertToWorkspacePayload(folder: URI): ISingleFolderWorkspaceIdentifier {
+function convertToWorkspacePayload(folder: URI): SingleFolderWorkspaceIdentifierInterface {
 	return {
 		id: hash(folder.toString()).toString(16),
 		uri: folder
@@ -241,9 +241,9 @@ suite('WorkspaceContextService - Workspace', () => {
 			disposables.add(new UserDataProfileService(userDataProfilesService.defaultProfile)),
 			userDataProfilesService, fileService, remoteAgentService, uriIdentityService, new NullLogService(), new NullPolicyService()));
 
-		instantiationService.stub(IWorkspaceContextService, testObject);
+		instantiationService.stub(WorkspaceContextServiceInterface, testObject);
 		instantiationService.stub(IConfigurationService, testObject);
-		instantiationService.stub(IEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
 
 		await testObject.initialize(getWorkspaceIdentifier(configResource));
 		testObject.acquireInstantiationService(instantiationService);
@@ -304,9 +304,9 @@ suite('WorkspaceContextService - Workspace Editing', () => {
 			userDataProfilesService, fileService, remoteAgentService, uriIdentityService, new NullLogService(), new NullPolicyService()));
 
 		instantiationService.stub(IFileService, fileService);
-		instantiationService.stub(IWorkspaceContextService, testObject);
+		instantiationService.stub(WorkspaceContextServiceInterface, testObject);
 		instantiationService.stub(IConfigurationService, testObject);
-		instantiationService.stub(IEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
 
 		await testObject.initialize(getWorkspaceIdentifier(configResource));
 		instantiationService.stub(ITextFileService, disposables.add(instantiationService.createInstance(TestTextFileService)));
@@ -370,7 +370,7 @@ suite('WorkspaceContextService - Workspace Editing', () => {
 		await testObject.addFolders(addedFolders);
 
 		assert.strictEqual(target.callCount, 2, `Should be called only once but called ${target.callCount} times`);
-		const actual_1 = (<IWorkspaceFoldersChangeEvent>target.args[1][0]);
+		const actual_1 = (<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]);
 		assert.deepStrictEqual(actual_1.added.map(r => r.uri.toString()), addedFolders.map(a => a.uri.toString()));
 		assert.deepStrictEqual(actual_1.removed, []);
 		assert.deepStrictEqual(actual_1.changed, []);
@@ -392,7 +392,7 @@ suite('WorkspaceContextService - Workspace Editing', () => {
 		await testObject.removeFolders([removedFolder.uri]);
 
 		assert.strictEqual(target.callCount, 2, `Should be called only once but called ${target.callCount} times`);
-		const actual_1 = (<IWorkspaceFoldersChangeEvent>target.args[1][0]);
+		const actual_1 = (<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]);
 		assert.deepStrictEqual(actual_1.added, []);
 		assert.deepStrictEqual(actual_1.removed.map(r => r.uri.toString()), [removedFolder.uri.toString()]);
 		assert.deepStrictEqual(actual_1.changed.map(c => c.uri.toString()), [testObject.getWorkspace().folders[0].uri.toString()]);
@@ -427,7 +427,7 @@ suite('WorkspaceContextService - Workspace Editing', () => {
 		await testObject.updateFolders(addedFolders, removedFolders);
 
 		assert.strictEqual(target.callCount, 2, `Should be called only once but called ${target.callCount} times`);
-		const actual_1 = (<IWorkspaceFoldersChangeEvent>target.args[1][0]);
+		const actual_1 = (<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]);
 		assert.deepStrictEqual(actual_1.added.map(r => r.uri.toString()), addedFolders.map(a => a.uri.toString()));
 		assert.deepStrictEqual(actual_1.removed.map(r_1 => r_1.uri.toString()), removedFolders.map(a_1 => a_1.toString()));
 		assert.deepStrictEqual(actual_1.changed, []);
@@ -442,7 +442,7 @@ suite('WorkspaceContextService - Workspace Editing', () => {
 		await testObject.updateFolders(addedFolders, removedFolders, 0);
 
 		assert.strictEqual(target.callCount, 2, `Should be called only once but called ${target.callCount} times`);
-		const actual_1 = (<IWorkspaceFoldersChangeEvent>target.args[1][0]);
+		const actual_1 = (<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]);
 		assert.deepStrictEqual(actual_1.added, []);
 		assert.deepStrictEqual(actual_1.removed, []);
 		assert.deepStrictEqual(actual_1.changed.map(r => r.uri.toString()), removedFolders.map(a => a.toString()));
@@ -458,7 +458,7 @@ suite('WorkspaceContextService - Workspace Editing', () => {
 		await testObject.updateFolders(addedFolders, removedFolders);
 
 		assert.strictEqual(target.callCount, 2, `Should be called only once but called ${target.callCount} times`);
-		const actual_1 = (<IWorkspaceFoldersChangeEvent>target.args[1][0]);
+		const actual_1 = (<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]);
 		assert.deepStrictEqual(actual_1.added.map(r => r.uri.toString()), addedFolders.map(a => a.uri.toString()));
 		assert.deepStrictEqual(actual_1.removed.map(r_1 => r_1.uri.toString()), removedFolders.map(a_1 => a_1.toString()));
 		assert.deepStrictEqual(actual_1.changed.map(r_2 => r_2.uri.toString()), changedFolders.map(a_2 => a_2.toString()));
@@ -473,7 +473,7 @@ suite('WorkspaceContextService - Workspace Editing', () => {
 		await testObject.reloadConfiguration();
 
 		assert.strictEqual(target.callCount, 2, `Should be called only once but called ${target.callCount} times`);
-		const actual_1 = (<IWorkspaceFoldersChangeEvent>target.args[1][0]);
+		const actual_1 = (<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]);
 		assert.deepStrictEqual(actual_1.added, []);
 		assert.deepStrictEqual(actual_1.removed, []);
 		assert.deepStrictEqual(actual_1.changed.map(c => c.uri.toString()), testObject.getWorkspace().folders.map(f => f.uri.toString()).reverse());
@@ -488,7 +488,7 @@ suite('WorkspaceContextService - Workspace Editing', () => {
 		await testObject.reloadConfiguration();
 
 		assert.strictEqual(target.callCount, 2, `Should be called only once but called ${target.callCount} times`);
-		const actual_1 = (<IWorkspaceFoldersChangeEvent>target.args[1][0]);
+		const actual_1 = (<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]);
 		assert.deepStrictEqual(actual_1.added, []);
 		assert.deepStrictEqual(actual_1.removed, []);
 		assert.deepStrictEqual(actual_1.changed.map(c => c.uri.toString()), [testObject.getWorkspace().folders[0].uri.toString()]);
@@ -552,9 +552,9 @@ suite('WorkspaceService - Initialization', () => {
 			userDataProfileService,
 			userDataProfilesService, fileService, remoteAgentService, uriIdentityService, new NullLogService(), new NullPolicyService()));
 		instantiationService.stub(IFileService, fileService);
-		instantiationService.stub(IWorkspaceContextService, testObject);
+		instantiationService.stub(WorkspaceContextServiceInterface, testObject);
 		instantiationService.stub(IConfigurationService, testObject);
-		instantiationService.stub(IEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
 
 		await testObject.initialize({ id: '' });
 		instantiationService.stub(ITextFileService, disposables.add(instantiationService.createInstance(TestTextFileService)));
@@ -581,9 +581,9 @@ suite('WorkspaceService - Initialization', () => {
 		assert.strictEqual(target.callCount, 4);
 		assert.deepStrictEqual(target.args[0], [WorkbenchState.FOLDER]);
 		assert.deepStrictEqual(target.args[1], [undefined]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[3][0]).added.map(f => f.uri.toString()), [folder.toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[3][0]).removed, []);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[3][0]).changed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[3][0]).added.map(f => f.uri.toString()), [folder.toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[3][0]).removed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[3][0]).changed, []);
 
 	}));
 
@@ -608,9 +608,9 @@ suite('WorkspaceService - Initialization', () => {
 		assert.deepStrictEqual([...(<IConfigurationChangeEvent>target.args[0][0]).affectedKeys], ['initialization.testSetting1']);
 		assert.deepStrictEqual(target.args[1], [WorkbenchState.FOLDER]);
 		assert.deepStrictEqual(target.args[2], [undefined]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).added.map(f => f.uri.toString()), [folder.toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).removed, []);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).changed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).added.map(f => f.uri.toString()), [folder.toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).removed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).changed, []);
 
 	}));
 
@@ -631,9 +631,9 @@ suite('WorkspaceService - Initialization', () => {
 		assert.strictEqual(target.callCount, 4);
 		assert.deepStrictEqual(target.args[0], [WorkbenchState.WORKSPACE]);
 		assert.deepStrictEqual(target.args[1], [undefined]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[3][0]).added.map(folder => folder.uri.toString()), [joinPath(ROOT, 'a').toString(), joinPath(ROOT, 'b').toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[3][0]).removed, []);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[3][0]).changed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[3][0]).added.map(folder => folder.uri.toString()), [joinPath(ROOT, 'a').toString(), joinPath(ROOT, 'b').toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[3][0]).removed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[3][0]).changed, []);
 
 	}));
 
@@ -657,9 +657,9 @@ suite('WorkspaceService - Initialization', () => {
 		assert.deepStrictEqual([...(<IConfigurationChangeEvent>target.args[0][0]).affectedKeys], ['initialization.testSetting1', 'initialization.testSetting2']);
 		assert.deepStrictEqual(target.args[1], [WorkbenchState.WORKSPACE]);
 		assert.deepStrictEqual(target.args[2], [undefined]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).added.map(folder => folder.uri.toString()), [joinPath(ROOT, 'a').toString(), joinPath(ROOT, 'b').toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).removed, []);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).changed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).added.map(folder => folder.uri.toString()), [joinPath(ROOT, 'a').toString(), joinPath(ROOT, 'b').toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).removed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).changed, []);
 
 	}));
 
@@ -679,9 +679,9 @@ suite('WorkspaceService - Initialization', () => {
 
 		assert.strictEqual(testObject.getValue('initialization.testSetting1'), 'userValue');
 		assert.strictEqual(target.callCount, 2);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[1][0]).added.map(folder_1 => folder_1.uri.toString()), [joinPath(ROOT, 'b').toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[1][0]).removed.map(folder_2 => folder_2.uri.toString()), [joinPath(ROOT, 'a').toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[1][0]).changed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]).added.map(folder_1 => folder_1.uri.toString()), [joinPath(ROOT, 'b').toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]).removed.map(folder_2 => folder_2.uri.toString()), [joinPath(ROOT, 'a').toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[1][0]).changed, []);
 
 	}));
 
@@ -701,9 +701,9 @@ suite('WorkspaceService - Initialization', () => {
 		assert.strictEqual(testObject.getValue('initialization.testSetting1'), 'workspaceValue2');
 		assert.strictEqual(target.callCount, 3);
 		assert.deepStrictEqual([...(<IConfigurationChangeEvent>target.args[0][0]).affectedKeys], ['initialization.testSetting1']);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[2][0]).added.map(folder_1 => folder_1.uri.toString()), [joinPath(ROOT, 'b').toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[2][0]).removed.map(folder_2 => folder_2.uri.toString()), [joinPath(ROOT, 'a').toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[2][0]).changed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[2][0]).added.map(folder_1 => folder_1.uri.toString()), [joinPath(ROOT, 'b').toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[2][0]).removed.map(folder_2 => folder_2.uri.toString()), [joinPath(ROOT, 'a').toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[2][0]).changed, []);
 
 	}));
 
@@ -723,9 +723,9 @@ suite('WorkspaceService - Initialization', () => {
 		assert.deepStrictEqual([...(<IConfigurationChangeEvent>target.args[0][0]).affectedKeys], ['initialization.testSetting1']);
 		assert.deepStrictEqual(target.args[1], [WorkbenchState.WORKSPACE]);
 		assert.deepStrictEqual(target.args[2], [undefined]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).added.map(folder_1 => folder_1.uri.toString()), [joinPath(ROOT, 'b').toString()]);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).removed, []);
-		assert.deepStrictEqual((<IWorkspaceFoldersChangeEvent>target.args[4][0]).changed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).added.map(folder_1 => folder_1.uri.toString()), [joinPath(ROOT, 'b').toString()]);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).removed, []);
+		assert.deepStrictEqual((<WorkspaceInterfaceFoldersChangeEvent>target.args[4][0]).changed, []);
 	}));
 
 });
@@ -828,9 +828,9 @@ suite('WorkspaceConfigurationService - Folder', () => {
 			fileService, remoteAgentService, uriIdentityService, new NullLogService(),
 			disposables.add(new FilePolicyService(environmentService.policyFile, fileService, logService))));
 		instantiationService.stub(IFileService, fileService);
-		instantiationService.stub(IWorkspaceContextService, testObject);
+		instantiationService.stub(WorkspaceContextServiceInterface, testObject);
 		instantiationService.stub(IConfigurationService, testObject);
-		instantiationService.stub(IEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
 
 		await workspaceService.initialize(convertToWorkspacePayload(folder));
 		instantiationService.stub(IKeybindingEditingService, disposables.add(instantiationService.createInstance(KeybindingsEditingService)));
@@ -1745,9 +1745,9 @@ suite('WorkspaceConfigurationService - Profiles', () => {
 			fileService, remoteAgentService, uriIdentityService, new NullLogService(),
 			disposables.add(new FilePolicyService(environmentService.policyFile, fileService, logService))));
 		instantiationService.stub(IFileService, fileService);
-		instantiationService.stub(IWorkspaceContextService, testObject);
+		instantiationService.stub(WorkspaceContextServiceInterface, testObject);
 		instantiationService.stub(IConfigurationService, testObject);
-		instantiationService.stub(IEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
 
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString('{ "configurationService.profiles.applicationSetting2": "applicationValue", "configurationService.profiles.testSetting2": "userValue" }'));
 		await fileService.writeFile(userDataProfileService.currentProfile.settingsResource, VSBuffer.fromString('{ "configurationService.profiles.applicationSetting2": "profileValue", "configurationService.profiles.testSetting2": "profileValue" }'));
@@ -2027,7 +2027,7 @@ suite('WorkspaceConfigurationService - Profiles', () => {
 
 suite('WorkspaceConfigurationService-Multiroot', () => {
 
-	let workspaceContextService: IWorkspaceContextService, jsonEditingServce: IJSONEditingService, testObject: WorkspaceService, fileService: IFileService, environmentService: BrowserWorkbenchEnvironmentService, userDataProfileService: IUserDataProfileService;
+	let workspaceContextService: WorkspaceContextServiceInterface, jsonEditingServce: IJSONEditingService, testObject: WorkspaceService, fileService: IFileService, environmentService: BrowserWorkbenchEnvironmentService, userDataProfileService: IUserDataProfileService;
 	const configurationRegistry = Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration);
 	const disposables = ensureNoDisposablesAreLeakedInTestSuite();
 
@@ -2112,10 +2112,10 @@ suite('WorkspaceConfigurationService-Multiroot', () => {
 			fileService, remoteAgentService, uriIdentityService, new NullLogService(), new NullPolicyService()));
 
 		instantiationService.stub(IFileService, fileService);
-		instantiationService.stub(IWorkspaceContextService, workspaceService);
+		instantiationService.stub(WorkspaceContextServiceInterface, workspaceService);
 		instantiationService.stub(IConfigurationService, workspaceService);
 		instantiationService.stub(IWorkbenchEnvironmentService, environmentService);
-		instantiationService.stub(IEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
 
 		await workspaceService.initialize(getWorkspaceIdentifier(configResource));
 		instantiationService.stub(IKeybindingEditingService, disposables.add(instantiationService.createInstance(KeybindingsEditingService)));
@@ -2854,9 +2854,9 @@ suite('WorkspaceConfigurationService - Remote Folder', () => {
 		disposables.add(fileService.registerProvider(Schemas.vscodeUserData, disposables.add(new FileUserDataProvider(ROOT.scheme, fileSystemProvider, Schemas.vscodeUserData, userDataProfilesService, uriIdentityService, new NullLogService()))));
 		userDataProfileService = instantiationService.stub(IUserDataProfileService, disposables.add(new UserDataProfileService(userDataProfilesService.defaultProfile)));
 		testObject = disposables.add(new WorkspaceService({ configurationCache, remoteAuthority }, environmentService, userDataProfileService, userDataProfilesService, fileService, remoteAgentService, uriIdentityService, new NullLogService(), new NullPolicyService()));
-		instantiationService.stub(IWorkspaceContextService, testObject);
+		instantiationService.stub(WorkspaceContextServiceInterface, testObject);
 		instantiationService.stub(IConfigurationService, testObject);
-		instantiationService.stub(IEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
 		instantiationService.stub(IFileService, fileService);
 	});
 
@@ -3102,7 +3102,7 @@ function getWorkspaceId(configPath: URI): string {
 	return hash(workspaceConfigPath).toString(16);
 }
 
-function getWorkspaceIdentifier(configPath: URI): IWorkspaceIdentifier {
+function getWorkspaceIdentifier(configPath: URI): WorkspaceIdentifierInterface {
 	return {
 		configPath,
 		id: getWorkspaceId(configPath)

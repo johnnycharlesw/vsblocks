@@ -8,7 +8,7 @@ import { Disposable } from '../../../../base/common/lifecycle.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { localize } from '../../../../nls.js';
 import { ICrossVersionSerializedTerminalState, IPtyHostController, ISerializedTerminalState, ITerminalLogService } from '../../../../platform/terminal/common/terminal.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IConfigurationResolverService } from '../../../services/configurationResolver/common/configurationResolver.js';
 import { IHistoryService } from '../../../services/history/common/history.js';
 import { IStatusbarEntry, IStatusbarEntryAccessor, IStatusbarService, StatusbarAlignment } from '../../../services/statusbar/browser/statusbar.js';
@@ -34,7 +34,7 @@ export abstract class BaseTerminalBackend extends Disposable {
 		historyService: IHistoryService,
 		configurationResolverService: IConfigurationResolverService,
 		statusBarService: IStatusbarService,
-		protected readonly _workspaceContextService: IWorkspaceContextService
+		protected readonly _workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		super();
 

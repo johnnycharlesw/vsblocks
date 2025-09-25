@@ -20,8 +20,8 @@ import { PersistentConnectionEventType } from '../../../../platform/remote/commo
 import { IRemoteAuthorityResolverService, RemoteAuthorityResolverError, ResolverResult } from '../../../../platform/remote/common/remoteAuthorityResolver.js';
 import { IRemoteExtensionsScannerService } from '../../../../platform/remote/common/remoteExtensionsScanner.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IBrowserWorkbenchEnvironmentService } from '../../environment/browser/environmentService.js';
 import { IWebExtensionsScannerService, IWorkbenchExtensionEnablementService, IWorkbenchExtensionManagementService } from '../../extensionManagement/common/extensionManagement.js';
 import { IWebWorkerExtensionHostDataProvider, IWebWorkerExtensionHostInitData, WebWorkerExtensionHost } from './webWorkerExtensionHost.js';
@@ -54,7 +54,7 @@ export class ExtensionService extends AbstractExtensionService implements IExten
 		@IFileService fileService: IFileService,
 		@IProductService productService: IProductService,
 		@IWorkbenchExtensionManagementService extensionManagementService: IWorkbenchExtensionManagementService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IExtensionManifestPropertiesService extensionManifestPropertiesService: IExtensionManifestPropertiesService,
 		@IWebExtensionsScannerService private readonly _webExtensionsScannerService: IWebExtensionsScannerService,
@@ -65,7 +65,7 @@ export class ExtensionService extends AbstractExtensionService implements IExten
 		@IRemoteAuthorityResolverService remoteAuthorityResolverService: IRemoteAuthorityResolverService,
 		@IUserDataInitializationService private readonly _userDataInitializationService: IUserDataInitializationService,
 		@IUserDataProfileService private readonly _userDataProfileService: IUserDataProfileService,
-		@IWorkspaceTrustManagementService private readonly _workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly _workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IRemoteExplorerService private readonly _remoteExplorerService: IRemoteExplorerService,
 		@IDialogService dialogService: IDialogService,
 	) {

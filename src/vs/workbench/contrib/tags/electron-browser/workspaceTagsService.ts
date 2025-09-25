@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { IFileService, IFileStatResult, IFileStat } from '../../../../platform/files/common/files.js';
-import { IWorkspaceContextService, WorkbenchState, IWorkspace } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState, WorkspaceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { ITextFileService, ITextFileContent } from '../../../services/textfile/common/textfiles.js';
 import { URI } from '../../../../base/common/uri.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
-import { IWorkspaceTagsService, Tags } from '../common/workspaceTags.js';
+import { WorkspaceInterfaceTagsService, Tags } from '../common/workspaceTags.js';
 import { getHashedRemotesFromConfig } from './workspaceTags.js';
 import { splitLines } from '../../../../base/common/strings.js';
 import { MavenArtifactIdRegex, MavenDependenciesRegex, MavenDependencyRegex, GradleDependencyCompactRegex, GradleDependencyLooseRegex, MavenGroupIdRegex, JavaLibrariesToLookFor } from '../common/javaWorkspaceTags.js';
@@ -443,13 +443,13 @@ const GoModulesToLookFor = [
 ];
 
 
-export class WorkspaceTagsService implements IWorkspaceTagsService {
+export class WorkspaceTagsService implements WorkspaceInterfaceTagsService {
 	declare readonly _serviceBrand: undefined;
 	private _tags: Tags | undefined;
 
 	constructor(
 		@IFileService private readonly fileService: IFileService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@ITextFileService private readonly textFileService: ITextFileService
 	) { }
@@ -462,7 +462,7 @@ export class WorkspaceTagsService implements IWorkspaceTagsService {
 		return this._tags;
 	}
 
-	async getTelemetryWorkspaceId(workspace: IWorkspace, state: WorkbenchState): Promise<string | undefined> {
+	async getTelemetryWorkspaceId(workspace: WorkspaceInterface, state: WorkbenchState): Promise<string | undefined> {
 		function createHash(uri: URI): Promise<string> {
 			return hashAsync(uri.scheme === Schemas.file ? uri.fsPath : uri.toString());
 		}
@@ -1522,4 +1522,4 @@ export class WorkspaceTagsService implements IWorkspaceTagsService {
 	}
 }
 
-registerSingleton(IWorkspaceTagsService, WorkspaceTagsService, InstantiationType.Delayed);
+registerSingleton(WorkspaceInterfaceTagsService, WorkspaceTagsService, InstantiationType.Delayed);

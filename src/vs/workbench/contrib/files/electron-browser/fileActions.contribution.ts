@@ -5,7 +5,7 @@
 
 import * as nls from '../../../../nls.js';
 import { URI } from '../../../../base/common/uri.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { isWindows, isMacintosh } from '../../../../base/common/platform.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
@@ -38,7 +38,7 @@ KeybindingsRegistry.registerCommandAndKeybindingRule({
 	},
 	handler: (accessor: ServicesAccessor, resource: URI | object) => {
 		const resources = getMultiSelectedResources(resource, accessor.get(IListService), accessor.get(IEditorService), accessor.get(IEditorGroupsService), accessor.get(IExplorerService));
-		revealResourcesInOS(resources, accessor.get(INativeHostService), accessor.get(IWorkspaceContextService));
+		revealResourcesInOS(resources, accessor.get(INativeHostService), accessor.get(WorkspaceContextServiceInterface));
 	}
 });
 
@@ -54,7 +54,7 @@ KeybindingsRegistry.registerCommandAndKeybindingRule({
 		const activeInput = editorService.activeEditor;
 		const resource = EditorResourceAccessor.getOriginalUri(activeInput, { filterByScheme: Schemas.file, supportSideBySide: SideBySideEditor.PRIMARY });
 		const resources = resource ? [resource] : [];
-		revealResourcesInOS(resources, accessor.get(INativeHostService), accessor.get(IWorkspaceContextService));
+		revealResourcesInOS(resources, accessor.get(INativeHostService), accessor.get(WorkspaceContextServiceInterface));
 	}
 });
 

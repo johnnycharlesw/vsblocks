@@ -12,9 +12,9 @@ import { FileService } from '../../../../../platform/files/common/fileService.js
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { NullLogService } from '../../../../../platform/log/common/log.js';
 import { IRemoteAuthorityResolverService } from '../../../../../platform/remote/common/remoteAuthorityResolver.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustEnablementService, IWorkspaceTrustInfo } from '../../../../../platform/workspace/common/workspaceTrust.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustEnablementService, WorkspaceInterfaceTrustInfo } from '../../../../../platform/workspace/common/workspaceTrust.js';
 import { Workspace } from '../../../../../platform/workspace/test/common/testWorkspace.js';
 import { Memento } from '../../../../common/memento.js';
 import { IWorkbenchEnvironmentService } from '../../../environment/common/environmentService.js';
@@ -80,12 +80,12 @@ suite('Workspace Trust', () => {
 
 		setup(() => {
 			storageService = store.add(new TestStorageService());
-			instantiationService.stub(IStorageService, storageService);
+			instantiationService.stub(StorageServiceInterface, storageService);
 
 			workspaceService = new TestContextService();
-			instantiationService.stub(IWorkspaceContextService, workspaceService);
+			instantiationService.stub(WorkspaceContextServiceInterface, workspaceService);
 
-			instantiationService.stub(IWorkspaceTrustEnablementService, new TestWorkspaceTrustEnablementService());
+			instantiationService.stub(WorkspaceInterfaceTrustEnablementService, new TestWorkspaceTrustEnablementService());
 		});
 
 		test('empty workspace - trusted', async () => {
@@ -106,7 +106,7 @@ suite('Workspace Trust', () => {
 
 		test('empty workspace - trusted, open trusted file', async () => {
 			await configurationService.setUserConfiguration('security', getUserSettings(true, true));
-			const trustInfo: IWorkspaceTrustInfo = { uriTrustInfo: [{ uri: URI.parse('file:///Folder'), trusted: true }] };
+			const trustInfo: WorkspaceInterfaceTrustInfo = { uriTrustInfo: [{ uri: URI.parse('file:///Folder'), trusted: true }] };
 			storageService.store(WORKSPACE_TRUST_STORAGE_KEY, JSON.stringify(trustInfo), StorageScope.APPLICATION, StorageTarget.MACHINE);
 
 			(environmentService as any).filesToOpenOrCreate = [{ fileUri: URI.parse('file:///Folder/file.txt') }];

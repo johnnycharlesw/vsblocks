@@ -9,7 +9,7 @@ import { EditorInput } from '../../../common/editor/editorInput.js';
 import { BinaryEditorModel } from '../../../common/editor/binaryEditorModel.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ByteSize } from '../../../../platform/files/common/files.js';
 import { IEditorOptions } from '../../../../platform/editor/common/editor.js';
 import { EditorPlaceholder, IEditorPlaceholderContents } from './editorPlaceholder.js';
@@ -38,7 +38,7 @@ export abstract class BaseBinaryResourceEditor extends EditorPlaceholder {
 		private readonly callbacks: IOpenCallbacks,
 		telemetryService: ITelemetryService,
 		themeService: IThemeService,
-		@IStorageService storageService: IStorageService
+		@StorageServiceInterface storageService: StorageServiceInterface
 	) {
 		super(id, group, telemetryService, themeService, storageService);
 	}

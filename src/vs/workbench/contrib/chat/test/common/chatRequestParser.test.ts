@@ -10,7 +10,7 @@ import { IContextKeyService } from '../../../../../platform/contextkey/common/co
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { MockContextKeyService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { IExtensionService, nullExtensionDescription } from '../../../../services/extensions/common/extensions.js';
 import { TestExtensionService, TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { ChatAgentService, IChatAgentCommand, IChatAgentData, IChatAgentService } from '../../common/chatAgents.js';
@@ -33,7 +33,7 @@ suite('ChatRequestParser', () => {
 	let variableService: MockObject<IChatVariablesService>;
 	setup(async () => {
 		instantiationService = testDisposables.add(new TestInstantiationService());
-		instantiationService.stub(IStorageService, testDisposables.add(new TestStorageService()));
+		instantiationService.stub(StorageServiceInterface, testDisposables.add(new TestStorageService()));
 		instantiationService.stub(ILogService, new NullLogService());
 		instantiationService.stub(IExtensionService, new TestExtensionService());
 		instantiationService.stub(IChatService, new MockChatService());

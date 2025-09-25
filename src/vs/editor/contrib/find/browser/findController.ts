@@ -28,7 +28,7 @@ import { IKeybindingService } from '../../../../platform/keybinding/common/keybi
 import { KeybindingWeight } from '../../../../platform/keybinding/common/keybindingsRegistry.js';
 import { INotificationService, Severity } from '../../../../platform/notification/common/notification.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { themeColorFromId } from '../../../../platform/theme/common/themeService.js';
 import { Selection } from '../../../common/core/selection.js';
 import { IHoverService } from '../../../../platform/hover/browser/hover.js';
@@ -98,7 +98,7 @@ export class CommonFindController extends Disposable implements IEditorContribut
 	protected _state: FindReplaceState;
 	protected _updateHistoryDelayer: Delayer<void>;
 	private _model: FindModelBoundToEditorModel | null;
-	protected readonly _storageService: IStorageService;
+	protected readonly _storageService: StorageServiceInterface;
 	private readonly _clipboardService: IClipboardService;
 	protected readonly _contextKeyService: IContextKeyService;
 	protected readonly _notificationService: INotificationService;
@@ -115,7 +115,7 @@ export class CommonFindController extends Disposable implements IEditorContribut
 	constructor(
 		editor: ICodeEditor,
 		@IContextKeyService contextKeyService: IContextKeyService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IClipboardService clipboardService: IClipboardService,
 		@INotificationService notificationService: INotificationService,
 		@IHoverService hoverService: IHoverService
@@ -453,7 +453,7 @@ export class FindController extends CommonFindController implements IFindControl
 		@IContextKeyService _contextKeyService: IContextKeyService,
 		@IKeybindingService private readonly _keybindingService: IKeybindingService,
 		@INotificationService notificationService: INotificationService,
-		@IStorageService _storageService: IStorageService,
+		@StorageServiceInterface _storageService: StorageServiceInterface,
 		@IClipboardService clipboardService: IClipboardService,
 		@IHoverService hoverService: IHoverService,
 	) {

@@ -8,7 +8,7 @@ import { AsyncEmitter, Event } from '../../../base/common/event.js';
 import { URI, UriComponents } from '../../../base/common/uri.js';
 import { IExtensionDescription } from '../../../platform/extensions/common/extensions.js';
 import { ILogService } from '../../../platform/log/common/log.js';
-import { ExtHostNotebookDocumentSaveParticipantShape, IWorkspaceEditDto, MainThreadBulkEditsShape } from './extHost.protocol.js';
+import { ExtHostNotebookDocumentSaveParticipantShape, WorkspaceInterfaceEditDto, MainThreadBulkEditsShape } from './extHost.protocol.js';
 import { ExtHostNotebookController } from './extHostNotebook.js';
 import { TextDocumentSaveReason, WorkspaceEdit as WorksapceEditConverter } from './extHostTypeConverters.js';
 import { WorkspaceEdit } from './extHostTypes.js';
@@ -85,7 +85,7 @@ export class ExtHostNotebookDocumentSaveParticipant implements ExtHostNotebookDo
 			return true;
 		}
 
-		const dto: IWorkspaceEditDto = { edits: [] };
+		const dto: WorkspaceInterfaceEditDto = { edits: [] };
 		for (const edit of edits) {
 			const { edits } = WorksapceEditConverter.from(edit);
 			dto.edits = dto.edits.concat(edits);

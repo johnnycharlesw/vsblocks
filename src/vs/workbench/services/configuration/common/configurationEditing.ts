@@ -10,7 +10,7 @@ import { setProperty } from '../../../../base/common/jsonEdit.js';
 import { Queue } from '../../../../base/common/async.js';
 import { Edit, FormattingOptions } from '../../../../base/common/jsonFormatter.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { ITextFileService } from '../../textfile/common/textfiles.js';
 import { IConfigurationUpdateOptions, IConfigurationUpdateOverrides } from '../../../../platform/configuration/common/configuration.js';
 import { FOLDER_SETTINGS_PATH, WORKSPACE_STANDALONE_CONFIGURATIONS, TASKS_CONFIGURATION_KEY, LAUNCH_CONFIGURATION_KEY, USER_STANDALONE_CONFIGURATIONS, TASKS_DEFAULT, FOLDER_SCOPES, IWorkbenchConfigurationService, APPLICATION_SCOPES, MCP_CONFIGURATION_KEY } from './configuration.js';
@@ -145,7 +145,7 @@ export class ConfigurationEditing {
 	constructor(
 		private readonly remoteSettingsResource: URI | null,
 		@IWorkbenchConfigurationService private readonly configurationService: IWorkbenchConfigurationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IUserDataProfileService private readonly userDataProfileService: IUserDataProfileService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IFileService private readonly fileService: IFileService,

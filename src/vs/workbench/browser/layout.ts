@@ -12,13 +12,13 @@ import { EditorInputCapabilities, GroupIdentifier, isResourceEditorInput, IUntyp
 import { SidebarPart } from './parts/sidebar/sidebarPart.js';
 import { PanelPart } from './parts/panel/panelPart.js';
 import { Position, Parts, PartOpensMaximizedOptions, IWorkbenchLayoutService, positionFromString, positionToString, partOpensMaximizedFromString, PanelAlignment, ActivityBarPosition, LayoutSettings, MULTI_WINDOW_PARTS, SINGLE_WINDOW_PARTS, ZenModeSettings, EditorTabsMode, EditorActionsLocation, shouldShowCustomTitleBar, isHorizontal, isMultiWindowPart } from '../services/layout/browser/layoutService.js';
-import { isTemporaryWorkspace, IWorkspaceContextService, WorkbenchState } from '../../platform/workspace/common/workspace.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
+import { isTemporaryWorkspace, WorkspaceContextServiceInterface, WorkbenchState } from '../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
 import { IConfigurationChangeEvent, IConfigurationService, isConfigured } from '../../platform/configuration/common/configuration.js';
 import { ITitleService } from '../services/title/browser/titleService.js';
 import { ServicesAccessor } from '../../platform/instantiation/common/instantiation.js';
 import { StartupKind, ILifecycleService } from '../services/lifecycle/common/lifecycle.js';
-import { getMenuBarVisibility, IPath, hasNativeTitlebar, hasCustomTitlebar, TitleBarSetting, CustomTitleBarVisibility, useWindowControlsOverlay, DEFAULT_EMPTY_WINDOW_SIZE, DEFAULT_WORKSPACE_WINDOW_SIZE, hasNativeMenu, MenuSettings } from '../../platform/window/common/window.js';
+import { getMenuBarVisibility, PathInterface, hasNativeTitlebar, hasCustomTitlebar, TitleBarSetting, CustomTitleBarVisibility, useWindowControlsOverlay, DEFAULT_EMPTY_WINDOW_SIZE, DEFAULT_WORKSPACE_WINDOW_SIZE, hasNativeMenu, MenuSettings } from '../../platform/window/common/window.js';
 import { IHostService } from '../services/host/browser/host.js';
 import { IBrowserWorkbenchEnvironmentService } from '../services/environment/browser/environmentService.js';
 import { IEditorService } from '../services/editor/common/editorService.js';
@@ -103,14 +103,14 @@ enum LayoutClasses {
 	WINDOW_BORDER = 'border'
 }
 
-interface IPathToOpen extends IPath {
+interface PathInterfaceToOpen extends PathInterface {
 	readonly viewColumn?: number;
 }
 
 interface IInitialEditorsState {
-	readonly filesToOpenOrCreate?: IPathToOpen[];
-	readonly filesToDiff?: IPathToOpen[];
-	readonly filesToMerge?: IPathToOpen[];
+	readonly filesToOpenOrCreate?: PathInterfaceToOpen[];
+	readonly filesToDiff?: PathInterfaceToOpen[];
+	readonly filesToMerge?: PathInterfaceToOpen[];
 
 	readonly layout?: EditorGroupLayout;
 }
@@ -275,7 +275,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 	private environmentService!: IBrowserWorkbenchEnvironmentService;
 	private extensionService!: IExtensionService;
 	private configurationService!: IConfigurationService;
-	private storageService!: IStorageService;
+	private storageService!: StorageServiceInterface;
 	private hostService!: IHostService;
 	private editorService!: IEditorService;
 	private mainPartEditorService!: IEditorService;
@@ -283,7 +283,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 	private paneCompositeService!: IPaneCompositePartService;
 	private titleService!: ITitleService;
 	private viewDescriptorService!: IViewDescriptorService;
-	private contextService!: IWorkspaceContextService;
+	private contextService!: WorkspaceContextServiceInterface;
 	private notificationService!: INotificationService;
 	private themeService!: IThemeService;
 	private statusBarService!: IStatusbarService;
@@ -309,8 +309,8 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		this.environmentService = accessor.get(IBrowserWorkbenchEnvironmentService);
 		this.configurationService = accessor.get(IConfigurationService);
 		this.hostService = accessor.get(IHostService);
-		this.contextService = accessor.get(IWorkspaceContextService);
-		this.storageService = accessor.get(IStorageService);
+		this.contextService = accessor.get(WorkspaceContextServiceInterface);
+		this.storageService = accessor.get(StorageServiceInterface);
 		this.themeService = accessor.get(IThemeService);
 		this.extensionService = accessor.get(IExtensionService);
 		this.logService = accessor.get(ILogService);
@@ -630,7 +630,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 	}
 
 	private initLayoutState(lifecycleService: ILifecycleService, fileService: IFileService): void {
-		this._mainContainerDimension = getClientArea(this.parent, this.contextService.getWorkbenchState() === WorkbenchState.EMPTY ? DEFAULT_EMPTY_WINDOW_DIMENSIONS : DEFAULT_WORKSPACE_WINDOW_DIMENSIONS); // running with fallback to ensure no error is thrown (https://github.com/microsoft/vscode/issues/240242)
+		this._mainContainerDimension = getClientArea(this.parent, this.contextService.getWorkbenchState() === WorkbenchState.EMPTY ? DEFAULT_EMPTY_WINDOW_DIMENSIONS : DEFAULT_WORKSPACE_WINDOW_DIMENSIONS); // running with fallback to ensure no error is thrown (https://github.com/johnnycharlesw/vsblocks/issues/240242)
 
 		this.stateModel = new LayoutStateModel(this.storageService, this.configurationService, this.contextService);
 		this.stateModel.load({
@@ -750,7 +750,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		this.updateWindowBorder(true);
 	}
 
-	private getDefaultLayoutViews(environmentService: IBrowserWorkbenchEnvironmentService, storageService: IStorageService): string[] | undefined {
+	private getDefaultLayoutViews(environmentService: IBrowserWorkbenchEnvironmentService, storageService: StorageServiceInterface): string[] | undefined {
 		const defaultLayout = environmentService.options?.defaultLayout;
 		if (!defaultLayout) {
 			return undefined;
@@ -768,7 +768,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		return undefined;
 	}
 
-	private shouldRestoreEditors(contextService: IWorkspaceContextService, initialEditorsState: IInitialEditorsState | undefined): boolean {
+	private shouldRestoreEditors(contextService: WorkspaceContextServiceInterface, initialEditorsState: IInitialEditorsState | undefined): boolean {
 
 		// Restore editors based on a set of rules:
 		// - never when running on temporary workspace
@@ -1632,7 +1632,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 			this._mainContainerDimension = getClientArea(this.state.runtime.mainWindowFullscreen ?
 				mainWindow.document.body : 	// in fullscreen mode, make sure to use <body> element because
 				this.parent,				// in that case the workbench will span the entire site
-				this.contextService.getWorkbenchState() === WorkbenchState.EMPTY ? DEFAULT_EMPTY_WINDOW_DIMENSIONS : DEFAULT_WORKSPACE_WINDOW_DIMENSIONS // running with fallback to ensure no error is thrown (https://github.com/microsoft/vscode/issues/240242)
+				this.contextService.getWorkbenchState() === WorkbenchState.EMPTY ? DEFAULT_EMPTY_WINDOW_DIMENSIONS : DEFAULT_WORKSPACE_WINDOW_DIMENSIONS // running with fallback to ensure no error is thrown (https://github.com/johnnycharlesw/vsblocks/issues/240242)
 			);
 			this.logService.trace(`Layout#layout, height: ${this._mainContainerDimension.height}, width: ${this._mainContainerDimension.width}`);
 
@@ -1943,7 +1943,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 
 	private setPanelHidden(hidden: boolean, skipLayout?: boolean): void {
 		if (!this.workbenchGrid) {
-			return; // Return if not initialized fully (https://github.com/microsoft/vscode/issues/105480)
+			return; // Return if not initialized fully (https://github.com/johnnycharlesw/vsblocks/issues/105480)
 		}
 
 		if (!hidden && this.setAuxiliaryBarMaximized(false) && this.isVisible(Parts.PANEL_PART)) {
@@ -1969,7 +1969,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		if (hidden && this.paneCompositeService.getActivePaneComposite(ViewContainerLocation.Panel)) {
 			this.paneCompositeService.hideActivePaneComposite(ViewContainerLocation.Panel);
 			if (
-				!isIOS &&						// do not auto focus on iOS (https://github.com/microsoft/vscode/issues/127832)
+				!isIOS &&						// do not auto focus on iOS (https://github.com/johnnycharlesw/vsblocks/issues/127832)
 				!this.isAuxiliaryBarMaximized()	// do not auto focus when auxiliary bar is maximized
 			) {
 				focusEditor = true;
@@ -2786,9 +2786,9 @@ class LayoutStateModel extends Disposable {
 	};
 
 	constructor(
-		private readonly storageService: IStorageService,
+		private readonly storageService: StorageServiceInterface,
 		private readonly configurationService: IConfigurationService,
-		private readonly contextService: IWorkspaceContextService,
+		private readonly contextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 

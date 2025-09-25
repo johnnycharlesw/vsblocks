@@ -13,21 +13,21 @@ import { WorkspaceEditMetadata } from '../../../../editor/common/languages.js';
 import { IProgress } from '../../../../platform/progress/common/progress.js';
 import { UndoRedoGroup, UndoRedoSource } from '../../../../platform/undoRedo/common/undoRedo.js';
 import { getNotebookEditorFromEditorPane } from '../../notebook/browser/notebookBrowser.js';
-import { CellUri, ICellPartialMetadataEdit, ICellReplaceEdit, IDocumentMetadataEdit, ISelectionState, IWorkspaceNotebookCellEdit, SelectionStateType } from '../../notebook/common/notebookCommon.js';
+import { CellUri, ICellPartialMetadataEdit, ICellReplaceEdit, IDocumentMetadataEdit, ISelectionState, WorkspaceInterfaceNotebookCellEdit, SelectionStateType } from '../../notebook/common/notebookCommon.js';
 import { INotebookEditorModelResolverService } from '../../notebook/common/notebookEditorModelResolverService.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 
-export class ResourceNotebookCellEdit extends ResourceEdit implements IWorkspaceNotebookCellEdit {
+export class ResourceNotebookCellEdit extends ResourceEdit implements WorkspaceInterfaceNotebookCellEdit {
 
-	static is(candidate: any): candidate is IWorkspaceNotebookCellEdit {
+	static is(candidate: any): candidate is WorkspaceInterfaceNotebookCellEdit {
 		if (candidate instanceof ResourceNotebookCellEdit) {
 			return true;
 		}
-		return URI.isUri((<IWorkspaceNotebookCellEdit>candidate).resource)
-			&& isObject((<IWorkspaceNotebookCellEdit>candidate).cellEdit);
+		return URI.isUri((<WorkspaceInterfaceNotebookCellEdit>candidate).resource)
+			&& isObject((<WorkspaceInterfaceNotebookCellEdit>candidate).cellEdit);
 	}
 
-	static lift(edit: IWorkspaceNotebookCellEdit): ResourceNotebookCellEdit {
+	static lift(edit: WorkspaceInterfaceNotebookCellEdit): ResourceNotebookCellEdit {
 		if (edit instanceof ResourceNotebookCellEdit) {
 			return edit;
 		}

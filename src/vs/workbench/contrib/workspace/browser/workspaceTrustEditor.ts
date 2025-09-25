@@ -31,13 +31,13 @@ import { WorkbenchTable } from '../../../../platform/list/browser/listService.js
 import { Link } from '../../../../platform/opener/browser/link.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { isVirtualResource, isVirtualWorkspace } from '../../../../platform/workspace/common/virtualWorkspace.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { asCssVariable, buttonBackground, buttonSecondaryBackground, editorErrorForeground } from '../../../../platform/theme/common/colorRegistry.js';
-import { ISingleFolderWorkspaceIdentifier, IWorkspaceContextService, toWorkspaceIdentifier, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { SingleFolderWorkspaceIdentifierInterface, WorkspaceContextServiceInterface, toWorkspaceIdentifier, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { ThemeIcon } from '../../../../base/common/themables.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { EditorPane } from '../../../browser/parts/editor/editorPane.js';
 import { IEditorOpenContext } from '../../../common/editor.js';
 import { debugIconStartForeground } from '../../debug/browser/debugColors.js';
@@ -94,8 +94,8 @@ class WorkspaceTrustedUrisTable extends Disposable {
 	constructor(
 		private readonly container: HTMLElement,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@IWorkspaceContextService private readonly workspaceService: IWorkspaceContextService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceContextServiceInterface private readonly workspaceService: WorkspaceContextServiceInterface,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IUriIdentityService private readonly uriService: IUriIdentityService,
 		@ILabelService private readonly labelService: ILabelService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService
@@ -692,12 +692,12 @@ export class WorkspaceTrustEditor extends EditorPane {
 		group: IEditorGroup,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
-		@IWorkspaceContextService private readonly workspaceService: IWorkspaceContextService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
+		@WorkspaceContextServiceInterface private readonly workspaceService: WorkspaceContextServiceInterface,
 		@IExtensionsWorkbenchService private readonly extensionWorkbenchService: IExtensionsWorkbenchService,
 		@IExtensionManifestPropertiesService private readonly extensionManifestPropertiesService: IExtensionManifestPropertiesService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IWorkbenchConfigurationService private readonly configurationService: IWorkbenchConfigurationService,
 		@IWorkbenchExtensionEnablementService private readonly extensionEnablementService: IWorkbenchExtensionEnablementService,
 		@IProductService private readonly productService: IProductService,
@@ -1059,7 +1059,7 @@ export class WorkspaceTrustEditor extends EditorPane {
 		const trustActions = [{ action: trustAction, keybinding: this.keybindingService.resolveUserBinding(isMacintosh ? 'Cmd+Enter' : 'Ctrl+Enter')[0] }];
 
 		if (this.workspaceTrustManagementService.canSetParentFolderTrust()) {
-			const workspaceIdentifier = toWorkspaceIdentifier(this.workspaceService.getWorkspace()) as ISingleFolderWorkspaceIdentifier;
+			const workspaceIdentifier = toWorkspaceIdentifier(this.workspaceService.getWorkspace()) as SingleFolderWorkspaceIdentifierInterface;
 			const name = basename(dirname(workspaceIdentifier.uri));
 
 			const trustMessageElement = append(parent, $('.trust-message-box'));

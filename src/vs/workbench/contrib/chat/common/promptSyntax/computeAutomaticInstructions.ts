@@ -15,7 +15,7 @@ import { IFileService } from '../../../../../platform/files/common/files.js';
 import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { ILogService } from '../../../../../platform/log/common/log.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { ChatRequestVariableSet, IChatRequestVariableEntry, isPromptFileVariableEntry, toPromptFileVariableEntry, toPromptTextVariableEntry, PromptFileVariableKind } from '../chatVariableEntries.js';
 import { IToolData } from '../languageModelToolsService.js';
 import { PromptsConfig } from './config/config.js';
@@ -55,7 +55,7 @@ export class ComputeAutomaticInstructions {
 		@ILogService public readonly _logService: ILogService,
 		@ILabelService private readonly _labelService: ILabelService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly _workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceService: WorkspaceContextServiceInterface,
 		@IFileService private readonly _fileService: IFileService,
 		@ITelemetryService private readonly _telemetryService: ITelemetryService,
 	) {
@@ -269,7 +269,7 @@ export class ComputeAutomaticInstructions {
 			return entries;
 		}
 
-		const toolName = 'read_file'; // workaround https://github.com/microsoft/vscode/issues/252167
+		const toolName = 'read_file'; // workaround https://github.com/johnnycharlesw/vsblocks/issues/252167
 		return [
 			'Here is a list of instruction files that contain rules for modifying or creating new code.',
 			'These files are important for ensuring that the code is modified or created correctly.',

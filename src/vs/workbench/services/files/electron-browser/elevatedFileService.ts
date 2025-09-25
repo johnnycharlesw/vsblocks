@@ -11,7 +11,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { IFileService, IFileStatWithMetadata, IWriteFileOptions } from '../../../../platform/files/common/files.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
-import { IWorkspaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { INativeWorkbenchEnvironmentService } from '../../environment/electron-browser/environmentService.js';
 import { IElevatedFileService } from '../common/elevatedFileService.js';
 import { isWindows } from '../../../../base/common/platform.js';
@@ -24,7 +24,7 @@ export class NativeElevatedFileService implements IElevatedFileService {
 		@INativeHostService private readonly nativeHostService: INativeHostService,
 		@IFileService private readonly fileService: IFileService,
 		@INativeWorkbenchEnvironmentService private readonly environmentService: INativeWorkbenchEnvironmentService,
-		@IWorkspaceTrustRequestService private readonly workspaceTrustRequestService: IWorkspaceTrustRequestService,
+		@WorkspaceInterfaceTrustRequestService private readonly workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
 		@ILabelService private readonly labelService: ILabelService
 	) { }
 
@@ -32,7 +32,7 @@ export class NativeElevatedFileService implements IElevatedFileService {
 		// Saving elevated is currently only supported for local
 		// files for as long as we have no generic support from
 		// the file service
-		// (https://github.com/microsoft/vscode/issues/48659)
+		// (https://github.com/johnnycharlesw/vsblocks/issues/48659)
 		return resource.scheme === Schemas.file;
 	}
 

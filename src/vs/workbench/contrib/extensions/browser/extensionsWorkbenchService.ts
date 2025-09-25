@@ -43,7 +43,7 @@ import { IProgressOptions, IProgressService, ProgressLocation } from '../../../.
 import { INotificationService, NotificationPriority, Severity } from '../../../../platform/notification/common/notification.js';
 import * as resources from '../../../../base/common/resources.js';
 import { CancellationToken } from '../../../../base/common/cancellation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { IExtensionManifest, ExtensionType, IExtension as IPlatformExtension, TargetPlatform, ExtensionIdentifier, IExtensionIdentifier, IExtensionDescription, isApplicationScopedExtension } from '../../../../platform/extensions/common/extensions.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
@@ -66,7 +66,7 @@ import { IDialogService, IFileDialogService, IPromptButton } from '../../../../p
 import { IUpdateService, StateType } from '../../../../platform/update/common/update.js';
 import { areApiProposalsCompatible, isEngineValid } from '../../../../platform/extensions/common/extensionValidator.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ShowCurrentReleaseNotesActionId } from '../../update/common/update.js';
 import { IViewsService } from '../../../services/views/common/viewsService.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
@@ -1027,12 +1027,12 @@ export class ExtensionsWorkbenchService extends Disposable implements IExtension
 		@IFileService private readonly fileService: IFileService,
 		@IUserDataProfileService private readonly userDataProfileService: IUserDataProfileService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IDialogService private readonly dialogService: IDialogService,
 		@IUserDataSyncEnablementService private readonly userDataSyncEnablementService: IUserDataSyncEnablementService,
 		@IUpdateService private readonly updateService: IUpdateService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IViewsService private readonly viewsService: IViewsService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,

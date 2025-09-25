@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { IStorageService, StorageScope } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../platform/storage/common/storage.js';
 import { MainThreadStorageShape, MainContext, ExtHostStorageShape, ExtHostContext } from '../common/extHost.protocol.js';
 import { extHostNamedCustomer, IExtHostContext } from '../../services/extensions/common/extHostCustomers.js';
 import { DisposableStore } from '../../../base/common/lifecycle.js';
@@ -23,7 +23,7 @@ export class MainThreadStorage implements MainThreadStorageShape {
 	constructor(
 		extHostContext: IExtHostContext,
 		@IExtensionStorageService private readonly _extensionStorageService: IExtensionStorageService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 		@ILogService private readonly _logService: ILogService,
 	) {

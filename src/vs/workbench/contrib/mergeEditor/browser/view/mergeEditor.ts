@@ -27,7 +27,7 @@ import { IContextKey, IContextKeyService } from '../../../../../platform/context
 import { IEditorOptions, ITextEditorOptions, ITextResourceEditorInput } from '../../../../../platform/editor/common/editor.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../../../../platform/theme/common/themeService.js';
 import { AbstractTextEditor } from '../../../../browser/parts/editor/textEditor.js';
@@ -97,7 +97,7 @@ export class MergeEditor extends AbstractTextEditor<IMergeEditorViewState> {
 		@IInstantiationService instantiation: IInstantiationService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@ITelemetryService telemetryService: ITelemetryService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IThemeService themeService: IThemeService,
 		@ITextResourceConfigurationService textResourceConfigurationService: ITextResourceConfigurationService,
 		@IEditorService editorService: IEditorService,
@@ -361,7 +361,7 @@ export class MergeEditor extends AbstractTextEditor<IMergeEditorViewState> {
 
 		// detect when base, input1, and input2 become empty and replace THIS editor with its result editor
 		// TODO@jrieken@hediet this needs a better/cleaner solution
-		// https://github.com/microsoft/vscode/issues/155940
+		// https://github.com/johnnycharlesw/vsblocks/issues/155940
 		const that = this;
 		this._sessionDisposables.add(new class {
 
@@ -725,7 +725,7 @@ class MergeEditorLayoutStore {
 	private static readonly _key = 'mergeEditor/layout';
 	private _value: IMergeEditorLayout = { kind: 'mixed', showBase: false, showBaseAtTop: true };
 
-	constructor(@IStorageService private _storageService: IStorageService) {
+	constructor(@StorageServiceInterface private _storageService: StorageServiceInterface) {
 		const value = _storageService.get(MergeEditorLayoutStore._key, StorageScope.PROFILE, 'mixed');
 
 		if (value === 'mixed' || value === 'columns') {

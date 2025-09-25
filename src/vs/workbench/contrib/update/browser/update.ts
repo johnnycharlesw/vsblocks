@@ -11,7 +11,7 @@ import { IActivityService, NumberBadge, IBadge, ProgressBadge } from '../../../s
 import { IInstantiationService, ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IUpdateService, State as UpdateState, StateType, IUpdate, DisablementReason } from '../../../../platform/update/common/update.js';
 import { INotificationService, NotificationPriority, Severity } from '../../../../platform/notification/common/notification.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
@@ -100,7 +100,7 @@ export class ProductContribution implements IWorkbenchContribution {
 	private static readonly KEY = 'releaseNotes/lastVersion';
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@INotificationService notificationService: INotificationService,
 		@IBrowserWorkbenchEnvironmentService environmentService: IBrowserWorkbenchEnvironmentService,
@@ -165,7 +165,7 @@ export class UpdateContribution extends Disposable implements IWorkbenchContribu
 	private majorMinorUpdateAvailableContextKey: IContextKey<boolean>;
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@INotificationService private readonly notificationService: INotificationService,
 		@IDialogService private readonly dialogService: IDialogService,
@@ -282,7 +282,7 @@ export class UpdateContribution extends Disposable implements IWorkbenchContribu
 			return;
 		}
 
-		error = error.replace(/See https:\/\/github\.com\/Squirrel\/Squirrel\.Mac\/issues\/182 for more information/, 'This might mean the application was put on quarantine by macOS. See [this link](https://github.com/microsoft/vscode/issues/7426#issuecomment-425093469) for more information');
+		error = error.replace(/See https:\/\/github\.com\/Squirrel\/Squirrel\.Mac\/issues\/182 for more information/, 'This might mean the application was put on quarantine by macOS. See [this link](https://github.com/johnnycharlesw/vsblocks/issues/7426#issuecomment-425093469) for more information');
 
 		this.notificationService.notify({
 			severity: Severity.Error,
@@ -555,7 +555,7 @@ export class SwitchProductQualityContribution extends Disposable implements IWor
 					const dialogService = accessor.get(IDialogService);
 					const userDataSyncEnablementService = accessor.get(IUserDataSyncEnablementService);
 					const userDataSyncStoreManagementService = accessor.get(IUserDataSyncStoreManagementService);
-					const storageService = accessor.get(IStorageService);
+					const storageService = accessor.get(StorageServiceInterface);
 					const userDataSyncWorkbenchService = accessor.get(IUserDataSyncWorkbenchService);
 					const userDataSyncService = accessor.get(IUserDataSyncService);
 					const notificationService = accessor.get(INotificationService);

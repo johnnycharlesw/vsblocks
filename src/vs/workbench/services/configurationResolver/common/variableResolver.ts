@@ -12,7 +12,7 @@ import * as types from '../../../../base/common/types.js';
 import { URI as uri } from '../../../../base/common/uri.js';
 import { localize } from '../../../../nls.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
-import { IWorkspaceFolderData } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolderData } from '../../../../platform/workspace/common/workspace.js';
 import { allVariableKinds, IConfigurationResolverService, VariableError, VariableKind } from './configurationResolver.js';
 import { ConfigurationResolverExpression, IResolvedValue, Replacement } from './configurationResolverExpression.js';
 
@@ -67,7 +67,7 @@ export abstract class AbstractVariableResolverService implements IConfigurationR
 		return envVariables;
 	}
 
-	public async resolveWithEnvironment(environment: IProcessEnvironment, folder: IWorkspaceFolderData | undefined, value: string): Promise<string> {
+	public async resolveWithEnvironment(environment: IProcessEnvironment, folder: WorkspaceInterfaceFolderData | undefined, value: string): Promise<string> {
 		const expr = ConfigurationResolverExpression.parse(value);
 
 		for (const replacement of expr.unresolved()) {
@@ -80,7 +80,7 @@ export abstract class AbstractVariableResolverService implements IConfigurationR
 		return expr.toObject();
 	}
 
-	public async resolveAsync<T>(folder: IWorkspaceFolderData | undefined, config: T): Promise<T extends ConfigurationResolverExpression<infer R> ? R : T> {
+	public async resolveAsync<T>(folder: WorkspaceInterfaceFolderData | undefined, config: T): Promise<T extends ConfigurationResolverExpression<infer R> ? R : T> {
 		const expr = ConfigurationResolverExpression.parse(config);
 
 		for (const replacement of expr.unresolved()) {
@@ -93,11 +93,11 @@ export abstract class AbstractVariableResolverService implements IConfigurationR
 		return expr.toObject() as any;
 	}
 
-	public resolveWithInteractionReplace(folder: IWorkspaceFolderData | undefined, config: any): Promise<any> {
+	public resolveWithInteractionReplace(folder: WorkspaceInterfaceFolderData | undefined, config: any): Promise<any> {
 		throw new Error('resolveWithInteractionReplace not implemented.');
 	}
 
-	public resolveWithInteraction(folder: IWorkspaceFolderData | undefined, config: any): Promise<Map<string, string> | undefined> {
+	public resolveWithInteraction(folder: WorkspaceInterfaceFolderData | undefined, config: any): Promise<Map<string, string> | undefined> {
 		throw new Error('resolveWithInteraction not implemented.');
 	}
 

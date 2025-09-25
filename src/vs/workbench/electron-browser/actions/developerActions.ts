@@ -17,7 +17,7 @@ import { INativeWorkbenchEnvironmentService } from '../../services/environment/e
 import { URI } from '../../../base/common/uri.js';
 import { getActiveWindow } from '../../../base/browser/dom.js';
 import { IDialogService } from '../../../platform/dialogs/common/dialogs.js';
-import { INativeEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { IProgressService, ProgressLocation } from '../../../platform/progress/common/progress.js';
 
 export class ToggleDevToolsAction extends Action2 {
@@ -137,7 +137,7 @@ export class StopTracing extends Action2 {
 	}
 
 	override async run(accessor: ServicesAccessor): Promise<void> {
-		const environmentService = accessor.get(INativeEnvironmentService);
+		const environmentService = accessor.get(NativeEnvironmentServiceInterface);
 		const dialogService = accessor.get(IDialogService);
 		const nativeHostService = accessor.get(INativeHostService);
 		const progressService = accessor.get(IProgressService);

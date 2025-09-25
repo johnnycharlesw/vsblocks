@@ -7,7 +7,7 @@ import * as nls from '../../../../nls.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import './commentsEditorContribution.js';
-import { ICommentService, CommentService, IWorkspaceCommentThreadsEvent } from './commentService.js';
+import { ICommentService, CommentService, WorkspaceInterfaceCommentThreadsEvent } from './commentService.js';
 import { IConfigurationRegistry, Extensions as ConfigurationExtensions } from '../../../../platform/configuration/common/configurationRegistry.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { Disposable, IDisposable, MutableDisposable } from '../../../../base/common/lifecycle.js';
@@ -164,7 +164,7 @@ export class UnresolvedCommentsBadge extends Disposable implements IWorkbenchCon
 		this._register(this._commentService.onDidDeleteDataProvider(this.onCommentsUpdated, this));
 	}
 
-	private onAllCommentsChanged(e: IWorkspaceCommentThreadsEvent): void {
+	private onAllCommentsChanged(e: WorkspaceInterfaceCommentThreadsEvent): void {
 		let unresolved = 0;
 		for (const thread of e.commentThreads) {
 			if (thread.state === CommentThreadState.Unresolved) {

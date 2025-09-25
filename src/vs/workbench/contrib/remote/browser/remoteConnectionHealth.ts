@@ -13,7 +13,7 @@ import { getRemoteName } from '../../../../platform/remote/common/remoteHosts.js
 import { IBannerService } from '../../../services/banner/browser/bannerService.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { IHostService } from '../../../services/host/browser/host.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { Codicon } from '../../../../base/common/codicons.js';
@@ -33,7 +33,7 @@ export class InitialRemoteConnectionHealthContribution implements IWorkbenchCont
 		@IDialogService private readonly dialogService: IDialogService,
 		@IOpenerService private readonly openerService: IOpenerService,
 		@IHostService private readonly hostService: IHostService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IProductService private readonly productService: IProductService,
 	) {
 		if (this._environmentService.remoteAuthority) {

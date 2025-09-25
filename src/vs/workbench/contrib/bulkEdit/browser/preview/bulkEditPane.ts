@@ -29,7 +29,7 @@ import { IKeybindingService } from '../../../../../platform/keybinding/common/ke
 import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { IOpenEvent, WorkbenchAsyncDataTree } from '../../../../../platform/list/browser/listService.js';
 import { IOpenerService } from '../../../../../platform/opener/common/opener.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { defaultButtonStyles } from '../../../../../platform/theme/browser/defaultStyles.js';
 import { IThemeService } from '../../../../../platform/theme/common/themeService.js';
 import { ResourceLabels } from '../../../../browser/labels.js';
@@ -80,7 +80,7 @@ export class BulkEditPane extends ViewPane {
 		@ITextModelService private readonly _textModelService: ITextModelService,
 		@IDialogService private readonly _dialogService: IDialogService,
 		@IContextMenuService private readonly _contextMenuService: IContextMenuService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@IKeybindingService keybindingService: IKeybindingService,

@@ -13,7 +13,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { FileOperationResult, IFileContent, IFileService, toFileOperationResult } from '../../../../platform/files/common/files.js';
 import { observableConfigValue } from '../../../../platform/observable/common/platformObservableUtils.js';
 import { CachedFunction } from '../../../../base/common/cache.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { AppResourcePath, FileAccess, nodeModulesAsarUnpackedPath, nodeModulesPath } from '../../../../base/common/network.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { URI } from '../../../../base/common/uri.js';
@@ -24,7 +24,7 @@ export const TREESITTER_ALLOWED_SUPPORT = ['css', 'typescript', 'ini', 'regex'];
 const MODULE_LOCATION_SUBPATH = `@vscode/tree-sitter-wasm/wasm`;
 const FILENAME_TREESITTER_WASM = `tree-sitter.wasm`;
 
-export function getModuleLocation(environmentService: IEnvironmentService): AppResourcePath {
+export function getModuleLocation(environmentService: EnvironmentServiceInterface): AppResourcePath {
 	return `${(canASAR && environmentService.isBuilt) ? nodeModulesAsarUnpackedPath : nodeModulesPath}/${MODULE_LOCATION_SUBPATH}`;
 }
 
@@ -107,7 +107,7 @@ export class TreeSitterLibraryService extends Disposable implements ITreeSitterL
 	constructor(
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 		@IFileService private readonly _fileService: IFileService,
-		@IEnvironmentService private readonly _environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly _environmentService: EnvironmentServiceInterface,
 	) {
 		super();
 	}

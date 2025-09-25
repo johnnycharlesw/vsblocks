@@ -9,7 +9,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { refineServiceDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { Event } from '../../../../base/common/event.js';
 import { ResourceMap } from '../../../../base/common/map.js';
-import { IAnyWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface } from '../../../../platform/workspace/common/workspace.js';
 
 export const FOLDER_CONFIG_FOLDER_NAME = '.vscode';
 export const FOLDER_SETTINGS_NAME = 'settings';
@@ -87,7 +87,7 @@ export interface IWorkbenchConfigurationService extends IConfigurationService {
 	 * Initialize configuration service for the given workspace
 	 * @param arg workspace Identifier
 	 */
-	initialize(arg: IAnyWorkspaceIdentifier): Promise<void>;
+	initialize(arg: AnyWorkspaceIdentifierInterface): Promise<void>;
 
 	/**
 	 * Returns true if the setting can be applied for all profiles otherwise false.

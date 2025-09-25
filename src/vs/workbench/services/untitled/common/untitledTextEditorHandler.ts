@@ -14,7 +14,7 @@ import { PLAINTEXT_LANGUAGE_ID } from '../../../../editor/common/languages/modes
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { IWorkbenchEnvironmentService } from '../../environment/common/environmentService.js';
 import { IFilesConfigurationService } from '../../filesConfiguration/common/filesConfigurationService.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { UntitledTextEditorInput } from './untitledTextEditorInput.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { IWorkingCopyIdentifier, NO_TYPE_ID } from '../../workingCopy/common/workingCopy.js';
@@ -32,7 +32,7 @@ export class UntitledTextEditorInputSerializer implements IEditorSerializer {
 	constructor(
 		@IFilesConfigurationService private readonly filesConfigurationService: IFilesConfigurationService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
-		@IPathService private readonly pathService: IPathService
+		@PathInterfaceService private readonly pathService: PathInterfaceService
 	) { }
 
 	canSerialize(editorInput: EditorInput): boolean {
@@ -91,7 +91,7 @@ export class UntitledTextEditorWorkingCopyEditorHandler extends Disposable imple
 	constructor(
 		@IWorkingCopyEditorService workingCopyEditorService: IWorkingCopyEditorService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@ITextEditorService private readonly textEditorService: ITextEditorService,
 		@IUntitledTextEditorService private readonly untitledTextEditorService: IUntitledTextEditorService
 	) {

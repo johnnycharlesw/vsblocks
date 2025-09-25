@@ -13,7 +13,7 @@ import { IBackgroundTokenizationStore, IBackgroundTokenizer } from '../../../../
 import { ILanguageService } from '../../../../../editor/common/languages/language.js';
 import { ITextModel } from '../../../../../editor/common/model.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { IExtensionResourceLoaderService } from '../../../../../platform/extensionResourceLoader/common/extensionResourceLoader.js';
 import { INotificationService } from '../../../../../platform/notification/common/notification.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
@@ -43,7 +43,7 @@ export class ThreadedBackgroundTokenizerFactory implements IDisposable {
 		@IExtensionResourceLoaderService private readonly _extensionResourceLoaderService: IExtensionResourceLoaderService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 		@ILanguageService private readonly _languageService: ILanguageService,
-		@IEnvironmentService private readonly _environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly _environmentService: EnvironmentServiceInterface,
 		@INotificationService private readonly _notificationService: INotificationService,
 		@ITelemetryService private readonly _telemetryService: ITelemetryService,
 	) {

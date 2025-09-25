@@ -10,7 +10,7 @@ import { ChecksumPair, IIntegrityService, IntegrityTestResult } from '../common/
 import { ILifecycleService, LifecyclePhase } from '../../lifecycle/common/lifecycle.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { INotificationService, NotificationPriority } from '../../../../platform/notification/common/notification.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { FileAccess, AppResourcePath } from '../../../../base/common/network.js';
@@ -28,7 +28,7 @@ class IntegrityStorage {
 
 	private value: IStorageData | null;
 
-	constructor(private readonly storageService: IStorageService) {
+	constructor(private readonly storageService: StorageServiceInterface) {
 		this.value = this._read();
 	}
 
@@ -66,7 +66,7 @@ export class IntegrityService implements IIntegrityService {
 
 	constructor(
 		@INotificationService private readonly notificationService: INotificationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILifecycleService private readonly lifecycleService: ILifecycleService,
 		@IOpenerService private readonly openerService: IOpenerService,
 		@IProductService private readonly productService: IProductService,

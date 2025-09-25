@@ -5,7 +5,7 @@
 
 import { joinPath } from '../../../base/common/resources.js';
 import { localize } from '../../../nls.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { AbstractLogger, ILogger, ILoggerService } from '../../log/common/log.js';
 import { IUserDataSyncLogService, USER_DATA_SYNC_LOG_ID } from './userDataSync.js';
 
@@ -16,7 +16,7 @@ export class UserDataSyncLogService extends AbstractLogger implements IUserDataS
 
 	constructor(
 		@ILoggerService loggerService: ILoggerService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 	) {
 		super();
 		this.logger = this._register(loggerService.createLogger(joinPath(environmentService.logsHome, `${USER_DATA_SYNC_LOG_ID}.log`), { id: USER_DATA_SYNC_LOG_ID, name: localize('userDataSyncLog', "Settings Sync") }));

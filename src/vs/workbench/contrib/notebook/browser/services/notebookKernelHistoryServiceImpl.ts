@@ -9,7 +9,7 @@ import { localize2 } from '../../../../../nls.js';
 import { Categories } from '../../../../../platform/action/common/actionCommonCategories.js';
 import { Action2, registerAction2 } from '../../../../../platform/actions/common/actions.js';
 import { ServicesAccessor } from '../../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { INotebookKernel, INotebookKernelHistoryService, INotebookKernelService, INotebookTextModelLike } from '../../common/notebookKernelService.js';
 import { INotebookLoggingService } from '../../common/notebookLoggingService.js';
 
@@ -29,7 +29,7 @@ export class NotebookKernelHistoryService extends Disposable implements INoteboo
 	private static STORAGE_KEY = 'notebook.kernelHistory';
 	private _mostRecentKernelsMap: { [key: string]: LinkedMap<string, string> } = {};
 
-	constructor(@IStorageService private readonly _storageService: IStorageService,
+	constructor(@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@INotebookKernelService private readonly _notebookKernelService: INotebookKernelService,
 		@INotebookLoggingService private readonly _notebookLoggingService: INotebookLoggingService) {
 		super();

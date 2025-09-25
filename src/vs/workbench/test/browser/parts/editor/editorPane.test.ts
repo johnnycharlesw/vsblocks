@@ -24,7 +24,7 @@ import { extUri } from '../../../../../base/common/resources.js';
 import { EditorService } from '../../../../services/editor/browser/editorService.js';
 import { IEditorService } from '../../../../services/editor/common/editorService.js';
 import { IEditorGroup, IEditorGroupsService } from '../../../../services/editor/common/editorGroupsService.js';
-import { IWorkspaceTrustManagementService } from '../../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../../platform/workspace/common/workspaceTrust.js';
 import { EditorInput } from '../../../../common/editor/editorInput.js';
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
@@ -485,7 +485,7 @@ suite('EditorPane', () => {
 
 		const instantiationService = workbenchInstantiationService(undefined, disposables);
 		const workspaceTrustService = disposables.add(instantiationService.createInstance(TestWorkspaceTrustManagementService));
-		instantiationService.stub(IWorkspaceTrustManagementService, workspaceTrustService);
+		instantiationService.stub(WorkspaceInterfaceTrustManagementService, workspaceTrustService);
 		workspaceTrustService.setWorkspaceTrust(false);
 
 		const editorPart = await createEditorPart(instantiationService, disposables);

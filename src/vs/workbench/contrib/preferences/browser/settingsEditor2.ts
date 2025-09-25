@@ -41,13 +41,13 @@ import { ILogService } from '../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IEditorProgressService, IProgressRunner } from '../../../../platform/progress/common/progress.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { defaultButtonStyles, defaultToggleStyles } from '../../../../platform/theme/browser/defaultStyles.js';
 import { asCssVariable, asCssVariableWithDefault, badgeBackground, badgeForeground, contrastBorder, editorForeground, inputBackground } from '../../../../platform/theme/common/colorRegistry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { IUserDataSyncEnablementService, IUserDataSyncService, SyncStatus } from '../../../../platform/userDataSync/common/userDataSync.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { registerNavigableContainer } from '../../../browser/actions/widgetNavigationCommands.js';
 import { EditorPane } from '../../../browser/parts/editor/editorPane.js';
 import { IEditorMemento, IEditorOpenContext, IEditorPane } from '../../../common/editor.js';
@@ -252,11 +252,11 @@ export class SettingsEditor2 extends EditorPane {
 		@IPreferencesSearchService private readonly preferencesSearchService: IPreferencesSearchService,
 		@ILogService private readonly logService: ILogService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IEditorGroupsService protected editorGroupService: IEditorGroupsService,
 		@IUserDataSyncWorkbenchService private readonly userDataSyncWorkbenchService: IUserDataSyncWorkbenchService,
 		@IUserDataSyncEnablementService private readonly userDataSyncEnablementService: IUserDataSyncEnablementService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@ILanguageService private readonly languageService: ILanguageService,
 		@IExtensionManagementService private readonly extensionManagementService: IExtensionManagementService,

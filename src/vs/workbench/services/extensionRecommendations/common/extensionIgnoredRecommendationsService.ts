@@ -7,9 +7,9 @@ import { distinct } from '../../../../base/common/arrays.js';
 import { Emitter } from '../../../../base/common/event.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IExtensionIgnoredRecommendationsService, IgnoredRecommendationChangeNotification } from './extensionRecommendations.js';
-import { IWorkspaceExtensionsConfigService } from './workspaceExtensionsConfig.js';
+import { WorkspaceInterfaceExtensionsConfigService } from './workspaceExtensionsConfig.js';
 
 const ignoredRecommendationsStorageKey = 'extensionsAssistant/ignored_recommendations';
 
@@ -32,8 +32,8 @@ export class ExtensionIgnoredRecommendationsService extends Disposable implement
 	get ignoredRecommendations(): string[] { return distinct([...this.globalIgnoredRecommendations, ...this.ignoredWorkspaceRecommendations]); }
 
 	constructor(
-		@IWorkspaceExtensionsConfigService private readonly workspaceExtensionsConfigService: IWorkspaceExtensionsConfigService,
-		@IStorageService private readonly storageService: IStorageService,
+		@WorkspaceInterfaceExtensionsConfigService private readonly workspaceExtensionsConfigService: WorkspaceInterfaceExtensionsConfigService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 	) {
 		super();
 		this._globalIgnoredRecommendations = this.getCachedIgnoredRecommendations();

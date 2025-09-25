@@ -10,7 +10,7 @@ import { isUUID } from '../../../../base/common/uuid.js';
 import { mock } from '../../../../base/test/common/mock.js';
 import { IConfigurationService } from '../../../configuration/common/configuration.js';
 import { TestConfigurationService } from '../../../configuration/test/common/testConfigurationService.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { IRawGalleryExtensionVersion, sortExtensionVersions } from '../../common/extensionGalleryService.js';
 import { IFileService } from '../../../files/common/files.js';
 import { FileService } from '../../../files/common/fileService.js';
@@ -19,13 +19,13 @@ import { NullLogService } from '../../../log/common/log.js';
 import product from '../../../product/common/product.js';
 import { IProductService } from '../../../product/common/productService.js';
 import { resolveMarketplaceHeaders } from '../../../externalServices/common/marketplace.js';
-import { InMemoryStorageService, IStorageService } from '../../../storage/common/storage.js';
+import { InMemoryStorageService, StorageServiceInterface } from '../../../storage/common/storage.js';
 import { TelemetryConfiguration, TELEMETRY_SETTING_ID } from '../../../telemetry/common/telemetry.js';
 import { TargetPlatform } from '../../../extensions/common/extensions.js';
 import { NullTelemetryService } from '../../../telemetry/common/telemetryUtils.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 
-class EnvironmentServiceMock extends mock<IEnvironmentService>() {
+class EnvironmentServiceMock extends mock<EnvironmentServiceInterface>() {
 	override readonly serviceMachineIdResource: URI;
 	constructor(serviceMachineIdResource: URI) {
 		super();
@@ -36,7 +36,7 @@ class EnvironmentServiceMock extends mock<IEnvironmentService>() {
 
 suite('Extension Gallery Service', () => {
 	const disposables = ensureNoDisposablesAreLeakedInTestSuite();
-	let fileService: IFileService, environmentService: IEnvironmentService, storageService: IStorageService, productService: IProductService, configurationService: IConfigurationService;
+	let fileService: IFileService, environmentService: EnvironmentServiceInterface, storageService: StorageServiceInterface, productService: IProductService, configurationService: IConfigurationService;
 
 	setup(() => {
 		const serviceMachineIdResource = joinPath(URI.file('tests').with({ scheme: 'vscode-tests' }), 'machineid');

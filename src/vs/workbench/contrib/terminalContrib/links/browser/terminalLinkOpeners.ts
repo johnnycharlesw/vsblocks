@@ -12,7 +12,7 @@ import { IFileService } from '../../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { IOpenerService } from '../../../../../platform/opener/common/opener.js';
 import { IQuickInputService } from '../../../../../platform/quickinput/common/quickInput.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { ITerminalLinkOpener, ITerminalSimpleLink } from './links.js';
 import { osPathModule, updateLinkWithRelativeCwd } from './terminalLinkHelpers.js';
 import { ITerminalCapabilityStore, TerminalCapability } from '../../../../../platform/terminal/common/capabilities/capabilities.js';
@@ -91,7 +91,7 @@ export class TerminalSearchLinkOpener implements ITerminalLinkOpener {
 		@ISearchService private readonly _searchService: ISearchService,
 		@ITerminalLogService private readonly _logService: ITerminalLogService,
 		@IWorkbenchEnvironmentService private readonly _workbenchEnvironmentService: IWorkbenchEnvironmentService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		this._fileQueryBuilder = instantiationService.createInstance(QueryBuilder);
 	}

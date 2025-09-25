@@ -6,7 +6,7 @@
 import { SaveDialogOptions, OpenDialogOptions } from '../../../../base/parts/sandbox/common/electronTypes.js';
 import { IHostService } from '../../host/browser/host.js';
 import { IPickAndOpenOptions, ISaveDialogOptions, IOpenDialogOptions, IFileDialogService, IDialogService, INativeOpenDialogOptions } from '../../../../platform/dialogs/common/dialogs.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IHistoryService } from '../../history/common/history.js';
 import { IWorkbenchEnvironmentService } from '../../environment/common/environmentService.js';
 import { URI } from '../../../../base/common/uri.js';
@@ -19,9 +19,9 @@ import { INativeHostOptions, INativeHostService } from '../../../../platform/nat
 import { AbstractFileDialogService } from '../browser/abstractFileDialogService.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
-import { IWorkspacesService } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService } from '../../../../platform/workspaces/common/workspaces.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
 import { ICodeEditorService } from '../../../../editor/browser/services/codeEditorService.js';
 import { IEditorService } from '../../editor/common/editorService.js';
@@ -32,7 +32,7 @@ export class FileDialogService extends AbstractFileDialogService implements IFil
 
 	constructor(
 		@IHostService hostService: IHostService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IHistoryService historyService: IHistoryService,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
 		@IInstantiationService instantiationService: IInstantiationService,
@@ -42,9 +42,9 @@ export class FileDialogService extends AbstractFileDialogService implements IFil
 		@INativeHostService private readonly nativeHostService: INativeHostService,
 		@IDialogService dialogService: IDialogService,
 		@ILanguageService languageService: ILanguageService,
-		@IWorkspacesService workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService workspacesService: WorkspaceInterfacesService,
 		@ILabelService labelService: ILabelService,
-		@IPathService pathService: IPathService,
+		@PathInterfaceService pathService: PathInterfaceService,
 		@ICommandService commandService: ICommandService,
 		@IEditorService editorService: IEditorService,
 		@ICodeEditorService codeEditorService: ICodeEditorService,

@@ -36,7 +36,7 @@ export interface IResourceUndoRedoElement {
 	redo(): Promise<void> | void;
 }
 
-export interface IWorkspaceUndoRedoElement {
+export interface WorkspaceInterfaceUndoRedoElement {
 	readonly type: UndoRedoElementType.Workspace;
 	/**
 	 * The resources impacted by this element.
@@ -70,7 +70,7 @@ export interface IWorkspaceUndoRedoElement {
 	prepareUndoRedo?(): Promise<IDisposable> | IDisposable | void;
 }
 
-export type IUndoRedoElement = IResourceUndoRedoElement | IWorkspaceUndoRedoElement;
+export type IUndoRedoElement = IResourceUndoRedoElement | WorkspaceInterfaceUndoRedoElement;
 
 export interface IPastFutureElements {
 	past: IUndoRedoElement[];

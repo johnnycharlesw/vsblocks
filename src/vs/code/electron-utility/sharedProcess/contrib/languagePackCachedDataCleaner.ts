@@ -10,7 +10,7 @@ import { onUnexpectedError } from '../../../../base/common/errors.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { join } from '../../../../base/common/path.js';
 import { Promises } from '../../../../base/node/pfs.js';
-import { INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 
@@ -36,7 +36,7 @@ export class LanguagePackCachedDataCleaner extends Disposable {
 	private readonly dataMaxAge: number;
 
 	constructor(
-		@INativeEnvironmentService private readonly environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private readonly environmentService: NativeEnvironmentServiceInterface,
 		@ILogService private readonly logService: ILogService,
 		@IProductService productService: IProductService
 	) {

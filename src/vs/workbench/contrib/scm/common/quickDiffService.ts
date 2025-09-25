@@ -10,7 +10,7 @@ import { isEqualOrParent } from '../../../../base/common/resources.js';
 import { score } from '../../../../editor/common/languageSelector.js';
 import { Emitter } from '../../../../base/common/event.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 
 function createProviderComparer(uri: URI): (a: QuickDiffProvider, b: QuickDiffProvider) => number {
 	return (a, b) => {
@@ -65,7 +65,7 @@ export class QuickDiffService extends Disposable implements IQuickDiffService {
 	private hiddenQuickDiffProviders = new Set<string>();
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService
 	) {
 		super();

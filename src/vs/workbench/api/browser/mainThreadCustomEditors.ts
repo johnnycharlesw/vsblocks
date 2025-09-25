@@ -20,7 +20,7 @@ import { IFileDialogService } from '../../../platform/dialogs/common/dialogs.js'
 import { FileOperation, IFileService } from '../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../platform/instantiation/common/instantiation.js';
 import { ILabelService } from '../../../platform/label/common/label.js';
-import { IStorageService } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../platform/storage/common/storage.js';
 import { IUndoRedoService, UndoRedoElementType } from '../../../platform/undoRedo/common/undoRedo.js';
 import { MainThreadWebviewPanels } from './mainThreadWebviewPanels.js';
 import { MainThreadWebviews, reviveWebviewExtension } from './mainThreadWebviews.js';
@@ -39,7 +39,7 @@ import { IEditorService } from '../../services/editor/common/editorService.js';
 import { IWorkbenchEnvironmentService } from '../../services/environment/common/environmentService.js';
 import { IExtensionService } from '../../services/extensions/common/extensions.js';
 import { IExtHostContext } from '../../services/extensions/common/extHostCustomers.js';
-import { IPathService } from '../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../services/path/common/pathService.js';
 import { ResourceWorkingCopy } from '../../services/workingCopy/common/resourceWorkingCopy.js';
 import { IWorkingCopy, IWorkingCopyBackup, IWorkingCopySaveEvent, NO_TYPE_ID, WorkingCopyCapabilities } from '../../services/workingCopy/common/workingCopy.js';
 import { IWorkingCopyFileService, WorkingCopyFileEvent } from '../../services/workingCopy/common/workingCopyFileService.js';
@@ -66,7 +66,7 @@ export class MainThreadCustomEditors extends Disposable implements extHostProtoc
 		private readonly mainThreadWebview: MainThreadWebviews,
 		private readonly mainThreadWebviewPanels: MainThreadWebviewPanels,
 		@IExtensionService extensionService: IExtensionService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IWorkingCopyService workingCopyService: IWorkingCopyService,
 		@IWorkingCopyFileService workingCopyFileService: IWorkingCopyFileService,
 		@ICustomEditorService private readonly _customEditorService: ICustomEditorService,
@@ -383,7 +383,7 @@ class MainThreadCustomEditorModel extends ResourceWorkingCopy implements ICustom
 		@IUndoRedoService private readonly _undoService: IUndoRedoService,
 		@IWorkbenchEnvironmentService private readonly _environmentService: IWorkbenchEnvironmentService,
 		@IWorkingCopyService workingCopyService: IWorkingCopyService,
-		@IPathService private readonly _pathService: IPathService,
+		@PathInterfaceService private readonly _pathService: PathInterfaceService,
 		@IExtensionService extensionService: IExtensionService,
 	) {
 		super(MainThreadCustomEditorModel.toWorkingCopyResource(_viewType, _editorResource), fileService);

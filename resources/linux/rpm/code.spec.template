@@ -12,7 +12,7 @@ Requires: @@DEPENDENCIES@@
 AutoReq:  0
 
 %global __provides_exclude_from ^%{_datadir}/%{name}/.*\\.so.*$
-# Disable elf stripping, refer https://github.com/microsoft/vscode/issues/223455#issuecomment-2610001754
+# Disable elf stripping, refer https://github.com/johnnycharlesw/vsblocks/issues/223455#issuecomment-2610001754
 %global __brp_strip %{nil}
 %global __brp_strip_comment_note %{nil}
 

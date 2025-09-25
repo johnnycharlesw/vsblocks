@@ -7,7 +7,7 @@ import { localize } from '../../nls.js';
 import { ConfigurationScope, IConfigurationNode, IConfigurationRegistry, Extensions as ConfigurationExtensions } from '../../platform/configuration/common/configurationRegistry.js';
 import { Registry } from '../../platform/registry/common/platform.js';
 import { IWorkbenchContribution } from './contributions.js';
-import { IWorkspaceContextService, IWorkspaceFolder, WorkbenchState } from '../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkbenchState } from '../../platform/workspace/common/workspace.js';
 import { ConfigurationTarget, IConfigurationService, IConfigurationValue, IInspectValue } from '../../platform/configuration/common/configuration.js';
 import { Disposable } from '../../base/common/lifecycle.js';
 import { Emitter } from '../../base/common/event.js';
@@ -89,7 +89,7 @@ export class ConfigurationMigrationWorkbenchContribution extends Disposable impl
 
 	constructor(
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceService: WorkspaceContextServiceInterface,
 	) {
 		super();
 		this._register(this.workspaceService.onDidChangeWorkspaceFolders(async (e) => {
@@ -108,7 +108,7 @@ export class ConfigurationMigrationWorkbenchContribution extends Disposable impl
 		}
 	}
 
-	private async migrateConfigurationsForFolder(folder: IWorkspaceFolder | undefined, migrations: ConfigurationMigration[]): Promise<void> {
+	private async migrateConfigurationsForFolder(folder: WorkspaceInterfaceFolder | undefined, migrations: ConfigurationMigration[]): Promise<void> {
 		await Promise.all([migrations.map(migration => this.migrateConfigurationsForFolderAndOverride(migration, folder?.uri))]);
 	}
 

@@ -9,7 +9,7 @@ import { InstantiationType, registerSingleton } from '../../../../platform/insta
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { IHostColorSchemeService } from '../common/hostColorSchemeService.js';
 import { INativeWorkbenchEnvironmentService } from '../../environment/electron-browser/environmentService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { isBoolean, isObject } from '../../../../base/common/types.js';
 import { IColorScheme } from '../../../../platform/window/common/window.js';
 import { ILifecycleService, StartupKind } from '../../lifecycle/common/lifecycle.js';
@@ -30,7 +30,7 @@ export class NativeHostColorSchemeService extends Disposable implements IHostCol
 	constructor(
 		@INativeHostService private readonly nativeHostService: INativeHostService,
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,
-		@IStorageService private storageService: IStorageService,
+		@StorageServiceInterface private storageService: StorageServiceInterface,
 		@ILifecycleService lifecycleService: ILifecycleService
 	) {
 		super();

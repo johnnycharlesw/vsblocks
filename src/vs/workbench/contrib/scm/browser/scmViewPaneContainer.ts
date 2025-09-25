@@ -9,11 +9,11 @@ import { VIEWLET_ID } from '../common/scm.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { IContextMenuService } from '../../../../platform/contextview/browser/contextView.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { IWorkbenchLayoutService } from '../../../services/layout/browser/layoutService.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IViewDescriptorService } from '../../../common/views.js';
 import { ViewPaneContainer } from '../../../browser/parts/views/viewPaneContainer.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
@@ -26,10 +26,10 @@ export class SCMViewPaneContainer extends ViewPaneContainer {
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IExtensionService extensionService: IExtensionService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@ILogService logService: ILogService,
 	) {

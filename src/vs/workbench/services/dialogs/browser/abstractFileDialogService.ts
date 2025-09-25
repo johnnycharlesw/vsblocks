@@ -6,7 +6,7 @@
 import * as nls from '../../../../nls.js';
 import { IWindowOpenable, isWorkspaceToOpen, isFileToOpen } from '../../../../platform/window/common/window.js';
 import { IPickAndOpenOptions, ISaveDialogOptions, IOpenDialogOptions, FileFilter, IFileDialogService, IDialogService, ConfirmResult, getFileNamesMessage } from '../../../../platform/dialogs/common/dialogs.js';
-import { isSavedWorkspace, isTemporaryWorkspace, IWorkspaceContextService, WorkbenchState, WORKSPACE_EXTENSION } from '../../../../platform/workspace/common/workspace.js';
+import { isSavedWorkspace, isTemporaryWorkspace, WorkspaceContextServiceInterface, WorkbenchState, WORKSPACE_EXTENSION } from '../../../../platform/workspace/common/workspace.js';
 import { IHistoryService } from '../../history/common/history.js';
 import { IWorkbenchEnvironmentService } from '../../environment/common/environmentService.js';
 import { URI } from '../../../../base/common/uri.js';
@@ -14,7 +14,7 @@ import * as resources from '../../../../base/common/resources.js';
 import { isAbsolute as localPathIsAbsolute, normalize as localPathNormalize } from '../../../../base/common/path.js';
 import { IInstantiationService, } from '../../../../platform/instantiation/common/instantiation.js';
 import { ISimpleFileDialog, SimpleFileDialog } from './simpleFileDialog.js';
-import { IWorkspacesService } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService } from '../../../../platform/workspaces/common/workspaces.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
@@ -24,7 +24,7 @@ import { coalesce, distinct } from '../../../../base/common/arrays.js';
 import { trim } from '../../../../base/common/strings.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { PLAINTEXT_EXTENSION } from '../../../../editor/common/languages/modesRegistry.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
@@ -39,7 +39,7 @@ export abstract class AbstractFileDialogService implements IFileDialogService {
 
 	constructor(
 		@IHostService protected readonly hostService: IHostService,
-		@IWorkspaceContextService protected readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected readonly contextService: WorkspaceContextServiceInterface,
 		@IHistoryService protected readonly historyService: IHistoryService,
 		@IWorkbenchEnvironmentService protected readonly environmentService: IWorkbenchEnvironmentService,
 		@IInstantiationService protected readonly instantiationService: IInstantiationService,
@@ -48,9 +48,9 @@ export abstract class AbstractFileDialogService implements IFileDialogService {
 		@IOpenerService protected readonly openerService: IOpenerService,
 		@IDialogService protected readonly dialogService: IDialogService,
 		@ILanguageService private readonly languageService: ILanguageService,
-		@IWorkspacesService private readonly workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService private readonly workspacesService: WorkspaceInterfacesService,
 		@ILabelService private readonly labelService: ILabelService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@ICommandService protected readonly commandService: ICommandService,
 		@IEditorService protected readonly editorService: IEditorService,
 		@ICodeEditorService protected readonly codeEditorService: ICodeEditorService,
@@ -352,13 +352,13 @@ export abstract class AbstractFileDialogService implements IFileDialogService {
 
 			const filter: IFilter = { name: languageName, extensions: distinct(extensions).slice(0, 10).map(e => trim(e, '.')) };
 
-			// https://github.com/microsoft/vscode/issues/115860
+			// https://github.com/johnnycharlesw/vsblocks/issues/115860
 			const extOrPlaintext = ext || PLAINTEXT_EXTENSION;
 			if (!matchingFilter && extensions.includes(extOrPlaintext)) {
 				matchingFilter = filter;
 
 				// The selected extension must be in the set of extensions that are in the filter list that is sent to the save dialog.
-				// If it isn't, add it manually. https://github.com/microsoft/vscode/issues/147657
+				// If it isn't, add it manually. https://github.com/johnnycharlesw/vsblocks/issues/147657
 				const trimmedExt = trim(extOrPlaintext, '.');
 				if (!filter.extensions.includes(trimmedExt)) {
 					filter.extensions.unshift(trimmedExt);
@@ -373,13 +373,13 @@ export abstract class AbstractFileDialogService implements IFileDialogService {
 		// We have no matching filter, e.g. because the language
 		// is unknown. We still add the extension to the list of
 		// filters though so that it can be picked
-		// (https://github.com/microsoft/vscode/issues/96283)
+		// (https://github.com/johnnycharlesw/vsblocks/issues/96283)
 		if (!matchingFilter && ext) {
 			matchingFilter = { name: trim(ext, '.').toUpperCase(), extensions: [trim(ext, '.')] };
 		}
 
 		// Order of filters is
-		// - All Files (we MUST do this to fix macOS issue https://github.com/microsoft/vscode/issues/102713)
+		// - All Files (we MUST do this to fix macOS issue https://github.com/johnnycharlesw/vsblocks/issues/102713)
 		// - File Extension Match (if any)
 		// - All Languages
 		// - No Extension

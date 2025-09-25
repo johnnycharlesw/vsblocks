@@ -34,7 +34,7 @@ import { TestLanguageConfigurationService } from '../../../../../editor/test/com
 import { ILanguageConfigurationService } from '../../../../../editor/common/languages/languageConfigurationRegistry.js';
 import { TestAccessibilityService } from '../../../../../platform/accessibility/test/common/testAccessibilityService.js';
 import { IEditorService } from '../../../../services/editor/common/editorService.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { DisposableStore } from '../../../../../base/common/lifecycle.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 import { ITreeSitterLibraryService } from '../../../../../editor/common/services/treeSitter/treeSitterLibraryService.js';
@@ -66,7 +66,7 @@ suite('EditorModel', () => {
 		instantiationService.stub(IEditorService, disposables.add(new TestEditorService()));
 		instantiationService.stub(IThemeService, new TestThemeService());
 		instantiationService.stub(ILanguageConfigurationService, disposables.add(new TestLanguageConfigurationService()));
-		instantiationService.stub(IStorageService, disposables.add(new TestStorageService()));
+		instantiationService.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
 		instantiationService.stub(ITreeSitterLibraryService, new TestTreeSitterLibraryService());
 
 		return disposables.add(instantiationService.createInstance(ModelService));

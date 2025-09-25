@@ -9,21 +9,21 @@ import { DisposableStore, IDisposable } from '../../../base/common/lifecycle.js'
 import { isNative } from '../../../base/common/platform.js';
 import { URI, UriComponents } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../platform/instantiation/common/instantiation.js';
 import { ILabelService } from '../../../platform/label/common/label.js';
 import { INotificationService } from '../../../platform/notification/common/notification.js';
 import { AuthInfo, Credentials, IRequestService } from '../../../platform/request/common/request.js';
-import { WorkspaceTrustRequestOptions, IWorkspaceTrustManagementService, IWorkspaceTrustRequestService } from '../../../platform/workspace/common/workspaceTrust.js';
-import { IWorkspace, IWorkspaceContextService, WorkbenchState, isUntitledWorkspace, WorkspaceFolder } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceTrustRequestOptions, WorkspaceInterfaceTrustManagementService, WorkspaceInterfaceTrustRequestService } from '../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterface, WorkspaceContextServiceInterface, WorkbenchState, isUntitledWorkspace, WorkspaceFolder } from '../../../platform/workspace/common/workspace.js';
 import { extHostNamedCustomer, IExtHostContext } from '../../services/extensions/common/extHostCustomers.js';
 import { checkGlobFileExists } from '../../services/extensions/common/workspaceContains.js';
 import { IFileQueryBuilderOptions, ITextQueryBuilderOptions, QueryBuilder } from '../../services/search/common/queryBuilder.js';
 import { IEditorService, ISaveEditorsResult } from '../../services/editor/common/editorService.js';
 import { IFileMatch, IPatternInfo, ISearchProgressItem, ISearchService } from '../../services/search/common/search.js';
-import { IWorkspaceEditingService } from '../../services/workspaces/common/workspaceEditing.js';
-import { ExtHostContext, ExtHostWorkspaceShape, ITextSearchComplete, IWorkspaceData, MainContext, MainThreadWorkspaceShape } from '../common/extHost.protocol.js';
+import { WorkspaceInterfaceEditingService } from '../../services/workspaces/common/workspaceEditing.js';
+import { ExtHostContext, ExtHostWorkspaceShape, ITextSearchComplete, WorkspaceInterfaceData, MainContext, MainThreadWorkspaceShape } from '../common/extHost.protocol.js';
 import { IEditSessionIdentityService } from '../../../platform/workspace/common/editSessions.js';
 import { EditorResourceAccessor, SaveReason, SideBySideEditor } from '../../common/editor.js';
 import { coalesce } from '../../../base/common/arrays.js';
@@ -42,19 +42,19 @@ export class MainThreadWorkspace implements MainThreadWorkspaceShape {
 	constructor(
 		extHostContext: IExtHostContext,
 		@ISearchService private readonly _searchService: ISearchService,
-		@IWorkspaceContextService private readonly _contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _contextService: WorkspaceContextServiceInterface,
 		@IEditSessionIdentityService private readonly _editSessionIdentityService: IEditSessionIdentityService,
 		@ICanonicalUriService private readonly _canonicalUriService: ICanonicalUriService,
 		@IEditorService private readonly _editorService: IEditorService,
-		@IWorkspaceEditingService private readonly _workspaceEditingService: IWorkspaceEditingService,
+		@WorkspaceInterfaceEditingService private readonly _workspaceEditingService: WorkspaceInterfaceEditingService,
 		@INotificationService private readonly _notificationService: INotificationService,
 		@IRequestService private readonly _requestService: IRequestService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 		@ILabelService private readonly _labelService: ILabelService,
-		@IEnvironmentService private readonly _environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly _environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
-		@IWorkspaceTrustManagementService private readonly _workspaceTrustManagementService: IWorkspaceTrustManagementService,
-		@IWorkspaceTrustRequestService private readonly _workspaceTrustRequestService: IWorkspaceTrustRequestService,
+		@WorkspaceInterfaceTrustManagementService private readonly _workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
+		@WorkspaceInterfaceTrustRequestService private readonly _workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
 		@ITextFileService private readonly _textFileService: ITextFileService,
 	) {
 		this._queryBuilder = this._instantiationService.createInstance(QueryBuilder);
@@ -128,7 +128,7 @@ export class MainThreadWorkspace implements MainThreadWorkspaceShape {
 		this._proxy.$acceptWorkspaceData(this.getWorkspaceData(this._contextService.getWorkspace()));
 	}
 
-	private getWorkspaceData(workspace: IWorkspace): IWorkspaceData | null {
+	private getWorkspaceData(workspace: WorkspaceInterface): WorkspaceInterfaceData | null {
 		if (this._contextService.getWorkbenchState() === WorkbenchState.EMPTY) {
 			return null;
 		}

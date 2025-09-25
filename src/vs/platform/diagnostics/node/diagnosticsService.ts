@@ -16,11 +16,11 @@ import { URI } from '../../../base/common/uri.js';
 import { virtualMachineHint } from '../../../base/node/id.js';
 import { IDirent, Promises as pfs } from '../../../base/node/pfs.js';
 import { listProcesses } from '../../../base/node/ps.js';
-import { IDiagnosticsService, IMachineInfo, IMainProcessDiagnostics, IRemoteDiagnosticError, IRemoteDiagnosticInfo, isRemoteDiagnosticError, IWorkspaceInformation, PerformanceInfo, SystemInfo, WorkspaceStatItem, WorkspaceStats } from '../common/diagnostics.js';
+import { IDiagnosticsService, IMachineInfo, IMainProcessDiagnostics, IRemoteDiagnosticError, IRemoteDiagnosticInfo, isRemoteDiagnosticError, WorkspaceInterfaceInformation, PerformanceInfo, SystemInfo, WorkspaceStatItem, WorkspaceStats } from '../common/diagnostics.js';
 import { ByteSize } from '../../files/common/files.js';
 import { IProductService } from '../../product/common/productService.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
-import { IWorkspace } from '../../workspace/common/workspace.js';
+import { WorkspaceInterface } from '../../workspace/common/workspace.js';
 
 interface ConfigFilePatterns {
 	tag: string;
@@ -514,7 +514,7 @@ export class DiagnosticsService implements IDiagnosticsService {
 		}
 	}
 
-	public async getWorkspaceFileExtensions(workspace: IWorkspace): Promise<{ extensions: string[] }> {
+	public async getWorkspaceFileExtensions(workspace: WorkspaceInterface): Promise<{ extensions: string[] }> {
 		const items = new Set<string>();
 		for (const { uri } of workspace.folders) {
 			const folderUri = URI.revive(uri);
@@ -530,7 +530,7 @@ export class DiagnosticsService implements IDiagnosticsService {
 		return { extensions: [...items] };
 	}
 
-	public async reportWorkspaceStats(workspace: IWorkspaceInformation): Promise<void> {
+	public async reportWorkspaceStats(workspace: WorkspaceInterfaceInformation): Promise<void> {
 		for (const { uri } of workspace.folders) {
 			const folderUri = URI.revive(uri);
 			if (folderUri.scheme !== Schemas.file) {

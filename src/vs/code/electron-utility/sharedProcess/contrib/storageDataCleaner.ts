@@ -8,7 +8,7 @@ import { onUnexpectedError } from '../../../../base/common/errors.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { join } from '../../../../base/common/path.js';
 import { Promises } from '../../../../base/node/pfs.js';
-import { INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { StorageClient } from '../../../../platform/storage/common/storageIpc.js';
 import { EXTENSION_DEVELOPMENT_EMPTY_WINDOW_WORKSPACE } from '../../../../platform/workspace/common/workspace.js';
@@ -20,7 +20,7 @@ import { Schemas } from '../../../../base/common/network.js';
 export class UnusedWorkspaceStorageDataCleaner extends Disposable {
 
 	constructor(
-		@INativeEnvironmentService private readonly environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private readonly environmentService: NativeEnvironmentServiceInterface,
 		@ILogService private readonly logService: ILogService,
 		@INativeHostService private readonly nativeHostService: INativeHostService,
 		@IMainProcessService private readonly mainProcessService: IMainProcessService

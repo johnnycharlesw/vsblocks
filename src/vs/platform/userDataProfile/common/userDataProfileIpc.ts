@@ -8,7 +8,7 @@ import { Disposable } from '../../../base/common/lifecycle.js';
 import { IChannel, IServerChannel } from '../../../base/parts/ipc/common/ipc.js';
 import { URI, UriDto } from '../../../base/common/uri.js';
 import { DidChangeProfilesEvent, IUserDataProfile, IUserDataProfileOptions, IUserDataProfilesService, IUserDataProfileUpdateOptions, reviveProfile } from './userDataProfile.js';
-import { IAnyWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 import { IURITransformer, transformIncomingURIs, transformOutgoingURIs } from '../../../base/common/uriIpc.js';
 
 export class RemoteUserDataProfilesServiceChannel implements IServerChannel {
@@ -84,22 +84,22 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		this.onDidResetWorkspaces = this.channel.listen<void>('onDidResetWorkspaces');
 	}
 
-	async createNamedProfile(name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile> {
+	async createNamedProfile(name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile> {
 		const result = await this.channel.call<UriDto<IUserDataProfile>>('createNamedProfile', [name, options, workspaceIdentifier]);
 		return reviveProfile(result, this.profilesHome.scheme);
 	}
 
-	async createProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile> {
+	async createProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile> {
 		const result = await this.channel.call<UriDto<IUserDataProfile>>('createProfile', [id, name, options, workspaceIdentifier]);
 		return reviveProfile(result, this.profilesHome.scheme);
 	}
 
-	async createTransientProfile(workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile> {
+	async createTransientProfile(workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile> {
 		const result = await this.channel.call<UriDto<IUserDataProfile>>('createTransientProfile', [workspaceIdentifier]);
 		return reviveProfile(result, this.profilesHome.scheme);
 	}
 
-	async setProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, profile: IUserDataProfile): Promise<void> {
+	async setProfileForWorkspace(workspaceIdentifier: AnyWorkspaceIdentifierInterface, profile: IUserDataProfile): Promise<void> {
 		await this.channel.call<UriDto<IUserDataProfile>>('setProfileForWorkspace', [workspaceIdentifier, profile]);
 	}
 

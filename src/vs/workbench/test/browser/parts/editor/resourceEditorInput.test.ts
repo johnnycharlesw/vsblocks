@@ -18,7 +18,7 @@ import { ITextResourceConfigurationService } from '../../../../../editor/common/
 import { ConfigurationTarget, IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { CustomEditorLabelService, ICustomEditorLabelService } from '../../../../services/editor/common/customEditorLabelService.js';
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 
 suite('ResourceEditorInput', () => {
 
@@ -46,7 +46,7 @@ suite('ResourceEditorInput', () => {
 		const testConfigurationService = new TestConfigurationService();
 		instantiationService.stub(IConfigurationService, testConfigurationService);
 
-		const customEditorLabelService = disposables.add(new CustomEditorLabelService(testConfigurationService, instantiationService.get(IWorkspaceContextService)));
+		const customEditorLabelService = disposables.add(new CustomEditorLabelService(testConfigurationService, instantiationService.get(WorkspaceContextServiceInterface)));
 		instantiationService.stub(ICustomEditorLabelService, customEditorLabelService);
 
 		return [instantiationService, testConfigurationService, customEditorLabelService];

@@ -8,7 +8,7 @@ import { IEncryptionService } from '../../../../platform/encryption/common/encry
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { ISecretStorageProvider, ISecretStorageService, BaseSecretStorageService } from '../../../../platform/secrets/common/secrets.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IBrowserWorkbenchEnvironmentService } from '../../environment/browser/environmentService.js';
 
 export class BrowserSecretStorageService extends BaseSecretStorageService {
@@ -17,7 +17,7 @@ export class BrowserSecretStorageService extends BaseSecretStorageService {
 	private readonly _embedderSequencer: SequencerByKey<string> | undefined;
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IEncryptionService encryptionService: IEncryptionService,
 		@IBrowserWorkbenchEnvironmentService environmentService: IBrowserWorkbenchEnvironmentService,
 		@ILogService logService: ILogService

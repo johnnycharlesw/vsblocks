@@ -46,7 +46,7 @@ import { ITelemetryService } from '../../../../platform/telemetry/common/telemet
 import { buttonSecondaryBackground, buttonSecondaryForeground, buttonSecondaryHoverBackground } from '../../../../platform/theme/common/colorRegistry.js';
 import { asCssVariable } from '../../../../platform/theme/common/colorUtils.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { EditorResourceAccessor } from '../../../../workbench/common/editor.js';
 import { IEditorService } from '../../../../workbench/services/editor/common/editorService.js';
 import { IChatEntitlementService } from '../../../services/chat/common/chatEntitlementService.js';
@@ -418,7 +418,7 @@ export class ChatWidget extends Disposable implements IChatWidget {
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IPromptsService private readonly promptsService: IPromptsService,
 		@ILanguageModelToolsService private readonly toolsService: ILanguageModelToolsService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IChatModeService private readonly chatModeService: IChatModeService,
 		@IChatTodoListService private readonly chatTodoListService: IChatTodoListService,
 		@IChatLayoutService private readonly chatLayoutService: IChatLayoutService,

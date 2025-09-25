@@ -13,7 +13,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { runWithFakedTimers } from '../../../../base/test/common/timeTravelScheduler.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 import { IFileService } from '../../../files/common/files.js';
-import { IStorageService, StorageScope } from '../../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../storage/common/storage.js';
 import { IUserDataProfilesService } from '../../../userDataProfile/common/userDataProfile.js';
 import { AbstractSynchroniser, IAcceptResult, IMergeResult, IResourcePreview, SyncStrategy } from '../../common/abstractSynchronizer.js';
 import { Change, IRemoteUserData, IResourcePreview as IBaseResourcePreview, IUserDataSyncConfiguration, IUserDataSyncStoreService, MergeState, SyncResource, SyncStatus, USER_DATA_SYNC_SCHEME, IUserData } from '../../common/userDataSync.js';
@@ -940,7 +940,7 @@ suite('TestSynchronizer - Last Sync Data', () => {
 
 	test('last sync data is set after sync', async () => {
 		await runWithFakedTimers<void>({}, async () => {
-			const storageService = client.instantiationService.get(IStorageService);
+			const storageService = client.instantiationService.get(StorageServiceInterface);
 			const fileService = client.instantiationService.get(IFileService);
 			const testObject: TestSynchroniser = disposableStore.add(client.instantiationService.createInstance(TestSynchroniser, { syncResource: SyncResource.Settings, profile: client.instantiationService.get(IUserDataProfilesService).defaultProfile }, undefined));
 			testObject.syncBarrier.open();
@@ -964,7 +964,7 @@ suite('TestSynchronizer - Last Sync Data', () => {
 
 	test('last sync data is read from server after sync if last sync resource is deleted', async () => {
 		await runWithFakedTimers<void>({}, async () => {
-			const storageService = client.instantiationService.get(IStorageService);
+			const storageService = client.instantiationService.get(StorageServiceInterface);
 			const fileService = client.instantiationService.get(IFileService);
 			const testObject: TestSynchroniser = disposableStore.add(client.instantiationService.createInstance(TestSynchroniser, { syncResource: SyncResource.Settings, profile: client.instantiationService.get(IUserDataProfilesService).defaultProfile }, undefined));
 			testObject.syncBarrier.open();
@@ -988,7 +988,7 @@ suite('TestSynchronizer - Last Sync Data', () => {
 
 	test('last sync data is read from server after sync and sync data is invalid', async () => {
 		await runWithFakedTimers<void>({}, async () => {
-			const storageService = client.instantiationService.get(IStorageService);
+			const storageService = client.instantiationService.get(StorageServiceInterface);
 			const fileService = client.instantiationService.get(IFileService);
 			const testObject: TestSynchroniser = disposableStore.add(client.instantiationService.createInstance(TestSynchroniser, { syncResource: SyncResource.Settings, profile: client.instantiationService.get(IUserDataProfilesService).defaultProfile }, undefined));
 			testObject.syncBarrier.open();
@@ -1025,7 +1025,7 @@ suite('TestSynchronizer - Last Sync Data', () => {
 
 	test('last sync data is read from server after sync and stored sync data is tampered', async () => {
 		await runWithFakedTimers<void>({}, async () => {
-			const storageService = client.instantiationService.get(IStorageService);
+			const storageService = client.instantiationService.get(StorageServiceInterface);
 			const fileService = client.instantiationService.get(IFileService);
 			const testObject: TestSynchroniser = disposableStore.add(client.instantiationService.createInstance(TestSynchroniser, { syncResource: SyncResource.Settings, profile: client.instantiationService.get(IUserDataProfilesService).defaultProfile }, undefined));
 			testObject.syncBarrier.open();
@@ -1104,7 +1104,7 @@ suite('TestSynchronizer - Last Sync Data', () => {
 
 	test('last sync data is null after sync if last sync state is deleted', async () => {
 		await runWithFakedTimers<void>({}, async () => {
-			const storageService = client.instantiationService.get(IStorageService);
+			const storageService = client.instantiationService.get(StorageServiceInterface);
 			const testObject: TestSynchroniser = disposableStore.add(client.instantiationService.createInstance(TestSynchroniser, { syncResource: SyncResource.Settings, profile: client.instantiationService.get(IUserDataProfilesService).defaultProfile }, undefined));
 			testObject.syncBarrier.open();
 
@@ -1118,7 +1118,7 @@ suite('TestSynchronizer - Last Sync Data', () => {
 
 	test('last sync data is null after sync if last sync content is deleted everywhere', async () => {
 		await runWithFakedTimers<void>({}, async () => {
-			const storageService = client.instantiationService.get(IStorageService);
+			const storageService = client.instantiationService.get(StorageServiceInterface);
 			const fileService = client.instantiationService.get(IFileService);
 			const userDataSyncStoreService = client.instantiationService.get(IUserDataSyncStoreService);
 			const testObject: TestSynchroniser = disposableStore.add(client.instantiationService.createInstance(TestSynchroniser, { syncResource: SyncResource.Settings, profile: client.instantiationService.get(IUserDataProfilesService).defaultProfile }, undefined));

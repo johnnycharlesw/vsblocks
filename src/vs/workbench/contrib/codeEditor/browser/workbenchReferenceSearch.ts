@@ -11,7 +11,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 
 export class WorkbenchReferencesController extends ReferencesController {
 
@@ -21,7 +21,7 @@ export class WorkbenchReferencesController extends ReferencesController {
 		@ICodeEditorService editorService: ICodeEditorService,
 		@INotificationService notificationService: INotificationService,
 		@IInstantiationService instantiationService: IInstantiationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService,
 	) {
 		super(

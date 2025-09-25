@@ -18,7 +18,7 @@ import { IEditorGroupView, getEditorPartOptions, impactsEditorPartOptions, IEdit
 import { EditorGroupView } from './editorGroupView.js';
 import { IConfigurationService, IConfigurationChangeEvent } from '../../../../platform/configuration/common/configuration.js';
 import { IDisposable, dispose, toDisposable, DisposableStore } from '../../../../base/common/lifecycle.js';
-import { IStorageService, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ISerializedEditorGroupModel, isSerializedEditorGroupModel } from '../../../common/editor/editorGroupModel.js';
 import { EditorDropTarget } from './editorDropTarget.js';
 import { Color } from '../../../../base/common/color.js';
@@ -164,7 +164,7 @@ export class EditorPart extends Part implements IEditorPart, IEditorGroupsView {
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IHostService private readonly hostService: IHostService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService
@@ -500,7 +500,7 @@ export class EditorPart extends Part implements IEditorPart, IEditorGroupsView {
 				layout.orientation,
 				this.isTwoDimensionalGrid() ?
 					this.gridWidget.orientation :			// preserve original orientation for 2-dimensional grids
-					orthogonal(this.gridWidget.orientation) // otherwise flip (fix https://github.com/microsoft/vscode/issues/52975)
+					orthogonal(this.gridWidget.orientation) // otherwise flip (fix https://github.com/johnnycharlesw/vsblocks/issues/52975)
 			),
 			groups: layout.groups
 		});
@@ -894,7 +894,7 @@ export class EditorPart extends Part implements IEditorPart, IEditorGroupsView {
 					// Do not configure an `index` for editors that are sticky in
 					// the target, otherwise there is a chance of losing that state
 					// when the editor is moved.
-					// See https://github.com/microsoft/vscode/issues/239549
+					// See https://github.com/johnnycharlesw/vsblocks/issues/239549
 					targetView.isSticky(editor) ||
 					// Do not configure an `index` when we are explicitly instructed
 					options?.preserveExistingIndex
@@ -1506,7 +1506,7 @@ export class MainEditorPart extends EditorPart {
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IHostService hostService: IHostService,
 		@IContextKeyService contextKeyService: IContextKeyService

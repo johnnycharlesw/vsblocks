@@ -8,7 +8,7 @@ import { Action } from '../../../../base/common/actions.js';
 import { Event } from '../../../../base/common/event.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { IDisposable } from '../../../../base/common/lifecycle.js';
-import { IWorkspaceFolder, IWorkspace } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder, WorkspaceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { Task, ContributedTask, CustomTask, ITaskSet, TaskSorter, ITaskEvent, ITaskIdentifier, ConfiguringTask, TaskRunSource } from './tasks.js';
 import { ITaskSummary, ITaskTerminateResponse, ITaskSystemInfo } from './taskSystem.js';
 import { IStringDictionary } from '../../../../base/common/collections.js';
@@ -49,7 +49,7 @@ export interface ITaskFilter {
 	task?: string;
 }
 
-interface IWorkspaceTaskResult {
+interface WorkspaceInterfaceTaskResult {
 	set: ITaskSet | undefined;
 	configurations: {
 		byIdentifier: IStringDictionary<ConfiguringTask>;
@@ -57,8 +57,8 @@ interface IWorkspaceTaskResult {
 	hasErrors: boolean;
 }
 
-export interface IWorkspaceFolderTaskResult extends IWorkspaceTaskResult {
-	workspaceFolder: IWorkspaceFolder;
+export interface WorkspaceInterfaceFolderTaskResult extends WorkspaceInterfaceTaskResult {
+	workspaceFolder: WorkspaceInterfaceFolder;
 }
 
 export interface ITaskService {
@@ -84,7 +84,7 @@ export interface ITaskService {
 	 */
 	getKnownTasks(filter?: ITaskFilter): Promise<Task[]>;
 	taskTypes(): string[];
-	getWorkspaceTasks(runSource?: TaskRunSource): Promise<Map<string, IWorkspaceFolderTaskResult>>;
+	getWorkspaceTasks(runSource?: TaskRunSource): Promise<Map<string, WorkspaceInterfaceFolderTaskResult>>;
 	getSavedTasks(type: 'persistent' | 'historical'): Promise<(Task | ConfiguringTask)[]>;
 	removeRecentlyUsedTask(taskRecentlyUsedKey: string): void;
 	getTerminalsForTasks(tasks: Task | Task[]): URI[] | undefined;
@@ -92,7 +92,7 @@ export interface ITaskService {
 	/**
 	 * @param alias The task's name, label or defined identifier.
 	 */
-	getTask(workspaceFolder: IWorkspace | IWorkspaceFolder | string, alias: string | ITaskIdentifier, compareId?: boolean): Promise<Task | undefined>;
+	getTask(workspaceFolder: WorkspaceInterface | WorkspaceInterfaceFolder | string, alias: string | ITaskIdentifier, compareId?: boolean): Promise<Task | undefined>;
 	tryResolveTask(configuringTask: ConfiguringTask): Promise<Task | undefined>;
 	createSorter(): TaskSorter;
 

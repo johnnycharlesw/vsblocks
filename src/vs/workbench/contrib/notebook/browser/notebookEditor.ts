@@ -19,7 +19,7 @@ import { IContextKeyService } from '../../../../platform/contextkey/common/conte
 import { IEditorOptions } from '../../../../platform/editor/common/editor.js';
 import { ByteSize, FileOperationError, FileOperationResult, IFileService, TooLargeFileOperationError } from '../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { Selection } from '../../../../editor/common/core/selection.js';
@@ -84,7 +84,7 @@ export class NotebookEditor extends EditorPane implements INotebookEditorPane, I
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IEditorService private readonly _editorService: IEditorService,
 		@IEditorGroupsService private readonly _editorGroupService: IEditorGroupsService,
 		@INotebookEditorService private readonly _notebookWidgetService: INotebookEditorService,

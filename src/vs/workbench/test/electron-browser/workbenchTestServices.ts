@@ -15,7 +15,7 @@ import { ModelService } from '../../../editor/common/services/modelService.js';
 import { TestConfigurationService } from '../../../platform/configuration/test/common/testConfigurationService.js';
 import { IContextKeyService } from '../../../platform/contextkey/common/contextkey.js';
 import { IFileDialogService, INativeOpenDialogOptions } from '../../../platform/dialogs/common/dialogs.js';
-import { IEnvironmentService, INativeEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface, NativeEnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { IExtensionManagementService } from '../../../platform/extensionManagement/common/extensionManagement.js';
 import { AbstractNativeExtensionTipsService } from '../../../platform/extensionManagement/common/extensionTipsService.js';
 import { IExtensionRecommendationNotificationService } from '../../../platform/extensionRecommendations/common/extensionRecommendations.js';
@@ -28,18 +28,18 @@ import { NullLogService } from '../../../platform/log/common/log.js';
 import { INativeHostOptions, INativeHostService, IOSProperties, IOSStatistics } from '../../../platform/native/common/native.js';
 import { IProductService } from '../../../platform/product/common/productService.js';
 import { AuthInfo, Credentials } from '../../../platform/request/common/request.js';
-import { IStorageService } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../platform/telemetry/common/telemetry.js';
 import { IPartsSplash } from '../../../platform/theme/common/themeService.js';
 import { UriIdentityService } from '../../../platform/uriIdentity/common/uriIdentityService.js';
 import { FileUserDataProvider } from '../../../platform/userData/common/fileUserDataProvider.js';
 import { UserDataProfilesService } from '../../../platform/userDataProfile/common/userDataProfile.js';
 import { IColorScheme, IOpenedMainWindow, IOpenEmptyWindowOptions, IOpenWindowOptions, IPoint, IRectangle, IWindowOpenable } from '../../../platform/window/common/window.js';
-import { IWorkspaceContextService } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../platform/workspace/common/workspace.js';
 import { IEditorService } from '../../services/editor/common/editorService.js';
 import { IFilesConfigurationService } from '../../services/filesConfiguration/common/filesConfigurationService.js';
 import { ILifecycleService } from '../../services/lifecycle/common/lifecycle.js';
-import { IPathService } from '../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../services/path/common/pathService.js';
 import { ITextEditorService } from '../../services/textfile/common/textEditorService.js';
 import { ITextFileService } from '../../services/textfile/common/textfiles.js';
 import { NativeTextFileService } from '../../services/textfile/electron-browser/nativeTextFileService.js';
@@ -177,10 +177,10 @@ export class TestNativeHostService implements INativeHostService {
 export class TestExtensionTipsService extends AbstractNativeExtensionTipsService {
 
 	constructor(
-		@INativeEnvironmentService environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface environmentService: NativeEnvironmentServiceInterface,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IExtensionManagementService extensionManagementService: IExtensionManagementService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@INativeHostService nativeHostService: INativeHostService,
 		@IExtensionRecommendationNotificationService extensionRecommendationNotificationService: IExtensionRecommendationNotificationService,
 		@IFileService fileService: IFileService,
@@ -191,11 +191,11 @@ export class TestExtensionTipsService extends AbstractNativeExtensionTipsService
 }
 
 export function workbenchInstantiationService(overrides?: {
-	environmentService?: (instantiationService: IInstantiationService) => IEnvironmentService;
+	environmentService?: (instantiationService: IInstantiationService) => EnvironmentServiceInterface;
 	fileService?: (instantiationService: IInstantiationService) => IFileService;
 	configurationService?: (instantiationService: IInstantiationService) => TestConfigurationService;
 	textFileService?: (instantiationService: IInstantiationService) => ITextFileService;
-	pathService?: (instantiationService: IInstantiationService) => IPathService;
+	pathService?: (instantiationService: IInstantiationService) => PathInterfaceService;
 	editorService?: (instantiationService: IInstantiationService) => IEditorService;
 	contextKeyService?: (instantiationService: IInstantiationService) => IContextKeyService;
 	textEditorService?: (instantiationService: IInstantiationService) => ITextEditorService;
@@ -215,7 +215,7 @@ export class TestServiceAccessor {
 		@ILifecycleService public lifecycleService: TestLifecycleService,
 		@ITextFileService public textFileService: TestTextFileService,
 		@IFilesConfigurationService public filesConfigurationService: TestFilesConfigurationService,
-		@IWorkspaceContextService public contextService: TestContextService,
+		@WorkspaceContextServiceInterface public contextService: TestContextService,
 		@IModelService public modelService: ModelService,
 		@IFileService public fileService: TestFileService,
 		@INativeHostService public nativeHostService: TestNativeHostService,

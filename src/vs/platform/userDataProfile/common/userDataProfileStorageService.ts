@@ -6,7 +6,7 @@
 import { Disposable, DisposableMap, MutableDisposable, isDisposable, toDisposable } from '../../../base/common/lifecycle.js';
 import { IStorage, IStorageDatabase, Storage } from '../../../base/parts/storage/common/storage.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
-import { AbstractStorageService, IStorageService, IStorageValueChangeEvent, StorageScope, StorageTarget, isProfileUsingDefaultStorage } from '../../storage/common/storage.js';
+import { AbstractStorageService, StorageServiceInterface, IStorageValueChangeEvent, StorageScope, StorageTarget, isProfileUsingDefaultStorage } from '../../storage/common/storage.js';
 import { Emitter, Event } from '../../../base/common/event.js';
 import { IRemoteService } from '../../ipc/common/services.js';
 import { ILogService } from '../../log/common/log.js';
@@ -54,7 +54,7 @@ export interface IUserDataProfileStorageService {
 	/**
 	 * Calls a function with a storage service scoped to given profile.
 	 */
-	withProfileScopedStorageService<T>(profile: IUserDataProfile, fn: (storageService: IStorageService) => Promise<T>): Promise<T>;
+	withProfileScopedStorageService<T>(profile: IUserDataProfile, fn: (storageService: StorageServiceInterface) => Promise<T>): Promise<T>;
 }
 
 export abstract class AbstractUserDataProfileStorageService extends Disposable implements IUserDataProfileStorageService {
@@ -67,7 +67,7 @@ export abstract class AbstractUserDataProfileStorageService extends Disposable i
 
 	constructor(
 		persistStorages: boolean,
-		@IStorageService protected readonly storageService: IStorageService
+		@StorageServiceInterface protected readonly storageService: StorageServiceInterface
 	) {
 		super();
 		if (persistStorages) {
@@ -83,7 +83,7 @@ export abstract class AbstractUserDataProfileStorageService extends Disposable i
 		return this.withProfileScopedStorageService(profile, async storageService => this.writeItems(storageService, data, target));
 	}
 
-	async withProfileScopedStorageService<T>(profile: IUserDataProfile, fn: (storageService: IStorageService) => Promise<T>): Promise<T> {
+	async withProfileScopedStorageService<T>(profile: IUserDataProfile, fn: (storageService: StorageServiceInterface) => Promise<T>): Promise<T> {
 		if (this.storageService.hasScope(profile)) {
 			return fn(this.storageService);
 		}
@@ -115,7 +115,7 @@ export abstract class AbstractUserDataProfileStorageService extends Disposable i
 		}
 	}
 
-	private getItems(storageService: IStorageService): Map<string, IStorageValue> {
+	private getItems(storageService: StorageServiceInterface): Map<string, IStorageValue> {
 		const result = new Map<string, IStorageValue>();
 		const populate = (target: StorageTarget) => {
 			for (const key of storageService.keys(StorageScope.PROFILE, target)) {
@@ -127,7 +127,7 @@ export abstract class AbstractUserDataProfileStorageService extends Disposable i
 		return result;
 	}
 
-	private writeItems(storageService: IStorageService, items: Map<string, string | undefined | null>, target: StorageTarget): void {
+	private writeItems(storageService: StorageServiceInterface, items: Map<string, string | undefined | null>, target: StorageTarget): void {
 		storageService.storeAll(Array.from(items.entries()).map(([key, value]) => ({ key, value, scope: StorageScope.PROFILE, target })), true);
 	}
 
@@ -143,7 +143,7 @@ export class RemoteUserDataProfileStorageService extends AbstractUserDataProfile
 		persistStorages: boolean,
 		private readonly remoteService: IRemoteService,
 		userDataProfilesService: IUserDataProfilesService,
-		storageService: IStorageService,
+		storageService: StorageServiceInterface,
 		logService: ILogService,
 	) {
 		super(persistStorages, storageService);

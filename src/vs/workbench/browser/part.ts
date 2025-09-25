@@ -7,7 +7,7 @@ import './media/part.css';
 import { Component } from '../common/component.js';
 import { IThemeService, IColorTheme } from '../../platform/theme/common/themeService.js';
 import { Dimension, size, IDimension, getActiveDocument, prepend, IDomPosition } from '../../base/browser/dom.js';
-import { IStorageService } from '../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../platform/storage/common/storage.js';
 import { ISerializableView, IViewSize } from '../../base/browser/ui/grid/grid.js';
 import { Event, Emitter } from '../../base/common/event.js';
 import { IWorkbenchLayoutService } from '../services/layout/browser/layoutService.js';
@@ -52,7 +52,7 @@ export abstract class Part extends Component implements ISerializableView {
 		id: string,
 		private options: IPartOptions,
 		themeService: IThemeService,
-		storageService: IStorageService,
+		storageService: StorageServiceInterface,
 		protected readonly layoutService: IWorkbenchLayoutService
 	) {
 		super(id, themeService, storageService);

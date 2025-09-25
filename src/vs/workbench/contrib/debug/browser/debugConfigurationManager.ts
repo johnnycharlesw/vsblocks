@@ -22,9 +22,9 @@ import { IJSONContributionRegistry, Extensions as JSONExtensions } from '../../.
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService, IWorkspaceFolder, IWorkspaceFoldersChangeEvent, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkspaceInterfaceFoldersChangeEvent, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IEditorPane } from '../../../common/editor.js';
 import { launchSchemaId } from '../../../services/configuration/common/configuration.js';
 import { ACTIVE_GROUP, IEditorService } from '../../../services/editor/common/editorService.js';
@@ -65,11 +65,11 @@ export class ConfigurationManager implements IConfigurationManager {
 
 	constructor(
 		private readonly adapterManager: IAdapterManager,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IHistoryService private readonly historyService: IHistoryService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
@@ -319,7 +319,7 @@ export class ConfigurationManager implements IConfigurationManager {
 	}
 
 	private registerListeners(): void {
-		this.toDispose.push(Event.any<IWorkspaceFoldersChangeEvent | WorkbenchState>(this.contextService.onDidChangeWorkspaceFolders, this.contextService.onDidChangeWorkbenchState)(() => {
+		this.toDispose.push(Event.any<WorkspaceInterfaceFoldersChangeEvent | WorkbenchState>(this.contextService.onDidChangeWorkspaceFolders, this.contextService.onDidChangeWorkbenchState)(() => {
 			this.initLaunches();
 			this.selectConfiguration(undefined);
 			this.setCompoundSchemaValues();
@@ -498,7 +498,7 @@ export class ConfigurationManager implements IConfigurationManager {
 abstract class AbstractLaunch implements ILaunch {
 	abstract readonly uri: uri;
 	abstract readonly name: string;
-	abstract readonly workspace: IWorkspaceFolder | undefined;
+	abstract readonly workspace: WorkspaceInterfaceFolder | undefined;
 	protected abstract getConfig(): IGlobalConfig | undefined;
 	abstract openConfigFile(options: { preserveFocus: boolean; type?: string | undefined; suppressInitialConfigs?: boolean | undefined }, token?: CancellationToken | undefined): Promise<{ editor: IEditorPane | null; created: boolean }>;
 
@@ -604,7 +604,7 @@ class Launch extends AbstractLaunch implements ILaunch {
 	constructor(
 		configurationManager: ConfigurationManager,
 		adapterManager: IAdapterManager,
-		public workspace: IWorkspaceFolder,
+		public workspace: WorkspaceInterfaceFolder,
 		@IFileService private readonly fileService: IFileService,
 		@ITextFileService private readonly textFileService: ITextFileService,
 		@IEditorService private readonly editorService: IEditorService,
@@ -687,7 +687,7 @@ class WorkspaceLaunch extends AbstractLaunch implements ILaunch {
 		adapterManager: IAdapterManager,
 		@IEditorService private readonly editorService: IEditorService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface
 	) {
 		super(configurationManager, adapterManager);
 	}

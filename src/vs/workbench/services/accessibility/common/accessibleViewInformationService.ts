@@ -6,7 +6,7 @@
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { ACCESSIBLE_VIEW_SHOWN_STORAGE_PREFIX } from '../../../../platform/accessibility/common/accessibility.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../platform/storage/common/storage.js';
 
 export interface IAccessibleViewInformationService {
 	_serviceBrand: undefined;
@@ -17,7 +17,7 @@ export const IAccessibleViewInformationService = createDecorator<IAccessibleView
 
 export class AccessibleViewInformationService extends Disposable implements IAccessibleViewInformationService {
 	declare readonly _serviceBrand: undefined;
-	constructor(@IStorageService private readonly _storageService: IStorageService) {
+	constructor(@StorageServiceInterface private readonly _storageService: StorageServiceInterface) {
 		super();
 	}
 	hasShownAccessibleView(viewId: string): boolean {

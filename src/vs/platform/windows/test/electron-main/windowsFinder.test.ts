@@ -15,7 +15,7 @@ import { INativeWindowConfiguration } from '../../../window/common/window.js';
 import { ICodeWindow, ILoadEvent, IWindowState } from '../../../window/electron-main/window.js';
 import { findWindowOnFile } from '../../electron-main/windowsFinder.js';
 import { toWorkspaceFolders } from '../../../workspaces/common/workspaces.js';
-import { IWorkspaceIdentifier } from '../../../workspace/common/workspace.js';
+import { WorkspaceIdentifierInterface } from '../../../workspace/common/workspace.js';
 import { FileAccess } from '../../../../base/common/network.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 import { FocusMode } from '../../../native/common/native.js';
@@ -24,7 +24,7 @@ suite('WindowsFinder', () => {
 
 	const fixturesFolder = FileAccess.asFileUri('vs/platform/windows/test/electron-main/fixtures').fsPath;
 
-	const testWorkspace: IWorkspaceIdentifier = {
+	const testWorkspace: WorkspaceIdentifierInterface = {
 		id: Date.now().toString(),
 		configPath: URI.file(join(fixturesFolder, 'workspaces.json'))
 	};
@@ -32,7 +32,7 @@ suite('WindowsFinder', () => {
 	const testWorkspaceFolders = toWorkspaceFolders([{ path: join(fixturesFolder, 'vscode_workspace_1_folder') }, { path: join(fixturesFolder, 'vscode_workspace_2_folder') }], testWorkspace.configPath, extUriBiasedIgnorePathCase);
 	const localWorkspaceResolver = async (workspace: any) => { return workspace === testWorkspace ? { id: testWorkspace.id, configPath: workspace.configPath, folders: testWorkspaceFolders } : undefined; };
 
-	function createTestCodeWindow(options: { lastFocusTime: number; openedFolderUri?: URI; openedWorkspace?: IWorkspaceIdentifier }): ICodeWindow {
+	function createTestCodeWindow(options: { lastFocusTime: number; openedFolderUri?: URI; openedWorkspace?: WorkspaceIdentifierInterface }): ICodeWindow {
 		return new class implements ICodeWindow {
 			onWillLoad: Event<ILoadEvent> = Event.None;
 			onDidMaximize = Event.None;

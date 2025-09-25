@@ -11,9 +11,9 @@ import { EditorInput } from '../../../common/editor/editorInput.js';
 import { IEditorService } from '../../editor/common/editorService.js';
 import { GoFilter, GoScope, IHistoryService } from '../common/history.js';
 import { FileChangesEvent, IFileService, FileChangeType, FILES_EXCLUDE_CONFIG, FileOperationEvent, FileOperation } from '../../../../platform/files/common/files.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { dispose, Disposable, DisposableStore, IDisposable } from '../../../../base/common/lifecycle.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Emitter, Event } from '../../../../base/common/event.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { IEditorGroup, IEditorGroupsService } from '../../editor/common/editorGroupsService.js';
@@ -25,11 +25,11 @@ import { IContextKey, IContextKeyService, RawContextKey } from '../../../../plat
 import { coalesce, remove } from '../../../../base/common/arrays.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { addDisposableListener, EventType, EventHelper, WindowIdleValue } from '../../../../base/browser/dom.js';
-import { IWorkspacesService } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService } from '../../../../platform/workspaces/common/workspaces.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { onUnexpectedError } from '../../../../base/common/errors.js';
 import { ResourceGlobMatcher } from '../../../common/resources.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { ILifecycleService, LifecyclePhase } from '../../lifecycle/common/lifecycle.js';
 import { ILogService, LogLevel } from '../../../../platform/log/common/log.js';
@@ -65,11 +65,11 @@ export class HistoryService extends Disposable implements IHistoryService {
 	constructor(
 		@IEditorService private readonly editorService: EditorServiceImpl,
 		@IEditorGroupsService private readonly editorGroupService: IEditorGroupsService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
-		@IStorageService private readonly storageService: IStorageService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IFileService private readonly fileService: IFileService,
-		@IWorkspacesService private readonly workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService private readonly workspacesService: WorkspaceInterfacesService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IWorkbenchLayoutService private readonly layoutService: IWorkbenchLayoutService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
@@ -96,7 +96,7 @@ export class HistoryService extends Disposable implements IHistoryService {
 
 		// if the service is created late enough that an editor is already opened
 		// make sure to trigger the onActiveEditorChanged() to track the editor
-		// properly (fixes https://github.com/microsoft/vscode/issues/59908)
+		// properly (fixes https://github.com/johnnycharlesw/vsblocks/issues/59908)
 		if (this.editorService.activeEditorPane) {
 			this.onDidActiveEditorChange();
 		}
@@ -205,7 +205,7 @@ export class HistoryService extends Disposable implements IHistoryService {
 
 		// Handle editor change unless the editor is transient. In that case
 		// setup a listener to see if the transient editor becomes non-transient
-		// (https://github.com/microsoft/vscode/issues/211769)
+		// (https://github.com/johnnycharlesw/vsblocks/issues/211769)
 		if (!activeEditorPane?.group.isTransient(activeEditorPane.input)) {
 			this.handleActiveEditorChange(activeEditorGroup, activeEditorPane);
 		} else {
@@ -736,7 +736,7 @@ export class HistoryService extends Disposable implements IHistoryService {
 		let editorPane: IEditorPane | undefined = undefined;
 		if (!this.editorGroupService.activeGroup.contains(lastClosedEditor.editor)) {
 
-			// Fix for https://github.com/microsoft/vscode/issues/107850
+			// Fix for https://github.com/johnnycharlesw/vsblocks/issues/107850
 			// If opening an editor fails, it is possible that we get
 			// another editor-close event as a result. But we really do
 			// want to ignore that in our list of recently closed editors
@@ -759,7 +759,7 @@ export class HistoryService extends Disposable implements IHistoryService {
 		// If no editor was opened, try with the next one
 		if (!editorPane) {
 
-			// Fix for https://github.com/microsoft/vscode/issues/67882
+			// Fix for https://github.com/johnnycharlesw/vsblocks/issues/67882
 			// If opening of the editor fails, make sure to try the next one
 			// but make sure to remove this one from the list to prevent
 			// endless loops.
@@ -1096,7 +1096,7 @@ export class HistoryService extends Disposable implements IHistoryService {
 					}
 				}
 			} catch (error) {
-				onUnexpectedError(error); // https://github.com/microsoft/vscode/issues/99075
+				onUnexpectedError(error); // https://github.com/johnnycharlesw/vsblocks/issues/99075
 			}
 		}
 
@@ -2026,7 +2026,7 @@ class EditorHelper {
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@ILifecycleService private readonly lifecycleService: ILifecycleService,
 		@IFileService private readonly fileService: IFileService,
-		@IPathService private readonly pathService: IPathService
+		@PathInterfaceService private readonly pathService: PathInterfaceService
 	) { }
 
 	preferResourceEditorInput(editor: EditorInput): EditorInput | IResourceEditorInput;
@@ -2036,7 +2036,7 @@ class EditorHelper {
 		const resource = EditorResourceAccessor.getOriginalUri(editor);
 
 		// For now, only prefer well known schemes that we control to prevent
-		// issues such as https://github.com/microsoft/vscode/issues/85204
+		// issues such as https://github.com/johnnycharlesw/vsblocks/issues/85204
 		// from being used as resource inputs
 		// resource inputs survive editor disposal and as such are a lot more
 		// durable across editor changes and restarts
@@ -2111,7 +2111,7 @@ class EditorHelper {
 			}
 
 			if (this.lifecycleService.phase >= LifecyclePhase.Restored && !this.fileService.hasProvider(inputResource)) {
-				return false; // make sure to only check this when workbench has restored (for https://github.com/microsoft/vscode/issues/48275)
+				return false; // make sure to only check this when workbench has restored (for https://github.com/johnnycharlesw/vsblocks/issues/48275)
 			}
 
 			return this.uriIdentityService.extUri.isEqual(inputResource, resource);

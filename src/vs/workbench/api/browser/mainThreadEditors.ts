@@ -20,7 +20,7 @@ import { ExtHostContext, ExtHostEditorsShape, IApplyEditsOptions, ITextDocumentS
 import { editorGroupToColumn, columnToEditorGroup, EditorGroupColumn } from '../../services/editor/common/editorGroupColumn.js';
 import { IEditorService } from '../../services/editor/common/editorService.js';
 import { IEditorGroupsService } from '../../services/editor/common/editorGroupsService.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { IWorkingCopyService } from '../../services/workingCopy/common/workingCopyService.js';
 import { ExtensionIdentifier } from '../../../platform/extensions/common/extensions.js';
 import { IChange } from '../../../editor/common/diff/legacyLinesDiffComputer.js';
@@ -247,7 +247,7 @@ export class MainThreadTextEditors implements MainThreadTextEditorsShape {
 			pinned: options.pinned,
 			selection: options.selection,
 			// preserve pre 1.38 behaviour to not make group active when preserveFocus: true
-			// but make sure to restore the editor to fix https://github.com/microsoft/vscode/issues/79633
+			// but make sure to restore the editor to fix https://github.com/johnnycharlesw/vsblocks/issues/79633
 			activation: options.preserveFocus ? EditorActivation.RESTORE : undefined,
 			override: EditorResolution.EXCLUSIVE_ONLY
 		};
@@ -410,7 +410,7 @@ export class MainThreadTextEditors implements MainThreadTextEditorsShape {
 // --- commands
 
 CommandsRegistry.registerCommand('_workbench.revertAllDirty', async function (accessor: ServicesAccessor) {
-	const environmentService = accessor.get(IEnvironmentService);
+	const environmentService = accessor.get(EnvironmentServiceInterface);
 	if (!environmentService.extensionTestsLocationURI) {
 		throw new Error('Command is only available when running extension tests.');
 	}

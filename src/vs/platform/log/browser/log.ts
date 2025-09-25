@@ -6,7 +6,7 @@
 import { mainWindow } from '../../../base/browser/window.js';
 import { relativePath } from '../../../base/common/resources.js';
 import { URI } from '../../../base/common/uri.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { AdapterLogger, DEFAULT_LOG_LEVEL, ILogger, LogLevel } from '../common/log.js';
 
@@ -25,7 +25,7 @@ export interface ILogFile {
  * but in IndexedDB. A method to get all logs with their contents so that
  * CI automation can persist them.
  */
-export async function getLogs(fileService: IFileService, environmentService: IEnvironmentService): Promise<ILogFile[]> {
+export async function getLogs(fileService: IFileService, environmentService: EnvironmentServiceInterface): Promise<ILogFile[]> {
 	const result: ILogFile[] = [];
 
 	await doGetLogs(fileService, result, environmentService.logsHome, environmentService.logsHome);
@@ -81,7 +81,7 @@ export class ConsoleLogInAutomationLogger extends AdapterLogger implements ILogg
 			try {
 				automatedWindow.codeAutomationLog(type, args);
 			} catch (err) {
-				// see https://github.com/microsoft/vscode-test-web/issues/69
+				// see https://github.com/johnnycharlesw/vsblocks-test-web/issues/69
 				console.error('Problems writing to codeAutomationLog', err);
 			}
 		}

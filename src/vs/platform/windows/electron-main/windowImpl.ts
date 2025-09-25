@@ -32,10 +32,10 @@ import { IApplicationStorageMainService, IStorageMainService } from '../../stora
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { ThemeIcon } from '../../../base/common/themables.js';
 import { IThemeMainService } from '../../theme/electron-main/themeMainService.js';
-import { getMenuBarVisibility, IFolderToOpen, INativeWindowConfiguration, IWindowSettings, IWorkspaceToOpen, MenuBarVisibility, hasNativeTitlebar, useNativeFullScreen, useWindowControlsOverlay, DEFAULT_CUSTOM_TITLEBAR_HEIGHT, TitlebarStyle, MenuSettings } from '../../window/common/window.js';
+import { getMenuBarVisibility, IFolderToOpen, INativeWindowConfiguration, IWindowSettings, WorkspaceInterfaceToOpen, MenuBarVisibility, hasNativeTitlebar, useNativeFullScreen, useWindowControlsOverlay, DEFAULT_CUSTOM_TITLEBAR_HEIGHT, TitlebarStyle, MenuSettings } from '../../window/common/window.js';
 import { defaultBrowserWindowOptions, getAllWindowsExcludingOffscreen, IWindowsMainService, OpenContext, WindowStateValidator } from './windows.js';
-import { ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, toWorkspaceIdentifier } from '../../workspace/common/workspace.js';
-import { IWorkspacesManagementMainService } from '../../workspaces/electron-main/workspacesManagementMainService.js';
+import { SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, toWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { WorkspaceInterfacesManagementMainService } from '../../workspaces/electron-main/workspacesManagementMainService.js';
 import { IWindowState, ICodeWindow, ILoadEvent, WindowMode, WindowError, LoadReason, defaultWindowState, IBaseWindow } from '../../window/electron-main/window.js';
 import { IPolicyService } from '../../policy/common/policy.js';
 import { IUserDataProfile } from '../../userDataProfile/common/userDataProfile.js';
@@ -205,7 +205,7 @@ export abstract class BaseWindow extends Disposable implements IBaseWindow {
 				const cx = Math.floor(cursorPos.x) - x;
 				const cy = Math.floor(cursorPos.y) - y;
 
-				// TODO@bpasero TODO@deepak1556 workaround for https://github.com/microsoft/vscode/issues/250626
+				// TODO@bpasero TODO@deepak1556 workaround for https://github.com/johnnycharlesw/vsblocks/issues/250626
 				// where showing the custom menu seems broken on Windows
 				if (isLinux) {
 					if (cx > 35 /* Cursor is beyond app icon in title bar */) {
@@ -265,13 +265,13 @@ export abstract class BaseWindow extends Disposable implements IBaseWindow {
 
 		// TODO@electron (Electron 4 regression): when running on multiple displays where the target display
 		// to open the window has a larger resolution than the primary display, the window will not size
-		// correctly unless we set the bounds again (https://github.com/microsoft/vscode/issues/74872)
+		// correctly unless we set the bounds again (https://github.com/johnnycharlesw/vsblocks/issues/74872)
 		//
-		// Extended to cover Windows as well as Mac (https://github.com/microsoft/vscode/issues/146499)
+		// Extended to cover Windows as well as Mac (https://github.com/johnnycharlesw/vsblocks/issues/146499)
 		//
 		// However, when running with native tabs with multiple windows we cannot use this workaround
 		// because there is a potential that the new window will be added as native tab instead of being
-		// a window on its own. In that case calling setBounds() would cause https://github.com/microsoft/vscode/issues/75830
+		// a window on its own. In that case calling setBounds() would cause https://github.com/johnnycharlesw/vsblocks/issues/75830
 
 		const windowSettings = this.configurationService.getValue<IWindowSettings | undefined>('window');
 		const useNativeTabs = isMacintosh && windowSettings?.nativeTabs === true;
@@ -576,7 +576,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 
 	get backupPath(): string | undefined { return this._config?.backupPath; }
 
-	get openedWorkspace(): IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined { return this._config?.workspace; }
+	get openedWorkspace(): WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined { return this._config?.workspace; }
 
 	get profile(): IUserDataProfile | undefined {
 		if (!this.config) {
@@ -637,7 +637,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 		@IStorageMainService private readonly storageMainService: IStorageMainService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IThemeMainService private readonly themeMainService: IThemeMainService,
-		@IWorkspacesManagementMainService private readonly workspacesManagementMainService: IWorkspacesManagementMainService,
+		@WorkspaceInterfacesManagementMainService private readonly workspacesManagementMainService: WorkspaceInterfacesManagementMainService,
 		@IBackupMainService private readonly backupMainService: IBackupMainService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IDialogMainService private readonly dialogMainService: IDialogMainService,
@@ -767,7 +767,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 		// through DOM events. We have our own logic for
 		// unloading a window that should not be confused
 		// with the DOM way.
-		// (https://github.com/microsoft/vscode/issues/122736)
+		// (https://github.com/johnnycharlesw/vsblocks/issues/122736)
 		this._register(Event.fromNodeEventEmitter<electron.Event>(this._win.webContents, 'will-prevent-unload')(event => event.preventDefault()));
 
 		// Remember that we loaded
@@ -903,7 +903,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 				// Unresponsive
 				if (type === WindowError.UNRESPONSIVE) {
 					if (this.isExtensionDevelopmentHost || this.isExtensionTestHost || (this._win && this._win.webContents && this._win.webContents.isDevToolsOpened())) {
-						// TODO@electron Workaround for https://github.com/microsoft/vscode/issues/56994
+						// TODO@electron Workaround for https://github.com/johnnycharlesw/vsblocks/issues/56994
 						// In certain cases the window can report unresponsiveness because a breakpoint was hit
 						// and the process is stopped executing. The most typical cases are:
 						// - devtools are opened and debugging happens
@@ -998,7 +998,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 			if (reopen && this._config) {
 
 				// We have to reconstruct a openable from the current workspace
-				let uriToOpen: IWorkspaceToOpen | IFolderToOpen | undefined = undefined;
+				let uriToOpen: WorkspaceInterfaceToOpen | IFolderToOpen | undefined = undefined;
 				let forceEmpty = undefined;
 				if (isSingleFolderWorkspaceIdentifier(workspace)) {
 					uriToOpen = { folderUri: workspace.uri };
@@ -1031,7 +1031,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 		}
 	}
 
-	private onDidDeleteUntitledWorkspace(workspace: IWorkspaceIdentifier): void {
+	private onDidDeleteUntitledWorkspace(workspace: WorkspaceIdentifierInterface): void {
 
 		// Make sure to update our workspace config if we detect that it
 		// was deleted
@@ -1160,10 +1160,10 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 		// (as indicated by VSCODE_CLI environment), make sure to
 		// preserve that user environment in subsequent loads,
 		// unless the new configuration context was also a CLI
-		// (for https://github.com/microsoft/vscode/issues/108571)
+		// (for https://github.com/johnnycharlesw/vsblocks/issues/108571)
 		// Also, preserve the environment if we're loading from an
 		// extension development host that had its environment set
-		// (for https://github.com/microsoft/vscode/issues/123508)
+		// (for https://github.com/johnnycharlesw/vsblocks/issues/123508)
 		const currentUserEnv = (this._config ?? this.pendingLoadConfig)?.userEnv;
 		if (currentUserEnv) {
 			const shouldPreserveLaunchCliEnvironment = isLaunchedFromCli(currentUserEnv) && !isLaunchedFromCli(configuration.userEnv);
@@ -1175,7 +1175,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 
 		// If named pipe was instantiated for the crashpad_handler process, reuse the same
 		// pipe for new app instances connecting to the original app instance.
-		// Ref: https://github.com/microsoft/vscode/issues/115874
+		// Ref: https://github.com/johnnycharlesw/vsblocks/issues/115874
 		if (process.env['CHROME_CRASHPAD_PIPE_NAME']) {
 			Object.assign(configuration.userEnv, {
 				CHROME_CRASHPAD_PIPE_NAME: process.env['CHROME_CRASHPAD_PIPE_NAME']
@@ -1252,7 +1252,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 		this.load(configuration, { isReload: true, disableExtensions: cli?.['disable-extensions'] });
 	}
 
-	private async validateWorkspaceBeforeReload(configuration: INativeWindowConfiguration): Promise<IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined> {
+	private async validateWorkspaceBeforeReload(configuration: INativeWindowConfiguration): Promise<WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined> {
 
 		// Multi folder
 		if (isWorkspaceIdentifier(configuration.workspace)) {
@@ -1292,7 +1292,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 				display = electron.screen.getDisplayMatching(this.getBounds());
 			} catch (error) {
 				// Electron has weird conditions under which it throws errors
-				// e.g. https://github.com/microsoft/vscode/issues/100334 when
+				// e.g. https://github.com/johnnycharlesw/vsblocks/issues/100334 when
 				// large numbers are passed in
 			}
 
@@ -1305,7 +1305,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 				// Still carry over window dimensions from previous sessions
 				// if we can compute it in fullscreen state.
 				// does not seem possible in all cases on Linux for example
-				// (https://github.com/microsoft/vscode/issues/58218) so we
+				// (https://github.com/johnnycharlesw/vsblocks/issues/58218) so we
 				// fallback to the defaults in that case.
 				width: this.windowState.width || defaultState.width,
 				height: this.windowState.height || defaultState.height,
@@ -1418,7 +1418,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 
 		if (visibility === 'hidden') {
 			// for some weird reason that I have no explanation for, the menu bar is not hiding when calling
-			// this without timeout (see https://github.com/microsoft/vscode/issues/19777). there seems to be
+			// this without timeout (see https://github.com/johnnycharlesw/vsblocks/issues/19777). there seems to be
 			// a timing issue with us opening the first window and the menu bar getting created. somehow the
 			// fact that we want to hide the menu without being able to bring it back via Alt key makes Electron
 			// still show the menu. Unable to reproduce from a simple Hello World application though...

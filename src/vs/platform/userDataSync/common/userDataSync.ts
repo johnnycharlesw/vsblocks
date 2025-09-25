@@ -16,7 +16,7 @@ import { URI } from '../../../base/common/uri.js';
 import { IHeaders } from '../../../base/parts/request/common/request.js';
 import { localize } from '../../../nls.js';
 import { allSettings, ConfigurationScope, Extensions as ConfigurationExtensions, IConfigurationRegistry, IRegisteredConfigurationPropertySchema, getAllConfigurationProperties, parseScope } from '../../configuration/common/configurationRegistry.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { EXTENSION_IDENTIFIER_PATTERN, IExtensionIdentifier } from '../../extensionManagement/common/extensionManagement.js';
 import { IExtensionManifest } from '../../extensions/common/extensions.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
@@ -183,7 +183,7 @@ export function getPathSegments(collection: string | undefined, ...paths: string
 	return collection ? [collection, ...paths] : paths;
 }
 
-export function getLastSyncResourceUri(collection: string | undefined, syncResource: SyncResource, environmentService: IEnvironmentService, extUri: IExtUri): URI {
+export function getLastSyncResourceUri(collection: string | undefined, syncResource: SyncResource, environmentService: EnvironmentServiceInterface, extUri: IExtUri): URI {
 	return extUri.joinPath(environmentService.userDataSyncHome, ...getPathSegments(collection, syncResource, `lastSync${syncResource}.json`));
 }
 
@@ -429,13 +429,13 @@ export interface IGlobalState {
 	storage: IStringDictionary<IStorageValue>;
 }
 
-export interface IWorkspaceState {
-	folders: IWorkspaceStateFolder[];
+export interface WorkspaceInterfaceState {
+	folders: WorkspaceInterfaceStateFolder[];
 	storage: IStringDictionary<string>;
 	version: number;
 }
 
-export interface IWorkspaceStateFolder {
+export interface WorkspaceInterfaceStateFolder {
 	resourceUri: string;
 	workspaceFolderIdentity: string;
 }

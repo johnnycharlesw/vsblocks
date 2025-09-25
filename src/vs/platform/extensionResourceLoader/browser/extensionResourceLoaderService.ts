@@ -8,8 +8,8 @@ import { InstantiationType, registerSingleton } from '../../instantiation/common
 import { IFileService } from '../../files/common/files.js';
 import { FileAccess, Schemas } from '../../../base/common/network.js';
 import { IProductService } from '../../product/common/productService.js';
-import { IStorageService } from '../../storage/common/storage.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { StorageServiceInterface } from '../../storage/common/storage.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { ILogService } from '../../log/common/log.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
 import { AbstractExtensionResourceLoaderService, IExtensionResourceLoaderService } from '../common/extensionResourceLoader.js';
@@ -21,9 +21,9 @@ class ExtensionResourceLoaderService extends AbstractExtensionResourceLoaderServ
 
 	constructor(
 		@IFileService fileService: IFileService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IProductService productService: IProductService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IExtensionGalleryManifestService extensionGalleryManifestService: IExtensionGalleryManifestService,
 		@ILogService logService: ILogService,

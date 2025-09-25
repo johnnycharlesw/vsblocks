@@ -37,7 +37,7 @@ import { IInstantiationService, ServicesAccessor } from '../../../../platform/in
 import { KeybindingWeight } from '../../../../platform/keybinding/common/keybindingsRegistry.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { defaultCheckboxStyles } from '../../../../platform/theme/browser/defaultStyles.js';
 import { buttonForeground, buttonHoverBackground, editorBackground, textLinkActiveForeground, textLinkForeground } from '../../../../platform/theme/common/colorRegistry.js';
@@ -241,7 +241,7 @@ export class ExtensionEditor extends EditorPane {
 		@INotificationService private readonly notificationService: INotificationService,
 		@IOpenerService private readonly openerService: IOpenerService,
 		@IExtensionRecommendationsService private readonly extensionRecommendationsService: IExtensionRecommendationsService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IWebviewService private readonly webviewService: IWebviewService,
 		@ILanguageService private readonly languageService: ILanguageService,

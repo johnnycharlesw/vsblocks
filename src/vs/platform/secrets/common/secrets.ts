@@ -6,7 +6,7 @@
 import { SequencerByKey } from '../../../base/common/async.js';
 import { IEncryptionService } from '../../encryption/common/encryptionService.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
-import { IStorageService, InMemoryStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, InMemoryStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { Emitter, Event } from '../../../base/common/event.js';
 import { ILogService } from '../../log/common/log.js';
 import { Disposable, DisposableStore } from '../../../base/common/lifecycle.js';
@@ -43,7 +43,7 @@ export class BaseSecretStorageService extends Disposable implements ISecretStora
 
 	constructor(
 		private readonly _useInMemoryStorage: boolean,
-		@IStorageService private _storageService: IStorageService,
+		@StorageServiceInterface private _storageService: StorageServiceInterface,
 		@IEncryptionService protected _encryptionService: IEncryptionService,
 		@ILogService protected readonly _logService: ILogService,
 	) {
@@ -58,7 +58,7 @@ export class BaseSecretStorageService extends Disposable implements ISecretStora
 		return this._type;
 	}
 
-	private _lazyStorageService: Lazy<Promise<IStorageService>> = new Lazy(() => this.initialize());
+	private _lazyStorageService: Lazy<Promise<StorageServiceInterface>> = new Lazy(() => this.initialize());
 	protected get resolvedStorageService() {
 		return this._lazyStorageService.value;
 	}
@@ -134,7 +134,7 @@ export class BaseSecretStorageService extends Disposable implements ISecretStora
 		});
 	}
 
-	private async initialize(): Promise<IStorageService> {
+	private async initialize(): Promise<StorageServiceInterface> {
 		let storageService;
 		if (!this._useInMemoryStorage && await this._encryptionService.isEncryptionAvailable()) {
 			this._logService.trace(`[SecretStorageService] Encryption is available, using persisted storage`);

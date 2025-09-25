@@ -5,7 +5,7 @@
 
 import { URI } from '../../../../../base/common/uri.js';
 import { IUriIdentityService } from '../../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { ITerminalLinkDetector, ITerminalLinkResolver, ITerminalSimpleLink, TerminalBuiltinLinkType } from './links.js';
 import { convertLinkRangeToBuffer, getXtermLineContent } from './terminalLinkHelpers.js';
 import type { IBufferLine, Terminal } from '@xterm/xterm';
@@ -58,7 +58,7 @@ export class TerminalMultiLineLinkDetector implements ITerminalLinkDetector {
 		private readonly _linkResolver: ITerminalLinkResolver,
 		@ITerminalLogService private readonly _logService: ITerminalLogService,
 		@IUriIdentityService private readonly _uriIdentityService: IUriIdentityService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface
 	) {
 	}
 

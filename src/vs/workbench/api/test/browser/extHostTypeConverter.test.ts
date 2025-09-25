@@ -9,7 +9,7 @@ import * as extHostTypes from '../../common/extHostTypes.js';
 import { MarkdownString, NotebookCellOutputItem, NotebookData, LanguageSelector, WorkspaceEdit } from '../../common/extHostTypeConverters.js';
 import { isEmptyObject } from '../../../../base/common/types.js';
 import { URI } from '../../../../base/common/uri.js';
-import { IWorkspaceTextEditDto } from '../../common/extHost.protocol.js';
+import { WorkspaceInterfaceTextEditDto } from '../../common/extHost.protocol.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 
 suite('ExtHostTypeConverter', function () {
@@ -134,12 +134,12 @@ suite('ExtHostTypeConverter', function () {
 		ws.set(uri, [extHostTypes.SnippetTextEdit.insert(new extHostTypes.Position(1, 1), new extHostTypes.SnippetString('foo$0bar'))]);
 
 		const dto = WorkspaceEdit.from(ws);
-		const first = <IWorkspaceTextEditDto>dto.edits[0];
+		const first = <WorkspaceInterfaceTextEditDto>dto.edits[0];
 		assert.strictEqual(first.textEdit.insertAsSnippet, true);
 
 		const ws2 = WorkspaceEdit.to(dto);
 		const dto2 = WorkspaceEdit.from(ws2);
-		const first2 = <IWorkspaceTextEditDto>dto2.edits[0];
+		const first2 = <WorkspaceInterfaceTextEditDto>dto2.edits[0];
 		assert.strictEqual(first2.textEdit.insertAsSnippet, true);
 	});
 });

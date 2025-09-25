@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Language, LANGUAGE_DEFAULT } from '../../../../base/common/platform.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { INotificationService, Severity } from '../../../../platform/notification/common/notification.js';
 import { IJSONEditingService } from '../../configuration/common/jsonEditing.js';
 import { IActiveLanguagePackService, ILocaleService } from '../common/locale.js';
@@ -38,7 +38,7 @@ class NativeLocaleService implements ILocaleService {
 
 	constructor(
 		@IJSONEditingService private readonly jsonEditingService: IJSONEditingService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@INotificationService private readonly notificationService: INotificationService,
 		@ILanguagePackService private readonly languagePackService: ILanguagePackService,
 		@IPaneCompositePartService private readonly paneCompositePartService: IPaneCompositePartService,
@@ -56,7 +56,7 @@ class NativeLocaleService implements ILocaleService {
 			const content = await this.textFileService.read(this.environmentService.argvResource, { encoding: 'utf8' });
 
 			// This is the same logic that we do where argv.json is parsed so mirror that:
-			// https://github.com/microsoft/vscode/blob/32d40cf44e893e87ac33ac4f08de1e5f7fe077fc/src/main.js#L238-L246
+			// https://github.com/johnnycharlesw/vsblocks/blob/32d40cf44e893e87ac33ac4f08de1e5f7fe077fc/src/main.js#L238-L246
 			parse(content.value);
 		} catch (error) {
 			this.notificationService.notify({

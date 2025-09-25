@@ -15,7 +15,7 @@ import { EnablementState, IWorkbenchExtensionEnablementService } from '../../../
 import { ILifecycleService } from '../../../../services/lifecycle/common/lifecycle.js';
 import { IExtensionIdentifier, IExtensionManagementService, InstallOperation } from '../../../../../platform/extensionManagement/common/extensionManagement.js';
 import { areSameExtensions } from '../../../../../platform/extensionManagement/common/extensionManagementUtil.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { Memento, MementoObject } from '../../../../common/memento.js';
 import { distinct } from '../../../../../base/common/arrays.js';
 
@@ -53,7 +53,7 @@ export class NotebookKeymapService extends Disposable implements INotebookKeymap
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IWorkbenchExtensionEnablementService private readonly extensionEnablementService: IWorkbenchExtensionEnablementService,
 		@INotificationService private readonly notificationService: INotificationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILifecycleService lifecycleService: ILifecycleService,
 	) {
 		super();

@@ -16,7 +16,7 @@ import { IKeybindingService } from '../../../../platform/keybinding/common/keybi
 import { IContextMenuService } from '../../../../platform/contextview/browser/contextView.js';
 import { append, $ } from '../../../../base/browser/dom.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
-import { ExtensionResultsListFocused, ExtensionState, IExtension, IExtensionsViewState, IExtensionsWorkbenchService, IWorkspaceRecommendedExtensionsView } from '../common/extensions.js';
+import { ExtensionResultsListFocused, ExtensionState, IExtension, IExtensionsViewState, IExtensionsWorkbenchService, WorkspaceInterfaceRecommendedExtensionsView } from '../common/extensions.js';
 import { Query } from '../common/extensionQuery.js';
 import { IExtensionService, toExtension } from '../../../services/extensions/common/extensions.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
@@ -27,7 +27,7 @@ import { WorkbenchPagedList } from '../../../../platform/list/browser/listServic
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { INotificationService, Severity } from '../../../../platform/notification/common/notification.js';
 import { ViewPane, IViewPaneOptions, ViewPaneShowActions } from '../../../browser/parts/views/viewPane.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { coalesce, distinct, range } from '../../../../base/common/arrays.js';
 import { alert } from '../../../../base/browser/ui/aria/aria.js';
 import { CancellationToken, CancellationTokenSource } from '../../../../base/common/cancellation.js';
@@ -39,10 +39,10 @@ import { SeverityIcon } from '../../../../base/browser/ui/severityIcon/severityI
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IViewDescriptorService } from '../../../common/views.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IExtensionManifestPropertiesService } from '../../../services/extensions/common/extensionManifestPropertiesService.js';
 import { isVirtualWorkspace } from '../../../../platform/workspace/common/virtualWorkspace.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { isOfflineError } from '../../../../base/parts/request/common/request.js';
 import { defaultCountBadgeStyles } from '../../../../platform/theme/browser/defaultStyles.js';
@@ -145,17 +145,17 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 		@ITelemetryService protected readonly telemetryService: ITelemetryService,
 		@IHoverService hoverService: IHoverService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IWorkspaceContextService protected contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected contextService: WorkspaceContextServiceInterface,
 		@IExtensionManagementServerService protected readonly extensionManagementServerService: IExtensionManagementServerService,
 		@IExtensionManifestPropertiesService private readonly extensionManifestPropertiesService: IExtensionManifestPropertiesService,
 		@IWorkbenchExtensionManagementService protected readonly extensionManagementService: IWorkbenchExtensionManagementService,
-		@IWorkspaceContextService protected readonly workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected readonly workspaceService: WorkspaceContextServiceInterface,
 		@IProductService protected readonly productService: IProductService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@IOpenerService openerService: IOpenerService,
-		@IStorageService private readonly storageService: IStorageService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IWorkbenchExtensionEnablementService private readonly extensionEnablementService: IWorkbenchExtensionEnablementService,
 		@IExtensionFeaturesManagementService private readonly extensionFeaturesManagementService: IExtensionFeaturesManagementService,
 		@IUriIdentityService protected readonly uriIdentityService: IUriIdentityService,
@@ -1366,17 +1366,17 @@ export class StaticQueryExtensionsView extends ExtensionsListView {
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IHoverService hoverService: IHoverService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IExtensionManagementServerService extensionManagementServerService: IExtensionManagementServerService,
 		@IExtensionManifestPropertiesService extensionManifestPropertiesService: IExtensionManifestPropertiesService,
 		@IWorkbenchExtensionManagementService extensionManagementService: IWorkbenchExtensionManagementService,
-		@IWorkspaceContextService workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceService: WorkspaceContextServiceInterface,
 		@IProductService productService: IProductService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@IOpenerService openerService: IOpenerService,
-		@IStorageService storageService: IStorageService,
-		@IWorkspaceTrustManagementService workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
+		@WorkspaceInterfaceTrustManagementService workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IWorkbenchExtensionEnablementService extensionEnablementService: IWorkbenchExtensionEnablementService,
 		@IExtensionFeaturesManagementService extensionFeaturesManagementService: IExtensionFeaturesManagementService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
@@ -1502,7 +1502,7 @@ export class RecommendedExtensionsView extends ExtensionsListView {
 	}
 }
 
-export class WorkspaceRecommendedExtensionsView extends ExtensionsListView implements IWorkspaceRecommendedExtensionsView {
+export class WorkspaceRecommendedExtensionsView extends ExtensionsListView implements WorkspaceInterfaceRecommendedExtensionsView {
 	private readonly recommendedExtensionsQuery = '@recommended:workspace';
 
 	protected override renderBody(container: HTMLElement): void {

@@ -6,9 +6,9 @@
 import { CancellationToken } from '../../../base/common/cancellation.js';
 import { URI } from '../../../base/common/uri.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
-import { IStorageService } from '../../storage/common/storage.js';
+import { StorageServiceInterface } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { IUserDataProfile } from '../../userDataProfile/common/userDataProfile.js';
@@ -34,8 +34,8 @@ export abstract class AbstractJsonSynchronizer extends AbstractFileSynchroniser 
 		collection: string | undefined,
 		previewFileName: string,
 		@IFileService fileService: IFileService,
-		@IEnvironmentService environmentService: IEnvironmentService,
-		@IStorageService storageService: IStorageService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUserDataSyncStoreService userDataSyncStoreService: IUserDataSyncStoreService,
 		@IUserDataSyncLocalStoreService userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IUserDataSyncEnablementService userDataSyncEnablementService: IUserDataSyncEnablementService,

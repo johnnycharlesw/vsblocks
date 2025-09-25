@@ -40,7 +40,7 @@ import { StandardKeyboardEvent } from '../../../../base/browser/keyboardEvent.js
 import { KeyCode } from '../../../../base/common/keyCodes.js';
 import { defaultCountBadgeStyles } from '../../../../platform/theme/browser/defaultStyles.js';
 import { getDefaultHoverDelegate } from '../../../../base/browser/ui/hover/hoverDelegateFactory.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import type { IManagedHover } from '../../../../base/browser/ui/hover/hover.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { Extensions, IExtensionFeaturesManagementService, IExtensionFeaturesRegistry } from '../../../services/extensionManagement/common/extensionFeatures.js';
@@ -599,7 +599,7 @@ export class ExtensionKindIndicatorWidget extends ExtensionWidget {
 		readonly container: HTMLElement,
 		private small: boolean,
 		@IHoverService private readonly hoverService: IHoverService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@IExplorerService private readonly explorerService: IExplorerService,
 		@IViewsService private readonly viewsService: IViewsService,
@@ -765,7 +765,7 @@ export class ExtensionHoverWidget extends ExtensionWidget {
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IExtensionRecommendationsService private readonly extensionRecommendationsService: IExtensionRecommendationsService,
 		@IThemeService private readonly themeService: IThemeService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 	}

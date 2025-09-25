@@ -6,7 +6,7 @@
 import { Event } from '../../../../base/common/event.js';
 import { Iterable } from '../../../../base/common/iterator.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { MutableObservableValue } from './observableValue.js';
 import { StoredValue } from './storedValue.js';
 import { InternalTestItem } from './testTypes.js';
@@ -14,7 +14,7 @@ import { InternalTestItem } from './testTypes.js';
 export class TestExclusions extends Disposable {
 	private readonly excluded: MutableObservableValue<ReadonlySet<string>>;
 
-	constructor(@IStorageService private readonly storageService: IStorageService) {
+	constructor(@StorageServiceInterface private readonly storageService: StorageServiceInterface) {
 		super();
 		this.excluded = this._register(
 			MutableObservableValue.stored(new StoredValue<ReadonlySet<string>>({

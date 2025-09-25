@@ -10,7 +10,7 @@ import { SideBySideEditorInput } from '../../../common/editor/sideBySideEditorIn
 import { IWindowOpenable, IOpenWindowOptions, isWorkspaceToOpen, IOpenEmptyWindowOptions } from '../../../../platform/window/common/window.js';
 import { IHostService } from '../../../services/host/browser/host.js';
 import { ServicesAccessor, IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
-import { IWorkspaceContextService, UNTITLED_WORKSPACE_NAME } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, UNTITLED_WORKSPACE_NAME } from '../../../../platform/workspace/common/workspace.js';
 import { ExplorerFocusCondition, TextFileContentProvider, VIEWLET_ID, ExplorerCompressedFocusContext, ExplorerCompressedFirstFocusContext, ExplorerCompressedLastFocusContext, FilesExplorerFocusCondition, ExplorerFolderContext, VIEW_ID } from '../common/files.js';
 import { ExplorerViewPaneContainer } from './explorerViewlet.js';
 import { IClipboardService } from '../../../../platform/clipboard/common/clipboardService.js';
@@ -23,7 +23,7 @@ import { KeyMod, KeyCode, KeyChord } from '../../../../base/common/keyCodes.js';
 import { isWeb, isWindows } from '../../../../base/common/platform.js';
 import { ITextModelService } from '../../../../editor/common/services/resolverService.js';
 import { getResourceForCommand, getMultiSelectedResources, getOpenEditorsViewMultiSelection, IExplorerService } from './files.js';
-import { IWorkspaceEditingService } from '../../../services/workspaces/common/workspaceEditing.js';
+import { WorkspaceInterfaceEditingService } from '../../../services/workspaces/common/workspaceEditing.js';
 import { resolveCommandsContext } from '../../../browser/parts/editor/editorCommandsContext.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { INotificationService, Severity } from '../../../../platform/notification/common/notification.js';
@@ -33,7 +33,7 @@ import { IEditorGroupsService, GroupsOrder, IEditorGroup } from '../../../servic
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { basename, joinPath, isEqual } from '../../../../base/common/resources.js';
 import { IDisposable, dispose } from '../../../../base/common/lifecycle.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { ICodeEditorService } from '../../../../editor/browser/services/codeEditorService.js';
 import { EmbeddedCodeEditorWidget } from '../../../../editor/browser/widget/codeEditor/embeddedCodeEditorWidget.js';
 import { ITextFileService } from '../../../services/textfile/common/textfiles.js';
@@ -56,7 +56,7 @@ import { IListService } from '../../../../platform/list/browser/listService.js';
 export const openWindowCommand = (accessor: ServicesAccessor, toOpen: IWindowOpenable[], options?: IOpenWindowOptions) => {
 	if (Array.isArray(toOpen)) {
 		const hostService = accessor.get(IHostService);
-		const environmentService = accessor.get(IEnvironmentService);
+		const environmentService = accessor.get(EnvironmentServiceInterface);
 
 		// rewrite untitled: workspace URIs to the absolute path on disk
 		toOpen = toOpen.map(openable => {
@@ -317,7 +317,7 @@ CommandsRegistry.registerCommand({
 	id: REVEAL_IN_EXPLORER_COMMAND_ID,
 	handler: async (accessor, resource: URI | object) => {
 		const viewService = accessor.get(IViewsService);
-		const contextService = accessor.get(IWorkspaceContextService);
+		const contextService = accessor.get(WorkspaceContextServiceInterface);
 		const explorerService = accessor.get(IExplorerService);
 		const editorService = accessor.get(IEditorService);
 		const listService = accessor.get(IListService);
@@ -337,7 +337,7 @@ CommandsRegistry.registerCommand({
 			}
 		} else {
 			// Do not reveal the open editors view if it's hidden explicitly
-			// See https://github.com/microsoft/vscode/issues/227378
+			// See https://github.com/johnnycharlesw/vsblocks/issues/227378
 			const openEditorsView = viewService.getViewWithId(OpenEditorsView.ID);
 			if (openEditorsView) {
 				openEditorsView.setExpanded(true);
@@ -382,9 +382,9 @@ async function saveSelectedEditors(accessor: ServicesAccessor, options?: ISaveEd
 			// In addition, we require the secondary side to be modified to not
 			// trigger a touch operation unexpectedly.
 			//
-			// See also https://github.com/microsoft/vscode/issues/4180
-			// See also https://github.com/microsoft/vscode/issues/106330
-			// See also https://github.com/microsoft/vscode/issues/190210
+			// See also https://github.com/johnnycharlesw/vsblocks/issues/4180
+			// See also https://github.com/johnnycharlesw/vsblocks/issues/106330
+			// See also https://github.com/johnnycharlesw/vsblocks/issues/190210
 			if (
 				activeGroup.activeEditor instanceof SideBySideEditorInput &&
 				!options?.saveAs && !(activeGroup.activeEditor.primary.hasCapability(EditorInputCapabilities.Untitled) || activeGroup.activeEditor.secondary.hasCapability(EditorInputCapabilities.Untitled)) &&
@@ -563,7 +563,7 @@ CommandsRegistry.registerCommand({
 CommandsRegistry.registerCommand({
 	id: REMOVE_ROOT_FOLDER_COMMAND_ID,
 	handler: (accessor, resource: URI | object) => {
-		const contextService = accessor.get(IWorkspaceContextService);
+		const contextService = accessor.get(WorkspaceContextServiceInterface);
 		const uriIdentityService = accessor.get(IUriIdentityService);
 		const workspace = contextService.getWorkspace();
 		const resources = getMultiSelectedResources(resource, accessor.get(IListService), accessor.get(IEditorService), accessor.get(IEditorGroupsService), accessor.get(IExplorerService)).filter(resource =>
@@ -576,7 +576,7 @@ CommandsRegistry.registerCommand({
 			return commandService.executeCommand(RemoveRootFolderAction.ID);
 		}
 
-		const workspaceEditingService = accessor.get(IWorkspaceEditingService);
+		const workspaceEditingService = accessor.get(WorkspaceInterfaceEditingService);
 		return workspaceEditingService.removeFolders(resources);
 	}
 });

@@ -18,11 +18,11 @@ import { IFileService } from '../../../../platform/files/common/files.js';
 import { IHoverService } from '../../../../platform/hover/browser/hover.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { ITunnelService } from '../../../../platform/tunnel/common/tunnel.js';
-import { IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { IDebugSession } from '../common/debug.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { IHighlight } from '../../../../base/browser/ui/highlightedlabel/highlightedLabel.js';
 import { Iterable } from '../../../../base/common/iterator.js';
 
@@ -64,7 +64,7 @@ export type DebugLinkHoverBehaviorTypeData = { type: DebugLinkHoverBehavior.None
 	| { type: DebugLinkHoverBehavior.Rich; store: DisposableStore };
 
 export interface ILinkDetector {
-	linkify(text: string, splitLines?: boolean, workspaceFolder?: IWorkspaceFolder, includeFulltext?: boolean, hoverBehavior?: DebugLinkHoverBehaviorTypeData, highlights?: IHighlight[]): HTMLElement;
+	linkify(text: string, splitLines?: boolean, workspaceFolder?: WorkspaceInterfaceFolder, includeFulltext?: boolean, hoverBehavior?: DebugLinkHoverBehaviorTypeData, highlights?: IHighlight[]): HTMLElement;
 	linkifyLocation(text: string, locationReference: number, session: IDebugSession, hoverBehavior?: DebugLinkHoverBehaviorTypeData): HTMLElement;
 }
 
@@ -73,7 +73,7 @@ export class LinkDetector implements ILinkDetector {
 		@IEditorService private readonly editorService: IEditorService,
 		@IFileService private readonly fileService: IFileService,
 		@IOpenerService private readonly openerService: IOpenerService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@ITunnelService private readonly tunnelService: ITunnelService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
@@ -91,11 +91,11 @@ export class LinkDetector implements ILinkDetector {
 	 * If a `hoverBehavior` is passed, hovers may be added using the workbench hover service.
 	 * This should be preferred for new code where hovers are desirable.
 	 */
-	linkify(text: string, splitLines?: boolean, workspaceFolder?: IWorkspaceFolder, includeFulltext?: boolean, hoverBehavior?: DebugLinkHoverBehaviorTypeData, highlights?: IHighlight[]): HTMLElement {
+	linkify(text: string, splitLines?: boolean, workspaceFolder?: WorkspaceInterfaceFolder, includeFulltext?: boolean, hoverBehavior?: DebugLinkHoverBehaviorTypeData, highlights?: IHighlight[]): HTMLElement {
 		return this._linkify(text, splitLines, workspaceFolder, includeFulltext, hoverBehavior, highlights);
 	}
 
-	private _linkify(text: string, splitLines?: boolean, workspaceFolder?: IWorkspaceFolder, includeFulltext?: boolean, hoverBehavior?: DebugLinkHoverBehaviorTypeData, highlights?: IHighlight[], defaultRef?: { locationReference: number; session: IDebugSession }): HTMLElement {
+	private _linkify(text: string, splitLines?: boolean, workspaceFolder?: WorkspaceInterfaceFolder, includeFulltext?: boolean, hoverBehavior?: DebugLinkHoverBehaviorTypeData, highlights?: IHighlight[], defaultRef?: { locationReference: number; session: IDebugSession }): HTMLElement {
 		if (splitLines) {
 			const lines = text.split('\n');
 			for (let i = 0; i < lines.length - 1; i++) {
@@ -236,7 +236,7 @@ export class LinkDetector implements ILinkDetector {
 		this.decorateLink(link, uri, fulltext, hoverBehavior, async () => {
 
 			if (uri.scheme === Schemas.file) {
-				// Just using fsPath here is unsafe: https://github.com/microsoft/vscode/issues/109076
+				// Just using fsPath here is unsafe: https://github.com/johnnycharlesw/vsblocks/issues/109076
 				const fsPath = uri.fsPath;
 				const path = await this.pathService.path;
 				const fileUrl = osPath.normalize(((path.sep === osPath.posix.sep) && platform.isWindows) ? fsPath.replace(/\\/g, osPath.posix.sep) : fsPath);
@@ -263,7 +263,7 @@ export class LinkDetector implements ILinkDetector {
 		return link;
 	}
 
-	private createPathLink(fulltext: string | undefined, text: string, path: string, lineNumber: number, columnNumber: number, workspaceFolder: IWorkspaceFolder | undefined, hoverBehavior?: DebugLinkHoverBehaviorTypeData): Node {
+	private createPathLink(fulltext: string | undefined, text: string, path: string, lineNumber: number, columnNumber: number, workspaceFolder: WorkspaceInterfaceFolder | undefined, hoverBehavior?: DebugLinkHoverBehaviorTypeData): Node {
 		if (path[0] === '/' && path[1] === '/') {
 			// Most likely a url part which did not match, for example ftp://path.
 			return document.createTextNode(text);

@@ -12,12 +12,12 @@ import { TestConfigurationService } from '../../../../../platform/configuration/
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { ILifecycleService } from '../../../../services/lifecycle/common/lifecycle.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { Registry } from '../../../../../platform/registry/common/platform.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { DisposableStore, IDisposable, toDisposable } from '../../../../../base/common/lifecycle.js';
 import { TestContextService, TestStorageService } from '../../../common/workbenchTestServices.js';
 import { EditorInput } from '../../../../common/editor/editorInput.js';
@@ -39,9 +39,9 @@ suite('FilteredEditorGroupModel', () => {
 			testInstService = new TestInstantiationService();
 		}
 		const inst = testInstService;
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
 		inst.stub(ILifecycleService, disposables.add(new TestLifecycleService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		inst.stub(ITelemetryService, NullTelemetryService);
 
 		const config = new TestConfigurationService();

@@ -13,7 +13,7 @@ import {
 import { extHostNamedCustomer, IExtHostContext } from '../../services/extensions/common/extHostCustomers.js';
 import severity from '../../../base/common/severity.js';
 import { AbstractDebugAdapter } from '../../contrib/debug/common/abstractDebugAdapter.js';
-import { IWorkspaceFolder } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../platform/workspace/common/workspace.js';
 import { convertToVSCPaths, convertToDAPaths, isSessionAttach } from '../../contrib/debug/common/debugUtils.js';
 import { ErrorNoTelemetry } from '../../../base/common/errors.js';
 import { IDebugVisualizerService } from '../../contrib/debug/common/debugVisualizers.js';
@@ -193,7 +193,7 @@ export class MainThreadDebugService implements MainThreadDebugServiceShape, IDeb
 		return da;
 	}
 
-	substituteVariables(folder: IWorkspaceFolder | undefined, config: IConfig): Promise<IConfig> {
+	substituteVariables(folder: WorkspaceInterfaceFolder | undefined, config: IConfig): Promise<IConfig> {
 		return Promise.resolve(this._proxy.$substituteVariables(folder ? folder.uri : undefined, config));
 	}
 

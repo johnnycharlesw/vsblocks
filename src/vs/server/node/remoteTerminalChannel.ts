@@ -16,13 +16,13 @@ import { createRandomIPCHandle } from '../../base/parts/ipc/node/ipc.net.js';
 import { RemoteAgentConnectionContext } from '../../platform/remote/common/remoteAgentEnvironment.js';
 import { IPtyHostService, IShellLaunchConfig, ITerminalProfile } from '../../platform/terminal/common/terminal.js';
 import { IGetTerminalLayoutInfoArgs, ISetTerminalLayoutInfoArgs } from '../../platform/terminal/common/terminalProcess.js';
-import { IWorkspaceFolder } from '../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../platform/workspace/common/workspace.js';
 import { createURITransformer } from '../../workbench/api/node/uriTransformer.js';
 import { CLIServerBase, ICommandsExecuter } from '../../workbench/api/node/extHostCLIServer.js';
 import { IEnvironmentVariableCollection } from '../../platform/terminal/common/environmentVariable.js';
 import { MergedEnvironmentVariableCollection } from '../../platform/terminal/common/environmentVariableCollection.js';
 import { deserializeEnvironmentDescriptionMap, deserializeEnvironmentVariableCollection } from '../../platform/terminal/common/environmentVariableShared.js';
-import { ICreateTerminalProcessArguments, ICreateTerminalProcessResult, IWorkspaceFolderData, RemoteTerminalChannelEvent, RemoteTerminalChannelRequest } from '../../workbench/contrib/terminal/common/remote/terminal.js';
+import { ICreateTerminalProcessArguments, ICreateTerminalProcessResult, WorkspaceInterfaceFolderData, RemoteTerminalChannelEvent, RemoteTerminalChannelRequest } from '../../workbench/contrib/terminal/common/remote/terminal.js';
 import * as terminalEnvironment from '../../workbench/contrib/terminal/common/terminalEnvironment.js';
 import { AbstractVariableResolverService } from '../../workbench/services/configurationResolver/common/variableResolver.js';
 import { buildUserEnvironment } from './extensionHostConnection.js';
@@ -37,7 +37,7 @@ import { shouldUseEnvironmentVariableCollection } from '../../platform/terminal/
 class CustomVariableResolver extends AbstractVariableResolverService {
 	constructor(
 		env: platform.IProcessEnvironment,
-		workspaceFolders: IWorkspaceFolder[],
+		workspaceFolders: WorkspaceInterfaceFolder[],
 		activeFileResource: URI | undefined,
 		resolvedVariables: { [name: string]: string },
 		extensionService: IExtensionManagementService,
@@ -210,7 +210,7 @@ export class RemoteTerminalChannel extends Disposable implements IServerChannel<
 		const baseEnv = await buildUserEnvironment(args.resolverEnv, !!args.shellLaunchConfig.useShellEnvironment, platform.language, this._environmentService, this._logService, this._configurationService);
 		this._logService.trace('baseEnv', baseEnv);
 
-		const reviveWorkspaceFolder = (workspaceData: IWorkspaceFolderData): IWorkspaceFolder => {
+		const reviveWorkspaceFolder = (workspaceData: WorkspaceInterfaceFolderData): WorkspaceInterfaceFolder => {
 			return {
 				uri: URI.revive(uriTransformer.transformIncoming(workspaceData.uri)),
 				name: workspaceData.name,

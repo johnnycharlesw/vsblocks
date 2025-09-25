@@ -24,7 +24,7 @@ import { ContextKeyExpr, IContextKeyService, RawContextKey } from '../../../../p
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { Extensions, IWorkbenchContributionsRegistry } from '../../../common/contributions.js';
 import { LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { URI } from '../../../../base/common/uri.js';
 import { RemoteNameContext } from '../../../common/contextkeys.js';
@@ -93,7 +93,7 @@ class TroubleshootIssueService extends Disposable implements ITroubleshootIssueS
 		@IWorkbenchIssueService private readonly issueService: IWorkbenchIssueService,
 		@IProductService private readonly productService: IProductService,
 		@IHostService private readonly hostService: IHostService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IOpenerService private readonly openerService: IOpenerService,
 	) {
 		super();
@@ -325,7 +325,7 @@ class IssueTroubleshootUi extends Disposable {
 	constructor(
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@ITroubleshootIssueService private readonly troubleshootIssueService: ITroubleshootIssueService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super();
 		this.updateContext();

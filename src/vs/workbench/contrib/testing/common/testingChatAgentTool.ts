@@ -16,7 +16,7 @@ import { localize } from '../../../../nls.js';
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import {
 	CountTokensCallback,
@@ -101,7 +101,7 @@ class RunTestTool implements IToolImpl {
 	constructor(
 		@ITestService private readonly _testService: ITestService,
 		@IUriIdentityService private readonly _uriIdentityService: IUriIdentityService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 		@ITestResultService private readonly _testResultService: ITestResultService,
 	) { }
 

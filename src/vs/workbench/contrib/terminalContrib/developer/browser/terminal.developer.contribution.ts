@@ -20,7 +20,7 @@ import { IOpenerService } from '../../../../../platform/opener/common/opener.js'
 import { IQuickInputService } from '../../../../../platform/quickinput/common/quickInput.js';
 import { ITerminalCommand, TerminalCapability } from '../../../../../platform/terminal/common/capabilities/capabilities.js';
 import { ITerminalLogService, TerminalSettingId } from '../../../../../platform/terminal/common/terminal.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { IStatusbarService, StatusbarAlignment, type IStatusbarEntry } from '../../../../services/statusbar/browser/statusbar.js';
 import { IInternalXtermTerminal, ITerminalContribution, ITerminalInstance, IXtermTerminal } from '../../../terminal/browser/terminal.js';
 import { registerTerminalAction } from '../../../terminal/browser/terminalActions.js';
@@ -37,7 +37,7 @@ registerTerminalAction({
 	run: async (c, accessor) => {
 		const fileService = accessor.get(IFileService);
 		const openerService = accessor.get(IOpenerService);
-		const workspaceContextService = accessor.get(IWorkspaceContextService);
+		const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 		const bitmap = await c.service.activeInstance?.xterm?.textureAtlas;
 		if (!bitmap) {
 			return;

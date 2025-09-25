@@ -14,13 +14,13 @@ import { URI } from '../../../base/common/uri.js';
 import { Promises } from '../../../base/node/pfs.js';
 import { InMemoryStorageDatabase, IStorage, Storage, StorageHint, StorageState } from '../../../base/parts/storage/common/storage.js';
 import { ISQLiteStorageDatabaseLoggingOptions, SQLiteStorageDatabase } from '../../../base/parts/storage/node/storage.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { ILogService, LogLevel } from '../../log/common/log.js';
 import { IS_NEW_KEY } from '../common/storage.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
 import { currentSessionDateStorageKey, firstSessionDateStorageKey, lastSessionDateStorageKey } from '../../telemetry/common/telemetry.js';
-import { isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, IAnyWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, AnyWorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 import { Schemas } from '../../../base/common/network.js';
 
 export interface IStorageMainOptions {
@@ -370,10 +370,10 @@ export class WorkspaceStorageMain extends BaseStorageMain {
 	}
 
 	constructor(
-		private workspace: IAnyWorkspaceIdentifier,
+		private workspace: AnyWorkspaceIdentifierInterface,
 		private readonly options: IStorageMainOptions,
 		logService: ILogService,
-		private readonly environmentService: IEnvironmentService,
+		private readonly environmentService: EnvironmentServiceInterface,
 		fileService: IFileService
 	) {
 		super(logService, fileService);

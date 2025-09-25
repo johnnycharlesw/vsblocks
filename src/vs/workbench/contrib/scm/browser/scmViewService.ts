@@ -9,9 +9,9 @@ import { ISCMViewService, ISCMRepository, ISCMService, ISCMViewVisibleRepository
 import { Iterable } from '../../../../base/common/iterator.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { SCMMenus } from './menus.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { debounce } from '../../../../base/common/decorators.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { compareFileNames, comparePaths } from '../../../../base/common/comparers.js';
 import { basename } from '../../../../base/common/resources.js';
 import { binarySearch } from '../../../../base/common/arrays.js';
@@ -31,7 +31,7 @@ function getProviderStorageKey(provider: ISCMProvider): string {
 	return `${provider.providerId}:${provider.label}${provider.rootUri ? `:${provider.rootUri.toString()}` : ''}`;
 }
 
-function getRepositoryName(workspaceContextService: IWorkspaceContextService, repository: ISCMRepository): string {
+function getRepositoryName(workspaceContextService: WorkspaceContextServiceInterface, repository: ISCMRepository): string {
 	if (!repository.provider.rootUri) {
 		return repository.provider.label;
 	}
@@ -221,8 +221,8 @@ export class SCMViewService implements ISCMViewService {
 		@IExtensionService extensionService: IExtensionService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IStorageService private readonly storageService: IStorageService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		this.menus = instantiationService.createInstance(SCMMenus);
 

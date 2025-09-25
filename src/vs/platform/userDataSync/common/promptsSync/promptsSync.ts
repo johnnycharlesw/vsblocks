@@ -7,12 +7,12 @@ import { URI } from '../../../../base/common/uri.js';
 import { Event } from '../../../../base/common/event.js';
 import { VSBuffer } from '../../../../base/common/buffer.js';
 import { deepClone } from '../../../../base/common/objects.js';
-import { IStorageService } from '../../../storage/common/storage.js';
+import { StorageServiceInterface } from '../../../storage/common/storage.js';
 import { ITelemetryService } from '../../../telemetry/common/telemetry.js';
 import { IStringDictionary } from '../../../../base/common/collections.js';
 import { CancellationToken } from '../../../../base/common/cancellation.js';
 import { IUriIdentityService } from '../../../uriIdentity/common/uriIdentity.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 
 import { IUserDataProfile } from '../../../userDataProfile/common/userDataProfile.js';
 import { IConfigurationService } from '../../../configuration/common/configuration.js';
@@ -45,9 +45,9 @@ export class PromptsSynchronizer extends AbstractSynchroniser implements IUserDa
 	constructor(
 		profile: IUserDataProfile,
 		collection: string | undefined,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUserDataSyncStoreService userDataSyncStoreService: IUserDataSyncStoreService,
 		@IUserDataSyncLocalStoreService userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IUserDataSyncLogService logService: IUserDataSyncLogService,

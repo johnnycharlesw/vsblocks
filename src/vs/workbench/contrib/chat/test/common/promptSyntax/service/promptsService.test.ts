@@ -30,7 +30,7 @@ import { ResourceSet } from '../../../../../../../base/common/map.js';
 import { IWorkbenchEnvironmentService } from '../../../../../../services/environment/common/environmentService.js';
 import { ChatRequestVariableSet, isPromptFileVariableEntry, toFileVariableEntry } from '../../../../common/chatVariableEntries.js';
 import { PromptsConfig } from '../../../../common/promptSyntax/config/config.js';
-import { IWorkspaceContextService } from '../../../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../../../platform/workspace/common/workspace.js';
 import { TestContextService, TestUserDataProfileService } from '../../../../../../test/common/workbenchTestServices.js';
 import { testWorkspace } from '../../../../../../../platform/workspace/test/common/testWorkspace.js';
 import { IUserDataProfileService } from '../../../../../../services/userDataProfile/common/userDataProfile.js';
@@ -50,7 +50,7 @@ suite('PromptsService', () => {
 		instaService.stub(ILogService, new NullLogService());
 
 		workspaceContextService = new TestContextService();
-		instaService.stub(IWorkspaceContextService, workspaceContextService);
+		instaService.stub(WorkspaceContextServiceInterface, workspaceContextService);
 
 		const testConfigService = new TestConfigurationService();
 		testConfigService.setUserConfiguration(PromptsConfig.KEY, true);

@@ -12,7 +12,7 @@ import { ContextMenuService } from '../../../../../../platform/contextview/brows
 import { IContextMenuService } from '../../../../../../platform/contextview/browser/contextView.js';
 import { TestInstantiationService } from '../../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { ILogService, NullLogService } from '../../../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../../platform/storage/common/storage.js';
 import { IThemeService } from '../../../../../../platform/theme/common/themeService.js';
 import { TestThemeService } from '../../../../../../platform/theme/test/common/testThemeService.js';
 import { IViewDescriptorService } from '../../../../../common/views.js';
@@ -82,7 +82,7 @@ suite('TerminalLinkManager', () => {
 		instantiationService.stub(IContextMenuService, store.add(instantiationService.createInstance(ContextMenuService)));
 		instantiationService.stub(IConfigurationService, configurationService);
 		instantiationService.stub(ILogService, new NullLogService());
-		instantiationService.stub(IStorageService, store.add(new TestStorageService()));
+		instantiationService.stub(StorageServiceInterface, store.add(new TestStorageService()));
 		instantiationService.stub(IThemeService, themeService);
 		instantiationService.stub(IViewDescriptorService, viewDescriptorService);
 

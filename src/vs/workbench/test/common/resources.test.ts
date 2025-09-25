@@ -8,7 +8,7 @@ import { DisposableStore } from '../../../base/common/lifecycle.js';
 import { URI } from '../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../base/test/common/utils.js';
 import { TestConfigurationService } from '../../../platform/configuration/test/common/testConfigurationService.js';
-import { IWorkspaceContextService } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../platform/workspace/common/workspace.js';
 import { ResourceGlobMatcher } from '../../common/resources.js';
 import { TestContextService } from './workbenchTestServices.js';
 
@@ -16,7 +16,7 @@ suite('ResourceGlobMatcher', () => {
 
 	const SETTING = 'test.matcher';
 
-	let contextService: IWorkspaceContextService;
+	let contextService: WorkspaceContextServiceInterface;
 	let configurationService: TestConfigurationService;
 
 	const disposables = new DisposableStore();

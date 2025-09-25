@@ -8,13 +8,13 @@ import { IUserDataProfilesService } from '../../userDataProfile/common/userDataP
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { AbstractExtensionsProfileScannerService, IExtensionsProfileScannerService } from '../common/extensionsProfileScannerService.js';
 import { IFileService } from '../../files/common/files.js';
-import { INativeEnvironmentService } from '../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { URI } from '../../../base/common/uri.js';
 import { InstantiationType, registerSingleton } from '../../instantiation/common/extensions.js';
 
 export class ExtensionsProfileScannerService extends AbstractExtensionsProfileScannerService {
 	constructor(
-		@INativeEnvironmentService environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface environmentService: NativeEnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,

@@ -17,7 +17,7 @@ import { TestConfigurationService } from '../../../../../platform/configuration/
 import '../../../../workbench.desktop.main.js';
 import { NullLogService } from '../../../../../platform/log/common/log.js';
 import { mock } from '../../../../../base/test/common/mock.js';
-import { INativeEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { FileAccess } from '../../../../../base/common/network.js';
 
 interface ColorInfo {
@@ -87,9 +87,9 @@ suite('Color Registry', function () {
 
 	test('all colors listed in theme-color.md', async function () {
 		// avoid importing the TestEnvironmentService as it brings in a duplicate registration of the file editor input factory.
-		const environmentService = new class extends mock<INativeEnvironmentService>() { override args = { _: [] }; };
+		const environmentService = new class extends mock<NativeEnvironmentServiceInterface>() { override args = { _: [] }; };
 
-		const docUrl = 'https://raw.githubusercontent.com/microsoft/vscode-docs/vnext/api/references/theme-color.md';
+		const docUrl = 'https://raw.githubusercontent.com/johnnycharlesw/vsblocks-docs/vnext/api/references/theme-color.md';
 
 		const reqContext = await new RequestService('local', new TestConfigurationService(), environmentService, new NullLogService()).request({ url: docUrl }, CancellationToken.None);
 		const content = (await asTextOrError(reqContext))!;
@@ -152,7 +152,7 @@ suite('Color Registry', function () {
 		}
 
 		if (errorText.length > 0) {
-			assert.fail(`\n\nOpen https://github.dev/microsoft/vscode-docs/blob/vnext/api/references/theme-color.md#50${errorText}`);
+			assert.fail(`\n\nOpen https://github.dev/johnnycharlesw/vsblocks-docs/blob/vnext/api/references/theme-color.md#50${errorText}`);
 		}
 	});
 });

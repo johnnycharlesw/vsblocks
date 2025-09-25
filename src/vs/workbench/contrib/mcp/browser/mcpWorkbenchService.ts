@@ -27,7 +27,7 @@ import { StorageScope } from '../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IURLService } from '../../../../platform/url/common/url.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { MCP_CONFIGURATION_KEY, WORKSPACE_STANDALONE_CONFIGURATIONS } from '../../../services/configuration/common/configuration.js';
 import { ACTIVE_GROUP, IEditorService } from '../../../services/editor/common/editorService.js';
@@ -187,7 +187,7 @@ export class McpWorkbenchService extends Disposable implements IMcpWorkbenchServ
 		@IEditorService private readonly editorService: IEditorService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
-		@IWorkspaceContextService private readonly workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceService: WorkspaceContextServiceInterface,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@ILabelService private readonly labelService: ILabelService,
 		@IProductService private readonly productService: IProductService,

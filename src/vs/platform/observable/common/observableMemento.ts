@@ -10,7 +10,7 @@ import { DebugLocation } from '../../../base/common/observable.js';
 import { DebugNameData } from '../../../base/common/observableInternal/debugName.js';
 // eslint-disable-next-line local/code-no-deep-import-of-internal
 import { ObservableValue } from '../../../base/common/observableInternal/observables/observableValue.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 
 interface IObservableMementoOpts<T> {
 	defaultValue: T;
@@ -28,7 +28,7 @@ interface IObservableMementoOpts<T> {
  * with storage service events, and must be tracked appropriately.
  */
 export function observableMemento<T>(opts: IObservableMementoOpts<T>) {
-	return (scope: StorageScope, target: StorageTarget, storageService: IStorageService): ObservableMemento<T> => {
+	return (scope: StorageScope, target: StorageTarget, storageService: StorageServiceInterface): ObservableMemento<T> => {
 		return new ObservableMemento<T>(opts, scope, target, storageService);
 	};
 }
@@ -44,7 +44,7 @@ export class ObservableMemento<T> extends ObservableValue<T> implements IDisposa
 		opts: IObservableMementoOpts<T>,
 		storageScope: StorageScope,
 		storageTarget: StorageTarget,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		if (opts.defaultValue && typeof opts.defaultValue === 'object') {
 			opts.toStorage ??= (value: T) => JSON.stringify(value);

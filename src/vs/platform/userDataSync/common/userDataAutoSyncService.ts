@@ -15,7 +15,7 @@ import { isEqual } from '../../../base/common/resources.js';
 import { URI } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
 import { IProductService } from '../../product/common/productService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { IUserDataSyncTask, IUserDataAutoSyncService, IUserDataManifest, IUserDataSyncLogService, IUserDataSyncEnablementService, IUserDataSyncService, IUserDataSyncStoreManagementService, IUserDataSyncStoreService, UserDataAutoSyncError, UserDataSyncError, UserDataSyncErrorCode, SyncOptions } from './userDataSync.js';
 import { IUserDataSyncAccountService } from './userDataSyncAccount.js';
@@ -74,7 +74,7 @@ export class UserDataAutoSyncService extends Disposable implements IUserDataAuto
 		@IUserDataSyncAccountService private readonly userDataSyncAccountService: IUserDataSyncAccountService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IUserDataSyncMachinesService private readonly userDataSyncMachinesService: IUserDataSyncMachinesService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 	) {
 		super();
 		this.syncTriggerDelayer = this._register(new ThrottledDelayer<void>(this.getSyncTriggerDelayTime()));
@@ -386,7 +386,7 @@ class AutoSync extends Disposable {
 		private readonly userDataSyncMachinesService: IUserDataSyncMachinesService,
 		private readonly logService: IUserDataSyncLogService,
 		private readonly telemetryService: ITelemetryService,
-		private readonly storageService: IStorageService,
+		private readonly storageService: StorageServiceInterface,
 	) {
 		super();
 	}

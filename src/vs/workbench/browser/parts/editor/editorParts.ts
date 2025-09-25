@@ -16,7 +16,7 @@ import { distinct } from '../../../../base/common/arrays.js';
 import { AuxiliaryEditorPart, IAuxiliaryEditorPartOpenOptions } from './auxiliaryEditorPart.js';
 import { MultiWindowParts } from '../../part.js';
 import { DeferredPromise } from '../../../../base/common/async.js';
-import { IStorageService, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { IAuxiliaryWindowOpenOptions, IAuxiliaryWindowService } from '../../../services/auxiliaryWindow/browser/auxiliaryWindowService.js';
 import { generateUuid } from '../../../../base/common/uuid.js';
@@ -53,7 +53,7 @@ export class EditorParts extends MultiWindowParts<EditorPart> implements IEditor
 
 	constructor(
 		@IInstantiationService protected readonly instantiationService: IInstantiationService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IThemeService themeService: IThemeService,
 		@IAuxiliaryWindowService private readonly auxiliaryWindowService: IAuxiliaryWindowService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService
@@ -176,7 +176,7 @@ export class EditorParts extends MultiWindowParts<EditorPart> implements IEditor
 				// An auxiliary editor part is closing which we have
 				// to treat as group change event for the next editor
 				// part that becomes active.
-				// Refs: https://github.com/microsoft/vscode/issues/257058
+				// Refs: https://github.com/johnnycharlesw/vsblocks/issues/257058
 				this._onDidActiveGroupChange.fire(this.activeGroup);
 			}
 		}));

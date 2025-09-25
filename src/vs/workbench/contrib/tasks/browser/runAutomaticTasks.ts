@@ -7,12 +7,12 @@ import * as nls from '../../../../nls.js';
 import * as resources from '../../../../base/common/resources.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
-import { ITaskService, IWorkspaceFolderTaskResult } from '../common/taskService.js';
-import { RunOnOptions, Task, TaskRunSource, TaskSource, TaskSourceKind, TASKS_CATEGORY, WorkspaceFileTaskSource, IWorkspaceTaskSource } from '../common/tasks.js';
+import { ITaskService, WorkspaceInterfaceFolderTaskResult } from '../common/taskService.js';
+import { RunOnOptions, Task, TaskRunSource, TaskSource, TaskSourceKind, TASKS_CATEGORY, WorkspaceFileTaskSource, WorkspaceInterfaceTaskSource } from '../common/tasks.js';
 import { IQuickPickItem, IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
 import { Action2 } from '../../../../platform/actions/common/actions.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { ConfigurationTarget, IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { URI } from '../../../../base/common/uri.js';
 import { Event } from '../../../../base/common/event.js';
@@ -25,7 +25,7 @@ export class RunAutomaticTasks extends Disposable implements IWorkbenchContribut
 	constructor(
 		@ITaskService private readonly _taskService: ITaskService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
-		@IWorkspaceTrustManagementService private readonly _workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly _workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@ILogService private readonly _logService: ILogService) {
 		super();
 		if (this._taskService.isReconnected) {
@@ -98,7 +98,7 @@ export class RunAutomaticTasks extends Disposable implements IWorkbenchContribut
 		const taskKind = TaskSourceKind.toConfigurationTarget(source.kind);
 		switch (taskKind) {
 			case ConfigurationTarget.WORKSPACE_FOLDER: {
-				return resources.joinPath((<IWorkspaceTaskSource>source).config.workspaceFolder!.uri, (<IWorkspaceTaskSource>source).config.file);
+				return resources.joinPath((<WorkspaceInterfaceTaskSource>source).config.workspaceFolder!.uri, (<WorkspaceInterfaceTaskSource>source).config.file);
 			}
 			case ConfigurationTarget.WORKSPACE: {
 				return (<WorkspaceFileTaskSource>source).config.workspace?.configuration ?? undefined;
@@ -107,7 +107,7 @@ export class RunAutomaticTasks extends Disposable implements IWorkbenchContribut
 		return undefined;
 	}
 
-	private _findAutoTasks(taskService: ITaskService, workspaceTaskResult: Map<string, IWorkspaceFolderTaskResult>): { tasks: Array<Task | Promise<Task | undefined>>; taskNames: Array<string>; locations: Map<string, URI> } {
+	private _findAutoTasks(taskService: ITaskService, workspaceTaskResult: Map<string, WorkspaceInterfaceFolderTaskResult>): { tasks: Array<Task | Promise<Task | undefined>>; taskNames: Array<string>; locations: Map<string, URI> } {
 		const tasks = new Array<Task | Promise<Task | undefined>>();
 		const taskNames = new Array<string>();
 		const locations = new Map<string, URI>();

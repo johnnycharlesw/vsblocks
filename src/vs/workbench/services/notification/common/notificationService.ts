@@ -10,7 +10,7 @@ import { Disposable, DisposableStore } from '../../../../base/common/lifecycle.j
 import { Emitter, Event } from '../../../../base/common/event.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IAction, Action } from '../../../../base/common/actions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 
 export class NotificationService extends Disposable implements INotificationService {
 
@@ -19,7 +19,7 @@ export class NotificationService extends Disposable implements INotificationServ
 	readonly model = this._register(new NotificationsModel());
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		super();
 

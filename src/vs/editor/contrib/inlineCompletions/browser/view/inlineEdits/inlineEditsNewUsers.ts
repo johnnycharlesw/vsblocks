@@ -8,7 +8,7 @@ import { BugIndicatingError } from '../../../../../../base/common/errors.js';
 import { Disposable, DisposableStore, IDisposable, MutableDisposable } from '../../../../../../base/common/lifecycle.js';
 import { autorun, autorunWithStore, derived, IObservable, observableValue, runOnChange, runOnChangeWithCancellationToken } from '../../../../../../base/common/observable.js';
 import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../../platform/storage/common/storage.js';
 import { InlineEditsGutterIndicator } from './components/gutterIndicatorView.js';
 import { IInlineEditHost, IInlineEditModel } from './inlineEditsViewInterface.js';
 import { InlineEditsCollapsedView } from './inlineEditsViews/inlineEditsCollapsedView.js';
@@ -42,7 +42,7 @@ export class InlineEditsOnboardingExperience extends Disposable {
 		private readonly _model: IObservable<IInlineEditModel | undefined>,
 		private readonly _indicator: IObservable<InlineEditsGutterIndicator | undefined>,
 		private readonly _collapsedView: InlineEditsCollapsedView,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 	) {
 		super();

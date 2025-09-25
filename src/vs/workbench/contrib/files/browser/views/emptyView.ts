@@ -9,7 +9,7 @@ import { IInstantiationService } from '../../../../../platform/instantiation/com
 import { IThemeService } from '../../../../../platform/theme/common/themeService.js';
 import { IKeybindingService } from '../../../../../platform/keybinding/common/keybinding.js';
 import { IContextMenuService } from '../../../../../platform/contextview/browser/contextView.js';
-import { isTemporaryWorkspace, IWorkspaceContextService, WorkbenchState } from '../../../../../platform/workspace/common/workspace.js';
+import { isTemporaryWorkspace, WorkspaceContextServiceInterface, WorkbenchState } from '../../../../../platform/workspace/common/workspace.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { ViewPane } from '../../../../browser/parts/views/viewPane.js';
 import { ResourcesDropHandler } from '../../../../browser/dnd.js';
@@ -36,7 +36,7 @@ export class EmptyView extends ViewPane {
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IKeybindingService keybindingService: IKeybindingService,
 		@IContextMenuService contextMenuService: IContextMenuService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService,
 		@ILabelService private labelService: ILabelService,
 		@IContextKeyService contextKeyService: IContextKeyService,

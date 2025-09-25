@@ -12,7 +12,7 @@ import { generateUuid } from '../../../../base/common/uuid.js';
 import * as nls from '../../../../nls.js';
 import { IContextKeyService, IScopedContextKeyService, RawContextKey } from '../../../../platform/contextkey/common/contextkey.js';
 import { IEditorOptions } from '../../../../platform/editor/common/editor.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { EditorPane } from '../../../browser/parts/editor/editorPane.js';
@@ -55,7 +55,7 @@ export class WebviewEditor extends EditorPane {
 		group: IEditorGroup,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IEditorGroupsService private readonly _editorGroupsService: IEditorGroupsService,
 		@IEditorService private readonly _editorService: IEditorService,
 		@IWorkbenchLayoutService private readonly _workbenchLayoutService: IWorkbenchLayoutService,

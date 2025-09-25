@@ -6,13 +6,13 @@
 import assert from 'assert';
 import { DisposableStore } from '../../../base/common/lifecycle.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../base/test/common/utils.js';
-import { StorageScope, IStorageService, StorageTarget } from '../../../platform/storage/common/storage.js';
+import { StorageScope, StorageServiceInterface, StorageTarget } from '../../../platform/storage/common/storage.js';
 import { Memento } from '../../common/memento.js';
 import { TestStorageService } from './workbenchTestServices.js';
 
 suite('Memento', () => {
 	const disposables = new DisposableStore();
-	let storage: IStorageService;
+	let storage: StorageServiceInterface;
 
 	setup(() => {
 		storage = disposables.add(new TestStorageService());

@@ -14,7 +14,7 @@ import { URI, UriComponents } from '../../../base/common/uri.js';
 import { ExtensionIdentifier, IExtensionDescription } from '../../../platform/extensions/common/extensions.js';
 import { createDecorator } from '../../../platform/instantiation/common/instantiation.js';
 import { ISignService } from '../../../platform/sign/common/sign.js';
-import { IWorkspaceFolder } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../platform/workspace/common/workspace.js';
 import { AbstractDebugAdapter } from '../../contrib/debug/common/abstractDebugAdapter.js';
 import { DebugVisualizationType, IAdapterDescriptor, IConfig, IDebugAdapter, IDebugAdapterExecutable, IDebugAdapterImpl, IDebugAdapterNamedPipeServer, IDebugAdapterServer, IDebuggerContribution, IDebugVisualization, IDebugVisualizationContext, IDebugVisualizationTreeItem, MainThreadDebugVisualization } from '../../contrib/debug/common/debug.js';
 import { convertToDAPaths, convertToVSCPaths, isDebuggerMainContribution } from '../../contrib/debug/common/debugUtils.js';
@@ -566,7 +566,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 	}
 
 	public async $substituteVariables(folderUri: UriComponents | undefined, config: IConfig): Promise<IConfig> {
-		let ws: IWorkspaceFolder | undefined;
+		let ws: WorkspaceInterfaceFolder | undefined;
 		const folder = await this.getFolder(folderUri);
 		if (folder) {
 			ws = {

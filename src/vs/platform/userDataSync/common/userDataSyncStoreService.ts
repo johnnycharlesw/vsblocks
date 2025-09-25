@@ -17,12 +17,12 @@ import { URI } from '../../../base/common/uri.js';
 import { generateUuid } from '../../../base/common/uuid.js';
 import { IHeaders, IRequestContext, IRequestOptions } from '../../../base/parts/request/common/request.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { IProductService } from '../../product/common/productService.js';
 import { asJson, asText, asTextOrError, hasNoContent, IRequestService, isSuccess, isSuccess as isSuccessContext } from '../../request/common/request.js';
 import { getServiceMachineId } from '../../externalServices/common/serviceMachineId.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { HEADER_EXECUTION_ID, HEADER_OPERATION_ID, IAuthenticationProvider, IResourceRefHandle, IUserData, IUserDataManifest, IUserDataSyncLatestData, IUserDataSyncLogService, IUserDataSyncStore, IUserDataSyncStoreManagementService, IUserDataSyncStoreService, ServerResource, SYNC_SERVICE_URL_TYPE, UserDataSyncErrorCode, UserDataSyncStoreError, UserDataSyncStoreType } from './userDataSync.js';
 import { VSBufferReadableStream } from '../../../base/common/buffer.js';
 import { IStringDictionary } from '../../../base/common/collections.js';
@@ -69,7 +69,7 @@ export abstract class AbstractUserDataSyncStoreManagementService extends Disposa
 	constructor(
 		@IProductService protected readonly productService: IProductService,
 		@IConfigurationService protected readonly configurationService: IConfigurationService,
-		@IStorageService protected readonly storageService: IStorageService,
+		@StorageServiceInterface protected readonly storageService: StorageServiceInterface,
 	) {
 		super();
 		this.updateUserDataSyncStore();
@@ -128,7 +128,7 @@ export class UserDataSyncStoreManagementService extends AbstractUserDataSyncStor
 	constructor(
 		@IProductService productService: IProductService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super(productService, configurationService, storageService);
 
@@ -181,9 +181,9 @@ export class UserDataSyncStoreClient extends Disposable {
 		@IProductService productService: IProductService,
 		@IRequestService private readonly requestService: IRequestService,
 		@IUserDataSyncLogService private readonly logService: IUserDataSyncLogService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 	) {
 		super();
 		this.updateUserDataSyncStoreUrl(userDataSyncStoreUrl);
@@ -709,9 +709,9 @@ export class UserDataSyncStoreService extends UserDataSyncStoreClient implements
 		@IProductService productService: IProductService,
 		@IRequestService requestService: IRequestService,
 		@IUserDataSyncLogService logService: IUserDataSyncLogService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super(userDataSyncStoreManagementService.userDataSyncStore?.url, productService, requestService, logService, environmentService, fileService, storageService);
 		this._register(userDataSyncStoreManagementService.onDidChangeUserDataSyncStore(() => this.updateUserDataSyncStoreUrl(userDataSyncStoreManagementService.userDataSyncStore?.url)));

@@ -6,7 +6,7 @@
 import * as nls from '../../../../../nls.js';
 import * as DOM from '../../../../../base/browser/dom.js';
 import { findLastIdx } from '../../../../../base/common/arraysFind.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService, registerThemingParticipant } from '../../../../../platform/theme/common/themeService.js';
 import { EditorPaneSelectionChangeReason, EditorPaneSelectionCompareResult, IEditorOpenContext, IEditorPaneScrollPosition, IEditorPaneSelection, IEditorPaneSelectionChangeEvent, IEditorPaneWithScrolling, IEditorPaneWithSelection } from '../../../../common/editor.js';
@@ -165,7 +165,7 @@ export class NotebookTextDiffEditor extends EditorPane implements INotebookTextD
 		@INotebookEditorWorkerService private readonly notebookEditorWorkerService: INotebookEditorWorkerService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ITelemetryService telemetryService: ITelemetryService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@INotebookService private readonly notebookService: INotebookService,
 		@IEditorService private readonly editorService: IEditorService,
 	) {

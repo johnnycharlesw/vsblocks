@@ -17,7 +17,7 @@ import { IGalleryExtension } from '../../../../platform/extensionManagement/comm
 import { areSameExtensions } from '../../../../platform/extensionManagement/common/extensionManagementUtil.js';
 import { IExtensionRecommendationNotificationService, IExtensionRecommendations, RecommendationsNotificationResult, RecommendationSource, RecommendationSourceToString } from '../../../../platform/extensionRecommendations/common/extensionRecommendations.js';
 import { INotificationHandle, INotificationService, IPromptChoice, IPromptChoiceWithMenu, NotificationPriority, Severity } from '../../../../platform/notification/common/notification.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IUserDataSyncEnablementService, SyncResource } from '../../../../platform/userDataSync/common/userDataSync.js';
@@ -132,7 +132,7 @@ export class ExtensionRecommendationNotificationService extends Disposable imple
 
 	constructor(
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@INotificationService private readonly notificationService: INotificationService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IExtensionsWorkbenchService private readonly extensionsWorkbenchService: IExtensionsWorkbenchService,

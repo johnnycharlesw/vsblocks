@@ -28,7 +28,7 @@ import { IProductService } from '../../../../platform/product/common/productServ
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { isLoggingOnly } from '../../../../platform/telemetry/common/telemetryUtils.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
-import { IWorkspaceContextService, WorkbenchState, isUntitledWorkspace } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState, isUntitledWorkspace } from '../../../../platform/workspace/common/workspace.js';
 import { INativeWorkbenchEnvironmentService } from '../../environment/electron-browser/environmentService.js';
 import { IShellEnvironmentService } from '../../environment/electron-browser/shellEnvironmentService.js';
 import { MessagePortExtHostConnection, writeExtHostConnection } from '../common/extensionHostEnv.js';
@@ -117,7 +117,7 @@ export class NativeLocalProcessExtensionHost implements IExtensionHost {
 		public readonly runningLocation: LocalProcessRunningLocation,
 		public readonly startup: ExtensionHostStartup.EagerAutoStart | ExtensionHostStartup.EagerManualStart,
 		private readonly _initDataProvider: ILocalProcessExtensionHostDataProvider,
-		@IWorkspaceContextService private readonly _contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _contextService: WorkspaceContextServiceInterface,
 		@INotificationService private readonly _notificationService: INotificationService,
 		@INativeHostService private readonly _nativeHostService: INativeHostService,
 		@ILifecycleService private readonly _lifecycleService: ILifecycleService,
@@ -239,7 +239,7 @@ export class NativeLocalProcessExtensionHost implements IExtensionHost {
 			opts.execArgv.unshift('--prof');
 		}
 
-		// Refs https://github.com/microsoft/vscode/issues/189805
+		// Refs https://github.com/johnnycharlesw/vsblocks/issues/189805
 		//
 		// Enable experimental network inspection
 		// inspector agent is always setup hence add this flag

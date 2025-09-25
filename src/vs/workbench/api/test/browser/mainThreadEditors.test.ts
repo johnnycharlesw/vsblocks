@@ -30,7 +30,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { TestConfigurationService } from '../../../../platform/configuration/test/common/testConfigurationService.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { TestDialogService } from '../../../../platform/dialogs/test/common/testDialogService.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { SyncDescriptor } from '../../../../platform/instantiation/common/descriptors.js';
 import { InstantiationService } from '../../../../platform/instantiation/common/instantiationService.js';
@@ -44,7 +44,7 @@ import { IUndoRedoService } from '../../../../platform/undoRedo/common/undoRedo.
 import { UndoRedoService } from '../../../../platform/undoRedo/common/undoRedoService.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { UriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentityService.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { BulkEditService } from '../../../contrib/bulkEdit/browser/bulkEditService.js';
 import { IEditorGroupsService } from '../../../services/editor/common/editorGroupsService.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
@@ -59,7 +59,7 @@ import { IWorkingCopyService } from '../../../services/workingCopy/common/workin
 import { TestEditorGroupsService, TestEditorService, TestEnvironmentService, TestLifecycleService, TestWorkingCopyService } from '../../../test/browser/workbenchTestServices.js';
 import { TestContextService, TestFileService, TestTextResourcePropertiesService } from '../../../test/common/workbenchTestServices.js';
 import { MainThreadBulkEdits } from '../../browser/mainThreadBulkEdits.js';
-import { IWorkspaceTextEditDto } from '../../common/extHost.protocol.js';
+import { WorkspaceInterfaceTextEditDto } from '../../common/extHost.protocol.js';
 import { SingleProxyRPCProtocol } from '../common/testRPCProtocol.js';
 
 suite('MainThreadEditors', () => {
@@ -94,8 +94,8 @@ suite('MainThreadEditors', () => {
 		services.set(IBulkEditService, new SyncDescriptor(BulkEditService));
 		services.set(ILabelService, new SyncDescriptor(LabelService));
 		services.set(ILogService, new NullLogService());
-		services.set(IWorkspaceContextService, new TestContextService());
-		services.set(IEnvironmentService, TestEnvironmentService);
+		services.set(WorkspaceContextServiceInterface, new TestContextService());
+		services.set(EnvironmentServiceInterface, TestEnvironmentService);
 		services.set(IWorkbenchEnvironmentService, TestEnvironmentService);
 		services.set(IConfigurationService, configService);
 		services.set(IDialogService, dialogService);
@@ -200,7 +200,7 @@ suite('MainThreadEditors', () => {
 
 		const model = disposables.add(modelService.createModel('something', null, resource));
 
-		const workspaceResourceEdit: IWorkspaceTextEditDto = {
+		const workspaceResourceEdit: WorkspaceInterfaceTextEditDto = {
 			resource: resource,
 			versionId: model.getVersionId(),
 			textEdit: {
@@ -221,7 +221,7 @@ suite('MainThreadEditors', () => {
 
 		const model = disposables.add(modelService.createModel('something', null, resource));
 
-		const workspaceResourceEdit1: IWorkspaceTextEditDto = {
+		const workspaceResourceEdit1: WorkspaceInterfaceTextEditDto = {
 			resource: resource,
 			versionId: model.getVersionId(),
 			textEdit: {
@@ -229,7 +229,7 @@ suite('MainThreadEditors', () => {
 				range: new Range(1, 1, 1, 1)
 			}
 		};
-		const workspaceResourceEdit2: IWorkspaceTextEditDto = {
+		const workspaceResourceEdit2: WorkspaceInterfaceTextEditDto = {
 			resource: resource,
 			versionId: model.getVersionId(),
 			textEdit: {

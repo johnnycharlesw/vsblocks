@@ -9,7 +9,7 @@ import { KeyCode } from '../../../../../base/common/keyCodes.js';
 import { KeyCodeChord } from '../../../../../base/common/keybindings.js';
 import { OS } from '../../../../../base/common/platform.js';
 import { ContextKeyExpr } from '../../../../../platform/contextkey/common/contextkey.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { IUserFriendlyKeybinding } from '../../../../../platform/keybinding/common/keybinding.js';
@@ -47,7 +47,7 @@ suite('KeybindingsEditing', () => {
 	const disposables = ensureNoDisposablesAreLeakedInTestSuite();
 	let instantiationService: TestInstantiationService;
 	let fileService: IFileService;
-	let environmentService: IEnvironmentService;
+	let environmentService: EnvironmentServiceInterface;
 	let userDataProfileService: IUserDataProfileService;
 	let testObject: KeybindingsEditingService;
 

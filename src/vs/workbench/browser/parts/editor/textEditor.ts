@@ -16,7 +16,7 @@ import { computeEditorAriaLabel } from '../../editor.js';
 import { AbstractEditorWithViewState } from './editorWithViewState.js';
 import { IEditorViewState } from '../../../../editor/common/editorCommon.js';
 import { Selection } from '../../../../editor/common/core/selection.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
@@ -68,7 +68,7 @@ export abstract class AbstractTextEditor<T extends IEditorViewState> extends Abs
 		group: IEditorGroup,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IInstantiationService instantiationService: IInstantiationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ITextResourceConfigurationService textResourceConfigurationService: ITextResourceConfigurationService,
 		@IThemeService themeService: IThemeService,
 		@IEditorService editorService: IEditorService,

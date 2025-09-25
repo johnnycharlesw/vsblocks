@@ -25,7 +25,7 @@ import { ILabelService } from '../../../../platform/label/common/label.js';
 import { IListService } from '../../../../platform/list/browser/listService.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
-import { IWorkspaceContextService, IWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { PICK_WORKSPACE_FOLDER_COMMAND_ID } from '../../../browser/actions/workspaceCommands.js';
 import { EditorPaneDescriptor, IEditorPaneRegistry } from '../../../browser/editor.js';
 import { resolveCommandsContext } from '../../../browser/parts/editor/editorCommandsContext.js';
@@ -205,7 +205,7 @@ class PreferencesActionsContribution extends Disposable implements IWorkbenchCon
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@IUserDataProfileService private readonly userDataProfileService: IUserDataProfileService,
 		@IPreferencesService private readonly preferencesService: IPreferencesService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@ILabelService private readonly labelService: ILabelService,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
@@ -412,7 +412,7 @@ class PreferencesActionsContribution extends Disposable implements IWorkbenchCon
 			async run(accessor: ServicesAccessor, args?: IOpenSettingsActionOptions) {
 				const commandService = accessor.get(ICommandService);
 				const preferencesService = accessor.get(IPreferencesService);
-				const workspaceFolder = await commandService.executeCommand<IWorkspaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
+				const workspaceFolder = await commandService.executeCommand<WorkspaceInterfaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
 				if (workspaceFolder) {
 					args = sanitizeOpenSettingsArgs(args);
 					await preferencesService.openFolderSettings({ folderUri: workspaceFolder.uri, ...args });
@@ -434,7 +434,7 @@ class PreferencesActionsContribution extends Disposable implements IWorkbenchCon
 			async run(accessor: ServicesAccessor, args?: IOpenSettingsActionOptions) {
 				const commandService = accessor.get(ICommandService);
 				const preferencesService = accessor.get(IPreferencesService);
-				const workspaceFolder = await commandService.executeCommand<IWorkspaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
+				const workspaceFolder = await commandService.executeCommand<WorkspaceInterfaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
 				if (workspaceFolder) {
 					args = sanitizeOpenSettingsArgs(args);
 					await preferencesService.openFolderSettings({ folderUri: workspaceFolder.uri, jsonEditor: true, ...args });
@@ -461,7 +461,7 @@ class PreferencesActionsContribution extends Disposable implements IWorkbenchCon
 				} else {
 					const commandService = accessor.get(ICommandService);
 					const preferencesService = accessor.get(IPreferencesService);
-					const workspaceFolder = await commandService.executeCommand<IWorkspaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
+					const workspaceFolder = await commandService.executeCommand<WorkspaceInterfaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
 					if (workspaceFolder) {
 						await preferencesService.openFolderSettings({ folderUri: workspaceFolder.uri });
 					}
@@ -1374,7 +1374,7 @@ class SettingsEditorContribution extends Disposable {
 		private readonly editor: ICodeEditor,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IPreferencesService private readonly preferencesService: IPreferencesService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		super();
 		this._createPreferencesRenderer();

@@ -16,7 +16,7 @@ import { InMemoryStorageDatabase, isStorageItemsChangeEvent, IStorage, IStorageD
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { AbstractStorageService, isProfileUsingDefaultStorage, IS_NEW_KEY, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { isUserDataProfile, IUserDataProfile } from '../../../../platform/userDataProfile/common/userDataProfile.js';
-import { IAnyWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IUserDataProfileService } from '../../userDataProfile/common/userDataProfile.js';
 
 export class BrowserStorageService extends AbstractStorageService {
@@ -44,7 +44,7 @@ export class BrowserStorageService extends AbstractStorageService {
 	}
 
 	constructor(
-		private readonly workspace: IAnyWorkspaceIdentifier,
+		private readonly workspace: AnyWorkspaceIdentifierInterface,
 		private readonly userDataProfileService: IUserDataProfileService,
 		@ILogService private readonly logService: ILogService,
 	) {
@@ -184,7 +184,7 @@ export class BrowserStorageService extends AbstractStorageService {
 		this.switchData(oldItems, assertReturnsDefined(this.profileStorage), StorageScope.PROFILE);
 	}
 
-	protected async switchToWorkspace(toWorkspace: IAnyWorkspaceIdentifier, preserveData: boolean): Promise<void> {
+	protected async switchToWorkspace(toWorkspace: AnyWorkspaceIdentifierInterface, preserveData: boolean): Promise<void> {
 		throw new Error('Migrating storage is currently unsupported in Web');
 	}
 
@@ -206,7 +206,7 @@ export class BrowserStorageService extends AbstractStorageService {
 		// Safari: there is an issue where the page can hang on load when
 		// a previous session has kept IndexedDB transactions running.
 		// The only fix seems to be to cancel any pending transactions
-		// (https://github.com/microsoft/vscode/issues/136295)
+		// (https://github.com/johnnycharlesw/vsblocks/issues/136295)
 		//
 		// On all other browsers, we keep the databases opened because
 		// we expect data to be written when the unload happens.
@@ -242,7 +242,7 @@ export class BrowserStorageService extends AbstractStorageService {
 		]);
 	}
 
-	hasScope(scope: IAnyWorkspaceIdentifier | IUserDataProfile): boolean {
+	hasScope(scope: AnyWorkspaceIdentifierInterface | IUserDataProfile): boolean {
 		if (isUserDataProfile(scope)) {
 			return this.profileStorageProfile.id === scope.id;
 		}

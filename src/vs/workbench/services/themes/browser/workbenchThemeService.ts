@@ -7,7 +7,7 @@ import * as nls from '../../../../nls.js';
 import * as types from '../../../../base/common/types.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
 import { IWorkbenchThemeService, IWorkbenchColorTheme, IWorkbenchFileIconTheme, ExtensionData, ThemeSettings, IWorkbenchProductIconTheme, ThemeSettingTarget, ThemeSettingDefaults, COLOR_THEME_DARK_INITIAL_COLORS, COLOR_THEME_LIGHT_INITIAL_COLORS } from '../common/workbenchThemeService.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import * as errors from '../../../../base/common/errors.js';
@@ -99,7 +99,7 @@ export class WorkbenchThemeService extends Disposable implements IWorkbenchTheme
 
 	constructor(
 		@IExtensionService extensionService: IExtensionService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IBrowserWorkbenchEnvironmentService private readonly environmentService: IBrowserWorkbenchEnvironmentService,

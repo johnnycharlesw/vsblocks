@@ -12,7 +12,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { IInstantiationService, ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { EditorsOrder } from '../../../common/editor.js';
 import { IViewsService } from '../../../services/views/common/viewsService.js';
 import { getSearchView } from '../../search/browser/searchActionsBase.js';
@@ -104,7 +104,7 @@ export const openNewSearchEditor =
 		const configurationService = accessor.get(IConfigurationService);
 
 		const configurationResolverService = accessor.get(IConfigurationResolverService);
-		const workspaceContextService = accessor.get(IWorkspaceContextService);
+		const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 		const historyService = accessor.get(IHistoryService);
 		const activeWorkspaceRootUri = historyService.getLastActiveWorkspaceRoot(Schemas.file);
 		const lastActiveWorkspaceRoot = activeWorkspaceRootUri ? workspaceContextService.getWorkspaceFolder(activeWorkspaceRootUri) ?? undefined : undefined;

@@ -9,7 +9,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { createDecorator, ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IURLHandler, IURLService, IOpenURLOptions } from '../../../../platform/url/common/url.js';
 import { IHostService } from '../../host/browser/host.js';
 import { ActivationKind, IExtensionService } from '../common/extensions.js';
@@ -50,7 +50,7 @@ class UserTrustedExtensionIdStorage {
 		}
 	}
 
-	constructor(private storageService: IStorageService) { }
+	constructor(private storageService: StorageServiceInterface) { }
 
 	has(id: string): boolean {
 		return this.extensions.indexOf(id) > -1;
@@ -127,7 +127,7 @@ class ExtensionUrlHandler implements IExtensionUrlHandler, IURLHandler {
 		@IDialogService private readonly dialogService: IDialogService,
 		@ICommandService private readonly commandService: ICommandService,
 		@IHostService private readonly hostService: IHostService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@INotificationService private readonly notificationService: INotificationService,
 		@IProductService private readonly productService: IProductService,
@@ -347,7 +347,7 @@ registerSingleton(IExtensionUrlHandler, ExtensionUrlHandler, InstantiationType.E
 
 /**
  * This class handles URLs before `ExtensionUrlHandler` is instantiated.
- * More info: https://github.com/microsoft/vscode/issues/73101
+ * More info: https://github.com/johnnycharlesw/vsblocks/issues/73101
  */
 class ExtensionUrlBootstrapHandler implements IWorkbenchContribution, IURLHandler {
 
@@ -395,7 +395,7 @@ class ManageAuthorizedExtensionURIsAction extends Action2 {
 	}
 
 	async run(accessor: ServicesAccessor): Promise<void> {
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 		const quickInputService = accessor.get(IQuickInputService);
 		const storage = new UserTrustedExtensionIdStorage(storageService);
 		const items = storage.extensions.map((label): IQuickPickItem => ({ label, picked: true }));

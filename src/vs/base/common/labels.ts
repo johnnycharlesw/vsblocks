@@ -10,7 +10,7 @@ import { extUri, extUriIgnorePathCase } from './resources.js';
 import { rtrim, startsWithIgnoreCase } from './strings.js';
 import { URI } from './uri.js';
 
-export interface IPathLabelFormatting {
+export interface PathInterfaceLabelFormatting {
 
 	/**
 	 * The OS the path label is from to produce a label
@@ -49,7 +49,7 @@ export interface IUserHomeProvider {
 	userHome: URI;
 }
 
-export function getPathLabel(resource: URI, formatting: IPathLabelFormatting): string {
+export function getPathLabel(resource: URI, formatting: PathInterfaceLabelFormatting): string {
 	const { os, tildify: tildifier, relative: relatifier } = formatting;
 
 	// return early with a relative path if we can resolve one

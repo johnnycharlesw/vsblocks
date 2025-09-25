@@ -5,7 +5,7 @@
 
 declare module 'vscode' {
 
-	// https://github.com/microsoft/vscode/issues/157734
+	// https://github.com/johnnycharlesw/vsblocks/issues/157734
 
 	export namespace workspace {
 		/**

@@ -10,7 +10,7 @@ import { URI } from '../../../../../base/common/uri.js';
 import { ConfigurationTarget, IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
 import { StorageScope } from '../../../../../platform/storage/common/storage.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../../platform/workspace/common/workspace.js';
 import { IRemoteAgentService } from '../../../../services/remote/common/remoteAgentService.js';
 import { DiscoverySource } from '../mcpConfiguration.js';
 import { IMcpRegistry } from '../mcpRegistryTypes.js';
@@ -24,7 +24,7 @@ export class CursorWorkspaceMcpDiscoveryAdapter extends FilesystemMcpDiscovery i
 
 	constructor(
 		@IFileService fileService: IFileService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 		@IMcpRegistry mcpRegistry: IMcpRegistry,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IRemoteAgentService private readonly _remoteAgentService: IRemoteAgentService,
@@ -47,7 +47,7 @@ export class CursorWorkspaceMcpDiscoveryAdapter extends FilesystemMcpDiscovery i
 		}
 	}
 
-	private watchFolder(folder: IWorkspaceFolder) {
+	private watchFolder(folder: WorkspaceInterfaceFolder) {
 		const configFile = joinPath(folder.uri, '.cursor', 'mcp.json');
 		const collection: WritableMcpCollectionDefinition = {
 			id: `cursor-workspace.${folder.index}`,

@@ -17,7 +17,7 @@ import { Command, Location, TextEdit } from '../../../../editor/common/languages
 import { FileType } from '../../../../platform/files/common/files.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { ICellEditOperation } from '../../notebook/common/notebookCommon.js';
-import { IWorkspaceSymbol } from '../../search/common/search.js';
+import { WorkspaceInterfaceSymbol } from '../../search/common/search.js';
 import { IChatAgentCommand, IChatAgentData, IChatAgentResult, UserSelectedTools } from './chatAgents.js';
 import { IChatEditingSession } from './chatEditingService.js';
 import { ChatModel, IChatModel, IChatRequestModeInfo, IChatRequestModel, IChatRequestVariableData, IChatResponseModel, IExportableChatData, ISerializableChatData } from './chatModel.js';
@@ -138,7 +138,7 @@ export interface IChatCodeCitation {
 
 export interface IChatContentInlineReference {
 	resolveId?: string;
-	inlineReference: URI | Location | IWorkspaceSymbol;
+	inlineReference: URI | Location | WorkspaceInterfaceSymbol;
 	name?: string;
 	kind: 'inlineReference';
 }

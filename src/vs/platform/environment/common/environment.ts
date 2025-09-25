@@ -7,15 +7,15 @@ import { URI } from '../../../base/common/uri.js';
 import { NativeParsedArgs } from './argv.js';
 import { createDecorator, refineServiceDecorator } from '../../instantiation/common/instantiation.js';
 
-export const IEnvironmentService = createDecorator<IEnvironmentService>('environmentService');
-export const INativeEnvironmentService = refineServiceDecorator<IEnvironmentService, INativeEnvironmentService>(IEnvironmentService);
+export const EnvironmentServiceInterface = createDecorator<EnvironmentServiceInterface>('environmentService');
+export const NativeEnvironmentServiceInterface = refineServiceDecorator<EnvironmentServiceInterface, NativeEnvironmentServiceInterface>(EnvironmentServiceInterface);
 
-export interface IDebugParams {
+export interface DebugParamsInterface {
 	port: number | null;
 	break: boolean;
 }
 
-export interface IExtensionHostDebugParams extends IDebugParams {
+export interface ExtensionHostDebugParamsInterface extends DebugParamsInterface {
 	debugId?: string;
 	env?: Record<string, string>;
 }
@@ -32,7 +32,7 @@ export type ExtensionKind = 'ui' | 'workspace' | 'web';
  * such as main, renderer and shared process. Use subclasses of this
  * service for specific environment.
  */
-export interface IEnvironmentService {
+export interface EnvironmentServiceInterface {
 
 	readonly _serviceBrand: undefined;
 
@@ -68,7 +68,7 @@ export interface IEnvironmentService {
 	editSessionId?: string;
 
 	// --- extension development
-	debugExtensionHost: IExtensionHostDebugParams;
+	debugExtensionHost: ExtensionHostDebugParamsInterface;
 	isExtensionDevelopment: boolean;
 	disableExtensions: boolean | string[];
 	enableExtensions?: readonly string[];
@@ -104,10 +104,10 @@ export interface IEnvironmentService {
 }
 
 /**
- * A subclass of the `IEnvironmentService` to be used only in native
+ * A subclass of the `EnvironmentServiceInterface` to be used only in native
  * environments (Windows, Linux, macOS) but not e.g. web.
  */
-export interface INativeEnvironmentService extends IEnvironmentService {
+export interface NativeEnvironmentServiceInterface extends EnvironmentServiceInterface {
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//

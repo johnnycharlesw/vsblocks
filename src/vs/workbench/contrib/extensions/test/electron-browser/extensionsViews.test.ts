@@ -24,7 +24,7 @@ import { IPager } from '../../../../../base/common/paging.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
 import { IExtensionService, toExtensionDescription } from '../../../../services/extensions/common/extensions.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { TestMenuService } from '../../../../test/browser/workbenchTestServices.js';
 import { TestSharedProcessService } from '../../../../test/electron-browser/workbenchTestServices.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
@@ -88,7 +88,7 @@ suite('ExtensionsViews Tests', () => {
 		instantiationService.stub(IFileService, disposableStore.add(new FileService(new NullLogService())));
 		instantiationService.stub(IProductService, {});
 
-		instantiationService.stub(IWorkspaceContextService, new TestContextService());
+		instantiationService.stub(WorkspaceContextServiceInterface, new TestContextService());
 		instantiationService.stub(IConfigurationService, new TestConfigurationService());
 
 		instantiationService.stub(IExtensionGalleryService, ExtensionGalleryService);

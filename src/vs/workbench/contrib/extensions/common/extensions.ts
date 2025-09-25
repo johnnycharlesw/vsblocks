@@ -33,7 +33,7 @@ export interface IExtensionsViewPaneContainer extends IViewPaneContainer {
 	refresh(): Promise<void>;
 }
 
-export interface IWorkspaceRecommendedExtensionsView extends IView {
+export interface WorkspaceInterfaceRecommendedExtensionsView extends IView {
 	installWorkspaceRecommendations(): Promise<void>;
 }
 

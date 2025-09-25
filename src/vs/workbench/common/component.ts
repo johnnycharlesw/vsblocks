@@ -5,7 +5,7 @@
 
 import { Memento, MementoObject } from './memento.js';
 import { IThemeService, Themable } from '../../platform/theme/common/themeService.js';
-import { IStorageService, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
+import { StorageServiceInterface, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
 import { DisposableStore } from '../../base/common/lifecycle.js';
 import { Event } from '../../base/common/event.js';
 
@@ -16,7 +16,7 @@ export class Component extends Themable {
 	constructor(
 		private readonly id: string,
 		themeService: IThemeService,
-		storageService: IStorageService
+		storageService: StorageServiceInterface
 	) {
 		super(themeService);
 

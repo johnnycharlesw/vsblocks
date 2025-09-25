@@ -28,7 +28,7 @@ import { IInstantiationService, ServicesAccessor } from '../../../../../platform
 import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { INotificationService } from '../../../../../platform/notification/common/notification.js';
 import { IProgressService, ProgressLocation } from '../../../../../platform/progress/common/progress.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { REVEAL_IN_EXPLORER_COMMAND_ID } from '../../../files/browser/fileConstants.js';
 import { getAttachableImageExtension } from '../../common/chatModel.js';
 import { IChatRequestVariableEntry } from '../../common/chatVariableEntries.js';
@@ -329,7 +329,7 @@ class SaveResourcesAction extends Action2 {
 		const fileService = accessor.get(IFileService);
 		const notificationService = accessor.get(INotificationService);
 		const progressService = accessor.get(IProgressService);
-		const workspaceContextService = accessor.get(IWorkspaceContextService);
+		const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 		const commandService = accessor.get(ICommandService);
 		const labelService = accessor.get(ILabelService);
 		const defaultFilepath = await fileDialog.defaultFilePath();

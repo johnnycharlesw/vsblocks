@@ -28,7 +28,7 @@ import { IInstantiationService } from '../../../../../platform/instantiation/com
 import { TerminalCapability } from '../../../../../platform/terminal/common/capabilities/capabilities.js';
 import { TerminalCapabilityStore } from '../../../../../platform/terminal/common/capabilities/terminalCapabilityStore.js';
 import { formatMessageForTerminal } from '../../../../../platform/terminal/common/terminalStrings.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { IEditorConfiguration } from '../../../../browser/parts/editor/textEditor.js';
 import { EditorModel } from '../../../../common/editor/editorModel.js';
 import { PANEL_BACKGROUND, SIDE_BAR_BACKGROUND } from '../../../../common/theme.js';
@@ -432,7 +432,7 @@ export class TerminalMessagePeek extends Disposable implements IPeekOutputRender
 		private readonly isInPeekView: boolean,
 		@ITerminalService private readonly terminalService: ITerminalService,
 		@IViewDescriptorService private readonly viewDescriptorService: IViewDescriptorService,
-		@IWorkspaceContextService private readonly workspaceContext: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContext: WorkspaceContextServiceInterface,
 	) {
 		super();
 	}

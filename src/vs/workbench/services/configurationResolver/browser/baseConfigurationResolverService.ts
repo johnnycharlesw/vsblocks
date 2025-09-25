@@ -16,12 +16,12 @@ import { ICommandService } from '../../../../platform/commands/common/commands.j
 import { ConfigurationTarget, IConfigurationOverrides, IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { IInputOptions, IPickOptions, IQuickInputService, IQuickPickItem } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
-import { IWorkspaceContextService, IWorkspaceFolderData } from '../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolderData } from '../../../../platform/workspace/common/workspace.js';
 import { EditorResourceAccessor, SideBySideEditor } from '../../../common/editor.js';
 import { IEditorService } from '../../editor/common/editorService.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { ConfiguredInput, VariableError, VariableKind } from '../common/configurationResolver.js';
 import { ConfigurationResolverExpression, IResolvedValue } from '../common/configurationResolverExpression.js';
 import { AbstractVariableResolverService } from '../common/variableResolver.js';
@@ -44,12 +44,12 @@ export abstract class BaseConfigurationResolverService extends AbstractVariableR
 		editorService: IEditorService,
 		private readonly configurationService: IConfigurationService,
 		private readonly commandService: ICommandService,
-		workspaceContextService: IWorkspaceContextService,
+		workspaceContextService: WorkspaceContextServiceInterface,
 		private readonly quickInputService: IQuickInputService,
 		private readonly labelService: ILabelService,
-		private readonly pathService: IPathService,
+		private readonly pathService: PathInterfaceService,
 		extensionService: IExtensionService,
-		private readonly storageService: IStorageService,
+		private readonly storageService: StorageServiceInterface,
 	) {
 		super({
 			getFolderUri: (folderName: string): uri | undefined => {
@@ -143,14 +143,14 @@ export abstract class BaseConfigurationResolverService extends AbstractVariableR
 		this.resolvableVariables.add('input');
 	}
 
-	override async resolveWithInteractionReplace(folder: IWorkspaceFolderData | undefined, config: unknown, section?: string, variables?: IStringDictionary<string>, target?: ConfigurationTarget): Promise<any> {
+	override async resolveWithInteractionReplace(folder: WorkspaceInterfaceFolderData | undefined, config: unknown, section?: string, variables?: IStringDictionary<string>, target?: ConfigurationTarget): Promise<any> {
 		const parsed = ConfigurationResolverExpression.parse(config);
 		await this.resolveWithInteraction(folder, parsed, section, variables, target);
 
 		return parsed.toObject();
 	}
 
-	override async resolveWithInteraction(folder: IWorkspaceFolderData | undefined, config: unknown, section?: string, variableToCommandMap?: IStringDictionary<string>, target?: ConfigurationTarget): Promise<Map<string, string> | undefined> {
+	override async resolveWithInteraction(folder: WorkspaceInterfaceFolderData | undefined, config: unknown, section?: string, variableToCommandMap?: IStringDictionary<string>, target?: ConfigurationTarget): Promise<Map<string, string> | undefined> {
 		const expr = ConfigurationResolverExpression.parse(config);
 
 		// Get values for input variables from UI
@@ -197,7 +197,7 @@ export abstract class BaseConfigurationResolverService extends AbstractVariableR
 		return new Map(Iterable.map(expr.resolved(), ([key, value]) => [key.inner, value.value!]));
 	}
 
-	private async resolveInputs(folder: IWorkspaceFolderData | undefined, section: string, target?: ConfigurationTarget): Promise<ConfiguredInput[] | undefined> {
+	private async resolveInputs(folder: WorkspaceInterfaceFolderData | undefined, section: string, target?: ConfigurationTarget): Promise<ConfiguredInput[] | undefined> {
 		if (!section) {
 			return undefined;
 		}

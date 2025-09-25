@@ -11,11 +11,11 @@ import { URI } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
 import { ConfigurationTarget, IConfigurationService } from '../../configuration/common/configuration.js';
 import { ConfigurationModelParser } from '../../configuration/common/configurationModels.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IExtensionManagementService } from '../../extensionManagement/common/extensionManagement.js';
 import { ExtensionType } from '../../extensions/common/extensions.js';
 import { FileOperationError, FileOperationResult, IFileService } from '../../files/common/files.js';
-import { IStorageService } from '../../storage/common/storage.js';
+import { StorageServiceInterface } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
@@ -56,8 +56,8 @@ export class SettingsSynchroniser extends AbstractJsonFileSynchroniser implement
 		private readonly profile: IUserDataProfile,
 		collection: string | undefined,
 		@IFileService fileService: IFileService,
-		@IEnvironmentService environmentService: IEnvironmentService,
-		@IStorageService storageService: IStorageService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUserDataSyncStoreService userDataSyncStoreService: IUserDataSyncStoreService,
 		@IUserDataSyncLocalStoreService userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IUserDataSyncLogService logService: IUserDataSyncLogService,
@@ -363,9 +363,9 @@ export class SettingsInitializer extends AbstractInitializer {
 	constructor(
 		@IFileService fileService: IFileService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IUserDataSyncLogService logService: IUserDataSyncLogService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 	) {
 		super(SyncResource.Settings, userDataProfilesService, environmentService, logService, fileService, storageService, uriIdentityService);

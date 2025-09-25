@@ -7,10 +7,10 @@ import { dirname, join } from '../../../../base/common/path.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { isWindows } from '../../../../base/common/platform.js';
 import { URI } from '../../../../base/common/uri.js';
-import { INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { INativeServerExtensionManagementService } from '../../../../platform/extensionManagement/node/extensionManagementService.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { FileOperationResult, IFileService, IFileStat, toFileOperationResult } from '../../../../platform/files/common/files.js';
 import { getErrorMessage } from '../../../../base/common/errors.js';
 
@@ -18,9 +18,9 @@ const defaultExtensionsInitStatusKey = 'initializing-default-extensions';
 
 export class DefaultExtensionsInitializer extends Disposable {
 	constructor(
-		@INativeEnvironmentService private readonly environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private readonly environmentService: NativeEnvironmentServiceInterface,
 		@INativeServerExtensionManagementService private readonly extensionManagementService: INativeServerExtensionManagementService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 		@ILogService private readonly logService: ILogService,
 	) {

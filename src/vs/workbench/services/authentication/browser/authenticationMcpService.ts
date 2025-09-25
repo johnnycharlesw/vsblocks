@@ -12,7 +12,7 @@ import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { Severity } from '../../../../platform/notification/common/notification.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IActivityService, NumberBadge } from '../../activity/common/activity.js';
 import { IAuthenticationMcpAccessService } from './authenticationMcpAccessService.js';
 import { IAuthenticationMcpUsageService } from './authenticationMcpUsageService.js';
@@ -106,7 +106,7 @@ export class AuthenticationMcpService extends Disposable implements IAuthenticat
 
 	constructor(
 		@IActivityService private readonly activityService: IActivityService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IDialogService private readonly dialogService: IDialogService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
 		@IProductService private readonly _productService: IProductService,

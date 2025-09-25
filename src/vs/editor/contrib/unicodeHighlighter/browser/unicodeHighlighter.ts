@@ -30,7 +30,7 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { IQuickInputService, IQuickPickItem } from '../../../../platform/quickinput/common/quickInput.js';
 import { registerIcon } from '../../../../platform/theme/common/iconRegistry.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { Action2, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { safeIntl } from '../../../../base/common/date.js';
 import { isModelDecorationInComment, isModelDecorationInString, isModelDecorationVisible } from '../../../common/viewModel/viewModelDecoration.js';
@@ -49,7 +49,7 @@ export class UnicodeHighlighter extends Disposable implements IEditorContributio
 	constructor(
 		private readonly _editor: ICodeEditor,
 		@IEditorWorkerService private readonly _editorWorkerService: IEditorWorkerService,
-		@IWorkspaceTrustManagementService private readonly _workspaceTrustService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly _workspaceTrustService: WorkspaceInterfaceTrustManagementService,
 		@IInstantiationService instantiationService: IInstantiationService,
 	) {
 		super();

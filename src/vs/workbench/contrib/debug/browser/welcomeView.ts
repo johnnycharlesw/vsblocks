@@ -16,7 +16,7 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { OpenFileAction, OpenFolderAction } from '../../../browser/actions/workspaceActions.js';
 import { ViewPane } from '../../../browser/parts/views/viewPane.js';
@@ -51,7 +51,7 @@ export class WelcomeView extends ViewPane {
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@IOpenerService openerService: IOpenerService,
-		@IStorageService storageSevice: IStorageService,
+		@StorageServiceInterface storageSevice: StorageServiceInterface,
 		@IHoverService hoverService: IHoverService,
 	) {
 		super(options, keybindingService, contextMenuService, configurationService, contextKeyService, viewDescriptorService, instantiationService, openerService, themeService, hoverService);

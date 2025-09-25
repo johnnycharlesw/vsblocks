@@ -6,7 +6,7 @@
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { localize } from '../../../../nls.js';
 import { ObservableMemento, observableMemento } from '../../../../platform/observable/common/observableMemento.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IMcpServer } from './mcpTypes.js';
 import { MCP } from './modelContextProtocol.js';
 
@@ -37,7 +37,7 @@ export class McpSamplingLog extends Disposable {
 	private readonly _logs: { [K in StorageScope]?: ObservableMemento<ReadonlyMap<string, ISamplingStoredData>> } = {};
 
 	constructor(
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 	) {
 		super();
 	}

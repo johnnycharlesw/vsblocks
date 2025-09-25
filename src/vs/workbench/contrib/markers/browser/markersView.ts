@@ -36,10 +36,10 @@ import { ResultKind } from '../../../../platform/keybinding/common/keybindingRes
 import { IListService, IOpenEvent, IWorkbenchObjectTreeOptions, WorkbenchObjectTree } from '../../../../platform/list/browser/listService.js';
 import { IMarkerService, MarkerSeverity } from '../../../../platform/markers/common/markers.js';
 import { IOpenerService, withSelection } from '../../../../platform/opener/common/opener.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { registerNavigableContainer } from '../../../browser/actions/widgetNavigationCommands.js';
 import { RangeHighlightDecorations } from '../../../browser/codeeditor.js';
 import { ResourceListDnDHandler } from '../../../browser/dnd.js';
@@ -133,11 +133,11 @@ export class MarkersView extends FilterViewPane implements IMarkersView {
 		@IConfigurationService configurationService: IConfigurationService,
 		@IMarkerService private readonly markerService: IMarkerService,
 		@IContextKeyService contextKeyService: IContextKeyService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@IKeybindingService keybindingService: IKeybindingService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IOpenerService openerService: IOpenerService,
 		@IThemeService themeService: IThemeService,
 		@IHoverService hoverService: IHoverService,

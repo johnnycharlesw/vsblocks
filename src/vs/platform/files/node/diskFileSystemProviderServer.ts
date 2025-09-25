@@ -14,7 +14,7 @@ import { VSBuffer } from '../../../base/common/buffer.js';
 import { ReadableStreamEventPayload, listenStream } from '../../../base/common/stream.js';
 import { IStat, IFileReadStreamOptions, IFileWriteOptions, IFileOpenOptions, IFileDeleteOptions, IFileOverwriteOptions, IFileChange, IWatchOptions, FileType, IFileAtomicReadOptions } from '../common/files.js';
 import { CancellationTokenSource } from '../../../base/common/cancellation.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IRecursiveWatcherOptions } from '../common/watcher.js';
 
 export interface ISessionFileWatcher extends IDisposable {
@@ -285,7 +285,7 @@ export abstract class AbstractSessionFileWatcher extends Disposable implements I
 		private readonly uriTransformer: IURITransformer,
 		sessionEmitter: Emitter<IFileChange[] | string>,
 		logService: ILogService,
-		private readonly environmentService: IEnvironmentService
+		private readonly environmentService: EnvironmentServiceInterface
 	) {
 		super();
 
@@ -311,11 +311,11 @@ export abstract class AbstractSessionFileWatcher extends Disposable implements I
 		this._register(this.fileWatcher.onDidWatchError(error => sessionEmitter.fire(error)));
 	}
 
-	protected getRecursiveWatcherOptions(environmentService: IEnvironmentService): IRecursiveWatcherOptions | undefined {
+	protected getRecursiveWatcherOptions(environmentService: EnvironmentServiceInterface): IRecursiveWatcherOptions | undefined {
 		return undefined; // subclasses can override
 	}
 
-	protected getExtraExcludes(environmentService: IEnvironmentService): string[] | undefined {
+	protected getExtraExcludes(environmentService: EnvironmentServiceInterface): string[] | undefined {
 		return undefined; // subclasses can override
 	}
 

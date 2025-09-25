@@ -28,7 +28,7 @@ import { IFileService } from '../../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../../platform/product/common/productService.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { IDecorationData, IDecorationsProvider, IDecorationsService } from '../../../../services/decorations/common/decorations.js';
 import { IEditorService } from '../../../../services/editor/common/editorService.js';
 import { IExtensionService } from '../../../../services/extensions/common/extensions.js';
@@ -72,7 +72,7 @@ export class ChatEditingService extends Disposable implements IChatEditingServic
 		@IDecorationsService decorationsService: IDecorationsService,
 		@IFileService private readonly _fileService: IFileService,
 		@ILifecycleService private readonly lifecycleService: ILifecycleService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILogService logService: ILogService,
 		@IExtensionService extensionService: IExtensionService,
 		@IProductService productService: IProductService,

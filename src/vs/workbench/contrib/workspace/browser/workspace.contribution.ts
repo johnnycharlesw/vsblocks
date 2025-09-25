@@ -13,7 +13,7 @@ import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { IInstantiationService, ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { Severity } from '../../../../platform/notification/common/notification.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IWorkspaceTrustEnablementService, IWorkspaceTrustManagementService, IWorkspaceTrustRequestService, WorkspaceTrustUriResponse } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustEnablementService, WorkspaceInterfaceTrustManagementService, WorkspaceInterfaceTrustRequestService, WorkspaceTrustUriResponse } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { Extensions as WorkbenchExtensions, IWorkbenchContribution, IWorkbenchContributionsRegistry, WorkbenchPhase, registerWorkbenchContribution2 } from '../../../common/contributions.js';
 import { LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js';
 import { Codicon } from '../../../../base/common/codicons.js';
@@ -28,11 +28,11 @@ import { WORKSPACE_TRUST_BANNER, WORKSPACE_TRUST_EMPTY_WINDOW, WORKSPACE_TRUST_E
 import { IEditorSerializer, IEditorFactoryRegistry, EditorExtensions } from '../../../common/editor.js';
 import { EditorInput } from '../../../common/editor/editorInput.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { isEmptyWorkspaceIdentifier, ISingleFolderWorkspaceIdentifier, isSingleFolderWorkspaceIdentifier, IWorkspaceContextService, IWorkspaceFoldersWillChangeEvent, toWorkspaceIdentifier, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { isEmptyWorkspaceIdentifier, SingleFolderWorkspaceIdentifierInterface, isSingleFolderWorkspaceIdentifier, WorkspaceContextServiceInterface, WorkspaceInterfaceFoldersWillChangeEvent, toWorkspaceIdentifier, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { dirname, resolve } from '../../../../base/common/path.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { IMarkdownString, MarkdownString } from '../../../../base/common/htmlContent.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IHostService } from '../../../services/host/browser/host.js';
 import { IBannerItem, IBannerService } from '../../../services/banner/browser/bannerService.js';
 import { isVirtualWorkspace } from '../../../../platform/workspace/common/virtualWorkspace.js';
@@ -48,7 +48,7 @@ import { IRemoteAgentService } from '../../../services/remote/common/remoteAgent
 import { securityConfigurationNodeBase } from '../../../common/configuration.js';
 import { basename, dirname as uriDirname } from '../../../../base/common/resources.js';
 import { URI } from '../../../../base/common/uri.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 
 const BANNER_RESTRICTED_MODE = 'workbench.banner.restrictedMode';
@@ -62,8 +62,8 @@ export class WorkspaceTrustContextKeys extends Disposable implements IWorkbenchC
 
 	constructor(
 		@IContextKeyService contextKeyService: IContextKeyService,
-		@IWorkspaceTrustEnablementService workspaceTrustEnablementService: IWorkspaceTrustEnablementService,
-		@IWorkspaceTrustManagementService workspaceTrustManagementService: IWorkspaceTrustManagementService
+		@WorkspaceInterfaceTrustEnablementService workspaceTrustEnablementService: WorkspaceInterfaceTrustEnablementService,
+		@WorkspaceInterfaceTrustManagementService workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService
 	) {
 		super();
 
@@ -91,9 +91,9 @@ export class WorkspaceTrustRequestHandler extends Disposable implements IWorkben
 	constructor(
 		@IDialogService private readonly dialogService: IDialogService,
 		@ICommandService private readonly commandService: ICommandService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
-		@IWorkspaceTrustRequestService private readonly workspaceTrustRequestService: IWorkspaceTrustRequestService) {
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
+		@WorkspaceInterfaceTrustRequestService private readonly workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService) {
 		super();
 
 		this.registerListeners();
@@ -234,19 +234,19 @@ export class WorkspaceTrustUXHandler extends Disposable implements IWorkbenchCon
 
 	constructor(
 		@IDialogService private readonly dialogService: IDialogService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
-		@IWorkspaceTrustEnablementService private readonly workspaceTrustEnablementService: IWorkspaceTrustEnablementService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
+		@WorkspaceInterfaceTrustEnablementService private readonly workspaceTrustEnablementService: WorkspaceInterfaceTrustEnablementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IStatusbarService private readonly statusbarService: IStatusbarService,
-		@IStorageService private readonly storageService: IStorageService,
-		@IWorkspaceTrustRequestService private readonly workspaceTrustRequestService: IWorkspaceTrustRequestService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
+		@WorkspaceInterfaceTrustRequestService private readonly workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
 		@IBannerService private readonly bannerService: IBannerService,
 		@ILabelService private readonly labelService: ILabelService,
 		@IHostService private readonly hostService: IHostService,
 		@IProductService private readonly productService: IProductService,
 		@IRemoteAgentService private readonly remoteAgentService: IRemoteAgentService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 	) {
 		super();
@@ -285,7 +285,7 @@ export class WorkspaceTrustUXHandler extends Disposable implements IWorkbenchCon
 				return;
 			}
 
-			const addWorkspaceFolder = async (e: IWorkspaceFoldersWillChangeEvent): Promise<void> => {
+			const addWorkspaceFolder = async (e: WorkspaceInterfaceFoldersWillChangeEvent): Promise<void> => {
 				const trusted = this.workspaceTrustManagementService.isWorkspaceTrusted();
 
 				// Workspace is trusted and there are added/changed folders
@@ -339,7 +339,7 @@ export class WorkspaceTrustUXHandler extends Disposable implements IWorkbenchCon
 			const isSingleFolderWorkspace = isSingleFolderWorkspaceIdentifier(workspaceIdentifier);
 			const isEmptyWindow = isEmptyWorkspaceIdentifier(workspaceIdentifier);
 			if (!isAiGeneratedWorkspace && this.workspaceTrustManagementService.canSetParentFolderTrust()) {
-				const name = basename(uriDirname((workspaceIdentifier as ISingleFolderWorkspaceIdentifier).uri));
+				const name = basename(uriDirname((workspaceIdentifier as SingleFolderWorkspaceIdentifierInterface).uri));
 				checkboxText = localize('checkboxString', "Trust the authors of all files in the parent folder '{0}'", name);
 			}
 
@@ -788,9 +788,9 @@ class WorkspaceTrustTelemetryContribution extends Disposable implements IWorkben
 	constructor(
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
-		@IWorkspaceTrustEnablementService private readonly workspaceTrustEnablementService: IWorkspaceTrustEnablementService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
+		@WorkspaceInterfaceTrustEnablementService private readonly workspaceTrustEnablementService: WorkspaceInterfaceTrustEnablementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 	) {
 		super();
 

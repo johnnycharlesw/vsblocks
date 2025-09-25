@@ -38,14 +38,14 @@ import { ResourceContextKey } from '../../../common/contextkeys.js';
 import { IEditorService, SIDE_GROUP } from '../../../services/editor/common/editorService.js';
 import { INotebookDocumentService } from '../../../services/notebook/common/notebookDocumentService.js';
 import { ExplorerFolderContext } from '../../files/common/files.js';
-import { IWorkspaceSymbol } from '../../search/common/search.js';
+import { WorkspaceInterfaceSymbol } from '../../search/common/search.js';
 import { IChatContentInlineReference } from '../common/chatService.js';
 import { IChatWidgetService } from './chat.js';
 import { chatAttachmentResourceContextKey, hookUpSymbolAttachmentDragAndContextMenu } from './chatAttachmentWidgets.js';
 import { IChatMarkdownAnchorService } from './chatContentParts/chatMarkdownAnchorService.js';
 
 type ContentRefData =
-	| { readonly kind: 'symbol'; readonly symbol: IWorkspaceSymbol }
+	| { readonly kind: 'symbol'; readonly symbol: WorkspaceInterfaceSymbol }
 	| {
 		readonly kind?: undefined;
 		readonly uri: URI;

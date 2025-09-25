@@ -23,7 +23,7 @@ import { IInstantiationService } from '../../../../../platform/instantiation/com
 import { KeybindingWeight } from '../../../../../platform/keybinding/common/keybindingsRegistry.js';
 import { IQuickInputService } from '../../../../../platform/quickinput/common/quickInput.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { IEditorService } from '../../../../services/editor/common/editorService.js';
 import { IRemoteCodingAgent, IRemoteCodingAgentsService } from '../../../remoteCodingAgents/common/remoteCodingAgentsService.js';
 import { IChatAgentHistoryEntry, IChatAgentService } from '../../common/chatAgents.js';
@@ -748,7 +748,7 @@ export class CreateRemoteAgentJobAction extends Action2 {
 	/**
 	 * Converts full URIs from the user's systems into workspace-relative paths for coding agent.
 	 */
-	private extractRelativeFromAttachedContext(attachedContext: ChatRequestVariableSet, workspaceContextService: IWorkspaceContextService): string[] {
+	private extractRelativeFromAttachedContext(attachedContext: ChatRequestVariableSet, workspaceContextService: WorkspaceContextServiceInterface): string[] {
 		const workspaceFolder = workspaceContextService.getWorkspace().folders[0];
 		if (!workspaceFolder) {
 			return [];
@@ -845,7 +845,7 @@ export class CreateRemoteAgentJobAction extends Action2 {
 			);
 
 			let summary: string = '';
-			const relativeAttachedContext = this.extractRelativeFromAttachedContext(attachedContext, accessor.get(IWorkspaceContextService));
+			const relativeAttachedContext = this.extractRelativeFromAttachedContext(attachedContext, accessor.get(WorkspaceContextServiceInterface));
 			if (relativeAttachedContext.length) {
 				summary += `\n\n${localize('attachedFiles', "The user has attached the following files from their workspace:")}\n${relativeAttachedContext.map(file => `- ${file}`).join('\n')}\n\n`;
 			}

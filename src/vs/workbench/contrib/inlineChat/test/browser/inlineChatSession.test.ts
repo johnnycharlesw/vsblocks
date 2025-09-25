@@ -35,7 +35,7 @@ import { ILogService, NullLogService } from '../../../../../platform/log/common/
 import { IEditorProgressService, IProgressRunner } from '../../../../../platform/progress/common/progress.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { IViewDescriptorService } from '../../../../common/views.js';
 import { IWorkbenchAssignmentService } from '../../../../services/assignment/common/assignmentService.js';
 import { NullWorkbenchAssignmentService } from '../../../../services/assignment/test/common/nullAssignmentService.js';
@@ -92,7 +92,7 @@ suite('InlineChatSession', function () {
 			[IExtensionService, new TestExtensionService()],
 			[IContextKeyService, new MockContextKeyService()],
 			[IViewsService, new TestExtensionService()],
-			[IWorkspaceContextService, new TestContextService()],
+			[WorkspaceContextServiceInterface, new TestContextService()],
 			[IChatWidgetHistoryService, new SyncDescriptor(ChatWidgetHistoryService)],
 			[IChatWidgetService, new SyncDescriptor(ChatWidgetService)],
 			[IChatSlashCommandService, new SyncDescriptor(ChatSlashCommandService)],
@@ -513,7 +513,7 @@ suite('InlineChatSession', function () {
 			return;
 		}
 
-		error = error.replace(/See https:\/\/github\.com\/Squirrel\/Squirrel\.Mac\/issues\/182 for more information/, 'This might mean the application was put on quarantine by macOS. See [this link](https://github.com/microsoft/vscode/issues/7426#issuecomment-425093469) for more information');
+		error = error.replace(/See https:\/\/github\.com\/Squirrel\/Squirrel\.Mac\/issues\/182 for more information/, 'This might mean the application was put on quarantine by macOS. See [this link](https://github.com/johnnycharlesw/vsblocks/issues/7426#issuecomment-425093469) for more information');
 
 		this.notificationService.notify({
 			severity: Severity.Error,
@@ -536,7 +536,7 @@ suite('InlineChatSession', function () {
 
 		await makeEditAsAi([EditOperation.replace(new Range(7, 1, 7, Number.MAX_SAFE_INTEGER), `error = error.replace(
 			/See https:\/\/github\.com\/Squirrel\/Squirrel\.Mac\/issues\/182 for more information/,
-			'This might mean the application was put on quarantine by macOS. See [this link](https://github.com/microsoft/vscode/issues/7426#issuecomment-425093469) for more information'
+			'This might mean the application was put on quarantine by macOS. See [this link](https://github.com/johnnycharlesw/vsblocks/issues/7426#issuecomment-425093469) for more information'
 		);`)]);
 
 		assert.strictEqual(editor.getModel().getLineCount(), 18);

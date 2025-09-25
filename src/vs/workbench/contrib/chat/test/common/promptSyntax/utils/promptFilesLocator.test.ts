@@ -17,7 +17,7 @@ import { FileService } from '../../../../../../../platform/files/common/fileServ
 import { InMemoryFileSystemProvider } from '../../../../../../../platform/files/common/inMemoryFilesystemProvider.js';
 import { TestInstantiationService } from '../../../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { ILogService, NullLogService } from '../../../../../../../platform/log/common/log.js';
-import { IWorkspace, IWorkspaceContextService, IWorkspaceFolder } from '../../../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterface, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchEnvironmentService } from '../../../../../../services/environment/common/environmentService.js';
 import { IFileMatch, IFileQuery, ISearchService } from '../../../../../../services/search/common/search.js';
 import { IUserDataProfileService } from '../../../../../../services/userDataProfile/common/userDataProfile.js';
@@ -54,16 +54,16 @@ function mockConfigService<T>(value: T): IConfigurationService {
 }
 
 /**
- * Mocked instance of {@link IWorkspaceContextService}.
+ * Mocked instance of {@link WorkspaceContextServiceInterface}.
  */
-function mockWorkspaceService(folders: IWorkspaceFolder[]): IWorkspaceContextService {
-	return mockService<IWorkspaceContextService>({
-		getWorkspace(): IWorkspace {
-			return new class extends mock<IWorkspace>() {
+function mockWorkspaceService(folders: WorkspaceInterfaceFolder[]): WorkspaceContextServiceInterface {
+	return mockService<WorkspaceContextServiceInterface>({
+		getWorkspace(): WorkspaceInterface {
+			return new class extends mock<WorkspaceInterface>() {
 				override folders = folders;
 			};
 		},
-		getWorkspaceFolder(): IWorkspaceFolder | null {
+		getWorkspaceFolder(): WorkspaceInterfaceFolder | null {
 			return null;
 		}
 
@@ -103,13 +103,13 @@ suite('PromptFilesLocator', () => {
 		const workspaceFolders = workspaceFolderPaths.map((path, index) => {
 			const uri = URI.file(path);
 
-			return new class extends mock<IWorkspaceFolder>() {
+			return new class extends mock<WorkspaceInterfaceFolder>() {
 				override uri = uri;
 				override name = basename(uri);
 				override index = index;
 			};
 		});
-		instantiationService.stub(IWorkspaceContextService, mockWorkspaceService(workspaceFolders));
+		instantiationService.stub(WorkspaceContextServiceInterface, mockWorkspaceService(workspaceFolders));
 		instantiationService.stub(IWorkbenchEnvironmentService, {} as IWorkbenchEnvironmentService);
 		instantiationService.stub(IUserDataProfileService, new TestUserDataProfileService());
 		instantiationService.stub(ISearchService, {

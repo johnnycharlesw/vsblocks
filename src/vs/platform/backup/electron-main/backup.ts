@@ -5,7 +5,7 @@
 
 import { IEmptyWindowBackupInfo } from '../node/backup.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
-import { IFolderBackupInfo, IWorkspaceBackupInfo } from '../common/backup.js';
+import { IFolderBackupInfo, WorkspaceInterfaceBackupInfo } from '../common/backup.js';
 
 export const IBackupMainService = createDecorator<IBackupMainService>('backupMainService');
 
@@ -17,8 +17,8 @@ export interface IBackupMainService {
 
 	getEmptyWindowBackups(): IEmptyWindowBackupInfo[];
 
-	registerWorkspaceBackup(workspaceInfo: IWorkspaceBackupInfo): string;
-	registerWorkspaceBackup(workspaceInfo: IWorkspaceBackupInfo, migrateFrom: string): Promise<string>;
+	registerWorkspaceBackup(workspaceInfo: WorkspaceInterfaceBackupInfo): string;
+	registerWorkspaceBackup(workspaceInfo: WorkspaceInterfaceBackupInfo, migrateFrom: string): Promise<string>;
 	registerFolderBackup(folderInfo: IFolderBackupInfo): string;
 	registerEmptyWindowBackup(emptyWindowInfo: IEmptyWindowBackupInfo): string;
 
@@ -28,5 +28,5 @@ export interface IBackupMainService {
 	 * it checks for each backup location if any backups
 	 * are stored.
 	 */
-	getDirtyWorkspaces(): Promise<Array<IWorkspaceBackupInfo | IFolderBackupInfo>>;
+	getDirtyWorkspaces(): Promise<Array<WorkspaceInterfaceBackupInfo | IFolderBackupInfo>>;
 }

@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { IStorageService, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
+import { StorageServiceInterface, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
 import { isEmptyObject } from '../../base/common/types.js';
 import { onUnexpectedError } from '../../base/common/errors.js';
 import { DisposableStore } from '../../base/common/lifecycle.js';
@@ -21,7 +21,7 @@ export class Memento {
 
 	private readonly id: string;
 
-	constructor(id: string, private storageService: IStorageService) {
+	constructor(id: string, private storageService: StorageServiceInterface) {
 		this.id = Memento.COMMON_PREFIX + id;
 	}
 
@@ -105,7 +105,7 @@ class ScopedMemento {
 
 	private mementoObj: MementoObject;
 
-	constructor(private id: string, private scope: StorageScope, private target: StorageTarget, private storageService: IStorageService) {
+	constructor(private id: string, private scope: StorageScope, private target: StorageTarget, private storageService: StorageServiceInterface) {
 		this.mementoObj = this.doLoad();
 	}
 
@@ -116,7 +116,7 @@ class ScopedMemento {
 			// Seeing reports from users unable to open editors
 			// from memento parsing exceptions. Log the contents
 			// to diagnose further
-			// https://github.com/microsoft/vscode/issues/102251
+			// https://github.com/johnnycharlesw/vsblocks/issues/102251
 			onUnexpectedError(`[memento]: failed to parse contents: ${error} (id: ${this.id}, scope: ${this.scope}, contents: ${this.storageService.get(this.id, this.scope)})`);
 		}
 

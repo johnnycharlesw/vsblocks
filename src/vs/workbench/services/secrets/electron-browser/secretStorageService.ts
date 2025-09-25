@@ -9,13 +9,13 @@ import Severity from '../../../../base/common/severity.js';
 import { localize } from '../../../../nls.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { IEncryptionService, KnownStorageProvider, PasswordStoreCLIOption, isGnome, isKwallet } from '../../../../platform/encryption/common/encryptionService.js';
-import { INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { INotificationService, IPromptChoice } from '../../../../platform/notification/common/notification.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { BaseSecretStorageService, ISecretStorageService } from '../../../../platform/secrets/common/secrets.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IJSONEditingService } from '../../configuration/common/jsonEditing.js';
 
 export class NativeSecretStorageService extends BaseSecretStorageService {
@@ -25,8 +25,8 @@ export class NativeSecretStorageService extends BaseSecretStorageService {
 		@IDialogService private readonly _dialogService: IDialogService,
 		@IOpenerService private readonly _openerService: IOpenerService,
 		@IJSONEditingService private readonly _jsonEditingService: IJSONEditingService,
-		@INativeEnvironmentService private readonly _environmentService: INativeEnvironmentService,
-		@IStorageService storageService: IStorageService,
+		@NativeEnvironmentServiceInterface private readonly _environmentService: NativeEnvironmentServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IEncryptionService encryptionService: IEncryptionService,
 		@ILogService logService: ILogService
 	) {

@@ -8,7 +8,7 @@ import { ErrorNoTelemetry } from '../../../../base/common/errors.js';
 import { IProcessEnvironment } from '../../../../base/common/platform.js';
 import { ConfigurationTarget } from '../../../../platform/configuration/common/configuration.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IWorkspaceFolderData } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolderData } from '../../../../platform/workspace/common/workspace.js';
 import { ConfigurationResolverExpression } from './configurationResolverExpression.js';
 
 export const IConfigurationResolverService = createDecorator<IConfigurationResolverService>('configurationResolverService');
@@ -19,13 +19,13 @@ export interface IConfigurationResolverService {
 	/** Variables the resolver is able to resolve. */
 	readonly resolvableVariables: ReadonlySet<string>;
 
-	resolveWithEnvironment(environment: IProcessEnvironment, folder: IWorkspaceFolderData | undefined, value: string): Promise<string>;
+	resolveWithEnvironment(environment: IProcessEnvironment, folder: WorkspaceInterfaceFolderData | undefined, value: string): Promise<string>;
 
 	/**
 	 * Recursively resolves all variables in the given config and returns a copy of it with substituted values.
 	 * Command variables are only substituted if a "commandValueMapping" dictionary is given and if it contains an entry for the command.
 	 */
-	resolveAsync<T>(folder: IWorkspaceFolderData | undefined, config: T): Promise<T extends ConfigurationResolverExpression<infer R> ? R : T>;
+	resolveAsync<T>(folder: WorkspaceInterfaceFolderData | undefined, config: T): Promise<T extends ConfigurationResolverExpression<infer R> ? R : T>;
 
 	/**
 	 * Recursively resolves all variables (including commands and user input) in the given config and returns a copy of it with substituted values.
@@ -34,13 +34,13 @@ export interface IConfigurationResolverService {
 	 * @param section For example, 'tasks' or 'debug'. Used for resolving inputs.
 	 * @param variables Aliases for commands.
 	 */
-	resolveWithInteractionReplace(folder: IWorkspaceFolderData | undefined, config: unknown, section?: string, variables?: IStringDictionary<string>, target?: ConfigurationTarget): Promise<any>;
+	resolveWithInteractionReplace(folder: WorkspaceInterfaceFolderData | undefined, config: unknown, section?: string, variables?: IStringDictionary<string>, target?: ConfigurationTarget): Promise<any>;
 
 	/**
 	 * Similar to resolveWithInteractionReplace, except without the replace. Returns a map of variables and their resolution.
 	 * Keys in the map will be of the format input:variableName or command:variableName.
 	 */
-	resolveWithInteraction(folder: IWorkspaceFolderData | undefined, config: unknown, section?: string, variables?: IStringDictionary<string>, target?: ConfigurationTarget): Promise<Map<string, string> | undefined>;
+	resolveWithInteraction(folder: WorkspaceInterfaceFolderData | undefined, config: unknown, section?: string, variables?: IStringDictionary<string>, target?: ConfigurationTarget): Promise<Map<string, string> | undefined>;
 
 	/**
 	 * Contributes a variable that can be resolved later. Consumers that use resolveAny, resolveWithInteraction,

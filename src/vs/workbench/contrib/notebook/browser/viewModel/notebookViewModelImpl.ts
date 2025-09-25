@@ -13,7 +13,7 @@ import { URI } from '../../../../../base/common/uri.js';
 import { IBulkEditService, ResourceTextEdit } from '../../../../../editor/browser/services/bulkEditService.js';
 import { Range } from '../../../../../editor/common/core/range.js';
 import * as editorCommon from '../../../../../editor/common/editorCommon.js';
-import { IWorkspaceTextEdit } from '../../../../../editor/common/languages.js';
+import { WorkspaceInterfaceTextEdit } from '../../../../../editor/common/languages.js';
 import { FindMatch, IModelDecorationOptions, IModelDeltaDecoration, TrackedRangeStickiness } from '../../../../../editor/common/model.js';
 import { MultiModelEditStackElement, SingleModelEditStackElement } from '../../../../../editor/common/model/editStack.js';
 import { IntervalNode, IntervalTree } from '../../../../../editor/common/model/intervalTree.js';
@@ -996,7 +996,7 @@ export class NotebookViewModel extends Disposable implements EditorFoldingStateD
 			return;
 		}
 
-		const textEdits: IWorkspaceTextEdit[] = [];
+		const textEdits: WorkspaceInterfaceTextEdit[] = [];
 		this._lastNotebookEditResource.push(matches[0].cell.uri);
 
 		matches.forEach(match => {

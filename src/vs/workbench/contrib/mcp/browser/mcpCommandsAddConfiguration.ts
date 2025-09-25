@@ -24,7 +24,7 @@ import { INotificationService } from '../../../../platform/notification/common/n
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { IQuickInputService, IQuickPickItem, QuickPickInput } from '../../../../platform/quickinput/common/quickInput.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { isWorkspaceFolder, IWorkspaceContextService, IWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { isWorkspaceFolder, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { IWorkbenchMcpManagementService } from '../../../services/mcp/common/mcpWorkbenchManagementService.js';
@@ -126,10 +126,10 @@ type AssistedServerConfiguration = {
 
 export class McpAddConfigurationCommand {
 	constructor(
-		private readonly workspaceFolder: IWorkspaceFolder | undefined,
+		private readonly workspaceFolder: WorkspaceInterfaceFolder | undefined,
 		@IQuickInputService private readonly _quickInputService: IQuickInputService,
 		@IWorkbenchMcpManagementService private readonly _mcpManagementService: IWorkbenchMcpManagementService,
-		@IWorkspaceContextService private readonly _workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceService: WorkspaceContextServiceInterface,
 		@IWorkbenchEnvironmentService private readonly _environmentService: IWorkbenchEnvironmentService,
 		@ICommandService private readonly _commandService: ICommandService,
 		@IMcpRegistry private readonly _mcpRegistry: IMcpRegistry,
@@ -266,8 +266,8 @@ export class McpAddConfigurationCommand {
 		return id;
 	}
 
-	private async getConfigurationTarget(): Promise<ConfigurationTarget | IWorkspaceFolder | undefined> {
-		const options: (IQuickPickItem & { target?: ConfigurationTarget | IWorkspaceFolder })[] = [
+	private async getConfigurationTarget(): Promise<ConfigurationTarget | WorkspaceInterfaceFolder | undefined> {
+		const options: (IQuickPickItem & { target?: ConfigurationTarget | WorkspaceInterfaceFolder })[] = [
 			{ target: ConfigurationTarget.USER_LOCAL, label: localize('mcp.target.user', "Global"), description: localize('mcp.target.user.description', "Available in all workspaces, runs locally") }
 		];
 
@@ -508,7 +508,7 @@ export class McpAddConfigurationCommand {
 		}
 
 		// Step 4: Choose configuration target if no configUri provided
-		let target: ConfigurationTarget | IWorkspaceFolder | undefined = this.workspaceFolder;
+		let target: ConfigurationTarget | WorkspaceInterfaceFolder | undefined = this.workspaceFolder;
 		if (!target) {
 			target = await this.getConfigurationTarget();
 			if (!target) {

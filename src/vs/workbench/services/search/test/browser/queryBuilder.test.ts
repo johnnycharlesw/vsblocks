@@ -10,14 +10,14 @@ import { URI, URI as uri } from '../../../../../base/common/uri.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
-import { IWorkspaceContextService, toWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, toWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
 import { toWorkspaceFolders } from '../../../../../platform/workspaces/common/workspaces.js';
 import { ISearchPathsInfo, QueryBuilder } from '../../common/queryBuilder.js';
-import { IPathService } from '../../../path/common/pathService.js';
+import { PathInterfaceService } from '../../../path/common/pathService.js';
 import { IFileQuery, IFolderQuery, IPatternInfo, ITextQuery, QueryType } from '../../common/search.js';
 import { TestPathService, TestEnvironmentService } from '../../../../test/browser/workbenchTestServices.js';
 import { TestContextService } from '../../../../test/common/workbenchTestServices.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { Workspace } from '../../../../../platform/workspace/test/common/testWorkspace.js';
 import { extUriBiasedIgnorePathCase } from '../../../../../base/common/resources.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
@@ -53,9 +53,9 @@ suite('QueryBuilder', () => {
 		mockWorkspace = new Workspace('workspace', [toWorkspaceFolder(ROOT_1_URI)]);
 		mockContextService.setWorkspace(mockWorkspace);
 
-		instantiationService.stub(IWorkspaceContextService, mockContextService);
-		instantiationService.stub(IEnvironmentService, TestEnvironmentService);
-		instantiationService.stub(IPathService, new TestPathService());
+		instantiationService.stub(WorkspaceContextServiceInterface, mockContextService);
+		instantiationService.stub(EnvironmentServiceInterface, TestEnvironmentService);
+		instantiationService.stub(PathInterfaceService, new TestPathService());
 
 		queryBuilder = instantiationService.createInstance(QueryBuilder);
 	});

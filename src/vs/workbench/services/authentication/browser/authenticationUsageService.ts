@@ -9,7 +9,7 @@ import { InstantiationType, registerSingleton } from '../../../../platform/insta
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IAuthenticationService } from '../common/authentication.js';
 
 export interface IAccountUsage {
@@ -62,7 +62,7 @@ export class AuthenticationUsageService extends Disposable implements IAuthentic
 	private _disposed = false;
 
 	constructor(
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IAuthenticationService private readonly _authenticationService: IAuthenticationService,
 		@ILogService private readonly _logService: ILogService,
 		@IProductService productService: IProductService,

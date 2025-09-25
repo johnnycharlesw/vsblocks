@@ -18,7 +18,7 @@ import { FileKind, IFileService, IFileStat } from '../../../../platform/files/co
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { WorkbenchDataTree, WorkbenchAsyncDataTree } from '../../../../platform/list/browser/listService.js';
 import { breadcrumbsPickerBackground, widgetBorder, widgetShadow } from '../../../../platform/theme/common/colorRegistry.js';
-import { isWorkspace, isWorkspaceFolder, IWorkspace, IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { isWorkspace, isWorkspaceFolder, WorkspaceInterface, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { ResourceLabels, IResourceLabel, DEFAULT_LABELS_CONTAINER } from '../../labels.js';
 import { BreadcrumbsConfig } from './breadcrumbs.js';
 import { OutlineElement2, FileElement } from './breadcrumbsModel.js';
@@ -153,17 +153,17 @@ export abstract class BreadcrumbsPicker {
 
 //#region - Files
 
-class FileVirtualDelegate implements IListVirtualDelegate<IFileStat | IWorkspaceFolder> {
-	getHeight(_element: IFileStat | IWorkspaceFolder) {
+class FileVirtualDelegate implements IListVirtualDelegate<IFileStat | WorkspaceInterfaceFolder> {
+	getHeight(_element: IFileStat | WorkspaceInterfaceFolder) {
 		return 22;
 	}
-	getTemplateId(_element: IFileStat | IWorkspaceFolder): string {
+	getTemplateId(_element: IFileStat | WorkspaceInterfaceFolder): string {
 		return 'FileStat';
 	}
 }
 
-class FileIdentityProvider implements IIdentityProvider<IWorkspace | IWorkspaceFolder | IFileStat | URI> {
-	getId(element: IWorkspace | IWorkspaceFolder | IFileStat | URI): { toString(): string } {
+class FileIdentityProvider implements IIdentityProvider<WorkspaceInterface | WorkspaceInterfaceFolder | IFileStat | URI> {
+	getId(element: WorkspaceInterface | WorkspaceInterfaceFolder | IFileStat | URI): { toString(): string } {
 		if (URI.isUri(element)) {
 			return element.toString();
 		} else if (isWorkspace(element)) {
@@ -177,20 +177,20 @@ class FileIdentityProvider implements IIdentityProvider<IWorkspace | IWorkspaceF
 }
 
 
-class FileDataSource implements IAsyncDataSource<IWorkspace | URI, IWorkspaceFolder | IFileStat> {
+class FileDataSource implements IAsyncDataSource<WorkspaceInterface | URI, WorkspaceInterfaceFolder | IFileStat> {
 
 	constructor(
 		@IFileService private readonly _fileService: IFileService,
 	) { }
 
-	hasChildren(element: IWorkspace | URI | IWorkspaceFolder | IFileStat): boolean {
+	hasChildren(element: WorkspaceInterface | URI | WorkspaceInterfaceFolder | IFileStat): boolean {
 		return URI.isUri(element)
 			|| isWorkspace(element)
 			|| isWorkspaceFolder(element)
 			|| element.isDirectory;
 	}
 
-	async getChildren(element: IWorkspace | URI | IWorkspaceFolder | IFileStat): Promise<(IWorkspaceFolder | IFileStat)[]> {
+	async getChildren(element: WorkspaceInterface | URI | WorkspaceInterfaceFolder | IFileStat): Promise<(WorkspaceInterfaceFolder | IFileStat)[]> {
 		if (isWorkspace(element)) {
 			return element.folders;
 		}
@@ -207,7 +207,7 @@ class FileDataSource implements IAsyncDataSource<IWorkspace | URI, IWorkspaceFol
 	}
 }
 
-class FileRenderer implements ITreeRenderer<IFileStat | IWorkspaceFolder, FuzzyScore, IResourceLabel> {
+class FileRenderer implements ITreeRenderer<IFileStat | WorkspaceInterfaceFolder, FuzzyScore, IResourceLabel> {
 
 	readonly templateId: string = 'FileStat';
 
@@ -221,7 +221,7 @@ class FileRenderer implements ITreeRenderer<IFileStat | IWorkspaceFolder, FuzzyS
 		return this._labels.create(container, { supportHighlights: true });
 	}
 
-	renderElement(node: ITreeNode<IWorkspaceFolder | IFileStat, [number, number, number]>, index: number, templateData: IResourceLabel): void {
+	renderElement(node: ITreeNode<WorkspaceInterfaceFolder | IFileStat, [number, number, number]>, index: number, templateData: IResourceLabel): void {
 		const fileDecorations = this._configService.getValue<{ colors: boolean; badges: boolean }>('explorer.decorations');
 		const { element } = node;
 		let resource: URI;
@@ -247,31 +247,31 @@ class FileRenderer implements ITreeRenderer<IFileStat | IWorkspaceFolder, FuzzyS
 	}
 }
 
-class FileNavigationLabelProvider implements IKeyboardNavigationLabelProvider<IWorkspaceFolder | IFileStat> {
+class FileNavigationLabelProvider implements IKeyboardNavigationLabelProvider<WorkspaceInterfaceFolder | IFileStat> {
 
-	getKeyboardNavigationLabel(element: IWorkspaceFolder | IFileStat): { toString(): string } {
+	getKeyboardNavigationLabel(element: WorkspaceInterfaceFolder | IFileStat): { toString(): string } {
 		return element.name;
 	}
 }
 
-class FileAccessibilityProvider implements IListAccessibilityProvider<IWorkspaceFolder | IFileStat> {
+class FileAccessibilityProvider implements IListAccessibilityProvider<WorkspaceInterfaceFolder | IFileStat> {
 
 	getWidgetAriaLabel(): string {
 		return localize('breadcrumbs', "Breadcrumbs");
 	}
 
-	getAriaLabel(element: IWorkspaceFolder | IFileStat): string | null {
+	getAriaLabel(element: WorkspaceInterfaceFolder | IFileStat): string | null {
 		return element.name;
 	}
 }
 
-class FileFilter implements ITreeFilter<IWorkspaceFolder | IFileStat> {
+class FileFilter implements ITreeFilter<WorkspaceInterfaceFolder | IFileStat> {
 
 	private readonly _cachedExpressions = new Map<string, glob.ParsedExpression>();
 	private readonly _disposables = new DisposableStore();
 
 	constructor(
-		@IWorkspaceContextService private readonly _workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceService: WorkspaceContextServiceInterface,
 		@IConfigurationService configService: IConfigurationService,
 	) {
 		const config = BreadcrumbsConfig.FileExcludes.bindTo(configService);
@@ -307,7 +307,7 @@ class FileFilter implements ITreeFilter<IWorkspaceFolder | IFileStat> {
 		this._disposables.dispose();
 	}
 
-	filter(element: IWorkspaceFolder | IFileStat, _parentVisibility: TreeVisibility): boolean {
+	filter(element: WorkspaceInterfaceFolder | IFileStat, _parentVisibility: TreeVisibility): boolean {
 		if (isWorkspaceFolder(element)) {
 			// not a file
 			return true;
@@ -324,8 +324,8 @@ class FileFilter implements ITreeFilter<IWorkspaceFolder | IFileStat> {
 }
 
 
-export class FileSorter implements ITreeSorter<IFileStat | IWorkspaceFolder> {
-	compare(a: IFileStat | IWorkspaceFolder, b: IFileStat | IWorkspaceFolder): number {
+export class FileSorter implements ITreeSorter<IFileStat | WorkspaceInterfaceFolder> {
+	compare(a: IFileStat | WorkspaceInterfaceFolder, b: IFileStat | WorkspaceInterfaceFolder): number {
 		if (isWorkspaceFolder(a) && isWorkspaceFolder(b)) {
 			return a.index - b.index;
 		}
@@ -348,7 +348,7 @@ export class BreadcrumbsFilePicker extends BreadcrumbsPicker {
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
 		@IConfigurationService configService: IConfigurationService,
-		@IWorkspaceContextService private readonly _workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceService: WorkspaceContextServiceInterface,
 		@IEditorService private readonly _editorService: IEditorService,
 	) {
 		super(parent, resource, instantiationService, themeService, configService);
@@ -370,7 +370,7 @@ export class BreadcrumbsFilePicker extends BreadcrumbsPicker {
 		this._disposables.add(labels);
 
 		return this._instantiationService.createInstance(
-			WorkbenchAsyncDataTree<IWorkspace | URI, IWorkspaceFolder | IFileStat, FuzzyScore>,
+			WorkbenchAsyncDataTree<WorkspaceInterface | URI, WorkspaceInterfaceFolder | IFileStat, FuzzyScore>,
 			'BreadcrumbsFilePicker',
 			container,
 			new FileVirtualDelegate(),
@@ -392,16 +392,16 @@ export class BreadcrumbsFilePicker extends BreadcrumbsPicker {
 
 	protected async _setInput(element: FileElement | OutlineElement2): Promise<void> {
 		const { uri, kind } = (element as FileElement);
-		let input: IWorkspace | URI;
+		let input: WorkspaceInterface | URI;
 		if (kind === FileKind.ROOT_FOLDER) {
 			input = this._workspaceService.getWorkspace();
 		} else {
 			input = dirname(uri);
 		}
 
-		const tree = this._tree as WorkbenchAsyncDataTree<IWorkspace | URI, IWorkspaceFolder | IFileStat, FuzzyScore>;
+		const tree = this._tree as WorkbenchAsyncDataTree<WorkspaceInterface | URI, WorkspaceInterfaceFolder | IFileStat, FuzzyScore>;
 		await tree.setInput(input);
-		let focusElement: IWorkspaceFolder | IFileStat | undefined;
+		let focusElement: WorkspaceInterfaceFolder | IFileStat | undefined;
 		for (const { element } of tree.getNode().children) {
 			if (isWorkspaceFolder(element) && isEqual(element.uri, uri)) {
 				focusElement = element;
@@ -422,7 +422,7 @@ export class BreadcrumbsFilePicker extends BreadcrumbsPicker {
 		return Disposable.None;
 	}
 
-	protected async _revealElement(element: IFileStat | IWorkspaceFolder, options: IEditorOptions, sideBySide: boolean): Promise<boolean> {
+	protected async _revealElement(element: IFileStat | WorkspaceInterfaceFolder, options: IEditorOptions, sideBySide: boolean): Promise<boolean> {
 		if (!isWorkspaceFolder(element) && element.isFile) {
 			this._onWillPickElement.fire();
 			await this._editorService.openEditor({ resource: element.resource, options }, sideBySide ? SIDE_GROUP : undefined);

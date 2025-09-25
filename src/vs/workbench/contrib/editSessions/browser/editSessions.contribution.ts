@@ -13,7 +13,7 @@ import { localize, localize2 } from '../../../../nls.js';
 import { IEditSessionsStorageService, Change, ChangeType, Folder, EditSession, FileType, EDIT_SESSION_SYNC_CATEGORY, EDIT_SESSIONS_CONTAINER_ID, EditSessionSchemaVersion, IEditSessionsLogService, EDIT_SESSIONS_VIEW_ICON, EDIT_SESSIONS_TITLE, EDIT_SESSIONS_SHOW_VIEW, EDIT_SESSIONS_DATA_VIEW_ID, decodeEditSessionFileContent, hashedEditSessionId, editSessionsLogId, EDIT_SESSIONS_PENDING } from '../common/editSessions.js';
 import { ISCMRepository, ISCMService } from '../../scm/common/scm.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
-import { IWorkspaceContextService, IWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { URI } from '../../../../base/common/uri.js';
 import { basename, joinPath, relativePath } from '../../../../base/common/resources.js';
 import { encodeBase64 } from '../../../../base/common/buffer.js';
@@ -27,7 +27,7 @@ import { INotificationService, Severity } from '../../../../platform/notificatio
 import { getFileNamesMessage, IDialogService, IFileDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { workbenchConfigurationNodeBase } from '../../../common/configuration.js';
 import { Extensions as ConfigurationExtensions, IConfigurationRegistry } from '../../../../platform/configuration/common/configurationRegistry.js';
 import { IQuickInputButton, IQuickInputService, IQuickPickItem, IQuickPickSeparator } from '../../../../platform/quickinput/common/quickInput.js';
@@ -53,7 +53,7 @@ import { equals } from '../../../../base/common/objects.js';
 import { EditSessionIdentityMatch, IEditSessionIdentityService } from '../../../../platform/workspace/common/editSessions.js';
 import { ThemeIcon } from '../../../../base/common/themables.js';
 import { IOutputService } from '../../../services/output/common/output.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IActivityService, NumberBadge } from '../../../services/activity/common/activity.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { ILocalizedString } from '../../../../platform/action/common/action.js';
@@ -66,7 +66,7 @@ import { IUserDataProfilesService } from '../../../../platform/userDataProfile/c
 import { IRequestService } from '../../../../platform/request/common/request.js';
 import { EditSessionsStoreClient } from '../common/editSessionsStorageClient.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceIdentityService } from '../../../services/workspaces/common/workspaceIdentityService.js';
+import { WorkspaceInterfaceIdentityService } from '../../../services/workspaces/common/workspaceIdentityService.js';
 import { hashAsync } from '../../../../base/common/hash.js';
 import { ResourceSet } from '../../../../base/common/map.js';
 
@@ -138,18 +138,18 @@ export class EditSessionsContribution extends Disposable implements IWorkbenchCo
 		@INotificationService private readonly notificationService: INotificationService,
 		@IDialogService private readonly dialogService: IDialogService,
 		@IEditSessionsLogService private readonly logService: IEditSessionsLogService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IProductService private readonly productService: IProductService,
 		@IConfigurationService private configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IEditSessionIdentityService private readonly editSessionIdentityService: IEditSessionIdentityService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
 		@ICommandService private commandService: ICommandService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
 		@ILifecycleService private readonly lifecycleService: ILifecycleService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IActivityService private readonly activityService: IActivityService,
 		@IEditorService private readonly editorService: IEditorService,
 		@IRemoteAgentService private readonly remoteAgentService: IRemoteAgentService,
@@ -157,7 +157,7 @@ export class EditSessionsContribution extends Disposable implements IWorkbenchCo
 		@IRequestService private readonly requestService: IRequestService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
-		@IWorkspaceIdentityService private readonly workspaceIdentityService: IWorkspaceIdentityService,
+		@WorkspaceInterfaceIdentityService private readonly workspaceIdentityService: WorkspaceInterfaceIdentityService,
 	) {
 		super();
 
@@ -492,7 +492,7 @@ export class EditSessionsContribution extends Disposable implements IWorkbenchCo
 		await this.remoteAgentService.getEnvironment();
 
 		// Edit sessions are not currently supported in empty workspaces
-		// https://github.com/microsoft/vscode/issues/159220
+		// https://github.com/johnnycharlesw/vsblocks/issues/159220
 		if (this.contextService.getWorkbenchState() === WorkbenchState.EMPTY) {
 			return;
 		}
@@ -588,7 +588,7 @@ export class EditSessionsContribution extends Disposable implements IWorkbenchCo
 		const cancellationTokenSource = new CancellationTokenSource();
 
 		for (const folder of editSession.folders) {
-			let folderRoot: IWorkspaceFolder | undefined;
+			let folderRoot: WorkspaceInterfaceFolder | undefined;
 
 			if (folder.canonicalIdentity) {
 				// Look for an edit session identifier that we can use

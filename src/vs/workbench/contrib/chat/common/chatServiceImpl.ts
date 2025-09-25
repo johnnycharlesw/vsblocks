@@ -22,8 +22,8 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { Progress } from '../../../../platform/progress/common/progress.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
 import { IMcpService } from '../../mcp/common/mcpTypes.js';
 import { IChatAgentCommand, IChatAgentData, IChatAgentHistoryEntry, IChatAgentRequest, IChatAgentResult, IChatAgentService } from './chatAgents.js';
@@ -108,11 +108,11 @@ export class ChatService extends Disposable implements IChatService {
 	}
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@ILogService private readonly logService: ILogService,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IChatSlashCommandService private readonly chatSlashCommandService: IChatSlashCommandService,
 		@IChatAgentService private readonly chatAgentService: IChatAgentService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
@@ -364,7 +364,7 @@ export class ChatService extends Disposable implements IChatService {
 
 		// Await activation of the extension provided agent
 		// Using `activateById` as workaround for the issue
-		// https://github.com/microsoft/vscode/issues/250590
+		// https://github.com/johnnycharlesw/vsblocks/issues/250590
 		if (!defaultAgentData.isCore) {
 			await this.extensionService.activateById(defaultAgentData.extensionId, {
 				activationEvent: `onChatParticipant:${defaultAgentData.id}`,

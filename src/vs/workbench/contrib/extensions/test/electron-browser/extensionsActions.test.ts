@@ -24,7 +24,7 @@ import { IPager } from '../../../../../base/common/paging.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
 import { IExtensionService, toExtensionDescription } from '../../../../services/extensions/common/extensions.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { TestContextService, TestWorkspaceTrustManagementService } from '../../../../test/common/workbenchTestServices.js';
 import { TestExtensionTipsService, TestSharedProcessService } from '../../../../test/electron-browser/workbenchTestServices.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
@@ -51,8 +51,8 @@ import { IUserDataSyncEnablementService } from '../../../../../platform/userData
 import { UserDataSyncEnablementService } from '../../../../../platform/userDataSync/common/userDataSyncEnablementService.js';
 import { IContextKeyService } from '../../../../../platform/contextkey/common/contextkey.js';
 import { MockContextKeyService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
-import { IWorkspaceTrustManagementService } from '../../../../../platform/workspace/common/workspaceTrust.js';
-import { IEnvironmentService, INativeEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../../platform/workspace/common/workspaceTrust.js';
+import { EnvironmentServiceInterface, NativeEnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { platform } from '../../../../../base/common/platform.js';
 import { arch } from '../../../../../base/common/process.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
@@ -78,13 +78,13 @@ function setupTest(disposables: Pick<DisposableStore, 'add'>) {
 
 	instantiationService = disposables.add(new TestInstantiationService());
 
-	instantiationService.stub(IEnvironmentService, TestEnvironmentService);
+	instantiationService.stub(EnvironmentServiceInterface, TestEnvironmentService);
 	instantiationService.stub(IWorkbenchEnvironmentService, TestEnvironmentService);
 
 	instantiationService.stub(ITelemetryService, NullTelemetryService);
 	instantiationService.stub(ILogService, NullLogService);
 
-	instantiationService.stub(IWorkspaceContextService, new TestContextService());
+	instantiationService.stub(WorkspaceContextServiceInterface, new TestContextService());
 	instantiationService.stub(IFileService, disposables.add(new FileService(new NullLogService())));
 	instantiationService.stub(IConfigurationService, new TestConfigurationService());
 	instantiationService.stub(IProgressService, ProgressService);
@@ -149,7 +149,7 @@ function setupTest(disposables: Pick<DisposableStore, 'add'>) {
 
 	instantiationService.stub(IUpdateService, { onStateChange: Event.None, state: State.Uninitialized });
 	instantiationService.set(IExtensionsWorkbenchService, disposables.add(instantiationService.createInstance(ExtensionsWorkbenchService)));
-	instantiationService.stub(IWorkspaceTrustManagementService, disposables.add(new TestWorkspaceTrustManagementService()));
+	instantiationService.stub(WorkspaceInterfaceTrustManagementService, disposables.add(new TestWorkspaceTrustManagementService()));
 }
 
 
@@ -1936,8 +1936,8 @@ suite('RemoteInstallAction', () => {
 		const localWorkspaceExtension = aLocalExtension('a', { extensionKind: ['workspace'] }, { location: URI.file(`pub.a`) });
 		const extensionManagementServerService = aMultiExtensionManagementServerService(instantiationService, createExtensionManagementService([localWorkspaceExtension]));
 		const environmentService = { disableExtensions: true } as INativeWorkbenchEnvironmentService;
-		instantiationService.stub(IEnvironmentService, environmentService);
-		instantiationService.stub(INativeEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
+		instantiationService.stub(NativeEnvironmentServiceInterface, environmentService);
 		instantiationService.stub(IWorkbenchEnvironmentService, environmentService);
 		instantiationService.stub(INativeWorkbenchEnvironmentService, environmentService);
 		instantiationService.stub(IExtensionManagementServerService, extensionManagementServerService);
@@ -2323,8 +2323,8 @@ suite('LocalInstallAction', () => {
 		// multi server setup
 		const remoteUIExtension = aLocalExtension('a', { extensionKind: ['ui'] }, { location: URI.file(`pub.a`).with({ scheme: Schemas.vscodeRemote }) });
 		const environmentService = { disableExtensions: true } as INativeWorkbenchEnvironmentService;
-		instantiationService.stub(IEnvironmentService, environmentService);
-		instantiationService.stub(INativeEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
+		instantiationService.stub(NativeEnvironmentServiceInterface, environmentService);
 		instantiationService.stub(IWorkbenchEnvironmentService, environmentService);
 		instantiationService.stub(INativeWorkbenchEnvironmentService, environmentService);
 		const extensionManagementServerService = aMultiExtensionManagementServerService(instantiationService, createExtensionManagementService(), createExtensionManagementService([remoteUIExtension]));

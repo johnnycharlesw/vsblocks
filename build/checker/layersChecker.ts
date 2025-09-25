@@ -25,7 +25,7 @@ import { match } from 'minimatch';
 // available in native environments should not be allowed in browser
 const NATIVE_TYPES = [
 	'NativeParsedArgs',
-	'INativeEnvironmentService',
+	'NativeEnvironmentServiceInterface',
 	'AbstractNativeEnvironmentService',
 	'INativeWindowConfiguration',
 	'ICommonNativeHostService',
@@ -125,7 +125,7 @@ function checkFile(program: ts.Program, sourceFile: ts.SourceFile, rule: IRule) 
 
 		if (rule.disallowedTypes?.some(disallowed => disallowed === text)) {
 			const { line, character } = sourceFile.getLineAndCharacterOfPosition(node.getStart());
-			console.log(`[build/checker/layersChecker.ts]: Reference to type '${text}' violates layer '${rule.target}' (${sourceFile.fileName} (${line + 1},${character + 1}). Learn more about our source code organization at https://github.com/microsoft/vscode/wiki/Source-Code-Organization.`);
+			console.log(`[build/checker/layersChecker.ts]: Reference to type '${text}' violates layer '${rule.target}' (${sourceFile.fileName} (${line + 1},${character + 1}). Learn more about our source code organization at https://github.com/johnnycharlesw/vsblocks/wiki/Source-Code-Organization.`);
 
 			hasErrors = true;
 			return;

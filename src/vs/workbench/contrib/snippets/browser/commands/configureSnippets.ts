@@ -16,7 +16,7 @@ import { ServicesAccessor } from '../../../../../platform/instantiation/common/i
 import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { IOpenerService } from '../../../../../platform/opener/common/opener.js';
 import { IQuickInputService, IQuickPickItem, QuickPickInput } from '../../../../../platform/quickinput/common/quickInput.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { SnippetsAction } from './abstractSnippetsActions.js';
 import { ISnippetsService } from '../snippets.js';
 import { SnippetSource } from '../snippetsFile.js';
@@ -247,7 +247,7 @@ export class ConfigureSnippetsAction extends SnippetsAction {
 		const opener = accessor.get(IOpenerService);
 		const languageService = accessor.get(ILanguageService);
 		const userDataProfileService = accessor.get(IUserDataProfileService);
-		const workspaceService = accessor.get(IWorkspaceContextService);
+		const workspaceService = accessor.get(WorkspaceContextServiceInterface);
 		const fileService = accessor.get(IFileService);
 		const textFileService = accessor.get(ITextFileService);
 		const labelService = accessor.get(ILabelService);

@@ -10,7 +10,7 @@ import { Emitter } from '../../base/common/event.js';
 import { relativePath } from '../../base/common/resources.js';
 import { Disposable } from '../../base/common/lifecycle.js';
 import { ParsedExpression, IExpression, parse } from '../../base/common/glob.js';
-import { IWorkspaceContextService } from '../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../platform/workspace/common/workspace.js';
 import { IConfigurationService, IConfigurationChangeEvent } from '../../platform/configuration/common/configuration.js';
 import { Schemas } from '../../base/common/network.js';
 import { ResourceSet } from '../../base/common/map.js';
@@ -34,7 +34,7 @@ export class ResourceGlobMatcher extends Disposable {
 	constructor(
 		private getExpression: (folder?: URI) => IExpression | undefined,
 		private shouldUpdate: (event: IConfigurationChangeEvent) => boolean,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService
 	) {
 		super();

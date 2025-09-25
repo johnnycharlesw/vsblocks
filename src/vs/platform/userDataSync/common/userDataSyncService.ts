@@ -17,7 +17,7 @@ import { IConfigurationService } from '../../configuration/common/configuration.
 import { IExtensionGalleryService } from '../../extensionManagement/common/extensionManagement.js';
 import { IFileService } from '../../files/common/files.js';
 import { IInstantiationService } from '../../instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
 import { ExtensionsSynchroniser } from './extensionsSync.js';
@@ -102,7 +102,7 @@ export class UserDataSyncService extends Disposable implements IUserDataSyncServ
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IUserDataSyncLogService private readonly logService: IUserDataSyncLogService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IUserDataSyncEnablementService private readonly userDataSyncEnablementService: IUserDataSyncEnablementService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IUserDataSyncResourceProviderService private readonly userDataSyncResourceProviderService: IUserDataSyncResourceProviderService,

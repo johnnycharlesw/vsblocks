@@ -6,14 +6,14 @@ import assert from 'assert';
 import { isWindows } from '../../../../../base/common/platform.js';
 import { URI } from '../../../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { testWorkspace } from '../../../../../platform/workspace/test/common/testWorkspace.js';
 import { resolveResourcesForSearchIncludes } from '../../common/queryBuilder.js';
 import { TestContextService } from '../../../../test/common/workbenchTestServices.js';
 
 suite('QueryBuilderCommon', () => {
 	ensureNoDisposablesAreLeakedInTestSuite();
-	let context: IWorkspaceContextService;
+	let context: WorkspaceContextServiceInterface;
 
 	setup(() => {
 		const workspace = testWorkspace(URI.file(isWindows ? 'C:\\testWorkspace' : '/testWorkspace'));

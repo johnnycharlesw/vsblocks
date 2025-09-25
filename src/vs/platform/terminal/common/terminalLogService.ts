@@ -8,8 +8,8 @@ import { Event } from '../../../base/common/event.js';
 import { localize } from '../../../nls.js';
 import { ILogger, ILoggerService, LogLevel } from '../../log/common/log.js';
 import { ITerminalLogService } from './terminal.js';
-import { IWorkspaceContextService } from '../../workspace/common/workspace.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { WorkspaceContextServiceInterface } from '../../workspace/common/workspace.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { joinPath } from '../../../base/common/resources.js';
 
 export class TerminalLogService extends Disposable implements ITerminalLogService {
@@ -24,8 +24,8 @@ export class TerminalLogService extends Disposable implements ITerminalLogServic
 
 	constructor(
 		@ILoggerService private readonly _loggerService: ILoggerService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 	) {
 		super();
 		this._logger = this._loggerService.createLogger(joinPath(environmentService.logsHome, 'terminal.log'), { id: 'terminal', name: localize('terminalLoggerName', 'Terminal') });

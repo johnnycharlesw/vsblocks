@@ -22,7 +22,7 @@ import { MarkdownString } from '../../../../base/common/htmlContent.js';
 import { ActionBar } from '../../../../base/browser/ui/actionbar/actionbar.js';
 import { Action } from '../../../../base/common/actions.js';
 import { Codicon } from '../../../../base/common/codicons.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { equals } from '../../../../base/common/arrays.js';
 import { URI } from '../../../../base/common/uri.js';
 import { Action2 } from '../../../../platform/actions/common/actions.js';
@@ -48,7 +48,7 @@ class LanguageStatusViewModel {
 
 class StoredCounter {
 
-	constructor(@IStorageService private readonly _storageService: IStorageService, private readonly _key: string) { }
+	constructor(@StorageServiceInterface private readonly _storageService: StorageServiceInterface, private readonly _key: string) { }
 
 	get value() {
 		return this._storageService.getNumber(this._key, StorageScope.PROFILE, 0);
@@ -110,7 +110,7 @@ class LanguageStatus {
 		@IEditorService private readonly _editorService: IEditorService,
 		@IHoverService private readonly _hoverService: IHoverService,
 		@IOpenerService private readonly _openerService: IOpenerService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 	) {
 		_storageService.onDidChangeValue(StorageScope.PROFILE, LanguageStatus._keyDedicatedItems, this._disposables)(this._handleStorageChange, this, this._disposables);
 		this._restoreState();
@@ -437,7 +437,7 @@ export class ResetAction extends Action2 {
 	}
 
 	run(accessor: ServicesAccessor): void {
-		accessor.get(IStorageService).remove('languageStatus.interactCount', StorageScope.PROFILE);
+		accessor.get(StorageServiceInterface).remove('languageStatus.interactCount', StorageScope.PROFILE);
 	}
 }
 

@@ -5,7 +5,7 @@
 
 import { INativeHostService } from '../../../../platform/native/common/native.js';
 import { INativeWorkbenchEnvironmentService } from '../../environment/electron-browser/environmentService.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
 import { IUpdateService } from '../../../../platform/update/common/update.js';
 import { ILifecycleService } from '../../lifecycle/common/lifecycle.js';
@@ -17,7 +17,7 @@ import { process } from '../../../../base/parts/sandbox/electron-browser/globals
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IWorkbenchLayoutService } from '../../layout/browser/layoutService.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IPaneCompositePartService } from '../../panecomposite/browser/panecomposite.js';
 
 export class TimerService extends AbstractTimerService {
@@ -26,7 +26,7 @@ export class TimerService extends AbstractTimerService {
 		@INativeHostService private readonly _nativeHostService: INativeHostService,
 		@INativeWorkbenchEnvironmentService private readonly _environmentService: INativeWorkbenchEnvironmentService,
 		@ILifecycleService lifecycleService: ILifecycleService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IExtensionService extensionService: IExtensionService,
 		@IUpdateService updateService: IUpdateService,
 		@IPaneCompositePartService paneCompositeService: IPaneCompositePartService,
@@ -35,7 +35,7 @@ export class TimerService extends AbstractTimerService {
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IProductService private readonly _productService: IProductService,
-		@IStorageService private readonly _storageService: IStorageService
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface
 	) {
 		super(lifecycleService, contextService, extensionService, updateService, paneCompositeService, editorService, accessibilityService, telemetryService, layoutService);
 		this.setPerformanceMarks('main', _environmentService.window.perfMarks);
@@ -99,7 +99,7 @@ registerSingleton(ITimerService, TimerService, InstantiationType.Delayed);
 const lastRunningCommitStorageKey = 'perf/lastRunningCommit';
 let _didUseCachedData: boolean | undefined = undefined;
 
-export function didUseCachedData(productService: IProductService, storageService: IStorageService, environmentService: INativeWorkbenchEnvironmentService): boolean {
+export function didUseCachedData(productService: IProductService, storageService: StorageServiceInterface, environmentService: INativeWorkbenchEnvironmentService): boolean {
 	// browser code loading: only a guess based on
 	// this being the first start with the commit
 	// or subsequent

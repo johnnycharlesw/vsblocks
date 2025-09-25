@@ -15,7 +15,7 @@ import { IDisposable } from '../../../base/common/lifecycle.js';
 import { ILogService } from '../../log/common/log.js';
 import { AbstractDiskFileSystemProviderChannel, AbstractSessionFileWatcher, ISessionFileWatcher } from '../node/diskFileSystemProviderServer.js';
 import { DefaultURITransformer, IURITransformer } from '../../../base/common/uriIpc.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { toErrorMessage } from '../../../base/common/errorMessage.js';
 
 export class DiskFileSystemProviderChannel extends AbstractDiskFileSystemProviderChannel<unknown> {
@@ -23,7 +23,7 @@ export class DiskFileSystemProviderChannel extends AbstractDiskFileSystemProvide
 	constructor(
 		provider: DiskFileSystemProvider,
 		logService: ILogService,
-		private readonly environmentService: IEnvironmentService
+		private readonly environmentService: EnvironmentServiceInterface
 	) {
 		super(provider, logService);
 	}

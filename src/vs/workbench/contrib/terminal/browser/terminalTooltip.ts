@@ -11,12 +11,12 @@ import type { IHoverAction } from '../../../../base/browser/ui/hover/hover.js';
 import { TerminalCapability } from '../../../../platform/terminal/common/capabilities/capabilities.js';
 import { TerminalStatus } from './terminalStatusList.js';
 import Severity from '../../../../base/common/severity.js';
-import { StorageScope, StorageTarget, type IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageScope, StorageTarget, type StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { TerminalStorageKeys } from '../common/terminalStorageKeys.js';
 import type { ITerminalStatusHoverAction } from '../common/terminal.js';
 import { basename } from '../../../../base/common/path.js';
 
-export function getInstanceHoverInfo(instance: ITerminalInstance, storageService: IStorageService): { content: MarkdownString; actions: IHoverAction[] } {
+export function getInstanceHoverInfo(instance: ITerminalInstance, storageService: StorageServiceInterface): { content: MarkdownString; actions: IHoverAction[] } {
 	const showDetailed = parseInt(storageService.get(TerminalStorageKeys.TabsShowDetailed, StorageScope.APPLICATION) ?? '0');
 	let statusString = '';
 	const statuses = instance.statusList.statuses;

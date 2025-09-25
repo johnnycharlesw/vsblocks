@@ -44,7 +44,7 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { UnmanagedProgress } from '../../../../platform/progress/common/progress.js';
-import { IStorageService, StorageScope, StorageTarget, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
 import { defaultButtonStyles } from '../../../../platform/theme/browser/defaultStyles.js';
 import { foreground } from '../../../../platform/theme/common/colorRegistry.js';
 import { spinningLoading } from '../../../../platform/theme/common/iconRegistry.js';
@@ -752,7 +752,7 @@ class TestingExplorerViewModel extends Disposable {
 		@ITestService private readonly testService: ITestService,
 		@ITestExplorerFilterState private readonly filterState: TestExplorerFilterState,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@ITestResultService private readonly testResults: ITestResultService,
 		@ITestingPeekOpener private readonly peekOpener: ITestingPeekOpener,

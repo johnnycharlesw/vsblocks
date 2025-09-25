@@ -7,7 +7,7 @@ import { VSBuffer } from '../../../../base/common/buffer.js';
 import { dirname, joinPath } from '../../../../base/common/resources.js';
 import { URI } from '../../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
-import { INativeEnvironmentService } from '../../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { IExtensionsProfileScannerService, IProfileExtensionsScanOptions } from '../../common/extensionsProfileScannerService.js';
 import { AbstractExtensionsScannerService, ExtensionScannerInput, IExtensionsScannerService, IScannedExtensionManifest, Translations } from '../../common/extensionsScannerService.js';
 import { ExtensionsProfileScannerService } from '../../node/extensionsProfileScannerService.js';
@@ -33,7 +33,7 @@ class ExtensionsScannerService extends AbstractExtensionsScannerService implemen
 		@IExtensionsProfileScannerService extensionsProfileScannerService: IExtensionsProfileScannerService,
 		@IFileService fileService: IFileService,
 		@ILogService logService: ILogService,
-		@INativeEnvironmentService nativeEnvironmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface nativeEnvironmentService: NativeEnvironmentServiceInterface,
 		@IProductService productService: IProductService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@IInstantiationService instantiationService: IInstantiationService,
@@ -68,7 +68,7 @@ suite('NativeExtensionsScanerService Test', () => {
 		instantiationService.stub(IFileService, fileService);
 		const systemExtensionsLocation = joinPath(ROOT, 'system');
 		const userExtensionsLocation = joinPath(ROOT, 'extensions');
-		const environmentService = instantiationService.stub(INativeEnvironmentService, {
+		const environmentService = instantiationService.stub(NativeEnvironmentServiceInterface, {
 			userHome: ROOT,
 			userRoamingDataHome: ROOT,
 			builtinExtensionsPath: systemExtensionsLocation.fsPath,
@@ -246,7 +246,7 @@ suite('NativeExtensionsScanerService Test', () => {
 		await anExtension(anExtensionManifest({ 'name': 'name2', 'publisher': 'pub' }), joinPath(ROOT, 'additional'));
 		const extensionLocation = await anExtension(anExtensionManifest({ 'name': 'name', 'publisher': 'pub' }), joinPath(ROOT, 'additional'));
 		await aSystemExtension(anExtensionManifest({ 'name': 'name', 'publisher': 'pub', version: '1.0.1' }));
-		await instantiationService.get(IFileService).writeFile(joinPath(instantiationService.get(INativeEnvironmentService).userHome, '.vscode-oss-dev', 'extensions', 'control.json'), VSBuffer.fromString(JSON.stringify({ 'pub.name2': 'disabled', 'pub.name': extensionLocation.fsPath })));
+		await instantiationService.get(IFileService).writeFile(joinPath(instantiationService.get(NativeEnvironmentServiceInterface).userHome, '.vscode-oss-dev', 'extensions', 'control.json'), VSBuffer.fromString(JSON.stringify({ 'pub.name2': 'disabled', 'pub.name': extensionLocation.fsPath })));
 		const testObject: IExtensionsScannerService = disposables.add(instantiationService.createInstance(ExtensionsScannerService));
 
 		const actual = await testObject.scanSystemExtensions({ checkControlFile: true });
@@ -321,12 +321,12 @@ suite('NativeExtensionsScanerService Test', () => {
 	});
 
 	async function aUserExtension(manifest: Partial<IScannedExtensionManifest>): Promise<URI> {
-		const environmentService = instantiationService.get(INativeEnvironmentService);
+		const environmentService = instantiationService.get(NativeEnvironmentServiceInterface);
 		return anExtension(manifest, URI.file(environmentService.extensionsPath));
 	}
 
 	async function aSystemExtension(manifest: Partial<IScannedExtensionManifest>): Promise<URI> {
-		const environmentService = instantiationService.get(INativeEnvironmentService);
+		const environmentService = instantiationService.get(NativeEnvironmentServiceInterface);
 		return anExtension(manifest, URI.file(environmentService.builtinExtensionsPath));
 	}
 

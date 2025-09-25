@@ -13,7 +13,7 @@ import { FileCopiedContext, NEW_FILE_COMMAND_ID, NEW_FOLDER_COMMAND_ID } from '.
 import * as DOM from '../../../../../base/browser/dom.js';
 import { IWorkbenchLayoutService } from '../../../../services/layout/browser/layoutService.js';
 import { ExplorerDecorationsProvider } from './explorerDecorationsProvider.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../../platform/workspace/common/workspace.js';
 import { IConfigurationService, IConfigurationChangeEvent } from '../../../../../platform/configuration/common/configuration.js';
 import { IKeybindingService } from '../../../../../platform/keybinding/common/keybinding.js';
 import { IInstantiationService, ServicesAccessor } from '../../../../../platform/instantiation/common/instantiation.js';
@@ -35,7 +35,7 @@ import { MenuId, Action2, registerAction2 } from '../../../../../platform/action
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { ExplorerItem, NewExplorerItem } from '../../common/explorerModel.js';
 import { ResourceLabels } from '../../../../browser/labels.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { IAsyncDataTreeViewState } from '../../../../../base/browser/ui/tree/asyncDataTree.js';
 import { FuzzyScore } from '../../../../../base/common/filters.js';
 import { IClipboardService } from '../../../../../platform/clipboard/common/clipboardService.js';
@@ -190,7 +190,7 @@ export class ExplorerView extends ViewPane implements IExplorerView {
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@IInstantiationService instantiationService: IInstantiationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IProgressService private readonly progressService: IProgressService,
 		@IEditorService private readonly editorService: IEditorService,
 		@IEditorResolverService private readonly editorResolverService: IEditorResolverService,
@@ -204,7 +204,7 @@ export class ExplorerView extends ViewPane implements IExplorerView {
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IHoverService hoverService: IHoverService,
 		@IExplorerService private readonly explorerService: IExplorerService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IClipboardService private clipboardService: IClipboardService,
 		@IFileService private readonly fileService: IFileService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,

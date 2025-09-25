@@ -12,7 +12,7 @@ import { dirname, isEqual } from '../../../../base/common/resources.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { FileKind } from '../../../../platform/files/common/files.js';
-import { IWorkspaceContextService, IWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { BreadcrumbsConfig } from './breadcrumbs.js';
 import { IEditorPane } from '../../../common/editor.js';
 import { IOutline, IOutlineService, OutlineTarget } from '../../../services/outline/browser/outline.js';
@@ -24,7 +24,7 @@ export class FileElement {
 	) { }
 }
 
-type FileInfo = { path: FileElement[]; folder?: IWorkspaceFolder };
+type FileInfo = { path: FileElement[]; folder?: WorkspaceInterfaceFolder };
 
 export class OutlineElement2 {
 	constructor(
@@ -51,7 +51,7 @@ export class BreadcrumbsModel {
 		readonly resource: URI,
 		readonly editor: IEditorPane | undefined,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly _workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceService: WorkspaceContextServiceInterface,
 		@IOutlineService private readonly _outlineService: IOutlineService,
 	) {
 		this._cfgFilePath = BreadcrumbsConfig.FilePath.bindTo(configurationService);

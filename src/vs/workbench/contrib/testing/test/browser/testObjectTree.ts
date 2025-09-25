@@ -6,7 +6,7 @@
 import { ObjectTree } from '../../../../../base/browser/ui/tree/objectTree.js';
 import { Emitter } from '../../../../../base/common/event.js';
 import { Disposable, DisposableStore } from '../../../../../base/common/lifecycle.js';
-import { IWorkspaceFoldersChangeEvent } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFoldersChangeEvent } from '../../../../../platform/workspace/common/workspace.js';
 import { ITestTreeProjection, TestExplorerTreeElement, TestItemTreeElement, TestTreeErrorMessage } from '../../browser/explorerProjections/index.js';
 import { MainThreadTestCollection } from '../../common/mainThreadTestCollection.js';
 import { TestsDiff, TestsDiffOp } from '../../common/testTypes.js';
@@ -100,7 +100,7 @@ class ByLabelTreeSorter implements ITreeSorter<TestExplorerTreeElement> {
 // names are hard
 export class TestTreeTestHarness<T extends ITestTreeProjection = ITestTreeProjection> extends Disposable {
 	private readonly onDiff = this._register(new Emitter<TestsDiff>());
-	public readonly onFolderChange = this._register(new Emitter<IWorkspaceFoldersChangeEvent>());
+	public readonly onFolderChange = this._register(new Emitter<WorkspaceInterfaceFoldersChangeEvent>());
 	private isProcessingDiff = false;
 	public readonly projection: T;
 	public readonly tree: TestObjectTree<TestExplorerTreeElement>;

@@ -15,7 +15,7 @@ import { localize } from '../../../../../nls.js';
 import { MenuId } from '../../../../../platform/actions/common/actions.js';
 import { IContextKey, IContextKeyService } from '../../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { IViewsService } from '../../../../services/views/common/viewsService.js';
 import { IChatAcceptInputOptions, showChatView } from '../../../chat/browser/chat.js';
 import type { IChatViewState } from '../../../chat/browser/chatWidget.js';
@@ -98,7 +98,7 @@ export class TerminalChatWidget extends Disposable {
 		private readonly _xterm: IXtermTerminal & { raw: RawXtermTerminal },
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IChatService private readonly _chatService: IChatService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IViewsService private readonly _viewsService: IViewsService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IChatAgentService private readonly _chatAgentService: IChatAgentService,

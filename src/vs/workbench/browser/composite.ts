@@ -11,7 +11,7 @@ import { Event, Emitter } from '../../base/common/event.js';
 import { IThemeService } from '../../platform/theme/common/themeService.js';
 import { IConstructorSignature, IInstantiationService } from '../../platform/instantiation/common/instantiation.js';
 import { trackFocus, Dimension, IDomPosition } from '../../base/browser/dom.js';
-import { IStorageService } from '../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../platform/storage/common/storage.js';
 import { Disposable } from '../../base/common/lifecycle.js';
 import { assertReturnsDefined } from '../../base/common/types.js';
 import { IActionViewItem } from '../../base/browser/ui/actionbar/actionbar.js';
@@ -89,7 +89,7 @@ export abstract class Composite extends Component implements IComposite {
 		id: string,
 		protected readonly telemetryService: ITelemetryService,
 		themeService: IThemeService,
-		storageService: IStorageService
+		storageService: StorageServiceInterface
 	) {
 		super(id, themeService, storageService);
 	}

@@ -8,7 +8,7 @@ import { URI, UriComponents } from '../../../../../base/common/uri.js';
 import { IChannel } from '../../../../../base/parts/ipc/common/ipc.js';
 import { IWorkbenchConfigurationService } from '../../../../services/configuration/common/configuration.js';
 import { IRemoteAuthorityResolverService } from '../../../../../platform/remote/common/remoteAuthorityResolver.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { serializeEnvironmentDescriptionMap, serializeEnvironmentVariableCollection } from '../../../../../platform/terminal/common/environmentVariableShared.js';
 import { IConfigurationResolverService } from '../../../../services/configurationResolver/common/configurationResolver.js';
 import { SideBySideEditor, EditorResourceAccessor } from '../../../../common/editor.js';
@@ -30,7 +30,7 @@ export const REMOTE_TERMINAL_CHANNEL_NAME = 'remoteterminal';
 
 export type ITerminalEnvironmentVariableCollections = [string, ISerializableEnvironmentVariableCollection, ISerializableEnvironmentDescriptionMap][];
 
-export interface IWorkspaceFolderData {
+export interface WorkspaceInterfaceFolderData {
 	uri: UriComponents;
 	name: string;
 	index: number;
@@ -43,8 +43,8 @@ export interface ICreateTerminalProcessArguments {
 	shellLaunchConfig: IShellLaunchConfigDto;
 	workspaceId: string;
 	workspaceName: string;
-	workspaceFolders: IWorkspaceFolderData[];
-	activeWorkspaceFolder: IWorkspaceFolderData | null;
+	workspaceFolders: WorkspaceInterfaceFolderData[];
+	activeWorkspaceFolder: WorkspaceInterfaceFolderData | null;
 	activeFileResource: UriComponents | undefined;
 	shouldPersistTerminal: boolean;
 	options: ITerminalProcessOptions;
@@ -104,7 +104,7 @@ export class RemoteTerminalChannelClient implements IPtyHostController {
 		private readonly _remoteAuthority: string,
 		private readonly _channel: IChannel,
 		@IWorkbenchConfigurationService private readonly _configurationService: IWorkbenchConfigurationService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 		@IConfigurationResolverService private readonly _resolverService: IConfigurationResolverService,
 		@IEnvironmentVariableService private readonly _environmentVariableService: IEnvironmentVariableService,
 		@IRemoteAuthorityResolverService private readonly _remoteAuthorityResolverService: IRemoteAuthorityResolverService,

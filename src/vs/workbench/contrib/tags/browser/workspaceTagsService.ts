@@ -3,12 +3,12 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { WorkbenchState, IWorkspace } from '../../../../platform/workspace/common/workspace.js';
+import { WorkbenchState, WorkspaceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { URI } from '../../../../base/common/uri.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
-import { IWorkspaceTagsService, Tags } from '../common/workspaceTags.js';
+import { WorkspaceInterfaceTagsService, Tags } from '../common/workspaceTags.js';
 
-export class NoOpWorkspaceTagsService implements IWorkspaceTagsService {
+export class NoOpWorkspaceTagsService implements WorkspaceInterfaceTagsService {
 
 	declare readonly _serviceBrand: undefined;
 
@@ -16,7 +16,7 @@ export class NoOpWorkspaceTagsService implements IWorkspaceTagsService {
 		return Promise.resolve({});
 	}
 
-	async getTelemetryWorkspaceId(workspace: IWorkspace, state: WorkbenchState): Promise<string | undefined> {
+	async getTelemetryWorkspaceId(workspace: WorkspaceInterface, state: WorkbenchState): Promise<string | undefined> {
 		return undefined;
 	}
 
@@ -25,4 +25,4 @@ export class NoOpWorkspaceTagsService implements IWorkspaceTagsService {
 	}
 }
 
-registerSingleton(IWorkspaceTagsService, NoOpWorkspaceTagsService, InstantiationType.Delayed);
+registerSingleton(WorkspaceInterfaceTagsService, NoOpWorkspaceTagsService, InstantiationType.Delayed);

@@ -13,7 +13,7 @@ import type * as vscode from 'vscode';
 import * as tasks from '../common/shared/tasks.js';
 import { IExtHostDocumentsAndEditors } from '../common/extHostDocumentsAndEditors.js';
 import { IExtHostConfiguration } from '../common/extHostConfiguration.js';
-import { IWorkspaceFolder, WorkspaceFolder } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder, WorkspaceFolder } from '../../../platform/workspace/common/workspace.js';
 import { IExtensionDescription } from '../../../platform/extensions/common/extensions.js';
 import { IExtHostTerminalService } from '../common/extHostTerminalService.js';
 import { IExtHostRpcService } from '../common/extHostRpcService.js';
@@ -125,7 +125,7 @@ export class ExtHostTask extends ExtHostTaskBase {
 		return resolvedTaskDTO;
 	}
 
-	private async getAFolder(workspaceFolders: vscode.WorkspaceFolder[] | undefined): Promise<IWorkspaceFolder> {
+	private async getAFolder(workspaceFolders: vscode.WorkspaceFolder[] | undefined): Promise<WorkspaceInterfaceFolder> {
 		let folder = (workspaceFolders && workspaceFolders.length > 0) ? workspaceFolders[0] : undefined;
 		if (!folder) {
 			const userhome = URI.file(homedir());
@@ -151,7 +151,7 @@ export class ExtHostTask extends ExtHostTaskBase {
 		const workspaceFolders = (await this._workspaceProvider.getWorkspaceFolders2()) ?? [];
 
 		const resolver = await this.variableResolver.getResolver();
-		const ws: IWorkspaceFolder = workspaceFolder ? {
+		const ws: WorkspaceInterfaceFolder = workspaceFolder ? {
 			uri: workspaceFolder.uri,
 			name: workspaceFolder.name,
 			index: workspaceFolder.index,

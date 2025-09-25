@@ -13,7 +13,7 @@ import { DisposableStore } from '../../../base/common/lifecycle.js';
 import { compare } from '../../../base/common/strings.js';
 import { URI } from '../../../base/common/uri.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { GlobalExtensionEnablementService } from '../../extensionManagement/common/extensionEnablementService.js';
 import { IExtensionGalleryService, IExtensionManagementService, IGlobalExtensionEnablementService, ILocalExtension, ExtensionManagementError, ExtensionManagementErrorCode, IGalleryExtension, DISABLED_EXTENSIONS_STORAGE_PATH, EXTENSION_INSTALL_SKIP_WALKTHROUGH_CONTEXT, EXTENSION_INSTALL_SOURCE_CONTEXT, InstallExtensionInfo, ExtensionInstallSource, EXTENSION_INSTALL_SKIP_PUBLISHER_TRUST_CONTEXT } from '../../extensionManagement/common/extensionManagement.js';
 import { areSameExtensions } from '../../extensionManagement/common/extensionManagementUtil.js';
@@ -23,7 +23,7 @@ import { IFileService } from '../../files/common/files.js';
 import { IInstantiationService } from '../../instantiation/common/instantiation.js';
 import { ServiceCollection } from '../../instantiation/common/serviceCollection.js';
 import { ILogService } from '../../log/common/log.js';
-import { IStorageService } from '../../storage/common/storage.js';
+import { StorageServiceInterface } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
@@ -116,9 +116,9 @@ export class ExtensionsSynchroniser extends AbstractSynchroniser implements IUse
 		// profileLocation changes for default profile
 		profile: IUserDataProfile,
 		collection: string | undefined,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUserDataSyncStoreService userDataSyncStoreService: IUserDataSyncStoreService,
 		@IUserDataSyncLocalStoreService userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IExtensionManagementService private readonly extensionManagementService: IExtensionManagementService,
@@ -572,7 +572,7 @@ export class LocalExtensionsProvider {
 		return this.userDataProfileStorageService.withProfileScopedStorageService(profile,
 			async storageService => {
 				const disposables = new DisposableStore();
-				const instantiationService = disposables.add(this.instantiationService.createChild(new ServiceCollection([IStorageService, storageService])));
+				const instantiationService = disposables.add(this.instantiationService.createChild(new ServiceCollection([StorageServiceInterface, storageService])));
 				const extensionEnablementService = disposables.add(instantiationService.createInstance(GlobalExtensionEnablementService));
 				const extensionStorageService = disposables.add(instantiationService.createInstance(ExtensionStorageService));
 				try {
@@ -599,9 +599,9 @@ export abstract class AbstractExtensionsInitializer extends AbstractInitializer 
 		@IIgnoredExtensionsManagementService private readonly ignoredExtensionsManagementService: IIgnoredExtensionsManagementService,
 		@IFileService fileService: IFileService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@ILogService logService: ILogService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 	) {
 		super(SyncResource.Extensions, userDataProfilesService, environmentService, logService, fileService, storageService, uriIdentityService);

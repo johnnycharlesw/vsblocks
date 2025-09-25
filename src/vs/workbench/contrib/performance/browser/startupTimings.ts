@@ -8,7 +8,7 @@ import { ILifecycleService, StartupKind, StartupKindToString } from '../../../se
 import { IUpdateService } from '../../../../platform/update/common/update.js';
 import * as files from '../../files/common/files.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IPaneCompositePartService } from '../../../services/panecomposite/browser/panecomposite.js';
 import { ViewContainerLocation } from '../../../common/views.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
@@ -27,7 +27,7 @@ export abstract class StartupTimings {
 		@IPaneCompositePartService private readonly _paneCompositeService: IPaneCompositePartService,
 		@ILifecycleService private readonly _lifecycleService: ILifecycleService,
 		@IUpdateService private readonly _updateService: IUpdateService,
-		@IWorkspaceTrustManagementService private readonly _workspaceTrustService: IWorkspaceTrustManagementService
+		@WorkspaceInterfaceTrustManagementService private readonly _workspaceTrustService: WorkspaceInterfaceTrustManagementService
 	) {
 	}
 
@@ -75,7 +75,7 @@ export class BrowserStartupTimings extends StartupTimings implements IWorkbenchC
 		@IPaneCompositePartService paneCompositeService: IPaneCompositePartService,
 		@ILifecycleService lifecycleService: ILifecycleService,
 		@IUpdateService updateService: IUpdateService,
-		@IWorkspaceTrustManagementService workspaceTrustService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService workspaceTrustService: WorkspaceInterfaceTrustManagementService,
 		@ITimerService private readonly timerService: ITimerService,
 		@ILogService private readonly logService: ILogService,
 		@IBrowserWorkbenchEnvironmentService private readonly environmentService: IBrowserWorkbenchEnvironmentService,

@@ -7,7 +7,7 @@ import { Registry } from '../../../../platform/registry/common/platform.js';
 import { Extensions as WorkbenchExtensions, IWorkbenchContributionsRegistry, IWorkbenchContribution } from '../../../common/contributions.js';
 import { LifecyclePhase, ILifecycleService, StartupKind } from '../../../services/lifecycle/common/lifecycle.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
 import { IWorkbenchThemeService } from '../../../services/themes/common/workbenchThemeService.js';
@@ -64,7 +64,7 @@ export class TelemetryContribution extends Disposable implements IWorkbenchContr
 
 	constructor(
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@ILifecycleService lifecycleService: ILifecycleService,
 		@IEditorService editorService: IEditorService,
 		@IKeybindingService keybindingsService: IKeybindingService,

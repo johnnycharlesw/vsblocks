@@ -28,7 +28,7 @@ import { IModelService } from '../../../../../../editor/common/services/model.js
 import { localize } from '../../../../../../nls.js';
 import { IContextKey, IContextKeyService } from '../../../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../../platform/storage/common/storage.js';
 import { ChatModel, IChatModel } from '../../../../chat/common/chatModel.js';
 import { IChatService } from '../../../../chat/common/chatService.js';
 import { countWords } from '../../../../chat/common/chatWordCounter.js';
@@ -274,7 +274,7 @@ export class NotebookChatController extends Disposable implements INotebookEdito
 		@IModelService private readonly _modelService: IModelService,
 		@ILanguageService private readonly _languageService: ILanguageService,
 		@INotebookExecutionStateService private _executionStateService: INotebookExecutionStateService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IChatService private readonly _chatService: IChatService
 	) {
 		super();

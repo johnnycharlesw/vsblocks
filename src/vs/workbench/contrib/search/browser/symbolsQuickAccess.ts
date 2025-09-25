@@ -8,7 +8,7 @@ import { IPickerQuickAccessItem, PickerQuickAccessProvider, TriggerAction } from
 import { CancellationToken } from '../../../../base/common/cancellation.js';
 import { DisposableStore } from '../../../../base/common/lifecycle.js';
 import { ThrottledDelayer } from '../../../../base/common/async.js';
-import { getWorkspaceSymbols, IWorkspaceSymbol, IWorkspaceSymbolProvider } from '../common/search.js';
+import { getWorkspaceSymbols, WorkspaceInterfaceSymbol, WorkspaceInterfaceSymbolProvider } from '../common/search.js';
 import { SymbolKinds, SymbolTag, SymbolKind } from '../../../../editor/common/languages.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { Schemas } from '../../../../base/common/network.js';
@@ -27,7 +27,7 @@ import { ThemeIcon } from '../../../../base/common/themables.js';
 
 export interface ISymbolQuickPickItem extends IPickerQuickAccessItem, IQuickPickItemWithResource {
 	score?: number;
-	symbol?: IWorkspaceSymbol;
+	symbol?: WorkspaceInterfaceSymbol;
 }
 
 export class SymbolsQuickAccessProvider extends PickerQuickAccessProvider<ISymbolQuickPickItem> {
@@ -223,7 +223,7 @@ export class SymbolsQuickAccessProvider extends PickerQuickAccessProvider<ISymbo
 		return symbolPicks;
 	}
 
-	private async openSymbol(provider: IWorkspaceSymbolProvider, symbol: IWorkspaceSymbol, token: CancellationToken, options: { keyMods: IKeyMods; forceOpenSideBySide?: boolean; preserveFocus?: boolean; forcePinned?: boolean }): Promise<void> {
+	private async openSymbol(provider: WorkspaceInterfaceSymbolProvider, symbol: WorkspaceInterfaceSymbol, token: CancellationToken, options: { keyMods: IKeyMods; forceOpenSideBySide?: boolean; preserveFocus?: boolean; forcePinned?: boolean }): Promise<void> {
 
 		// Resolve actual symbol to open for providers that can resolve
 		let symbolToOpen = symbol;

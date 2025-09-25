@@ -6,7 +6,7 @@
 import { CONFIGURATION_KEY_HOST_NAME, CONFIGURATION_KEY_PREVENT_SLEEP, ConnectionInfo, IRemoteTunnelSession, IRemoteTunnelService, LOGGER_NAME, LOG_ID, TunnelStates, TunnelStatus, TunnelMode, INACTIVE_TUNNEL_MODE, ActiveTunnelMode } from '../common/remoteTunnel.js';
 import { Emitter } from '../../../base/common/event.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
-import { INativeEnvironmentService } from '../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 import { ILogger, ILoggerService, LogLevelToString } from '../../log/common/log.js';
 import { dirname, join } from '../../../base/common/path.js';
@@ -18,7 +18,7 @@ import { ISharedProcessLifecycleService } from '../../lifecycle/node/sharedProce
 import { IConfigurationService } from '../../configuration/common/configuration.js';
 import { localize } from '../../../nls.js';
 import { hostname, homedir } from 'os';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { isString } from '../../../base/common/types.js';
 import { StreamSplitter } from '../../../base/node/nodeStreams.js';
 import { joinPath } from '../../../base/common/resources.js';
@@ -87,11 +87,11 @@ export class RemoteTunnelService extends Disposable implements IRemoteTunnelServ
 	constructor(
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IProductService private readonly productService: IProductService,
-		@INativeEnvironmentService private readonly environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private readonly environmentService: NativeEnvironmentServiceInterface,
 		@ILoggerService loggerService: ILoggerService,
 		@ISharedProcessLifecycleService sharedProcessLifecycleService: ISharedProcessLifecycleService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		super();
 		this._logger = this._register(loggerService.createLogger(joinPath(environmentService.logsHome, `${LOG_ID}.log`), { id: LOG_ID, name: LOGGER_NAME }));

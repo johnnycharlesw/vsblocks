@@ -9,7 +9,7 @@ import { Disposable } from '../../../../base/common/lifecycle.js';
 import { ILifecycleService, WillShutdownEvent, StartupKind, LifecyclePhase, LifecyclePhaseToString, ShutdownReason, BeforeShutdownErrorEvent, InternalBeforeShutdownEvent } from './lifecycle.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { mark } from '../../../../base/common/performance.js';
-import { IStorageService, StorageScope, StorageTarget, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
 
 export abstract class AbstractLifecycleService extends Disposable implements ILifecycleService {
 
@@ -47,7 +47,7 @@ export abstract class AbstractLifecycleService extends Disposable implements ILi
 
 	constructor(
 		@ILogService protected readonly logService: ILogService,
-		@IStorageService protected readonly storageService: IStorageService
+		@StorageServiceInterface protected readonly storageService: StorageServiceInterface
 	) {
 		super();
 

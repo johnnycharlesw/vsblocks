@@ -12,7 +12,7 @@ import { coalesce, distinct } from '../../base/common/arrays.js';
 import { Promises } from '../../base/common/async.js';
 import { toErrorMessage } from '../../base/common/errorMessage.js';
 import { ExpectedError, setUnexpectedErrorHandler } from '../../base/common/errors.js';
-import { IPathWithLineAndColumn, isValidBasename, parseLineAndColumnAware, sanitizeFilePath } from '../../base/common/extpath.js';
+import { PathInterfaceWithLineAndColumn, isValidBasename, parseLineAndColumnAware, sanitizeFilePath } from '../../base/common/extpath.js';
 import { Event } from '../../base/common/event.js';
 import { getPathLabel } from '../../base/common/labels.js';
 import { Schemas } from '../../base/common/network.js';
@@ -128,12 +128,12 @@ class CodeMain {
 				const mainProcessNodeIpcServer = await this.claimInstance(logService, environmentMainService, lifecycleMainService, instantiationService, productService, true);
 
 				// Write a lockfile to indicate an instance is running
-				// (https://github.com/microsoft/vscode/issues/127861#issuecomment-877417451)
+				// (https://github.com/johnnycharlesw/vsblocks/issues/127861#issuecomment-877417451)
 				FSPromises.writeFile(environmentMainService.mainLockfile, String(process.pid)).catch(err => {
 					logService.warn(`app#startup(): Error writing main lockfile: ${err.stack}`);
 				});
 
-				// Delay creation of spdlog for perf reasons (https://github.com/microsoft/vscode/issues/72906)
+				// Delay creation of spdlog for perf reasons (https://github.com/johnnycharlesw/vsblocks/issues/72906)
 				bufferLogger.logger = loggerService.createLogger('main', { name: localize('mainLog', "Main") });
 
 				// Lifecycle
@@ -170,7 +170,7 @@ class CodeMain {
 
 		// Log: We need to buffer the spdlog logs until we are sure
 		// we are the only instance running, otherwise we'll have concurrent
-		// log file access on Windows (https://github.com/microsoft/vscode/issues/41218)
+		// log file access on Windows (https://github.com/johnnycharlesw/vsblocks/issues/41218)
 		const bufferLogger = new BufferLogger(loggerService.getLogLevel());
 		const logService = disposables.add(new LogService(bufferLogger, [new ConsoleMainLogger(loggerService.getLogLevel())]));
 		services.set(ILogService, logService);
@@ -445,7 +445,7 @@ class CodeMain {
 
 		// use sync variant here because we likely exit after this method
 		// due to startup issues and otherwise the dialog seems to disappear
-		// https://github.com/microsoft/vscode/issues/104493
+		// https://github.com/johnnycharlesw/vsblocks/issues/104493
 
 		dialog.showMessageBoxSync(massageMessageBoxOptions({
 			type: 'warning',
@@ -559,7 +559,7 @@ class CodeMain {
 		const result = args.map(arg => {
 			let pathCandidate = String(arg);
 
-			let parsedPath: IPathWithLineAndColumn | undefined = undefined;
+			let parsedPath: PathInterfaceWithLineAndColumn | undefined = undefined;
 			if (gotoLineMode) {
 				parsedPath = parseLineAndColumnAware(pathCandidate);
 				pathCandidate = parsedPath.path;
@@ -595,7 +595,7 @@ class CodeMain {
 
 		// Trim trailing quotes
 		if (isWindows) {
-			path = rtrim(path, '"'); // https://github.com/microsoft/vscode/issues/1498
+			path = rtrim(path, '"'); // https://github.com/johnnycharlesw/vsblocks/issues/1498
 		}
 
 		// Trim whitespaces
@@ -613,7 +613,7 @@ class CodeMain {
 		return path;
 	}
 
-	private toPath(pathWithLineAndCol: IPathWithLineAndColumn): string {
+	private toPath(pathWithLineAndCol: PathInterfaceWithLineAndColumn): string {
 		const segments = [pathWithLineAndCol.path];
 
 		if (typeof pathWithLineAndCol.line === 'number') {

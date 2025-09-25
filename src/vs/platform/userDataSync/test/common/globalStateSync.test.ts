@@ -6,9 +6,9 @@
 import assert from 'assert';
 import { VSBuffer } from '../../../../base/common/buffer.js';
 import { runWithFakedTimers } from '../../../../base/test/common/timeTravelScheduler.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { IFileService } from '../../../files/common/files.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../storage/common/storage.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../../userDataProfile/common/userDataProfile.js';
 import { GlobalStateSynchroniser } from '../../common/globalStateSync.js';
 import { IGlobalState, ISyncData, IUserDataSyncStoreService, SyncResource, SyncStatus } from '../../common/userDataSync.js';
@@ -231,12 +231,12 @@ suite('GlobalStateSync', () => {
 
 	async function updateLocale(client: UserDataSyncClient): Promise<void> {
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		await fileService.writeFile(environmentService.argvResource, VSBuffer.fromString(JSON.stringify({ 'locale': 'en' })));
 	}
 
 	function updateUserStorage(key: string, value: string, client: UserDataSyncClient, profile?: IUserDataProfile): void {
-		const storageService = client.instantiationService.get(IStorageService);
+		const storageService = client.instantiationService.get(StorageServiceInterface);
 		storageService.store(key, value, StorageScope.PROFILE, StorageTarget.USER);
 	}
 
@@ -248,23 +248,23 @@ suite('GlobalStateSync', () => {
 	}
 
 	function updateMachineStorage(key: string, value: string, client: UserDataSyncClient): void {
-		const storageService = client.instantiationService.get(IStorageService);
+		const storageService = client.instantiationService.get(StorageServiceInterface);
 		storageService.store(key, value, StorageScope.PROFILE, StorageTarget.MACHINE);
 	}
 
 	function removeStorage(key: string, client: UserDataSyncClient): void {
-		const storageService = client.instantiationService.get(IStorageService);
+		const storageService = client.instantiationService.get(StorageServiceInterface);
 		storageService.remove(key, StorageScope.PROFILE);
 	}
 
 	function readStorage(key: string, client: UserDataSyncClient): string | undefined {
-		const storageService = client.instantiationService.get(IStorageService);
+		const storageService = client.instantiationService.get(StorageServiceInterface);
 		return storageService.get(key, StorageScope.PROFILE);
 	}
 
 	async function readLocale(client: UserDataSyncClient): Promise<string | undefined> {
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		const content = await fileService.readFile(environmentService.argvResource);
 		return JSON.parse(content.value.toString()).locale;
 	}

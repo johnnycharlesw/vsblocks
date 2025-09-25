@@ -9,7 +9,7 @@ import * as nls from '../../../../nls.js';
 import { ConfigurationTarget, IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { ConfigurationScope, Extensions, IConfigurationRegistry } from '../../../../platform/configuration/common/configurationRegistry.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { workbenchConfigurationNodeBase } from '../../../common/configuration.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { EditorInputWithOptions } from '../../../common/editor.js';
@@ -33,7 +33,7 @@ export class PreferencesContribution extends Disposable implements IWorkbenchCon
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IPreferencesService private readonly preferencesService: IPreferencesService,
 		@IUserDataProfileService private readonly userDataProfileService: IUserDataProfileService,
-		@IWorkspaceContextService private readonly workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceService: WorkspaceContextServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IEditorResolverService private readonly editorResolverService: IEditorResolverService,
 		@ITextEditorService private readonly textEditorService: ITextEditorService,

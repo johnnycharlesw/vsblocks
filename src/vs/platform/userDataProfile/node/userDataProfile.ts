@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { URI, UriDto } from '../../../base/common/uri.js';
-import { INativeEnvironmentService } from '../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { ILogService } from '../../log/common/log.js';
 import { IStateReadService, IStateService } from '../../state/node/state.js';
@@ -20,7 +20,7 @@ export class UserDataProfilesReadonlyService extends BaseUserDataProfilesService
 	constructor(
 		@IStateReadService private readonly stateReadonlyService: IStateReadService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@INativeEnvironmentService private readonly nativeEnvironmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private readonly nativeEnvironmentService: NativeEnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
 		@ILogService logService: ILogService,
 	) {
@@ -47,7 +47,7 @@ export class UserDataProfilesService extends UserDataProfilesReadonlyService imp
 	constructor(
 		@IStateService protected readonly stateService: IStateService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@INativeEnvironmentService environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface environmentService: NativeEnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
 		@ILogService logService: ILogService,
 	) {
@@ -75,7 +75,7 @@ export class ServerUserDataProfilesService extends UserDataProfilesService imple
 
 	constructor(
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@INativeEnvironmentService environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface environmentService: NativeEnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
 		@ILogService logService: ILogService,
 	) {

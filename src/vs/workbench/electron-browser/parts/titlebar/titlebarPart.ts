@@ -8,7 +8,7 @@ import { getZoomFactor } from '../../../../base/browser/browser.js';
 import { $, addDisposableListener, append, EventType, getWindow, getWindowId, hide, show } from '../../../../base/browser/dom.js';
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IConfigurationService, IConfigurationChangeEvent } from '../../../../platform/configuration/common/configuration.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { INativeWorkbenchEnvironmentService } from '../../../services/environment/electron-browser/environmentService.js';
 import { IHostService } from '../../../services/host/browser/host.js';
 import { isMacintosh, isWindows, isLinux, isBigSurOrNewer } from '../../../../base/common/platform.js';
@@ -68,7 +68,7 @@ export class NativeTitlebarPart extends BrowserTitlebarPart {
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IHostService hostService: IHostService,
@@ -276,7 +276,7 @@ export class NativeTitlebarPart extends BrowserTitlebarPart {
 			// When the user goes into full screen mode, the height of the title bar becomes 0.
 			// Instead, set it back to the default titlebar height for Catalina users
 			// so that they can have the traffic lights rendered at the proper offset.
-			// Ref https://github.com/microsoft/vscode/issues/159862
+			// Ref https://github.com/johnnycharlesw/vsblocks/issues/159862
 
 			const newHeight = (height > 0 || this.bigSurOrNewer) ? Math.round(height * getZoomFactor(getWindow(this.element))) : this.macTitlebarSize;
 			if (newHeight !== this.cachedWindowControlHeight) {
@@ -298,7 +298,7 @@ export class MainNativeTitlebarPart extends NativeTitlebarPart {
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IHostService hostService: IHostService,
@@ -327,7 +327,7 @@ export class AuxiliaryNativeTitlebarPart extends NativeTitlebarPart implements I
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IHostService hostService: IHostService,

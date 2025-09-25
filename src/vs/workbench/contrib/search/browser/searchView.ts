@@ -42,11 +42,11 @@ import { getSelectionKeyboardEvent, WorkbenchCompressibleAsyncDataTree } from '.
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { IOpenerService, withSelection } from '../../../../platform/opener/common/opener.js';
 import { IProgress, IProgressService, IProgressStep } from '../../../../platform/progress/common/progress.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { defaultInputBoxStyles, defaultToggleStyles } from '../../../../platform/theme/browser/defaultStyles.js';
 import { IFileIconTheme, IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { ThemeIcon } from '../../../../base/common/themables.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { OpenFolderAction } from '../../../browser/actions/workspaceActions.js';
 import { ResourceListDnDHandler } from '../../../browser/dnd.js';
 import { ResourceLabels } from '../../../browser/labels.js';
@@ -189,7 +189,7 @@ export class SearchView extends ViewPane {
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@ISearchViewModelWorkbenchService private readonly searchViewModelWorkbenchService: ISearchViewModelWorkbenchService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IReplaceService private readonly replaceService: IReplaceService,
@@ -200,7 +200,7 @@ export class SearchView extends ViewPane {
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IAccessibilityService private readonly accessibilityService: IAccessibilityService,
 		@IKeybindingService keybindingService: IKeybindingService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IOpenerService openerService: IOpenerService,
 		@IHoverService hoverService: IHoverService,
 		@INotebookService private readonly notebookService: INotebookService,
@@ -1580,7 +1580,7 @@ export class SearchView extends ViewPane {
 
 		// Need the full match line to correctly calculate replace text, if this is a search/replace with regex group references ($1, $2, ...).
 		// 10000 chars is enough to avoid sending huge amounts of text around, if you do a replace with a longer match, it may or may not resolve the group refs correctly.
-		// https://github.com/microsoft/vscode/issues/58374
+		// https://github.com/johnnycharlesw/vsblocks/issues/58374
 		const charsPerLine = content.isRegExp ? 10000 : 1000;
 
 		const options: ITextQueryBuilderOptions = {

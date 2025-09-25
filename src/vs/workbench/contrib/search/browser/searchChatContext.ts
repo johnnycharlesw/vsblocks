@@ -26,7 +26,7 @@ import { getIconClasses } from '../../../../editor/common/services/getIconClasse
 import { IModelService } from '../../../../editor/common/services/model.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { FileKind, FileType, IFileService } from '../../../../platform/files/common/files.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IHistoryService } from '../../../services/history/common/history.js';
 import { isCancellationError } from '../../../../base/common/errors.js';
 import * as glob from '../../../../base/common/glob.js';
@@ -153,7 +153,7 @@ class FilesAndFoldersPickerPick implements IChatContextPickerItem {
 		@IModelService private readonly _modelService: IModelService,
 		@ILanguageService private readonly _languageService: ILanguageService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly _workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceService: WorkspaceContextServiceInterface,
 		@IFileService private readonly _fileService: IFileService,
 		@IHistoryService private readonly _historyService: IHistoryService,
 	) { }

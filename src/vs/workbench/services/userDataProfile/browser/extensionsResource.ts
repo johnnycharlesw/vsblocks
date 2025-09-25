@@ -14,7 +14,7 @@ import { ExtensionType } from '../../../../platform/extensions/common/extensions
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ServiceCollection } from '../../../../platform/instantiation/common/serviceCollection.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IUserDataProfile, ProfileResourceType } from '../../../../platform/userDataProfile/common/userDataProfile.js';
 import { IUserDataProfileStorageService } from '../../../../platform/userDataProfile/common/userDataProfileStorageService.js';
 import { ITreeItemCheckboxState, TreeItemCollapsibleState } from '../../../common/views.js';
@@ -254,7 +254,7 @@ export class ExtensionsResource implements IProfileResource {
 		return this.userDataProfileStorageService.withProfileScopedStorageService(profile,
 			async storageService => {
 				const disposables = new DisposableStore();
-				const instantiationService = disposables.add(this.instantiationService.createChild(new ServiceCollection([IStorageService, storageService])));
+				const instantiationService = disposables.add(this.instantiationService.createChild(new ServiceCollection([StorageServiceInterface, storageService])));
 				const extensionEnablementService = disposables.add(instantiationService.createInstance(GlobalExtensionEnablementService));
 				try {
 					return await fn(extensionEnablementService);

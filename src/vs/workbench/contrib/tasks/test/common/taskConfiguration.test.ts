@@ -11,7 +11,7 @@ import * as Types from '../../../../../base/common/types.js';
 import * as Platform from '../../../../../base/common/platform.js';
 import { ValidationStatus } from '../../../../../base/common/parsers.js';
 import { ProblemMatcher, FileLocationKind, IProblemPattern, ApplyToKind, INamedProblemMatcher } from '../../common/problemMatcher.js';
-import { WorkspaceFolder, IWorkspace } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceFolder, WorkspaceInterface } from '../../../../../platform/workspace/common/workspace.js';
 
 import * as Tasks from '../../common/tasks.js';
 import { parse, IParseResult, IProblemReporter, IExternalTaskRunnerConfiguration, ICustomTask, TaskConfigSource, IParseContext, ProblemMatcherConverter, IGlobals, ITaskParseResult, UUIDMap, TaskParser } from '../../common/taskConfiguration.js';
@@ -28,7 +28,7 @@ const workspaceFolder: WorkspaceFolder = new WorkspaceFolder({
 	index: 0
 });
 
-const workspace: IWorkspace = new Workspace('id', [workspaceFolder]);
+const workspace: WorkspaceInterface = new Workspace('id', [workspaceFolder]);
 
 class ProblemReporter implements IProblemReporter {
 

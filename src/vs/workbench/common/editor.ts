@@ -18,7 +18,7 @@ import { IEncodingSupport, ILanguageSupport } from '../services/textfile/common/
 import { IEditorGroup } from '../services/editor/common/editorGroupsService.js';
 import { ICompositeControl, IComposite } from './composite.js';
 import { FileType, IFileReadLimits, IFileService } from '../../platform/files/common/files.js';
-import { IPathData } from '../../platform/window/common/window.js';
+import { PathInterfaceData } from '../../platform/window/common/window.js';
 import { IExtUri } from '../../base/common/resources.js';
 import { Schemas } from '../../base/common/network.js';
 import { IEditorService } from '../services/editor/common/editorService.js';
@@ -1589,7 +1589,7 @@ class EditorFactoryRegistry implements IEditorFactoryRegistry {
 
 Registry.add(EditorExtensions.EditorFactory, new EditorFactoryRegistry());
 
-export async function pathsToEditors(paths: IPathData[] | undefined, fileService: IFileService, logService: ILogService): Promise<ReadonlyArray<IResourceEditorInput | IUntitledTextResourceEditorInput | undefined>> {
+export async function pathsToEditors(paths: PathInterfaceData[] | undefined, fileService: IFileService, logService: ILogService): Promise<ReadonlyArray<IResourceEditorInput | IUntitledTextResourceEditorInput | undefined>> {
 	if (!paths || !paths.length) {
 		return [];
 	}

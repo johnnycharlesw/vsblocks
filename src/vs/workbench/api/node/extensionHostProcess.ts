@@ -50,7 +50,7 @@ if (process.env.VSCODE_DEV) {
 	});
 }
 
-// workaround for https://github.com/microsoft/vscode/issues/85490
+// workaround for https://github.com/johnnycharlesw/vsblocks/issues/85490
 // remove --inspect-port=0 after start so that it doesn't trigger LSP debugging
 (function removeInspectPort() {
 	for (let i = 0; i < process.execArgv.length; i++) {
@@ -112,7 +112,7 @@ function patchProcess(allowExit: boolean) {
 	// Set ELECTRON_RUN_AS_NODE environment variable for extensions that use
 	// child_process.spawn with process.execPath and expect to run as node process
 	// on the desktop.
-	// Refs https://github.com/microsoft/vscode/issues/151012#issuecomment-1156593228
+	// Refs https://github.com/johnnycharlesw/vsblocks/issues/151012#issuecomment-1156593228
 	process.env['ELECTRON_RUN_AS_NODE'] = '1';
 
 	process.on = <any>function (event: string, listener: (...args: any[]) => void) {
@@ -422,7 +422,7 @@ async function startExtensionHostProcess(): Promise<void> {
 	performance.mark(`code/extHost/didWaitForInitData`);
 	const { initData } = renderer;
 	// setup things
-	patchProcess(!!initData.environment.extensionTestsLocationURI); // to support other test frameworks like Jasmin that use process.exit (https://github.com/microsoft/vscode/issues/37708)
+	patchProcess(!!initData.environment.extensionTestsLocationURI); // to support other test frameworks like Jasmin that use process.exit (https://github.com/johnnycharlesw/vsblocks/issues/37708)
 	initData.environment.useHostProxy = args.useHostProxy !== undefined ? args.useHostProxy !== 'false' : undefined;
 	initData.environment.skipWorkspaceStorageLock = boolean(args.skipWorkspaceStorageLock, false);
 

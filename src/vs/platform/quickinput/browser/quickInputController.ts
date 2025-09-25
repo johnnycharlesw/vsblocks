@@ -27,7 +27,7 @@ import { IContextKey, IContextKeyService } from '../../contextkey/common/context
 import './quickInputActions.js';
 import { autorun, observableValue } from '../../../base/common/observable.js';
 import { StandardMouseEvent } from '../../../base/browser/mouseEvent.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
 import { Platform, platform } from '../../../base/common/platform.js';
 import { getWindowControlsStyle, WindowControlsStyle } from '../../window/common/window.js';
@@ -87,7 +87,7 @@ export class QuickInputController extends Disposable {
 		@ILayoutService private readonly layoutService: ILayoutService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IContextKeyService contextKeyService: IContextKeyService,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		super();
 
@@ -104,7 +104,7 @@ export class QuickInputController extends Disposable {
 				// The window this quick input is contained in is about to
 				// close, so we have to make sure to reparent it back to an
 				// existing parent to not loose functionality.
-				// (https://github.com/microsoft/vscode/issues/195870)
+				// (https://github.com/johnnycharlesw/vsblocks/issues/195870)
 				this.reparentUI(this.layoutService.mainContainer);
 				this.layout(this.layoutService.mainContainerDimension, this.layoutService.mainContainerOffset.quickPickTop);
 			}
@@ -231,7 +231,7 @@ export class QuickInputController extends Disposable {
 		}));
 		this._register(list.onLeave(() => {
 			// Defer to avoid the input field reacting to the triggering key.
-			// TODO@TylerLeonhardt https://github.com/microsoft/vscode/issues/203675
+			// TODO@TylerLeonhardt https://github.com/johnnycharlesw/vsblocks/issues/203675
 			setTimeout(() => {
 				if (!this.controller) {
 					return;
@@ -256,7 +256,7 @@ export class QuickInputController extends Disposable {
 		}));
 		this._register(tree.onLeave(() => {
 			// Defer to avoid the input field reacting to the triggering key.
-			// TODO@TylerLeonhardt https://github.com/microsoft/vscode/issues/203675
+			// TODO@TylerLeonhardt https://github.com/johnnycharlesw/vsblocks/issues/203675
 			setTimeout(() => {
 				if (!this.controller) {
 					return;

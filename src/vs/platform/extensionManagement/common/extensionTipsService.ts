@@ -20,7 +20,7 @@ import { env } from '../../../base/common/process.js';
 import { areSameExtensions } from './extensionManagementUtil.js';
 import { IExtensionRecommendationNotificationService, RecommendationsNotificationResult, RecommendationSource } from '../../extensionRecommendations/common/extensionRecommendations.js';
 import { ExtensionType } from '../../extensions/common/extensions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 
 //#region Base Extension Tips Service
@@ -116,7 +116,7 @@ export abstract class AbstractNativeExtensionTipsService extends ExtensionTipsSe
 		},
 		private readonly telemetryService: ITelemetryService,
 		private readonly extensionManagementService: IExtensionManagementService,
-		private readonly storageService: IStorageService,
+		private readonly storageService: StorageServiceInterface,
 		private readonly extensionRecommendationNotificationService: IExtensionRecommendationNotificationService,
 		fileService: IFileService,
 		productService: IProductService

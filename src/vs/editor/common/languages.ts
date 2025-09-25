@@ -1992,14 +1992,14 @@ export interface WorkspaceFileEditOptions {
 	contents?: Promise<VSBuffer>;
 }
 
-export interface IWorkspaceFileEdit {
+export interface WorkspaceInterfaceFileEdit {
 	oldResource?: URI;
 	newResource?: URI;
 	options?: WorkspaceFileEditOptions;
 	metadata?: WorkspaceEditMetadata;
 }
 
-export interface IWorkspaceTextEdit {
+export interface WorkspaceInterfaceTextEdit {
 	resource: URI;
 	textEdit: TextEdit & { insertAsSnippet?: boolean; keepWhitespace?: boolean };
 	versionId: number | undefined;
@@ -2007,7 +2007,7 @@ export interface IWorkspaceTextEdit {
 }
 
 export interface WorkspaceEdit {
-	edits: Array<IWorkspaceTextEdit | IWorkspaceFileEdit | ICustomEdit>;
+	edits: Array<WorkspaceInterfaceTextEdit | WorkspaceInterfaceFileEdit | ICustomEdit>;
 }
 
 export interface ICustomEdit {

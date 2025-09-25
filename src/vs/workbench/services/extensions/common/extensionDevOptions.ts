@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Schemas } from '../../../../base/common/network.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 
 export interface IExtensionDevOptions {
 	readonly isExtensionDevHost: boolean;
@@ -13,7 +13,7 @@ export interface IExtensionDevOptions {
 	readonly isExtensionDevTestFromCli: boolean;
 }
 
-export function parseExtensionDevOptions(environmentService: IEnvironmentService): IExtensionDevOptions {
+export function parseExtensionDevOptions(environmentService: EnvironmentServiceInterface): IExtensionDevOptions {
 	// handle extension host lifecycle a bit special when we know we are developing an extension that runs inside
 	const isExtensionDevHost = environmentService.isExtensionDevelopment;
 

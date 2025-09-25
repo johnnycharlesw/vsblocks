@@ -8,7 +8,7 @@ import { localize, localize2 } from '../../../../nls.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IQuickInputService, IQuickPickItem } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { IBrowserWorkbenchEnvironmentService } from '../../../services/environment/browser/environmentService.js';
@@ -38,7 +38,7 @@ export async function configureOpenerTrustedDomainsHandler(
 	domainToConfigure: string,
 	resource: URI,
 	quickInputService: IQuickInputService,
-	storageService: IStorageService,
+	storageService: StorageServiceInterface,
 	editorService: IEditorService,
 	telemetryService: ITelemetryService,
 ) {
@@ -139,7 +139,7 @@ export async function readTrustedDomains(accessor: ServicesAccessor): Promise<IS
 }
 
 export function readStaticTrustedDomains(accessor: ServicesAccessor): IStaticTrustedDomains {
-	const storageService = accessor.get(IStorageService);
+	const storageService = accessor.get(StorageServiceInterface);
 	const productService = accessor.get(IProductService);
 	const environmentService = accessor.get(IBrowserWorkbenchEnvironmentService);
 

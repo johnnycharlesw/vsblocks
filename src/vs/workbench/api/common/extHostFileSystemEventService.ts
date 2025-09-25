@@ -8,7 +8,7 @@ import { GLOBSTAR, GLOB_SPLIT, IRelativePattern, parse } from '../../../base/com
 import { URI } from '../../../base/common/uri.js';
 import { ExtHostDocumentsAndEditors } from './extHostDocumentsAndEditors.js';
 import type * as vscode from 'vscode';
-import { ExtHostFileSystemEventServiceShape, FileSystemEvents, IMainContext, SourceTargetPair, IWorkspaceEditDto, IWillRunFileOperationParticipation, MainContext, IRelativePatternDto } from './extHost.protocol.js';
+import { ExtHostFileSystemEventServiceShape, FileSystemEvents, IMainContext, SourceTargetPair, WorkspaceInterfaceEditDto, IWillRunFileOperationParticipation, MainContext, IRelativePatternDto } from './extHost.protocol.js';
 import * as typeConverter from './extHostTypeConverters.js';
 import { Disposable, WorkspaceEdit } from './extHostTypes.js';
 import { IExtensionDescription } from '../../../platform/extensions/common/extensions.js';
@@ -68,7 +68,7 @@ class FileSystemWatcher implements vscode.FileSystemWatcher {
 		// we start to ignore events outside the workspace when only a string
 		// pattern is provided to avoid sending events to extensions that are
 		// unexpected.
-		// https://github.com/microsoft/vscode/issues/3025
+		// https://github.com/johnnycharlesw/vsblocks/issues/3025
 		const excludeOutOfWorkspaceEvents = typeof globPattern === 'string';
 
 		// 1.84.x introduces new proposed API for a watcher to set exclude
@@ -186,7 +186,7 @@ class FileSystemWatcher implements vscode.FileSystemWatcher {
 			// such as `bar` for a exclude, will work to exclude any of
 			// `<workspace path>/bar` but will not work as include for files within
 			// `bar` unless a suffix of `/**` if added.
-			// (https://github.com/microsoft/vscode/issues/148245)
+			// (https://github.com/johnnycharlesw/vsblocks/issues/148245)
 			else if (!recursive) {
 				const workspaceFolder = workspace.getWorkspaceFolder(URI.revive(globPattern.baseUri));
 				if (workspaceFolder) {
@@ -373,7 +373,7 @@ export class ExtHostFileSystemEventService implements ExtHostFileSystemEventServ
 		}
 
 		// concat all WorkspaceEdits collected via waitUntil-call and send them over to the renderer
-		const dto: IWorkspaceEditDto = { edits: [] };
+		const dto: WorkspaceInterfaceEditDto = { edits: [] };
 		for (const [, edit] of edits) {
 			const { edits } = typeConverter.WorkspaceEdit.from(edit, {
 				getTextDocumentVersion: uri => this._extHostDocumentsAndEditors.getDocument(uri)?.version,

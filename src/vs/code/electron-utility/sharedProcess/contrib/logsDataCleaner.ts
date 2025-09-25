@@ -10,13 +10,13 @@ import { Schemas } from '../../../../base/common/network.js';
 import { join } from '../../../../base/common/path.js';
 import { basename, dirname } from '../../../../base/common/resources.js';
 import { Promises } from '../../../../base/node/pfs.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 
 export class LogsDataCleaner extends Disposable {
 
 	constructor(
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@ILogService private readonly logService: ILogService
 	) {
 		super();

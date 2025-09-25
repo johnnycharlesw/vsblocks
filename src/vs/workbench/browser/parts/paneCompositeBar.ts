@@ -14,7 +14,7 @@ import { CompositeBar, ICompositeBarItem, CompositeDragAndDrop } from './composi
 import { Dimension, isMouseEvent } from '../../../base/browser/dom.js';
 import { createCSSRule } from '../../../base/browser/domStylesheets.js';
 import { asCSSUrl } from '../../../base/browser/cssValue.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
 import { IExtensionService } from '../../services/extensions/common/extensions.js';
 import { URI, UriComponents } from '../../../base/common/uri.js';
 import { ToggleCompositePinnedAction, ICompositeBarColors, IActivityHoverOptions, ToggleCompositeBadgeAction, CompositeBarAction, ICompositeBar, ICompositeBarActionItem } from './compositeBarActions.js';
@@ -101,7 +101,7 @@ export class PaneCompositeBar extends Disposable {
 		protected readonly part: Parts,
 		private readonly paneCompositePart: IPaneCompositePart,
 		@IInstantiationService protected readonly instantiationService: IInstantiationService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IViewDescriptorService private readonly viewDescriptorService: IViewDescriptorService,
 		@IViewsService private readonly viewService: IViewsService,
@@ -805,7 +805,7 @@ class ViewContainerActivityAction extends CompositeBarAction {
 
 		// prevent accident trigger on a doubleclick (to help nervous people)
 		const now = Date.now();
-		if (now > this.lastRun /* https://github.com/microsoft/vscode/issues/25830 */ && now - this.lastRun < ViewContainerActivityAction.preventDoubleClickDelay) {
+		if (now > this.lastRun /* https://github.com/johnnycharlesw/vsblocks/issues/25830 */ && now - this.lastRun < ViewContainerActivityAction.preventDoubleClickDelay) {
 			return;
 		}
 		this.lastRun = now;

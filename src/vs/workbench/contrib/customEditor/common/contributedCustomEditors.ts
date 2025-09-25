@@ -8,7 +8,7 @@ import { Disposable } from '../../../../base/common/lifecycle.js';
 import { URI } from '../../../../base/common/uri.js';
 import * as nls from '../../../../nls.js';
 import { IExtensionDescription } from '../../../../platform/extensions/common/extensions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Memento } from '../../../common/memento.js';
 import { CustomEditorDescriptor, CustomEditorInfo } from './customEditor.js';
 import { customEditorsExtensionPoint, ICustomEditorsExtensionPoint } from './extensionPoint.js';
@@ -23,7 +23,7 @@ export class ContributedCustomEditors extends Disposable {
 	private readonly _editors = new Map<string, CustomEditorInfo>();
 	private readonly _memento: Memento;
 
-	constructor(storageService: IStorageService) {
+	constructor(storageService: StorageServiceInterface) {
 		super();
 
 		this._memento = new Memento(ContributedCustomEditors.CUSTOM_EDITORS_STORAGE_ID, storageService);

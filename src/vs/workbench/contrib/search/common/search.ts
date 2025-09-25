@@ -7,7 +7,7 @@ import { onUnexpectedExternalError } from '../../../../base/common/errors.js';
 import { IDisposable } from '../../../../base/common/lifecycle.js';
 import { ISearchConfiguration, ISearchConfigurationProperties } from '../../../services/search/common/search.js';
 import { SymbolKind, Location, ProviderResult, SymbolTag } from '../../../../editor/common/languages.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { URI } from '../../../../base/common/uri.js';
 import { EditorResourceAccessor, SideBySideEditor } from '../../../common/editor.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
@@ -20,7 +20,7 @@ import { RawContextKey } from '../../../../platform/contextkey/common/contextkey
 import { compare } from '../../../../base/common/strings.js';
 import { groupBy } from '../../../../base/common/arrays.js';
 
-export interface IWorkspaceSymbol {
+export interface WorkspaceInterfaceSymbol {
 	name: string;
 	containerName?: string;
 	kind: SymbolKind;
@@ -28,17 +28,17 @@ export interface IWorkspaceSymbol {
 	location: Location;
 }
 
-export interface IWorkspaceSymbolProvider {
-	provideWorkspaceSymbols(search: string, token: CancellationToken): ProviderResult<IWorkspaceSymbol[]>;
-	resolveWorkspaceSymbol?(item: IWorkspaceSymbol, token: CancellationToken): ProviderResult<IWorkspaceSymbol>;
+export interface WorkspaceInterfaceSymbolProvider {
+	provideWorkspaceSymbols(search: string, token: CancellationToken): ProviderResult<WorkspaceInterfaceSymbol[]>;
+	resolveWorkspaceSymbol?(item: WorkspaceInterfaceSymbol, token: CancellationToken): ProviderResult<WorkspaceInterfaceSymbol>;
 }
 
 export namespace WorkspaceSymbolProviderRegistry {
 
-	const _supports: IWorkspaceSymbolProvider[] = [];
+	const _supports: WorkspaceInterfaceSymbolProvider[] = [];
 
-	export function register(provider: IWorkspaceSymbolProvider): IDisposable {
-		let support: IWorkspaceSymbolProvider | undefined = provider;
+	export function register(provider: WorkspaceInterfaceSymbolProvider): IDisposable {
+		let support: WorkspaceInterfaceSymbolProvider | undefined = provider;
 		if (support) {
 			_supports.push(support);
 		}
@@ -56,13 +56,13 @@ export namespace WorkspaceSymbolProviderRegistry {
 		};
 	}
 
-	export function all(): IWorkspaceSymbolProvider[] {
+	export function all(): WorkspaceInterfaceSymbolProvider[] {
 		return _supports.slice(0);
 	}
 }
 
 export class WorkspaceSymbolItem {
-	constructor(readonly symbol: IWorkspaceSymbol, readonly provider: IWorkspaceSymbolProvider) { }
+	constructor(readonly symbol: WorkspaceInterfaceSymbol, readonly provider: WorkspaceInterfaceSymbolProvider) { }
 }
 
 export async function getWorkspaceSymbols(query: string, token: CancellationToken = CancellationToken.None): Promise<WorkspaceSymbolItem[]> {
@@ -138,7 +138,7 @@ export interface IWorkbenchSearchConfiguration extends ISearchConfiguration {
  */
 export function getOutOfWorkspaceEditorResources(accessor: ServicesAccessor): URI[] {
 	const editorService = accessor.get(IEditorService);
-	const contextService = accessor.get(IWorkspaceContextService);
+	const contextService = accessor.get(WorkspaceContextServiceInterface);
 	const fileService = accessor.get(IFileService);
 
 	const resources = editorService.editors

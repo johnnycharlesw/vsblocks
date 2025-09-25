@@ -31,7 +31,7 @@ import { FuzzyScoreOptions } from '../../../../base/common/filters.js';
 import { assertType } from '../../../../base/common/types.js';
 import { InlineCompletionContextKeys } from '../../inlineCompletions/browser/controller/inlineCompletionContextKeys.js';
 import { SnippetController2 } from '../../snippet/browser/snippetController2.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 
 export interface ICancelEvent {
 	readonly retrigger: boolean;
@@ -159,7 +159,7 @@ export class SuggestModel implements IDisposable {
 		@IContextKeyService private readonly _contextKeyService: IContextKeyService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 		@ILanguageFeaturesService private readonly _languageFeaturesService: ILanguageFeaturesService,
-		@IEnvironmentService private readonly _envService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly _envService: EnvironmentServiceInterface,
 	) {
 		this._currentSelection = this._editor.getSelection() || new Selection(1, 1, 1, 1);
 

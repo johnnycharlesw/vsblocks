@@ -4,21 +4,21 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Event } from '../../../base/common/event.js';
-import { INativeEnvironmentService } from '../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { refineServiceDecorator } from '../../instantiation/common/instantiation.js';
 import { ILogService } from '../../log/common/log.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { IUserDataProfilesService, WillCreateProfileEvent, WillRemoveProfileEvent, IUserDataProfile } from '../common/userDataProfile.js';
 import { UserDataProfilesService } from '../node/userDataProfile.js';
-import { IAnyWorkspaceIdentifier, IEmptyWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface, EmptyWorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 import { IStateService } from '../../state/node/state.js';
 
 export const IUserDataProfilesMainService = refineServiceDecorator<IUserDataProfilesService, IUserDataProfilesMainService>(IUserDataProfilesService);
 export interface IUserDataProfilesMainService extends IUserDataProfilesService {
-	getProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier): IUserDataProfile | undefined;
-	unsetWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, transient?: boolean): void;
-	getAssociatedEmptyWindows(): IEmptyWorkspaceIdentifier[];
+	getProfileForWorkspace(workspaceIdentifier: AnyWorkspaceIdentifierInterface): IUserDataProfile | undefined;
+	unsetWorkspace(workspaceIdentifier: AnyWorkspaceIdentifierInterface, transient?: boolean): void;
+	getAssociatedEmptyWindows(): EmptyWorkspaceIdentifierInterface[];
 	readonly onWillCreateProfile: Event<WillCreateProfileEvent>;
 	readonly onWillRemoveProfile: Event<WillRemoveProfileEvent>;
 }
@@ -28,15 +28,15 @@ export class UserDataProfilesMainService extends UserDataProfilesService impleme
 	constructor(
 		@IStateService stateService: IStateService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@INativeEnvironmentService environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface environmentService: NativeEnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
 		@ILogService logService: ILogService,
 	) {
 		super(stateService, uriIdentityService, environmentService, fileService, logService);
 	}
 
-	getAssociatedEmptyWindows(): IEmptyWorkspaceIdentifier[] {
-		const emptyWindows: IEmptyWorkspaceIdentifier[] = [];
+	getAssociatedEmptyWindows(): EmptyWorkspaceIdentifierInterface[] {
+		const emptyWindows: EmptyWorkspaceIdentifierInterface[] = [];
 		for (const id of this.profilesObject.emptyWindows.keys()) {
 			emptyWindows.push({ id });
 		}

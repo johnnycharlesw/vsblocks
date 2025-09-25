@@ -13,7 +13,7 @@ import { dirname, isEqual, joinPath } from '../../../../base/common/resources.js
 import { ReadableStreamEvents } from '../../../../base/common/stream.js';
 import { URI } from '../../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { AbstractNativeEnvironmentService } from '../../../environment/common/environmentService.js';
 import { FileService } from '../../../files/common/fileService.js';
 import { FileChangeType, FileSystemProviderCapabilities, FileType, IFileChange, IFileOpenOptions, IFileReadStreamOptions, IFileService, IFileSystemProviderWithFileReadStreamCapability, IFileSystemProviderWithFileReadWriteCapability, IFileSystemProviderWithOpenReadWriteCloseCapability, IStat } from '../../../files/common/files.js';
@@ -39,7 +39,7 @@ suite('FileUserDataProvider', () => {
 	let testObject: IFileService;
 	let userDataHomeOnDisk: URI;
 	let backupWorkspaceHomeOnDisk: URI;
-	let environmentService: IEnvironmentService;
+	let environmentService: EnvironmentServiceInterface;
 	let userDataProfilesService: IUserDataProfilesService;
 	const disposables = ensureNoDisposablesAreLeakedInTestSuite();
 	let fileUserDataProvider: FileUserDataProvider;

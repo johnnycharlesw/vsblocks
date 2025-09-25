@@ -8,7 +8,7 @@ import { onUnexpectedError } from '../../../base/common/errors.js';
 import { Selection } from '../core/selection.js';
 import { EndOfLineSequence, ICursorStateComputer, IValidEditOperation, ITextModel } from '../model.js';
 import { TextModel } from './textModel.js';
-import { IUndoRedoService, IResourceUndoRedoElement, UndoRedoElementType, IWorkspaceUndoRedoElement, UndoRedoGroup } from '../../../platform/undoRedo/common/undoRedo.js';
+import { IUndoRedoService, IResourceUndoRedoElement, UndoRedoElementType, WorkspaceInterfaceUndoRedoElement, UndoRedoGroup } from '../../../platform/undoRedo/common/undoRedo.js';
 import { URI } from '../../../base/common/uri.js';
 import { TextChange, compressConsecutiveTextChanges } from '../core/textChange.js';
 import * as buffer from '../../../base/common/buffer.js';
@@ -240,7 +240,7 @@ export class SingleModelEditStackElement implements IResourceUndoRedoElement {
 	}
 }
 
-export class MultiModelEditStackElement implements IWorkspaceUndoRedoElement {
+export class MultiModelEditStackElement implements WorkspaceInterfaceUndoRedoElement {
 
 	public readonly type = UndoRedoElementType.Workspace;
 	private _isOpen: boolean;
@@ -374,7 +374,7 @@ function getModelEOL(model: ITextModel): EndOfLineSequence {
 	}
 }
 
-export function isEditStackElement(element: IResourceUndoRedoElement | IWorkspaceUndoRedoElement | null): element is EditStackElement {
+export function isEditStackElement(element: IResourceUndoRedoElement | WorkspaceInterfaceUndoRedoElement | null): element is EditStackElement {
 	if (!element) {
 		return false;
 	}

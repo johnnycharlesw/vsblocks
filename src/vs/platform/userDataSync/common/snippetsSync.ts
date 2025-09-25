@@ -10,9 +10,9 @@ import { Event } from '../../../base/common/event.js';
 import { deepClone } from '../../../base/common/objects.js';
 import { URI } from '../../../base/common/uri.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { FileOperationError, FileOperationResult, IFileContent, IFileService, IFileStat } from '../../files/common/files.js';
-import { IStorageService } from '../../storage/common/storage.js';
+import { StorageServiceInterface } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
@@ -40,9 +40,9 @@ export class SnippetsSynchroniser extends AbstractSynchroniser implements IUserD
 	constructor(
 		profile: IUserDataProfile,
 		collection: string | undefined,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUserDataSyncStoreService userDataSyncStoreService: IUserDataSyncStoreService,
 		@IUserDataSyncLocalStoreService userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IUserDataSyncLogService logService: IUserDataSyncLogService,
@@ -507,9 +507,9 @@ export class SnippetsInitializer extends AbstractInitializer {
 	constructor(
 		@IFileService fileService: IFileService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IUserDataSyncLogService logService: IUserDataSyncLogService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 	) {
 		super(SyncResource.Snippets, userDataProfilesService, environmentService, logService, fileService, storageService, uriIdentityService);

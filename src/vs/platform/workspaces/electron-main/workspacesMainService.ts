@@ -7,21 +7,21 @@ import { AddFirstParameterToFunctions } from '../../../base/common/types.js';
 import { URI } from '../../../base/common/uri.js';
 import { IBackupMainService } from '../../backup/electron-main/backup.js';
 import { IWindowsMainService } from '../../windows/electron-main/windows.js';
-import { IEnterWorkspaceResult, IRecent, IRecentlyOpened, IWorkspaceFolderCreationData, IWorkspacesService } from '../common/workspaces.js';
-import { IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
-import { IWorkspacesHistoryMainService } from './workspacesHistoryMainService.js';
-import { IWorkspacesManagementMainService } from './workspacesManagementMainService.js';
-import { IWorkspaceBackupInfo, IFolderBackupInfo } from '../../backup/common/backup.js';
+import { IEnterWorkspaceResult, IRecent, IRecentlyOpened, WorkspaceInterfaceFolderCreationData, WorkspaceInterfacesService } from '../common/workspaces.js';
+import { WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
+import { WorkspaceInterfacesHistoryMainService } from './workspacesHistoryMainService.js';
+import { WorkspaceInterfacesManagementMainService } from './workspacesManagementMainService.js';
+import { WorkspaceInterfaceBackupInfo, IFolderBackupInfo } from '../../backup/common/backup.js';
 import { Event } from '../../../base/common/event.js';
 
-export class WorkspacesMainService implements AddFirstParameterToFunctions<IWorkspacesService, Promise<unknown> /* only methods, not events */, number /* window ID */> {
+export class WorkspacesMainService implements AddFirstParameterToFunctions<WorkspaceInterfacesService, Promise<unknown> /* only methods, not events */, number /* window ID */> {
 
 	declare readonly _serviceBrand: undefined;
 
 	constructor(
-		@IWorkspacesManagementMainService private readonly workspacesManagementMainService: IWorkspacesManagementMainService,
+		@WorkspaceInterfacesManagementMainService private readonly workspacesManagementMainService: WorkspaceInterfacesManagementMainService,
 		@IWindowsMainService private readonly windowsMainService: IWindowsMainService,
-		@IWorkspacesHistoryMainService private readonly workspacesHistoryMainService: IWorkspacesHistoryMainService,
+		@WorkspaceInterfacesHistoryMainService private readonly workspacesHistoryMainService: WorkspaceInterfacesHistoryMainService,
 		@IBackupMainService private readonly backupMainService: IBackupMainService
 	) {
 		this.onDidChangeRecentlyOpened = this.workspacesHistoryMainService.onDidChangeRecentlyOpened;
@@ -38,15 +38,15 @@ export class WorkspacesMainService implements AddFirstParameterToFunctions<IWork
 		return undefined;
 	}
 
-	createUntitledWorkspace(windowId: number, folders?: IWorkspaceFolderCreationData[], remoteAuthority?: string): Promise<IWorkspaceIdentifier> {
+	createUntitledWorkspace(windowId: number, folders?: WorkspaceInterfaceFolderCreationData[], remoteAuthority?: string): Promise<WorkspaceIdentifierInterface> {
 		return this.workspacesManagementMainService.createUntitledWorkspace(folders, remoteAuthority);
 	}
 
-	deleteUntitledWorkspace(windowId: number, workspace: IWorkspaceIdentifier): Promise<void> {
+	deleteUntitledWorkspace(windowId: number, workspace: WorkspaceIdentifierInterface): Promise<void> {
 		return this.workspacesManagementMainService.deleteUntitledWorkspace(workspace);
 	}
 
-	getWorkspaceIdentifier(windowId: number, workspacePath: URI): Promise<IWorkspaceIdentifier> {
+	getWorkspaceIdentifier(windowId: number, workspacePath: URI): Promise<WorkspaceIdentifierInterface> {
 		return this.workspacesManagementMainService.getWorkspaceIdentifier(workspacePath);
 	}
 
@@ -77,7 +77,7 @@ export class WorkspacesMainService implements AddFirstParameterToFunctions<IWork
 
 	//#region Dirty Workspaces
 
-	async getDirtyWorkspaces(): Promise<Array<IWorkspaceBackupInfo | IFolderBackupInfo>> {
+	async getDirtyWorkspaces(): Promise<Array<WorkspaceInterfaceBackupInfo | IFolderBackupInfo>> {
 		return this.backupMainService.getDirtyWorkspaces();
 	}
 

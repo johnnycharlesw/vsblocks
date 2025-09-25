@@ -7,7 +7,7 @@ import { Event } from '../../../base/common/event.js';
 import { IDisposable } from '../../../base/common/lifecycle.js';
 import { URI } from '../../../base/common/uri.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
-import { IWorkspace, ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { WorkspaceInterface, SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 export const ILabelService = createDecorator<ILabelService>('labelService');
 
@@ -24,7 +24,7 @@ export interface ILabelService {
 	 */
 	getUriLabel(resource: URI, options?: { relative?: boolean; noPrefix?: boolean; separator?: '/' | '\\'; appendWorkspaceSuffix?: boolean }): string;
 	getUriBasenameLabel(resource: URI): string;
-	getWorkspaceLabel(workspace: (IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | URI | IWorkspace), options?: { verbose: Verbosity }): string;
+	getWorkspaceLabel(workspace: (WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | URI | WorkspaceInterface), options?: { verbose: Verbosity }): string;
 	getHostLabel(scheme: string, authority?: string): string;
 	getHostTooltip(scheme: string, authority?: string): string | undefined;
 	getSeparator(scheme: string, authority?: string): '/' | '\\';

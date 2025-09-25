@@ -12,7 +12,7 @@ export const REMOTE_TERMINAL_CHANNEL_NAME = 'remoteterminal';
 
 export type ITerminalEnvironmentVariableCollections = [string, ISerializableEnvironmentVariableCollection, ISerializableEnvironmentDescriptionMap][];
 
-export interface IWorkspaceFolderData {
+export interface WorkspaceInterfaceFolderData {
 	uri: UriComponents;
 	name: string;
 	index: number;
@@ -25,8 +25,8 @@ export interface ICreateTerminalProcessArguments {
 	shellLaunchConfig: IShellLaunchConfigDto;
 	workspaceId: string;
 	workspaceName: string;
-	workspaceFolders: IWorkspaceFolderData[];
-	activeWorkspaceFolder: IWorkspaceFolderData | null;
+	workspaceFolders: WorkspaceInterfaceFolderData[];
+	activeWorkspaceFolder: WorkspaceInterfaceFolderData | null;
 	activeFileResource: UriComponents | undefined;
 	shouldPersistTerminal: boolean;
 	options: ITerminalProcessOptions;

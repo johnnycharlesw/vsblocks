@@ -248,7 +248,7 @@ export interface IChatWidget {
 	clear(): void;
 	/**
 	 * Wait for this widget to have a VM with a fully initialized model and editing session.
-	 * Sort of a hack. See https://github.com/microsoft/vscode/issues/247484
+	 * Sort of a hack. See https://github.com/johnnycharlesw/vsblocks/issues/247484
 	 */
 	waitForReady(): Promise<void>;
 	getViewState(): IChatViewState;

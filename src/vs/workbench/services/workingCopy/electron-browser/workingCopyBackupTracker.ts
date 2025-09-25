@@ -11,7 +11,7 @@ import { IWorkingCopyService } from '../common/workingCopyService.js';
 import { IWorkingCopy, IWorkingCopyIdentifier, WorkingCopyCapabilities } from '../common/workingCopy.js';
 import { ILifecycleService, ShutdownReason } from '../../lifecycle/common/lifecycle.js';
 import { ConfirmResult, IFileDialogService, IDialogService, getFileNamesMessage } from '../../../../platform/dialogs/common/dialogs.js';
-import { WorkbenchState, IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkbenchState, WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { isMacintosh } from '../../../../base/common/platform.js';
 import { HotExitConfiguration } from '../../../../platform/files/common/files.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
@@ -19,7 +19,7 @@ import { WorkingCopyBackupTracker } from '../common/workingCopyBackupTracker.js'
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IEditorService } from '../../editor/common/editorService.js';
 import { SaveReason } from '../../../common/editor.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { CancellationToken, CancellationTokenSource } from '../../../../base/common/cancellation.js';
 import { IProgressService, ProgressLocation } from '../../../../platform/progress/common/progress.js';
 import { Promises, raceCancellation } from '../../../../base/common/async.js';
@@ -37,10 +37,10 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 		@ILifecycleService lifecycleService: ILifecycleService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
 		@IDialogService private readonly dialogService: IDialogService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@INativeHostService private readonly nativeHostService: INativeHostService,
 		@ILogService logService: ILogService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IProgressService private readonly progressService: IProgressService,
 		@IWorkingCopyEditorService workingCopyEditorService: IWorkingCopyEditorService,
 		@IEditorService editorService: IEditorService,
@@ -56,7 +56,7 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 		// this because there is a risk of a backup being scheduled after we have
 		// acknowledged to shutdown and then might end up with partial backups
 		// written to disk, or even empty backups or deletes after writes.
-		// (https://github.com/microsoft/vscode/issues/138055)
+		// (https://github.com/johnnycharlesw/vsblocks/issues/138055)
 
 		this.cancelBackupOperations();
 
@@ -139,7 +139,7 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 			if (this.environmentService.isExtensionDevelopment) {
 				this.logService.error(`[backup tracker] error creating backups: ${backupError}`);
 
-				return false; // do not block shutdown during extension development (https://github.com/microsoft/vscode/issues/115028)
+				return false; // do not block shutdown during extension development (https://github.com/johnnycharlesw/vsblocks/issues/115028)
 			}
 
 			return this.showErrorDialog(localize('backupTrackerBackupFailed', "The following editors with unsaved changes could not be saved to the backup location."), remainingModifiedWorkingCopies, backupError, reason);
@@ -154,7 +154,7 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 			if (this.environmentService.isExtensionDevelopment) {
 				this.logService.error(`[backup tracker] error saving or reverting modified working copies: ${error}`);
 
-				return false; // do not block shutdown during extension development (https://github.com/microsoft/vscode/issues/115028)
+				return false; // do not block shutdown during extension development (https://github.com/johnnycharlesw/vsblocks/issues/115028)
 			}
 
 			return this.showErrorDialog(localize('backupTrackerConfirmFailed', "The following editors with unsaved changes could not be saved or reverted."), remainingModifiedWorkingCopies, error, reason);
@@ -356,7 +356,7 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 			// Do not pick `Dialog` as location for reporting progress if it is likely
 			// that the save operation will itself open a dialog for asking for the
 			// location to save to for untitled or scratchpad working copies.
-			// https://github.com/microsoft/vscode-internalbacklog/issues/4943
+			// https://github.com/johnnycharlesw/vsblocks-internalbacklog/issues/4943
 			workingCopies.some(workingCopy => workingCopy.capabilities & WorkingCopyCapabilities.Untitled || workingCopy.capabilities & WorkingCopyCapabilities.Scratchpad) ? ProgressLocation.Window : ProgressLocation.Dialog);
 	}
 
@@ -386,9 +386,9 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 		// Empty window: discard even unrestored backups to
 		// prevent empty windows from restoring that cannot
 		// be closed (workaround for not having implemented
-		// https://github.com/microsoft/vscode/issues/127163
+		// https://github.com/johnnycharlesw/vsblocks/issues/127163
 		// and a fix for what users have reported in issue
-		// https://github.com/microsoft/vscode/issues/126725)
+		// https://github.com/johnnycharlesw/vsblocks/issues/126725)
 		//
 		// Workspace/Folder window: do not discard unrestored
 		// backups to give a chance to restore them in the
@@ -429,7 +429,7 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 			// When we shutdown either with no modified working copies left
 			// or with some handled, we start to discard these backups
 			// to free them up. This helps to get rid of stale backups
-			// as reported in https://github.com/microsoft/vscode/issues/92962
+			// as reported in https://github.com/johnnycharlesw/vsblocks/issues/92962
 			//
 			// However, we never want to discard backups that we know
 			// were not restored in the session.
@@ -450,8 +450,8 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 		const cts = new CancellationTokenSource();
 
 		return this.progressService.withProgress({
-			location, 			// by default use a dialog to prevent the user from making any more changes now (https://github.com/microsoft/vscode/issues/122774)
-			cancellable: true, 	// allow to cancel (https://github.com/microsoft/vscode/issues/112278)
+			location, 			// by default use a dialog to prevent the user from making any more changes now (https://github.com/johnnycharlesw/vsblocks/issues/122774)
+			cancellable: true, 	// allow to cancel (https://github.com/johnnycharlesw/vsblocks/issues/112278)
 			delay: 800, 		// delay so that it only appears when operation takes a long time
 			title,
 			detail

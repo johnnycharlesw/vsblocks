@@ -11,9 +11,9 @@ import { IFileQueryBuilderOptions, QueryBuilder } from '../../../services/search
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { getOutOfWorkspaceEditorResources, extractRangeFromFilter, IWorkbenchSearchConfiguration } from '../common/search.js';
 import { ISearchService, ISearchComplete } from '../../../services/search/common/search.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { untildify } from '../../../../base/common/labels.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { URI } from '../../../../base/common/uri.js';
 import { toLocalResource, dirname, basenameOrAuthority } from '../../../../base/common/resources.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
@@ -120,8 +120,8 @@ export class AnythingQuickAccessProvider extends PickerQuickAccessProvider<IAnyt
 	constructor(
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@ISearchService private readonly searchService: ISearchService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
-		@IPathService private readonly pathService: IPathService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@IFileService private readonly fileService: IFileService,
 		@ILabelService private readonly labelService: ILabelService,
@@ -330,7 +330,7 @@ export class AnythingQuickAccessProvider extends PickerQuickAccessProvider<IAnyt
 		// list to get symbols from. If we would simply trigger editor symbol
 		// search without prior filtering, you could not paste a file name
 		// including the `@` character to open it (e.g. /some/file@path)
-		// refs: https://github.com/microsoft/vscode/issues/93845
+		// refs: https://github.com/johnnycharlesw/vsblocks/issues/93845
 		return this.doGetPicks(
 			filter,
 			{

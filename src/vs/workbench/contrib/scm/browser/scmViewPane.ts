@@ -39,7 +39,7 @@ import { compareFileNames, comparePaths } from '../../../../base/common/comparer
 import { FuzzyScore, createMatches, IMatch } from '../../../../base/common/filters.js';
 import { IViewDescriptorService } from '../../../common/views.js';
 import { localize } from '../../../../nls.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { EditorResourceAccessor, SideBySideEditor } from '../../../common/editor.js';
 import { CodeEditorWidget, ICodeEditorWidgetOptions } from '../../../../editor/browser/widget/codeEditor/codeEditorWidget.js';
 import { IEditorConstructionOptions } from '../../../../editor/browser/config/editorConfiguration.js';
@@ -1380,7 +1380,7 @@ class SCMInputWidgetActionRunner extends ActionRunner {
 
 	constructor(
 		private readonly input: ISCMInput,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		super();
 	}
@@ -1447,7 +1447,7 @@ class SCMInputWidgetToolbar extends WorkbenchToolBar {
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@ICommandService commandService: ICommandService,
 		@IKeybindingService keybindingService: IKeybindingService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@ITelemetryService telemetryService: ITelemetryService,
 	) {
 		super(container, options, menuService, contextKeyService, contextMenuService, keybindingService, commandService, telemetryService);
@@ -1662,7 +1662,7 @@ class SCMInputWidget {
 	private _validationTimer: Timeout | undefined;
 
 	// This is due to "Setup height change listener on next tick" above
-	// https://github.com/microsoft/vscode/issues/108067
+	// https://github.com/johnnycharlesw/vsblocks/issues/108067
 	private lastLayoutWasTrash = false;
 	private shouldFocusAfterLayout = false;
 
@@ -2197,7 +2197,7 @@ export class SCMViewPane extends ViewPane {
 		@IMenuService private readonly menuService: IMenuService,
 		@ISCMService private readonly scmService: ISCMService,
 		@ISCMViewService private readonly scmViewService: ISCMViewService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@IKeybindingService keybindingService: IKeybindingService,
 		@IThemeService themeService: IThemeService,

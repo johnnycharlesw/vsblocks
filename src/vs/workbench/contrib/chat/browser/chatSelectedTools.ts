@@ -10,7 +10,7 @@ import { isObject } from '../../../../base/common/types.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ObservableMemento, observableMemento } from '../../../../platform/observable/common/observableMemento.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { UserSelectedTools } from '../common/chatAgents.js';
 import { IChatMode } from '../common/chatModes.js';
 import { ChatModeKind } from '../common/constants.js';
@@ -102,7 +102,7 @@ export class ChatSelectedTools extends Disposable {
 	constructor(
 		private readonly _mode: IObservable<IChatMode>,
 		@ILanguageModelToolsService private readonly _toolsService: ILanguageModelToolsService,
-		@IStorageService _storageService: IStorageService,
+		@StorageServiceInterface _storageService: StorageServiceInterface,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 	) {
 		super();

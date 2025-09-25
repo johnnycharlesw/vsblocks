@@ -10,7 +10,7 @@ import { ITextResourcePropertiesService } from '../../../../editor/common/servic
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IUndoRedoService } from '../../../../platform/undoRedo/common/undoRedo.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 
 export class WorkbenchModelService extends ModelService {
@@ -18,7 +18,7 @@ export class WorkbenchModelService extends ModelService {
 		@IConfigurationService configurationService: IConfigurationService,
 		@ITextResourcePropertiesService resourcePropertiesService: ITextResourcePropertiesService,
 		@IUndoRedoService undoRedoService: IUndoRedoService,
-		@IPathService private readonly _pathService: IPathService,
+		@PathInterfaceService private readonly _pathService: PathInterfaceService,
 		@IInstantiationService instantiationService: IInstantiationService,
 	) {
 		super(configurationService, resourcePropertiesService, undoRedoService, instantiationService);

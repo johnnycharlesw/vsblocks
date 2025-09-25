@@ -5,8 +5,8 @@
 
 import { localize, localize2 } from '../../../nls.js';
 import { ITelemetryData } from '../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService, WorkbenchState, IWorkspaceFolder, hasWorkspaceFileExtension } from '../../../platform/workspace/common/workspace.js';
-import { IWorkspaceEditingService } from '../../services/workspaces/common/workspaceEditing.js';
+import { WorkspaceContextServiceInterface, WorkbenchState, WorkspaceInterfaceFolder, hasWorkspaceFileExtension } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceEditingService } from '../../services/workspaces/common/workspaceEditing.js';
 import { IEditorService } from '../../services/editor/common/editorService.js';
 import { ICommandService } from '../../../platform/commands/common/commands.js';
 import { ADD_ROOT_FOLDER_COMMAND_ID, ADD_ROOT_FOLDER_LABEL, PICK_WORKSPACE_FOLDER_COMMAND_ID, SET_ROOT_FOLDER_COMMAND_ID } from './workspaceCommands.js';
@@ -18,7 +18,7 @@ import { IHostService } from '../../services/host/browser/host.js';
 import { KeyChord, KeyCode, KeyMod } from '../../../base/common/keyCodes.js';
 import { ContextKeyExpr } from '../../../platform/contextkey/common/contextkey.js';
 import { IWorkbenchEnvironmentService } from '../../services/environment/common/environmentService.js';
-import { IWorkspacesService } from '../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService } from '../../../platform/workspaces/common/workspaces.js';
 import { KeybindingWeight } from '../../../platform/keybinding/common/keybindingsRegistry.js';
 import { IsMacNativeContext } from '../../../platform/contextkey/common/contextkeys.js';
 import { ILocalizedString } from '../../../platform/action/common/action.js';
@@ -200,7 +200,7 @@ class OpenWorkspaceConfigFileAction extends Action2 {
 	}
 
 	override async run(accessor: ServicesAccessor): Promise<void> {
-		const contextService = accessor.get(IWorkspaceContextService);
+		const contextService = accessor.get(WorkspaceContextServiceInterface);
 		const editorService = accessor.get(IEditorService);
 
 		const configuration = contextService.getWorkspace().configuration;
@@ -247,9 +247,9 @@ export class RemoveRootFolderAction extends Action2 {
 
 	override async run(accessor: ServicesAccessor): Promise<void> {
 		const commandService = accessor.get(ICommandService);
-		const workspaceEditingService = accessor.get(IWorkspaceEditingService);
+		const workspaceEditingService = accessor.get(WorkspaceInterfaceEditingService);
 
-		const folder = await commandService.executeCommand<IWorkspaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
+		const folder = await commandService.executeCommand<WorkspaceInterfaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
 		if (folder) {
 			await workspaceEditingService.removeFolders([folder.uri]);
 		}
@@ -271,8 +271,8 @@ class SaveWorkspaceAsAction extends Action2 {
 	}
 
 	override async run(accessor: ServicesAccessor): Promise<void> {
-		const workspaceEditingService = accessor.get(IWorkspaceEditingService);
-		const contextService = accessor.get(IWorkspaceContextService);
+		const workspaceEditingService = accessor.get(WorkspaceInterfaceEditingService);
+		const contextService = accessor.get(WorkspaceContextServiceInterface);
 
 		const configPathUri = await workspaceEditingService.pickNewWorkspacePath();
 		if (configPathUri && hasWorkspaceFileExtension(configPathUri)) {
@@ -304,10 +304,10 @@ class DuplicateWorkspaceInNewWindowAction extends Action2 {
 	}
 
 	override async run(accessor: ServicesAccessor): Promise<void> {
-		const workspaceContextService = accessor.get(IWorkspaceContextService);
-		const workspaceEditingService = accessor.get(IWorkspaceEditingService);
+		const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
+		const workspaceEditingService = accessor.get(WorkspaceInterfaceEditingService);
 		const hostService = accessor.get(IHostService);
-		const workspacesService = accessor.get(IWorkspacesService);
+		const workspacesService = accessor.get(WorkspaceInterfacesService);
 		const environmentService = accessor.get(IWorkbenchEnvironmentService);
 
 		const folders = workspaceContextService.getWorkspace().folders;

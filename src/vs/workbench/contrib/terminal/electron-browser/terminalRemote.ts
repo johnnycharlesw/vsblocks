@@ -6,7 +6,7 @@
 import { Schemas } from '../../../../base/common/network.js';
 import { URI } from '../../../../base/common/uri.js';
 import { localize2 } from '../../../../nls.js';
-import { INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IRemoteAuthorityResolverService } from '../../../../platform/remote/common/remoteAuthorityResolver.js';
 import { registerTerminalAction } from '../browser/terminalActions.js';
 import { TerminalCommandId } from '../common/terminal.js';
@@ -19,7 +19,7 @@ export function registerRemoteContributions() {
 		run: async (c, accessor) => {
 			const historyService = accessor.get(IHistoryService);
 			const remoteAuthorityResolverService = accessor.get(IRemoteAuthorityResolverService);
-			const nativeEnvironmentService = accessor.get(INativeEnvironmentService);
+			const nativeEnvironmentService = accessor.get(NativeEnvironmentServiceInterface);
 			let cwd: URI | undefined;
 			try {
 				const activeWorkspaceRootUri = historyService.getLastActiveWorkspaceRoot(Schemas.vscodeRemote);

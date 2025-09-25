@@ -28,7 +28,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { ContextKeyExpr, ContextKeyExpression, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { widgetBorder, widgetShadow } from '../../../../platform/theme/common/colorRegistry.js';
 import { IThemeService, Themable } from '../../../../platform/theme/common/themeService.js';
@@ -68,7 +68,7 @@ export class DebugToolBar extends Themable implements IWorkbenchContribution {
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IDebugService private readonly debugService: IDebugService,
 		@IWorkbenchLayoutService private readonly layoutService: IWorkbenchLayoutService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IThemeService themeService: IThemeService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,

@@ -18,7 +18,7 @@ import { ConfigurationService } from '../../platform/configuration/common/config
 import { ExtensionHostDebugBroadcastChannel } from '../../platform/debug/common/extensionHostDebugIpc.js';
 import { IDownloadService } from '../../platform/download/common/download.js';
 import { DownloadServiceChannelClient } from '../../platform/download/common/downloadIpc.js';
-import { IEnvironmentService, INativeEnvironmentService } from '../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface, NativeEnvironmentServiceInterface } from '../../platform/environment/common/environment.js';
 import { ExtensionGalleryServiceWithNoStorageService } from '../../platform/extensionManagement/common/extensionGalleryService.js';
 import { IAllowedExtensionsService, IExtensionGalleryService } from '../../platform/extensionManagement/common/extensionManagement.js';
 import { ExtensionSignatureVerificationService, IExtensionSignatureVerificationService } from '../../platform/extensionManagement/node/extensionSignatureVerificationService.js';
@@ -104,8 +104,8 @@ export async function setupServerServices(connectionToken: ServerConnectionToken
 	services.set(IProductService, productService);
 
 	const environmentService = new ServerEnvironmentService(args, productService);
-	services.set(IEnvironmentService, environmentService);
-	services.set(INativeEnvironmentService, environmentService);
+	services.set(EnvironmentServiceInterface, environmentService);
+	services.set(NativeEnvironmentServiceInterface, environmentService);
 
 	const loggerService = new LoggerService(getLogLevel(environmentService), environmentService.logsHome);
 	services.set(ILoggerService, loggerService);

@@ -8,8 +8,8 @@ import assert from 'assert';
 import * as json from '../../../../../base/common/json.js';
 import { Event } from '../../../../../base/common/event.js';
 import { Registry } from '../../../../../platform/registry/common/platform.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { TestEnvironmentService, TestTextFileService, workbenchInstantiationService } from '../../../../test/browser/workbenchTestServices.js';
 import * as uuid from '../../../../../base/common/uuid.js';
 import { IConfigurationRegistry, Extensions as ConfigurationExtensions } from '../../../../../platform/configuration/common/configurationRegistry.js';
@@ -111,7 +111,7 @@ suite('ConfigurationEditing', () => {
 		instantiationService = workbenchInstantiationService(undefined, disposables);
 		environmentService = TestEnvironmentService;
 		environmentService.policyFile = joinPath(workspaceFolder, 'policies.json');
-		instantiationService.stub(IEnvironmentService, environmentService);
+		instantiationService.stub(EnvironmentServiceInterface, environmentService);
 		const uriIdentityService = disposables.add(new UriIdentityService(fileService));
 		const userDataProfilesService = instantiationService.stub(IUserDataProfilesService, disposables.add(new UserDataProfilesService(environmentService, fileService, uriIdentityService, logService)));
 		userDataProfileService = disposables.add(new UserDataProfileService(userDataProfilesService.defaultProfile));
@@ -124,7 +124,7 @@ suite('ConfigurationEditing', () => {
 			id: hash(workspaceFolder.toString()).toString(16),
 			uri: workspaceFolder
 		});
-		instantiationService.stub(IWorkspaceContextService, workspaceService);
+		instantiationService.stub(WorkspaceContextServiceInterface, workspaceService);
 
 		await workspaceService.initialize(getSingleFolderWorkspaceIdentifier(workspaceFolder));
 		instantiationService.stub(IConfigurationService, workspaceService);

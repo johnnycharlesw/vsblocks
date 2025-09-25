@@ -28,7 +28,7 @@ import { IMenuService, MenuId } from '../../../../platform/actions/common/action
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { IWorkbenchAsyncDataTreeOptions, WorkbenchAsyncDataTree } from '../../../../platform/list/browser/listService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IColorTheme, IThemeService, themeColorFromId } from '../../../../platform/theme/common/themeService.js';
 import * as typeHTree from './typeHierarchyTree.js';
 import { TypeHierarchyDirection, TypeHierarchyModel } from '../common/typeHierarchy.js';
@@ -43,11 +43,11 @@ const enum State {
 
 class LayoutInfo {
 
-	static store(info: LayoutInfo, storageService: IStorageService): void {
+	static store(info: LayoutInfo, storageService: StorageServiceInterface): void {
 		storageService.store('typeHierarchyPeekLayout', JSON.stringify(info), StorageScope.PROFILE, StorageTarget.MACHINE);
 	}
 
-	static retrieve(storageService: IStorageService): LayoutInfo {
+	static retrieve(storageService: StorageServiceInterface): LayoutInfo {
 		const value = storageService.get('typeHierarchyPeekLayout', StorageScope.PROFILE, '{}');
 		const defaultInfo: LayoutInfo = { ratio: 0.7, height: 17 };
 		try {
@@ -88,7 +88,7 @@ export class TypeHierarchyTreePeekWidget extends peekView.PeekViewWidget {
 		@peekView.IPeekViewService private readonly _peekViewService: peekView.IPeekViewService,
 		@IEditorService private readonly _editorService: IEditorService,
 		@ITextModelService private readonly _textModelService: ITextModelService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IMenuService private readonly _menuService: IMenuService,
 		@IContextKeyService private readonly _contextKeyService: IContextKeyService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,

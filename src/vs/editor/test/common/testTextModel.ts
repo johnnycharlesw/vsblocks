@@ -32,7 +32,7 @@ import { PLAINTEXT_LANGUAGE_ID } from '../../common/languages/modesRegistry.js';
 import { ILanguageFeatureDebounceService, LanguageFeatureDebounceService } from '../../common/services/languageFeatureDebounce.js';
 import { ILanguageFeaturesService } from '../../common/services/languageFeatures.js';
 import { LanguageFeaturesService } from '../../common/services/languageFeaturesService.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { mock } from '../../../base/test/common/mock.js';
 import { ITreeSitterLibraryService } from '../../common/services/treeSitter/treeSitterLibraryService.js';
 import { TestTreeSitterLibraryService } from './services/testTreeSitterLibraryService.js';
@@ -100,7 +100,7 @@ export function createModelServices(disposables: DisposableStore, services: Serv
 		[ITextResourcePropertiesService, TestTextResourcePropertiesService],
 		[IThemeService, TestThemeService],
 		[ILogService, NullLogService],
-		[IEnvironmentService, new class extends mock<IEnvironmentService>() {
+		[EnvironmentServiceInterface, new class extends mock<EnvironmentServiceInterface>() {
 			override isBuilt: boolean = true;
 			override isExtensionDevelopment: boolean = false;
 		}],

@@ -23,7 +23,7 @@ export interface ICompleteTerminalConfiguration {
 
 export type ITerminalEnvironmentVariableCollections = [string, ISerializableEnvironmentVariableCollection][];
 
-export interface IWorkspaceFolderData {
+export interface WorkspaceInterfaceFolderData {
 	uri: UriComponents;
 	name: string;
 	index: number;
@@ -74,7 +74,7 @@ const enum Constants {
 	 * Writing large amounts of data can be corrupted for some reason, after looking into this is
 	 * appears to be a race condition around writing to the FD which may be based on how powerful
 	 * the hardware is. The workaround for this is to space out when large amounts of data is being
-	 * written to the terminal. See https://github.com/microsoft/vscode/issues/38137
+	 * written to the terminal. See https://github.com/johnnycharlesw/vsblocks/issues/38137
 	 */
 	WriteMaxChunkSize = 50,
 }

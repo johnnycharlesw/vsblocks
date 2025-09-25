@@ -41,7 +41,7 @@ import { getErrorMessage } from '../../../../base/common/errors.js';
 import { isWeb } from '../../../../base/common/platform.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
-import { IWorkspaceContextService, WORKSPACE_SUFFIX } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WORKSPACE_SUFFIX } from '../../../../platform/workspace/common/workspace.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { isString } from '../../../../base/common/types.js';
 import { IWorkbenchExtensionManagementService } from '../../../services/extensionManagement/common/extensionManagement.js';
@@ -110,7 +110,7 @@ export abstract class AbstractUserDataProfileElement extends Disposable {
 		@IUserDataProfileManagementService protected readonly userDataProfileManagementService: IUserDataProfileManagementService,
 		@IUserDataProfilesService protected readonly userDataProfilesService: IUserDataProfilesService,
 		@ICommandService protected readonly commandService: ICommandService,
-		@IWorkspaceContextService protected readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IHostService protected readonly hostService: IHostService,
 		@IUriIdentityService protected readonly uriIdentityService: IUriIdentityService,
 		@IFileService protected readonly fileService: IFileService,
@@ -417,7 +417,7 @@ export class UserDataProfileElement extends AbstractUserDataProfileElement {
 		@IUserDataProfileManagementService userDataProfileManagementService: IUserDataProfileManagementService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
 		@ICommandService commandService: ICommandService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@IHostService hostService: IHostService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@IFileService fileService: IFileService,
@@ -570,7 +570,7 @@ export class NewProfileElement extends AbstractUserDataProfileElement {
 		@IUserDataProfileManagementService userDataProfileManagementService: IUserDataProfileManagementService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
 		@ICommandService commandService: ICommandService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@IHostService hostService: IHostService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@IFileService fileService: IFileService,

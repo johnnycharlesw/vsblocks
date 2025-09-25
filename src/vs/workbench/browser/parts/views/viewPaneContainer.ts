@@ -24,11 +24,11 @@ import { IContextKeyService } from '../../../../platform/contextkey/common/conte
 import { IContextMenuService } from '../../../../platform/contextview/browser/contextView.js';
 import { IInstantiationService, ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { KeybindingWeight } from '../../../../platform/keybinding/common/keybindingsRegistry.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { activeContrastBorder, asCssVariable } from '../../../../platform/theme/common/colorRegistry.js';
 import { IThemeService, Themable } from '../../../../platform/theme/common/themeService.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { CompositeDragAndDropObserver, toggleDropEffect } from '../../dnd.js';
 import { ViewPane } from './viewPane.js';
 import { IViewletViewOptions } from './viewsViewlet.js';
@@ -360,8 +360,8 @@ export class ViewPaneContainer extends Component implements IViewPaneContainer {
 		@ITelemetryService protected telemetryService: ITelemetryService,
 		@IExtensionService protected extensionService: IExtensionService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService protected storageService: IStorageService,
-		@IWorkspaceContextService protected contextService: IWorkspaceContextService,
+		@StorageServiceInterface protected storageService: StorageServiceInterface,
+		@WorkspaceContextServiceInterface protected contextService: WorkspaceContextServiceInterface,
 		@IViewDescriptorService protected viewDescriptorService: IViewDescriptorService,
 		@ILogService protected readonly logService: ILogService,
 	) {

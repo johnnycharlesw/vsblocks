@@ -615,8 +615,8 @@ export namespace WorkspaceEdit {
 		getNotebookDocumentVersion(uri: URI): number | undefined;
 	}
 
-	export function from(value: vscode.WorkspaceEdit, versionInfo?: IVersionInformationProvider): extHostProtocol.IWorkspaceEditDto {
-		const result: extHostProtocol.IWorkspaceEditDto = {
+	export function from(value: vscode.WorkspaceEdit, versionInfo?: IVersionInformationProvider): extHostProtocol.WorkspaceInterfaceEditDto {
+		const result: extHostProtocol.WorkspaceInterfaceEditDto = {
 			edits: []
 		};
 
@@ -700,13 +700,13 @@ export namespace WorkspaceEdit {
 		return result;
 	}
 
-	export function to(value: extHostProtocol.IWorkspaceEditDto) {
+	export function to(value: extHostProtocol.WorkspaceInterfaceEditDto) {
 		const result = new types.WorkspaceEdit();
 		const edits = new ResourceMap<(types.TextEdit | types.SnippetTextEdit)[]>();
 		for (const edit of value.edits) {
-			if ((<extHostProtocol.IWorkspaceTextEditDto>edit).textEdit) {
+			if ((<extHostProtocol.WorkspaceInterfaceTextEditDto>edit).textEdit) {
 
-				const item = <extHostProtocol.IWorkspaceTextEditDto>edit;
+				const item = <extHostProtocol.WorkspaceInterfaceTextEditDto>edit;
 				const uri = URI.revive(item.resource);
 				const range = Range.to(item.textEdit.range);
 				const text = item.textEdit.text;
@@ -728,9 +728,9 @@ export namespace WorkspaceEdit {
 
 			} else {
 				result.renameFile(
-					URI.revive((<extHostProtocol.IWorkspaceFileEditDto>edit).oldResource!),
-					URI.revive((<extHostProtocol.IWorkspaceFileEditDto>edit).newResource!),
-					(<extHostProtocol.IWorkspaceFileEditDto>edit).options
+					URI.revive((<extHostProtocol.WorkspaceInterfaceFileEditDto>edit).oldResource!),
+					URI.revive((<extHostProtocol.WorkspaceInterfaceFileEditDto>edit).newResource!),
+					(<extHostProtocol.WorkspaceInterfaceFileEditDto>edit).options
 				);
 			}
 		}
@@ -803,7 +803,7 @@ export namespace SymbolTag {
 }
 
 export namespace WorkspaceSymbol {
-	export function from(info: vscode.SymbolInformation): search.IWorkspaceSymbol {
+	export function from(info: vscode.SymbolInformation): search.WorkspaceInterfaceSymbol {
 		return {
 			name: info.name,
 			kind: SymbolKind.from(info.kind),
@@ -812,7 +812,7 @@ export namespace WorkspaceSymbol {
 			location: location.from(info.location)
 		};
 	}
-	export function to(info: search.IWorkspaceSymbol): types.SymbolInformation {
+	export function to(info: search.WorkspaceInterfaceSymbol): types.SymbolInformation {
 		const result = new types.SymbolInformation(
 			info.name,
 			SymbolKind.to(info.kind),
@@ -1575,7 +1575,7 @@ export namespace GlobPattern {
 		// `vscode.GlobPattern` which can be `vscode.RelativePattern` class,
 		// but given we cannot enforce classes from our vscode.d.ts, we have
 		// to probe for objects too
-		// Refs: https://github.com/microsoft/vscode/issues/140771
+		// Refs: https://github.com/johnnycharlesw/vsblocks/issues/140771
 		if (isRelativePatternShape(pattern) || isLegacyRelativePatternShape(pattern)) {
 			return new types.RelativePattern(pattern.baseUri ?? pattern.base, pattern.pattern).toJSON();
 		}

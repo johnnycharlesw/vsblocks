@@ -24,12 +24,12 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { IConfigurationRegistry, Extensions as ConfigurationExtensions } from '../../../../platform/configuration/common/configurationRegistry.js';
 import { IRemoteAuthorityResolverService } from '../../../../platform/remote/common/remoteAuthorityResolver.js';
 import { OpenLocalFileFolderCommand, OpenLocalFileCommand, OpenLocalFolderCommand, SaveLocalFileCommand, RemoteFileDialogContext } from '../../../services/dialogs/browser/simpleFileDialog.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { TELEMETRY_SETTING_ID } from '../../../../platform/telemetry/common/telemetry.js';
 import { getTelemetryLevel } from '../../../../platform/telemetry/common/telemetryUtils.js';
 import { IContextKeyService, RawContextKey, ContextKeyExpr } from '../../../../platform/contextkey/common/contextkey.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Action2, MenuId, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { IRemoteExplorerService, PORT_AUTO_SOURCE_SETTING, PORT_AUTO_SOURCE_SETTING_OUTPUT } from '../../../services/remote/common/remoteExplorerService.js';
@@ -127,7 +127,7 @@ class RemoteEmptyWorkbenchPresentation extends Disposable implements IWorkbenchC
 		@IRemoteAuthorityResolverService remoteAuthorityResolverService: IRemoteAuthorityResolverService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@ICommandService commandService: ICommandService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface
 	) {
 		super();
 
@@ -164,7 +164,7 @@ class WSLContextKeyInitializer extends Disposable implements IWorkbenchContribut
 	constructor(
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@INativeHostService nativeHostService: INativeHostService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILifecycleService lifecycleService: ILifecycleService
 	) {
 		super();

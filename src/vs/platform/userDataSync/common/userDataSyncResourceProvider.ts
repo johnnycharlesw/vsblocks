@@ -6,10 +6,10 @@
 import { IExtUri } from '../../../base/common/resources.js';
 import { URI } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { getServiceMachineId } from '../../externalServices/common/serviceMachineId.js';
-import { IStorageService } from '../../storage/common/storage.js';
+import { StorageServiceInterface } from '../../storage/common/storage.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { ISyncData, ISyncResourceHandle, IUserData, IUserDataSyncLocalStoreService, IUserDataSyncLogService, IUserDataSyncStoreService, SyncResource, UserDataSyncError, UserDataSyncErrorCode, USER_DATA_SYNC_SCHEME, IUserDataSyncResourceProviderService, ISyncUserDataProfile, CONFIG_SYNC_KEYBINDINGS_PER_PLATFORM, IUserDataSyncResource } from './userDataSync.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
@@ -54,8 +54,8 @@ export class UserDataSyncResourceProviderService implements IUserDataSyncResourc
 		@IUserDataSyncLocalStoreService private readonly userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IUserDataSyncLogService protected readonly logService: IUserDataSyncLogService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
-		@IStorageService private readonly storageService: IStorageService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,

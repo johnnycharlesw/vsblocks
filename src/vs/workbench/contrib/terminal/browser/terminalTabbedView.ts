@@ -15,7 +15,7 @@ import { IMenu, IMenuService, MenuId } from '../../../../platform/actions/common
 import { IContextKey, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IContextMenuService } from '../../../../platform/contextview/browser/contextView.js';
 import { TerminalSettingId } from '../../../../platform/terminal/common/terminal.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { localize } from '../../../../nls.js';
 import { openContextMenu } from './terminalContextMenu.js';
 import { TerminalStorageKeys } from '../common/terminalStorageKeys.js';
@@ -73,7 +73,7 @@ export class TerminalTabbedView extends Disposable {
 		@IContextMenuService private readonly _contextMenuService: IContextMenuService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 		@IMenuService menuService: IMenuService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IHoverService private readonly _hoverService: IHoverService,
 	) {

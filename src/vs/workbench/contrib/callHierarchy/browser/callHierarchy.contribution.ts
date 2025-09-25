@@ -18,7 +18,7 @@ import { KeybindingWeight } from '../../../../platform/keybinding/common/keybind
 import { KeyCode, KeyMod } from '../../../../base/common/keyCodes.js';
 import { EditorContextKeys } from '../../../../editor/common/editorContextKeys.js';
 import { PeekContext } from '../../../../editor/contrib/peekView/browser/peekView.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ICodeEditorService } from '../../../../editor/browser/services/codeEditorService.js';
 import { Range } from '../../../../editor/common/core/range.js';
 import { IPosition } from '../../../../editor/common/core/position.js';
@@ -58,7 +58,7 @@ class CallHierarchyController implements IEditorContribution {
 	constructor(
 		private readonly _editor: ICodeEditor,
 		@IContextKeyService private readonly _contextKeyService: IContextKeyService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@ICodeEditorService private readonly _editorService: ICodeEditorService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 	) {

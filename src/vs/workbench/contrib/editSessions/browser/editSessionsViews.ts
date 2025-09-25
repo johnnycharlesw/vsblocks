@@ -19,7 +19,7 @@ import { registerAction2, Action2, MenuId } from '../../../../platform/actions/c
 import { ContextKeyExpr, IContextKeyService, RawContextKey } from '../../../../platform/contextkey/common/contextkey.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { joinPath } from '../../../../base/common/resources.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { basename } from '../../../../base/common/path.js';
@@ -176,7 +176,7 @@ class EditSessionDataViewDataProvider implements ITreeViewDataProvider {
 	constructor(
 		@IEditSessionsStorageService private readonly editSessionsStorageService: IEditSessionsStorageService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 	) {
 		this.editSessionsCount = EDIT_SESSIONS_COUNT_CONTEXT_KEY.bindTo(this.contextKeyService);

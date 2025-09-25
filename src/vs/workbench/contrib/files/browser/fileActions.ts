@@ -52,7 +52,7 @@ import { IExplorerService } from './files.js';
 import { BrowserFileUpload, FileDownload } from './fileImportExport.js';
 import { IPaneCompositePartService } from '../../../services/panecomposite/browser/panecomposite.js';
 import { IRemoteAgentService } from '../../../services/remote/common/remoteAgentService.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { Action2 } from '../../../../platform/actions/common/actions.js';
 import { ActiveEditorCanToggleReadonlyContext, ActiveEditorContext, EmptyWorkspaceSupportContext } from '../../../common/contextkeys.js';
 import { KeybindingWeight } from '../../../../platform/keybinding/common/keybindingsRegistry.js';
@@ -719,7 +719,7 @@ export class OpenActiveFileInEmptyWorkspace extends Action2 {
 	}
 }
 
-export function validateFileName(pathService: IPathService, item: ExplorerItem, name: string, os: OperatingSystem): { content: string; severity: Severity } | null {
+export function validateFileName(pathService: PathInterfaceService, item: ExplorerItem, name: string, os: OperatingSystem): { content: string; severity: Severity } | null {
 	// Produce a well formed file name
 	name = getWellFormedFileName(name);
 
@@ -914,7 +914,7 @@ async function openExplorerAndCreate(accessor: ServicesAccessor, isFolder: boole
 	const notificationService = accessor.get(INotificationService);
 	const remoteAgentService = accessor.get(IRemoteAgentService);
 	const commandService = accessor.get(ICommandService);
-	const pathService = accessor.get(IPathService);
+	const pathService = accessor.get(PathInterfaceService);
 
 	const wasHidden = !viewsService.isViewVisible(VIEW_ID);
 	const view = await viewsService.openView(VIEW_ID, true);
@@ -923,7 +923,7 @@ async function openExplorerAndCreate(accessor: ServicesAccessor, isFolder: boole
 		await timeout(500);
 	}
 	if (!view) {
-		// Can happen in empty workspace case (https://github.com/microsoft/vscode/issues/100604)
+		// Can happen in empty workspace case (https://github.com/johnnycharlesw/vsblocks/issues/100604)
 
 		if (isFolder) {
 			throw new Error('Open a folder or workspace first.');
@@ -1003,7 +1003,7 @@ export const renameHandler = async (accessor: ServicesAccessor) => {
 	const explorerService = accessor.get(IExplorerService);
 	const notificationService = accessor.get(INotificationService);
 	const remoteAgentService = accessor.get(IRemoteAgentService);
-	const pathService = accessor.get(IPathService);
+	const pathService = accessor.get(PathInterfaceService);
 	const configurationService = accessor.get(IConfigurationService);
 
 	const stats = explorerService.getContext(false);

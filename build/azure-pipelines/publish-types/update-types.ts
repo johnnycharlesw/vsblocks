@@ -14,7 +14,7 @@ try {
 		.toString()
 		.trim();
 
-	const dtsUri = `https://raw.githubusercontent.com/microsoft/vscode/${tag}/src/vscode-dts/vscode.d.ts`;
+	const dtsUri = `https://raw.githubusercontent.com/johnnycharlesw/vsblocks/${tag}/src/vscode-dts/vscode.d.ts`;
 	const outPath = path.resolve(process.cwd(), 'DefinitelyTyped/types/vscode/index.d.ts');
 	cp.execSync(`curl ${dtsUri} --output ${outPath}`);
 
@@ -63,14 +63,14 @@ function getNewFileHeader(tag: string) {
 
 	const header = [
 		`// Type definitions for VSBlocks ${shorttag}`,
-		`// Project: https://github.com/microsoft/vscode`,
+		`// Project: https://github.com/johnnycharlesw/vsblocks`,
 		`// Definitions by: VSBlocks Team, Microsoft <https://github.com/microsoft>`,
 		`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`,
 		``,
 		`/*---------------------------------------------------------------------------------------------`,
 		` *  Copyright (c) Microsoft Corporation. All rights reserved.`,
 		` *  Licensed under the MIT License.`,
-		` *  See https://github.com/microsoft/vscode/blob/main/LICENSE.txt for license information.`,
+		` *  See https://github.com/johnnycharlesw/vsblocks/blob/main/LICENSE.txt for license information.`,
 		` *--------------------------------------------------------------------------------------------*/`,
 		``,
 		`/**`,

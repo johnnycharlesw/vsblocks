@@ -9,7 +9,7 @@ import { IBulkEditService, ResourceFileEdit, ResourceTextEdit } from '../../../e
 import { WorkspaceEdit } from '../../../editor/common/languages.js';
 import { ILogService } from '../../../platform/log/common/log.js';
 import { IUriIdentityService } from '../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceCellEditDto, IWorkspaceEditDto, IWorkspaceFileEditDto, MainContext, MainThreadBulkEditsShape } from '../common/extHost.protocol.js';
+import { WorkspaceInterfaceCellEditDto, WorkspaceInterfaceEditDto, WorkspaceInterfaceFileEditDto, MainContext, MainThreadBulkEditsShape } from '../common/extHost.protocol.js';
 import { ResourceNotebookCellEdit } from '../../contrib/bulkEdit/browser/bulkCellEdits.js';
 import { CellEditType } from '../../contrib/notebook/common/notebookCommon.js';
 import { IExtHostContext, extHostNamedCustomer } from '../../services/extensions/common/extHostCustomers.js';
@@ -28,7 +28,7 @@ export class MainThreadBulkEdits implements MainThreadBulkEditsShape {
 
 	dispose(): void { }
 
-	$tryApplyWorkspaceEdit(dto: SerializableObjectWithBuffers<IWorkspaceEditDto>, undoRedoGroupId?: number, isRefactoring?: boolean): Promise<boolean> {
+	$tryApplyWorkspaceEdit(dto: SerializableObjectWithBuffers<WorkspaceInterfaceEditDto>, undoRedoGroupId?: number, isRefactoring?: boolean): Promise<boolean> {
 		const edits = reviveWorkspaceEditDto(dto.value, this._uriIdentService);
 		return this._bulkEditService.apply(edits, { undoRedoGroupId, respectAutoSaveConfig: isRefactoring }).then((res) => res.isApplied, err => {
 			this._logService.warn(`IGNORING workspace edit: ${err}`);
@@ -37,9 +37,9 @@ export class MainThreadBulkEdits implements MainThreadBulkEditsShape {
 	}
 }
 
-export function reviveWorkspaceEditDto(data: IWorkspaceEditDto, uriIdentityService: IUriIdentityService, resolveDataTransferFile?: (id: string) => Promise<VSBuffer>): WorkspaceEdit;
-export function reviveWorkspaceEditDto(data: IWorkspaceEditDto | undefined, uriIdentityService: IUriIdentityService, resolveDataTransferFile?: (id: string) => Promise<VSBuffer>): WorkspaceEdit | undefined;
-export function reviveWorkspaceEditDto(data: IWorkspaceEditDto | undefined, uriIdentityService: IUriIdentityService, resolveDataTransferFile?: (id: string) => Promise<VSBuffer>): WorkspaceEdit | undefined {
+export function reviveWorkspaceEditDto(data: WorkspaceInterfaceEditDto, uriIdentityService: IUriIdentityService, resolveDataTransferFile?: (id: string) => Promise<VSBuffer>): WorkspaceEdit;
+export function reviveWorkspaceEditDto(data: WorkspaceInterfaceEditDto | undefined, uriIdentityService: IUriIdentityService, resolveDataTransferFile?: (id: string) => Promise<VSBuffer>): WorkspaceEdit | undefined;
+export function reviveWorkspaceEditDto(data: WorkspaceInterfaceEditDto | undefined, uriIdentityService: IUriIdentityService, resolveDataTransferFile?: (id: string) => Promise<VSBuffer>): WorkspaceEdit | undefined {
 	if (!data || !data.edits) {
 		return <WorkspaceEdit>data;
 	}
@@ -50,7 +50,7 @@ export function reviveWorkspaceEditDto(data: IWorkspaceEditDto | undefined, uriI
 		}
 		if (ResourceFileEdit.is(edit)) {
 			if (edit.options) {
-				const inContents = (edit as IWorkspaceFileEditDto).options?.contents;
+				const inContents = (edit as WorkspaceInterfaceFileEditDto).options?.contents;
 				if (inContents) {
 					if (inContents.type === 'base64') {
 						edit.options.contents = Promise.resolve(decodeBase64(inContents.value));
@@ -68,7 +68,7 @@ export function reviveWorkspaceEditDto(data: IWorkspaceEditDto | undefined, uriI
 		}
 		if (ResourceNotebookCellEdit.is(edit)) {
 			edit.resource = uriIdentityService.asCanonicalUri(edit.resource);
-			const cellEdit = (edit as IWorkspaceCellEditDto).cellEdit;
+			const cellEdit = (edit as WorkspaceInterfaceCellEditDto).cellEdit;
 			if (cellEdit.editType === CellEditType.Replace) {
 				edit.cellEdit = {
 					...cellEdit,

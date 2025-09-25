@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
-import { IWorkspacesService, IWorkspaceFolderCreationData, IEnterWorkspaceResult, IRecentlyOpened, restoreRecentlyOpened, IRecent, isRecentFile, isRecentFolder, toStoreData, IStoredWorkspaceFolder, getStoredWorkspaceFolder, IStoredWorkspace, isRecentWorkspace } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService, WorkspaceInterfaceFolderCreationData, IEnterWorkspaceResult, IRecentlyOpened, restoreRecentlyOpened, IRecent, isRecentFile, isRecentFolder, toStoreData, IStoredWorkspaceFolder, getStoredWorkspaceFolder, IStoredWorkspace, isRecentWorkspace } from '../../../../platform/workspaces/common/workspaces.js';
 import { URI } from '../../../../base/common/uri.js';
 import { Emitter } from '../../../../base/common/event.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
-import { isTemporaryWorkspace, IWorkspaceContextService, IWorkspaceFoldersChangeEvent, IWorkspaceIdentifier, WorkbenchState, WORKSPACE_EXTENSION } from '../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { isTemporaryWorkspace, WorkspaceContextServiceInterface, WorkspaceInterfaceFoldersChangeEvent, WorkspaceIdentifierInterface, WorkbenchState, WORKSPACE_EXTENSION } from '../../../../platform/workspace/common/workspace.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { getWorkspaceIdentifier } from './workspaces.js';
@@ -17,10 +17,10 @@ import { IWorkbenchEnvironmentService } from '../../environment/common/environme
 import { joinPath } from '../../../../base/common/resources.js';
 import { VSBuffer } from '../../../../base/common/buffer.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceBackupInfo, IFolderBackupInfo } from '../../../../platform/backup/common/backup.js';
+import { WorkspaceInterfaceBackupInfo, IFolderBackupInfo } from '../../../../platform/backup/common/backup.js';
 import { Schemas } from '../../../../base/common/network.js';
 
-export class BrowserWorkspacesService extends Disposable implements IWorkspacesService {
+export class BrowserWorkspacesService extends Disposable implements WorkspaceInterfacesService {
 
 	static readonly RECENTLY_OPENED_KEY = 'recently.opened';
 
@@ -30,8 +30,8 @@ export class BrowserWorkspacesService extends Disposable implements IWorkspacesS
 	readonly onDidChangeRecentlyOpened = this._onRecentlyOpenedChange.event;
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@ILogService private readonly logService: ILogService,
 		@IFileService private readonly fileService: IFileService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
@@ -55,7 +55,7 @@ export class BrowserWorkspacesService extends Disposable implements IWorkspacesS
 		this._register(this.contextService.onDidChangeWorkspaceFolders(e => this.onDidChangeWorkspaceFolders(e)));
 	}
 
-	private onDidChangeWorkspaceFolders(e: IWorkspaceFoldersChangeEvent): void {
+	private onDidChangeWorkspaceFolders(e: WorkspaceInterfaceFoldersChangeEvent): void {
 		if (!isTemporaryWorkspace(this.contextService.getWorkspace())) {
 			return;
 		}
@@ -164,7 +164,7 @@ export class BrowserWorkspacesService extends Disposable implements IWorkspacesS
 		return { workspace: await this.getWorkspaceIdentifier(workspaceUri) };
 	}
 
-	async createUntitledWorkspace(folders?: IWorkspaceFolderCreationData[], remoteAuthority?: string): Promise<IWorkspaceIdentifier> {
+	async createUntitledWorkspace(folders?: WorkspaceInterfaceFolderCreationData[], remoteAuthority?: string): Promise<WorkspaceIdentifierInterface> {
 		const randomId = (Date.now() + Math.round(Math.random() * 1000)).toString();
 		const newUntitledWorkspacePath = joinPath(this.environmentService.untitledWorkspacesHome, `Untitled-${randomId}.${WORKSPACE_EXTENSION}`);
 
@@ -183,7 +183,7 @@ export class BrowserWorkspacesService extends Disposable implements IWorkspacesS
 		return this.getWorkspaceIdentifier(newUntitledWorkspacePath);
 	}
 
-	async deleteUntitledWorkspace(workspace: IWorkspaceIdentifier): Promise<void> {
+	async deleteUntitledWorkspace(workspace: WorkspaceIdentifierInterface): Promise<void> {
 		try {
 			await this.fileService.del(workspace.configPath);
 		} catch (error) {
@@ -193,7 +193,7 @@ export class BrowserWorkspacesService extends Disposable implements IWorkspacesS
 		}
 	}
 
-	async getWorkspaceIdentifier(workspaceUri: URI): Promise<IWorkspaceIdentifier> {
+	async getWorkspaceIdentifier(workspaceUri: URI): Promise<WorkspaceIdentifierInterface> {
 		return getWorkspaceIdentifier(workspaceUri);
 	}
 
@@ -202,11 +202,11 @@ export class BrowserWorkspacesService extends Disposable implements IWorkspacesS
 
 	//#region Dirty Workspaces
 
-	async getDirtyWorkspaces(): Promise<Array<IWorkspaceBackupInfo | IFolderBackupInfo>> {
+	async getDirtyWorkspaces(): Promise<Array<WorkspaceInterfaceBackupInfo | IFolderBackupInfo>> {
 		return []; // Currently not supported in web
 	}
 
 	//#endregion
 }
 
-registerSingleton(IWorkspacesService, BrowserWorkspacesService, InstantiationType.Delayed);
+registerSingleton(WorkspaceInterfacesService, BrowserWorkspacesService, InstantiationType.Delayed);

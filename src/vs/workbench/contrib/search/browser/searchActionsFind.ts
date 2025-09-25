@@ -22,7 +22,7 @@ import { KeyCode, KeyMod } from '../../../../base/common/keyCodes.js';
 import { resolveResourcesForSearchIncludes } from '../../../services/search/common/queryBuilder.js';
 import { getMultiSelectedResources, IExplorerService } from '../../files/browser/files.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ExplorerFolderContext, ExplorerRootContext, FilesExplorerFocusCondition, VIEWLET_ID as VIEWLET_ID_FILES } from '../../files/common/files.js';
 import { IPaneCompositePartService } from '../../../services/panecomposite/browser/panecomposite.js';
 import { ExplorerViewPaneContainer } from '../../files/browser/explorerViewlet.js';
@@ -188,7 +188,7 @@ registerAction2(class RevealInSideBarForSearchResultsAction extends Action2 {
 	override async run(accessor: ServicesAccessor, args: any): Promise<any> {
 		const paneCompositeService = accessor.get(IPaneCompositePartService);
 		const explorerService = accessor.get(IExplorerService);
-		const contextService = accessor.get(IWorkspaceContextService);
+		const contextService = accessor.get(WorkspaceContextServiceInterface);
 
 		const searchView = getSearchView(accessor.get(IViewsService));
 		if (!searchView) {
@@ -376,7 +376,7 @@ function mergeSearchPatternIfNotExists(currentPatterns: string, newPattern: stri
 async function searchWithFolderCommand(accessor: ServicesAccessor, isFromExplorer: boolean, isIncludes: boolean, resource?: URI, folderMatch?: ISearchTreeFolderMatchWithResource) {
 	const fileService = accessor.get(IFileService);
 	const viewsService = accessor.get(IViewsService);
-	const contextService = accessor.get(IWorkspaceContextService);
+	const contextService = accessor.get(WorkspaceContextServiceInterface);
 	const commandService = accessor.get(ICommandService);
 	const searchConfig = accessor.get(IConfigurationService).getValue<ISearchConfiguration>().search;
 	const mode = searchConfig.mode;
@@ -445,10 +445,10 @@ export async function findInFilesCommand(accessor: ServicesAccessor, _args: IFin
 	const args: IFindInFilesArgs = {};
 	if (Object.keys(_args).length !== 0) {
 		// resolve variables in the same way as in
-		// https://github.com/microsoft/vscode/blob/8b76efe9d317d50cb5b57a7658e09ce6ebffaf36/src/vs/workbench/contrib/searchEditor/browser/searchEditorActions.ts#L152-L158
+		// https://github.com/johnnycharlesw/vsblocks/blob/8b76efe9d317d50cb5b57a7658e09ce6ebffaf36/src/vs/workbench/contrib/searchEditor/browser/searchEditorActions.ts#L152-L158
 		const configurationResolverService = accessor.get(IConfigurationResolverService);
 		const historyService = accessor.get(IHistoryService);
-		const workspaceContextService = accessor.get(IWorkspaceContextService);
+		const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 		const activeWorkspaceRootUri = historyService.getLastActiveWorkspaceRoot();
 		const filteredActiveWorkspaceRootUri = activeWorkspaceRootUri?.scheme === Schemas.file || activeWorkspaceRootUri?.scheme === Schemas.vscodeRemote ? activeWorkspaceRootUri : undefined;
 		const lastActiveWorkspaceRoot = filteredActiveWorkspaceRootUri ? workspaceContextService.getWorkspaceFolder(filteredActiveWorkspaceRootUri) ?? undefined : undefined;

@@ -20,7 +20,7 @@ import { NaiveCwdDetectionCapability } from '../../../../platform/terminal/commo
 import { TerminalCapabilityStore } from '../../../../platform/terminal/common/capabilities/terminalCapabilityStore.js';
 import { FlowControlConstants, ITerminalLaunchResult, IProcessDataEvent, IProcessProperty, IProcessPropertyMap, IProcessReadyEvent, IReconnectionProperties, IShellLaunchConfig, ITerminalBackend, ITerminalChildProcess, ITerminalDimensions, ITerminalEnvironment, ITerminalLaunchError, ITerminalLogService, ITerminalProcessOptions, ProcessPropertyType, TerminalSettingId } from '../../../../platform/terminal/common/terminal.js';
 import { TerminalRecorder } from '../../../../platform/terminal/common/terminalRecorder.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { EnvironmentVariableInfoChangesActive, EnvironmentVariableInfoStale } from './environmentVariableInfo.js';
 import { ITerminalConfigurationService, ITerminalInstanceService } from './terminal.js';
 import { IEnvironmentVariableInfo, IEnvironmentVariableService } from '../common/environmentVariable.js';
@@ -31,7 +31,7 @@ import * as terminalEnvironment from '../common/terminalEnvironment.js';
 import { IConfigurationResolverService } from '../../../services/configurationResolver/common/configurationResolver.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { IHistoryService } from '../../../services/history/common/history.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { IRemoteAgentService } from '../../../services/remote/common/remoteAgentService.js';
 import { TaskSettingId } from '../../tasks/common/tasks.js';
 import Severity from '../../../../base/common/severity.js';
@@ -122,7 +122,7 @@ export class TerminalProcessManager extends Disposable implements ITerminalProce
 	readonly onProcessExit = this._onProcessExit.event;
 	private readonly _onRestoreCommands = this._register(new Emitter<ISerializedCommandDetectionCapability>());
 	readonly onRestoreCommands = this._onRestoreCommands.event;
-	private _cwdWorkspaceFolder: IWorkspaceFolder | undefined;
+	private _cwdWorkspaceFolder: WorkspaceInterfaceFolder | undefined;
 
 	get persistentProcessId(): number | undefined { return this._process?.id; }
 	get shouldPersist(): boolean { return !!this.reconnectionProperties || (this._process ? this._process.shouldPersist : false); }
@@ -140,12 +140,12 @@ export class TerminalProcessManager extends Disposable implements ITerminalProce
 		@IHistoryService private readonly _historyService: IHistoryService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 		@ITerminalLogService private readonly _logService: ITerminalLogService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 		@IConfigurationResolverService private readonly _configurationResolverService: IConfigurationResolverService,
 		@IWorkbenchEnvironmentService private readonly _workbenchEnvironmentService: IWorkbenchEnvironmentService,
 		@IProductService private readonly _productService: IProductService,
 		@IRemoteAgentService private readonly _remoteAgentService: IRemoteAgentService,
-		@IPathService private readonly _pathService: IPathService,
+		@PathInterfaceService private readonly _pathService: PathInterfaceService,
 		@IEnvironmentVariableService private readonly _environmentVariableService: IEnvironmentVariableService,
 		@ITerminalConfigurationService private readonly _terminalConfigurationService: ITerminalConfigurationService,
 		@ITerminalProfileResolverService private readonly _terminalProfileResolverService: ITerminalProfileResolverService,

@@ -29,7 +29,7 @@ import { ILabelService } from '../../../../platform/label/common/label.js';
 import { WorkbenchList } from '../../../../platform/list/browser/listService.js';
 import { INotificationService, Severity } from '../../../../platform/notification/common/notification.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { editorBackground } from '../../../../platform/theme/common/colorRegistry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
@@ -88,7 +88,7 @@ export abstract class AbstractRuntimeExtensionsEditor extends EditorPane {
 		@INotificationService private readonly _notificationService: INotificationService,
 		@IContextMenuService private readonly _contextMenuService: IContextMenuService,
 		@IInstantiationService protected readonly _instantiationService: IInstantiationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILabelService private readonly _labelService: ILabelService,
 		@IWorkbenchEnvironmentService private readonly _environmentService: IWorkbenchEnvironmentService,
 		@IClipboardService private readonly _clipboardService: IClipboardService,

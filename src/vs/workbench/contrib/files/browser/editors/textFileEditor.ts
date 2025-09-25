@@ -6,7 +6,7 @@
 import { localize } from '../../../../../nls.js';
 import { mark } from '../../../../../base/common/performance.js';
 import { assertReturnsDefined } from '../../../../../base/common/types.js';
-import { IPathService } from '../../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../../services/path/common/pathService.js';
 import { IAction, toAction } from '../../../../../base/common/actions.js';
 import { VIEWLET_ID, TEXT_FILE_EDITOR_ID, BINARY_TEXT_FILE_MODE } from '../../common/files.js';
 import { ITextFileService, TextFileOperationError, TextFileOperationResult } from '../../../../services/textfile/common/textfiles.js';
@@ -18,8 +18,8 @@ import { BinaryEditorModel } from '../../../../common/editor/binaryEditorModel.j
 import { FileEditorInput } from './fileEditorInput.js';
 import { FileOperationError, FileOperationResult, FileChangesEvent, IFileService, FileOperationEvent, FileOperation, ByteSize, TooLargeFileOperationError } from '../../../../../platform/files/common/files.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { ITextResourceConfigurationService } from '../../../../../editor/common/services/textResourceConfiguration.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { IThemeService } from '../../../../../platform/theme/common/themeService.js';
@@ -51,8 +51,8 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		@IFileService fileService: IFileService,
 		@IPaneCompositePartService private readonly paneCompositeService: IPaneCompositePartService,
 		@IInstantiationService instantiationService: IInstantiationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
-		@IStorageService storageService: IStorageService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ITextResourceConfigurationService textResourceConfigurationService: ITextResourceConfigurationService,
 		@IEditorService editorService: IEditorService,
 		@IThemeService themeService: IThemeService,
@@ -60,7 +60,7 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		@ITextFileService private readonly textFileService: ITextFileService,
 		@IExplorerService private readonly explorerService: IExplorerService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IPreferencesService protected readonly preferencesService: IPreferencesService,
 		@IHostService private readonly hostService: IHostService,
@@ -277,7 +277,7 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		// Open binary as text
 		if (editorId === DEFAULT_EDITOR_ASSOCIATION.id) {
 			editor.setForceOpenAsText();
-			editor.setPreferredLanguageId(BINARY_TEXT_FILE_MODE); // https://github.com/microsoft/vscode/issues/131076
+			editor.setPreferredLanguageId(BINARY_TEXT_FILE_MODE); // https://github.com/johnnycharlesw/vsblocks/issues/131076
 
 			editorOptions = { ...editorOptions, forceReload: true }; // Same pane and same input, must force reload to clear cached state
 		}

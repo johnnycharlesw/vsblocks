@@ -11,7 +11,7 @@ import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { ITimelineService, Timeline, TimelineChangeEvent, TimelineItem, TimelineOptions, TimelineProvider } from '../../timeline/common/timeline.js';
 import { IWorkingCopyHistoryEntry, IWorkingCopyHistoryService } from '../../../services/workingCopy/common/workingCopyHistory.js';
 import { URI } from '../../../../base/common/uri.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { API_OPEN_DIFF_EDITOR_COMMAND_ID } from '../../../browser/parts/editor/editorCommands.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { LocalHistoryFileSystemProvider } from './localHistoryFileSystemProvider.js';
@@ -22,7 +22,7 @@ import { COMPARE_WITH_FILE_LABEL, toDiffEditorArguments } from './localHistoryCo
 import { MarkdownString } from '../../../../base/common/htmlContent.js';
 import { getLocalHistoryDateFormatter, LOCAL_HISTORY_ICON_ENTRY, LOCAL_HISTORY_MENU_CONTEXT_VALUE } from './localHistory.js';
 import { Schemas } from '../../../../base/common/network.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { getVirtualWorkspaceAuthority } from '../../../../platform/workspace/common/virtualWorkspace.js';
 
 export class LocalHistoryTimeline extends Disposable implements IWorkbenchContribution, TimelineProvider {
@@ -45,11 +45,11 @@ export class LocalHistoryTimeline extends Disposable implements IWorkbenchContri
 	constructor(
 		@ITimelineService private readonly timelineService: ITimelineService,
 		@IWorkingCopyHistoryService private readonly workingCopyHistoryService: IWorkingCopyHistoryService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IFileService private readonly fileService: IFileService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface
 	) {
 		super();
 

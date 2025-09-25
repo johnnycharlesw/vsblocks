@@ -6,9 +6,9 @@
 import * as nls from '../../../../nls.js';
 import * as Objects from '../../../../base/common/objects.js';
 import { Task, ContributedTask, CustomTask, ConfiguringTask, TaskSorter, KeyedTaskIdentifier } from '../common/tasks.js';
-import { IWorkspace, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import * as Types from '../../../../base/common/types.js';
-import { ITaskService, IWorkspaceFolderTaskResult } from '../common/taskService.js';
+import { ITaskService, WorkspaceInterfaceFolderTaskResult } from '../common/taskService.js';
 import { IQuickPickItem, QuickPickInput, IQuickPick, IQuickInputButton, IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { Disposable, DisposableStore, IDisposable } from '../../../../base/common/lifecycle.js';
@@ -22,11 +22,11 @@ import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { getColorClass, createColorStyleElement } from '../../terminal/browser/terminalIcon.js';
 import { TaskQuickPickEntryType } from './abstractTaskService.js';
 import { showWithPinnedItems } from '../../../../platform/quickinput/browser/quickPickPin.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 
 export const QUICKOPEN_DETAIL_CONFIG = 'task.quickOpen.detail';
 export const QUICKOPEN_SKIP_CONFIG = 'task.quickOpen.skip';
-export function isWorkspaceFolder(folder: IWorkspace | IWorkspaceFolder): folder is IWorkspaceFolder {
+export function isWorkspaceFolder(folder: WorkspaceInterface | WorkspaceInterfaceFolder): folder is WorkspaceInterfaceFolder {
 	return 'uri' in folder;
 }
 
@@ -56,7 +56,7 @@ export class TaskQuickPick extends Disposable {
 		@INotificationService private _notificationService: INotificationService,
 		@IThemeService private _themeService: IThemeService,
 		@IDialogService private _dialogService: IDialogService,
-		@IStorageService private _storageService: IStorageService) {
+		@StorageServiceInterface private _storageService: StorageServiceInterface) {
 		super();
 		this._sorter = this._taskService.createSorter();
 	}
@@ -131,7 +131,7 @@ export class TaskQuickPick extends Disposable {
 		entries.push({ label: SHOW_ALL, task: SHOW_ALL, alwaysShow: true });
 	}
 
-	private _handleFolderTaskResult(result: Map<string, IWorkspaceFolderTaskResult>): (Task | ConfiguringTask)[] {
+	private _handleFolderTaskResult(result: Map<string, WorkspaceInterfaceFolderTaskResult>): (Task | ConfiguringTask)[] {
 		const tasks: (Task | ConfiguringTask)[] = [];
 		Array.from(result).forEach(([key, folderTasks]) => {
 			if (folderTasks.set) {

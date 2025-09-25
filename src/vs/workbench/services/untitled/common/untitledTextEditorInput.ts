@@ -14,7 +14,7 @@ import { IEditorService } from '../../editor/common/editorService.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { isEqual, toLocalResource } from '../../../../base/common/resources.js';
 import { IWorkbenchEnvironmentService } from '../../environment/common/environmentService.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { ITextEditorOptions } from '../../../../platform/editor/common/editor.js';
 import { IFilesConfigurationService } from '../../filesConfiguration/common/filesConfigurationService.js';
 import { ITextModelService } from '../../../../editor/common/services/resolverService.js';
@@ -48,7 +48,7 @@ export class UntitledTextEditorInput extends AbstractTextResourceEditorInput imp
 		@IEditorService editorService: IEditorService,
 		@IFileService fileService: IFileService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IFilesConfigurationService filesConfigurationService: IFilesConfigurationService,
 		@ITextModelService private readonly textModelService: ITextModelService,
 		@ITextResourceConfigurationService textResourceConfigurationService: ITextResourceConfigurationService,
@@ -186,7 +186,7 @@ export class UntitledTextEditorInput extends AbstractTextResourceEditorInput imp
 				// Given how generic untitled resources in the system are, we
 				// need to be careful not to set our resource into the untyped
 				// editor if we want to transport contents too, because of
-				// issue https://github.com/microsoft/vscode/issues/140898
+				// issue https://github.com/johnnycharlesw/vsblocks/issues/140898
 				// The workaround is to simply remove the resource association
 				// if we have contents and no associated resource.
 				// In that case we can ensure that a new untitled resource is

@@ -13,7 +13,7 @@ import { Schemas } from '../../../../base/common/network.js';
 import { relativePath } from '../../../../base/common/resources.js';
 import { URI } from '../../../../base/common/uri.js';
 import { localize } from '../../../../nls.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IPosition } from '../../../common/core/position.js';
 import { IRange } from '../../../common/core/range.js';
 import { DocumentDropEditProvider, DocumentDropEditsSession, DocumentPasteContext, DocumentPasteEdit, DocumentPasteEditProvider, DocumentPasteEditsSession, DocumentPasteTriggerKind } from '../../../common/languages.js';
@@ -153,7 +153,7 @@ class RelativePathProvider extends SimplePasteAndDropProvider {
 	readonly pasteMimeTypes = [Mimes.uriList];
 
 	constructor(
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		super(HierarchicalKind.Empty.append('uri', 'path', 'relative'));
 	}
@@ -240,7 +240,7 @@ const genericLanguageSelector: LanguageFilter = { scheme: '*', hasAccessToAllMod
 export class DefaultDropProvidersFeature extends Disposable {
 	constructor(
 		@ILanguageFeaturesService languageFeaturesService: ILanguageFeaturesService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 
@@ -253,7 +253,7 @@ export class DefaultDropProvidersFeature extends Disposable {
 export class DefaultPasteProvidersFeature extends Disposable {
 	constructor(
 		@ILanguageFeaturesService languageFeaturesService: ILanguageFeaturesService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 

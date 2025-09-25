@@ -10,7 +10,7 @@ import { ITerminalProcessManager } from '../../../terminal/common/terminal.js';
 import { Schemas } from '../../../../../base/common/network.js';
 import { isWindows, OperatingSystem, OS } from '../../../../../base/common/platform.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
-import { IPath, posix, win32 } from '../../../../../base/common/path.js';
+import { PathInterface, posix, win32 } from '../../../../../base/common/path.js';
 import { ITerminalBackend } from '../../../../../platform/terminal/common/terminal.js';
 import { mainWindow } from '../../../../../base/browser/window.js';
 
@@ -156,7 +156,7 @@ export class TerminalLinkResolver implements ITerminalLinkResolver {
 		return link;
 	}
 
-	private _getOsPath(os: OperatingSystem | undefined): IPath {
+	private _getOsPath(os: OperatingSystem | undefined): PathInterface {
 		return (os ?? OS) === OperatingSystem.Windows ? win32 : posix;
 	}
 }

@@ -11,7 +11,7 @@ import { KeymapInfo, IKeymapInfo } from '../../common/keymapInfo.js';
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { INotificationService } from '../../../../../platform/notification/common/notification.js';
 import { ICommandService } from '../../../../../platform/commands/common/commands.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { TestNotificationService } from '../../../../../platform/notification/test/common/testNotificationService.js';
 import { TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
@@ -19,7 +19,7 @@ import { TestConfigurationService } from '../../../../../platform/configuration/
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 
 class TestKeyboardMapperFactory extends BrowserKeyboardMapperFactoryBase {
-	constructor(configurationService: IConfigurationService, notificationService: INotificationService, storageService: IStorageService, commandService: ICommandService) {
+	constructor(configurationService: IConfigurationService, notificationService: INotificationService, storageService: StorageServiceInterface, commandService: ICommandService) {
 		// super(notificationService, storageService, commandService);
 		super(configurationService);
 

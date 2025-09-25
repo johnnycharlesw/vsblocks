@@ -15,7 +15,7 @@ import type { ISecretStorageProvider } from '../../platform/secrets/common/secre
 import type { TunnelProviderFeatures } from '../../platform/tunnel/common/tunnel.js';
 import type { IProgress, IProgressCompositeOptions, IProgressDialogOptions, IProgressNotificationOptions, IProgressOptions, IProgressStep, IProgressWindowOptions } from '../../platform/progress/common/progress.js';
 import type { ITextEditorOptions } from '../../platform/editor/common/editor.js';
-import type { IFolderToOpen, IWorkspaceToOpen } from '../../platform/window/common/window.js';
+import type { IFolderToOpen, WorkspaceInterfaceToOpen } from '../../platform/window/common/window.js';
 import type { EditorGroupLayout } from '../services/editor/common/editorGroupsService.js';
 import type { IEmbedderTerminalOptions } from '../services/terminal/common/embedderTerminalService.js';
 import type { IAuthenticationProvider } from '../services/authentication/common/authentication.js';
@@ -224,7 +224,7 @@ export interface IWorkbenchConstructionOptions {
 	/**
 	 * A handler for opening workspaces and providing the initial workspace.
 	 */
-	readonly workspaceProvider?: IWorkspaceProvider;
+	readonly workspaceProvider?: WorkspaceInterfaceProvider;
 
 	/**
 	 * Settings sync options
@@ -391,22 +391,22 @@ export interface IWorkbenchConstructionOptions {
  * - a single folder (via `folderUri`)
  * - empty (via `undefined`)
  */
-export type IWorkspace = IWorkspaceToOpen | IFolderToOpen | undefined;
+export type WorkspaceInterface = WorkspaceInterfaceToOpen | IFolderToOpen | undefined;
 
-export interface IWorkspaceProvider {
+export interface WorkspaceInterfaceProvider {
 
 	/**
 	 * The initial workspace to open.
 	 */
-	readonly workspace: IWorkspace;
+	readonly workspace: WorkspaceInterface;
 
 	/**
-	 * Arbitrary payload from the `IWorkspaceProvider.open` call.
+	 * Arbitrary payload from the `WorkspaceInterfaceProvider.open` call.
 	 */
 	readonly payload?: object;
 
 	/**
-	 * Return `true` if the provided [workspace](#IWorkspaceProvider.workspace) is trusted, `false` if not trusted, `undefined` if unknown.
+	 * Return `true` if the provided [workspace](#WorkspaceInterfaceProvider.workspace) is trusted, `false` if not trusted, `undefined` if unknown.
 	 */
 	readonly trusted: boolean | undefined;
 
@@ -417,12 +417,12 @@ export interface IWorkspaceProvider {
 	 * @param options optional options for the workspace to open.
 	 * - `reuse`: whether to open inside the current window or a new window
 	 * - `payload`: arbitrary payload that should be made available
-	 * to the opening window via the `IWorkspaceProvider.payload` property.
+	 * to the opening window via the `WorkspaceInterfaceProvider.payload` property.
 	 * @param payload optional payload to send to the workspace to open.
 	 *
 	 * @returns true if successfully opened, false otherwise.
 	 */
-	open(workspace: IWorkspace, options?: { reuse?: boolean; payload?: object }): Promise<boolean>;
+	open(workspace: WorkspaceInterface, options?: { reuse?: boolean; payload?: object }): Promise<boolean>;
 }
 
 export interface IResourceUriProvider {

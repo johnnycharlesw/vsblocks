@@ -9,7 +9,7 @@ import { ResourceSet } from '../../../../../../base/common/map.js';
 import { IFileService } from '../../../../../../platform/files/common/files.js';
 import { getPromptFileLocationsConfigKey, PromptsConfig } from '../config/config.js';
 import { basename, dirname, joinPath } from '../../../../../../base/common/resources.js';
-import { IWorkspaceContextService } from '../../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../../platform/workspace/common/workspace.js';
 import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
 import { getPromptFileExtension, getPromptFileType } from '../config/promptFileLocations.js';
 import { PromptsType } from '../promptTypes.js';
@@ -32,7 +32,7 @@ export class PromptFilesLocator extends Disposable {
 	constructor(
 		@IFileService private readonly fileService: IFileService,
 		@IConfigurationService private readonly configService: IConfigurationService,
-		@IWorkspaceContextService private readonly workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceService: WorkspaceContextServiceInterface,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@ISearchService private readonly searchService: ISearchService,
 		@IUserDataProfileService private readonly userDataService: IUserDataProfileService,

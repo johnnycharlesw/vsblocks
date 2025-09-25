@@ -9,7 +9,7 @@ import { IAction, Separator, SubmenuAction, toAction } from '../../../../base/co
 import { ActionsOrientation } from '../../../../base/browser/ui/actionbar/actionbar.js';
 import { ActivePanelContext, PanelFocusContext } from '../../../common/contextkeys.js';
 import { IWorkbenchLayoutService, Parts, Position } from '../../../services/layout/browser/layoutService.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IContextMenuService } from '../../../../platform/contextview/browser/contextView.js';
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
@@ -68,7 +68,7 @@ export class PanelPart extends AbstractPaneCompositePart {
 
 	constructor(
 		@INotificationService notificationService: INotificationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IKeybindingService keybindingService: IKeybindingService,

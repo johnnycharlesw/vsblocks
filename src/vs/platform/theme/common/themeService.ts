@@ -7,7 +7,7 @@ import { Codicon } from '../../../base/common/codicons.js';
 import { Color } from '../../../base/common/color.js';
 import { Emitter, Event } from '../../../base/common/event.js';
 import { Disposable, IDisposable, toDisposable } from '../../../base/common/lifecycle.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 import * as platform from '../../registry/common/platform.js';
 import { ColorIdentifier } from './colorRegistry.js';
@@ -97,7 +97,7 @@ export interface ICssStyleCollector {
 }
 
 export interface IThemingParticipant {
-	(theme: IColorTheme, collector: ICssStyleCollector, environment: IEnvironmentService): void;
+	(theme: IColorTheme, collector: ICssStyleCollector, environment: EnvironmentServiceInterface): void;
 }
 
 export interface IThemeService {

@@ -18,7 +18,7 @@ import { ITextModel } from '../../../../editor/common/model.js';
 import { ILanguageFeaturesService } from '../../../../editor/common/services/languageFeatures.js';
 import { IModelService } from '../../../../editor/common/services/model.js';
 import { localize } from '../../../../nls.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
@@ -49,7 +49,7 @@ export class PasteImageProvider implements DocumentPasteEditProvider {
 		private readonly chatWidgetService: IChatWidgetService,
 		private readonly extensionService: IExtensionService,
 		@IFileService private readonly fileService: IFileService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@ILogService private readonly logService: ILogService,
 	) {
 		this.imagesFolder = joinPath(this.environmentService.workspaceStorageHome, 'vscode-chat-images');
@@ -438,7 +438,7 @@ export class ChatPasteProvidersFeature extends Disposable {
 		@IExtensionService extensionService: IExtensionService,
 		@IFileService fileService: IFileService,
 		@IModelService modelService: IModelService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@ILogService logService: ILogService,
 	) {
 		super();

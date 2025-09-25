@@ -8,7 +8,7 @@ import { Disposable } from '../../../base/common/lifecycle.js';
 import { isUndefinedOrNull } from '../../../base/common/types.js';
 import { DISABLED_EXTENSIONS_STORAGE_PATH, IExtensionIdentifier, IExtensionManagementService, IGlobalExtensionEnablementService, InstallOperation } from './extensionManagement.js';
 import { areSameExtensions } from './extensionManagementUtil.js';
-import { IProfileStorageValueChangeEvent, IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { IProfileStorageValueChangeEvent, StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 
 export class GlobalExtensionEnablementService extends Disposable implements IGlobalExtensionEnablementService {
 
@@ -19,7 +19,7 @@ export class GlobalExtensionEnablementService extends Disposable implements IGlo
 	private readonly storageManager: StorageManager;
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IExtensionManagementService extensionManagementService: IExtensionManagementService,
 	) {
 		super();
@@ -100,7 +100,7 @@ export class StorageManager extends Disposable {
 	private _onDidChange: Emitter<IExtensionIdentifier[]> = this._register(new Emitter<IExtensionIdentifier[]>());
 	readonly onDidChange: Event<IExtensionIdentifier[]> = this._onDidChange.event;
 
-	constructor(private storageService: IStorageService) {
+	constructor(private storageService: StorageServiceInterface) {
 		super();
 		this._register(storageService.onDidChangeValue(StorageScope.PROFILE, undefined, this._store)(e => this.onDidStorageChange(e)));
 	}

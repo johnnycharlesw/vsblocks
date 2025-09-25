@@ -7,7 +7,7 @@ import { DisposableStore } from '../../../../base/common/lifecycle.js';
 import { IMenuService } from '../../../../platform/actions/common/actions.js';
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
-import { INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
@@ -30,7 +30,7 @@ export class NativeIssueFormService extends IssueFormService implements IIssueFo
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IHostService hostService: IHostService,
 		@INativeHostService private readonly nativeHostService: INativeHostService,
-		@INativeEnvironmentService private readonly environmentService: INativeEnvironmentService,) {
+		@NativeEnvironmentServiceInterface private readonly environmentService: NativeEnvironmentServiceInterface,) {
 		super(instantiationService, auxiliaryWindowService, menuService, contextKeyService, logService, dialogService, hostService);
 	}
 

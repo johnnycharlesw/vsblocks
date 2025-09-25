@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { URI } from '../../../base/common/uri.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { ILogService } from '../../log/common/log.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
@@ -20,7 +20,7 @@ export class McpUserResourceManagementService extends CommonMcpUserResourceManag
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@ILogService logService: ILogService,
 		@IMcpResourceScannerService mcpResourceScannerService: IMcpResourceScannerService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 	) {
 		super(mcpResource, mcpGalleryService, fileService, uriIdentityService, logService, mcpResourceScannerService, environmentService);
 	}

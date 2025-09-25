@@ -11,7 +11,7 @@ import { ILabelService } from '../../../../../../platform/label/common/label.js'
 import { IOpenerService } from '../../../../../../platform/opener/common/opener.js';
 import { PROMPT_DOCUMENTATION_URL, PromptsType } from '../../../common/promptSyntax/promptTypes.js';
 import { IPickOptions, IQuickInputService, IQuickPickItem } from '../../../../../../platform/quickinput/common/quickInput.js';
-import { IWorkspaceContextService } from '../../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../../platform/workspace/common/workspace.js';
 import { IPromptPath, IPromptsService } from '../../../common/promptSyntax/service/promptsService.js';
 
 
@@ -31,7 +31,7 @@ export async function askForPromptSourceFolder(
 	const quickInputService = accessor.get(IQuickInputService);
 	const promptsService = accessor.get(IPromptsService);
 	const labelService = accessor.get(ILabelService);
-	const workspaceService = accessor.get(IWorkspaceContextService);
+	const workspaceService = accessor.get(WorkspaceContextServiceInterface);
 
 	// get prompts source folders based on the prompt type
 	const folders = promptsService.getSourceFolders(type);

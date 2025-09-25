@@ -15,7 +15,7 @@ import { ITelemetryData, ITelemetryService, TelemetryLevel } from '../../../plat
 import { ClassifiedEvent, OmitMetadata, IGDPRProperty, StrictPropertyCheck } from '../../../platform/telemetry/common/gdprTypings.js';
 import { IConfigurationService } from '../../../platform/configuration/common/configuration.js';
 import { TestConfigurationService } from '../../../platform/configuration/test/common/testConfigurationService.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { ModelService } from '../../../editor/common/services/modelService.js';
 
 import { FileService } from '../../../platform/files/common/fileService.js';
@@ -95,7 +95,7 @@ suite('Tree Sitter TokenizationFeature', function () {
 	let configurationService: IConfigurationService;
 	let themeService: IThemeService;
 	let languageService: ILanguageService;
-	let environmentService: IEnvironmentService;
+	let environmentService: EnvironmentServiceInterface;
 
 	let disposables: DisposableStore;
 
@@ -107,9 +107,9 @@ suite('Tree Sitter TokenizationFeature', function () {
 		logService = new NullLogService();
 		configurationService = new TestConfigurationService({ 'editor.experimental.preferTreeSitter.typescript': true });
 		themeService = new TestThemeService(new TestTreeSitterColorTheme());
-		environmentService = {} as IEnvironmentService;
+		environmentService = {} as EnvironmentServiceInterface;
 
-		instantiationService.set(IEnvironmentService, environmentService);
+		instantiationService.set(EnvironmentServiceInterface, environmentService);
 		instantiationService.set(IConfigurationService, configurationService);
 		instantiationService.set(ILogService, logService);
 		instantiationService.set(ITelemetryService, telemetryService);

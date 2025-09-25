@@ -8,7 +8,7 @@ import * as nls from '../../nls.js';
 import { NativeEnvironmentService } from '../../platform/environment/node/environmentService.js';
 import { OPTIONS, OptionDescriptions } from '../../platform/environment/node/argv.js';
 import { refineServiceDecorator } from '../../platform/instantiation/common/instantiation.js';
-import { IEnvironmentService, INativeEnvironmentService } from '../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface, NativeEnvironmentServiceInterface } from '../../platform/environment/common/environment.js';
 import { memoize } from '../../base/common/decorators.js';
 import { URI } from '../../base/common/uri.js';
 import { joinPath } from '../../base/common/resources.js';
@@ -224,9 +224,9 @@ export interface ServerParsedArgs {
 	_: string[];
 }
 
-export const IServerEnvironmentService = refineServiceDecorator<IEnvironmentService, IServerEnvironmentService>(IEnvironmentService);
+export const IServerEnvironmentService = refineServiceDecorator<EnvironmentServiceInterface, IServerEnvironmentService>(EnvironmentServiceInterface);
 
-export interface IServerEnvironmentService extends INativeEnvironmentService {
+export interface IServerEnvironmentService extends NativeEnvironmentServiceInterface {
 	readonly machineSettingsResource: URI;
 	readonly mcpResource: URI;
 	readonly args: ServerParsedArgs;

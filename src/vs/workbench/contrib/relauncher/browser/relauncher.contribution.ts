@@ -15,7 +15,7 @@ import { IProductService } from '../../../../platform/product/common/productServ
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { IUserDataSyncEnablementService, IUserDataSyncService, SyncStatus } from '../../../../platform/userDataSync/common/userDataSync.js';
 import { IWindowsConfiguration, IWindowSettings, MenuSettings, MenuStyleConfiguration, TitleBarSetting, TitlebarStyle } from '../../../../platform/window/common/window.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchContribution, IWorkbenchContributionsRegistry, Extensions as WorkbenchExtensions } from '../../../common/contributions.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
@@ -225,7 +225,7 @@ export class WorkspaceChangeExtHostRelauncher extends Disposable implements IWor
 	private onDidChangeWorkspaceFoldersUnbind: IDisposable | undefined;
 
 	constructor(
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IExtensionService extensionService: IExtensionService,
 		@IHostService hostService: IHostService,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService
@@ -234,7 +234,7 @@ export class WorkspaceChangeExtHostRelauncher extends Disposable implements IWor
 
 		this.extensionHostRestarter = this._register(new RunOnceScheduler(async () => {
 			if (!!environmentService.extensionTestsLocationURI) {
-				return; // no restart when in tests: see https://github.com/microsoft/vscode/issues/66936
+				return; // no restart when in tests: see https://github.com/johnnycharlesw/vsblocks/issues/66936
 			}
 
 			if (environmentService.remoteAuthority) {

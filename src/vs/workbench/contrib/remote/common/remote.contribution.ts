@@ -18,7 +18,7 @@ import { IJSONSchema } from '../../../../base/common/jsonSchema.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { IDialogService, IFileDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { Action2, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { Categories } from '../../../../platform/action/common/actionCommonCategories.js';
@@ -91,7 +91,7 @@ class RemoteInvalidWorkspaceDetector extends Disposable implements IWorkbenchCon
 		@IFileService private readonly fileService: IFileService,
 		@IDialogService private readonly dialogService: IDialogService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService
 	) {
@@ -101,13 +101,13 @@ class RemoteInvalidWorkspaceDetector extends Disposable implements IWorkbenchCon
 		// validate that the workspace exists before actually opening
 		// it. As such, we need to check on that after startup and guide
 		// the user to a valid workspace.
-		// (see https://github.com/microsoft/vscode/issues/133872)
+		// (see https://github.com/johnnycharlesw/vsblocks/issues/133872)
 		if (this.environmentService.remoteAuthority) {
 			remoteAgentService.getEnvironment().then(remoteEnv => {
 				if (remoteEnv) {
 					// we use the presence of `remoteEnv` to figure out
 					// if we got a healthy remote connection
-					// (see https://github.com/microsoft/vscode/issues/135331)
+					// (see https://github.com/johnnycharlesw/vsblocks/issues/135331)
 					this.validateRemoteWorkspace();
 				}
 			});

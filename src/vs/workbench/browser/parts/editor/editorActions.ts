@@ -16,7 +16,7 @@ import { CLOSE_EDITOR_COMMAND_ID, MOVE_ACTIVE_EDITOR_COMMAND_ID, SelectedEditors
 import { IEditorGroupsService, IEditorGroup, GroupsArrangement, GroupLocation, GroupDirection, preferredSideBySideGroupDirection, IFindGroupScope, GroupOrientation, EditorGroupLayout, GroupsOrder, MergeGroupMode } from '../../../services/editor/common/editorGroupsService.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IWorkspacesService } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService } from '../../../../platform/workspaces/common/workspaces.js';
 import { IFileDialogService, ConfirmResult, IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { ItemActivation, IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
 import { AllEditorsByMostRecentlyUsedQuickAccess, ActiveGroupEditorsByMostRecentlyUsedQuickAccess, AllEditorsByAppearanceQuickAccess } from './editorQuickAccess.js';
@@ -623,7 +623,7 @@ abstract class AbstractCloseAllAction extends Action2 {
 
 			// Windows, Linux: editor will be saved on window change
 			// when a native dialog appears, so just track that separate
-			// (see https://github.com/microsoft/vscode/issues/134250)
+			// (see https://github.com/johnnycharlesw/vsblocks/issues/134250)
 			else if ((isNative && (isWindows || isLinux)) && !editor.hasCapability(EditorInputCapabilities.Untitled) && filesConfigurationService.getAutoSaveMode(editor).mode === AutoSaveMode.ON_WINDOW_CHANGE) {
 				dirtyAutoSaveOnWindowChangeEditors.add({ editor, groupId });
 			}
@@ -895,7 +895,7 @@ abstract class AbstractMoveCopyGroupAction extends Action2 {
 
 		// Allow the target group to be in alternative locations to support more
 		// scenarios of moving the group to the taret location.
-		// Helps for https://github.com/microsoft/vscode/issues/50741
+		// Helps for https://github.com/johnnycharlesw/vsblocks/issues/50741
 		switch (this.direction) {
 			case GroupDirection.LEFT:
 			case GroupDirection.RIGHT:
@@ -1684,7 +1684,7 @@ export class ClearRecentFilesAction extends Action2 {
 
 	override async run(accessor: ServicesAccessor): Promise<void> {
 		const dialogService = accessor.get(IDialogService);
-		const workspacesService = accessor.get(IWorkspacesService);
+		const workspacesService = accessor.get(WorkspaceInterfacesService);
 		const historyService = accessor.get(IHistoryService);
 
 		// Ask for confirmation
@@ -2410,7 +2410,7 @@ abstract class AbstractCreateEditorGroupAction extends Action2 {
 		//
 		// If focus is inside the editor area, we want to prevent the situation
 		// of an editor having keyboard focus in an inactive editor group
-		// (see https://github.com/microsoft/vscode/issues/189256)
+		// (see https://github.com/johnnycharlesw/vsblocks/issues/189256)
 
 		const activeDocument = getActiveDocument();
 		const focusNewGroup = layoutService.hasFocus(Parts.EDITOR_PART) || activeDocument.activeElement === activeDocument.body;

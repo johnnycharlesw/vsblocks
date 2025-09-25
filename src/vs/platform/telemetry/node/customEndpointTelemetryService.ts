@@ -6,7 +6,7 @@
 import { FileAccess } from '../../../base/common/network.js';
 import { Client as TelemetryClient } from '../../../base/parts/ipc/node/ipc.cp.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { ILoggerService } from '../../log/common/log.js';
 import { IProductService } from '../../product/common/productService.js';
 import { ICustomEndpointTelemetryService, ITelemetryData, ITelemetryEndpoint, ITelemetryService } from '../common/telemetry.js';
@@ -23,7 +23,7 @@ export class CustomEndpointTelemetryService implements ICustomEndpointTelemetryS
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@ILoggerService private readonly loggerService: ILoggerService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IProductService private readonly productService: IProductService
 	) { }
 

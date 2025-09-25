@@ -60,7 +60,7 @@ import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uri
 import { IExtHostTelemetry } from '../../common/extHostTelemetry.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { TestConfigurationService } from '../../../../platform/configuration/test/common/testConfigurationService.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { TestInstantiationService } from '../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 import { runWithFakedTimers } from '../../../../base/test/common/timeTravelScheduler.js';
@@ -129,7 +129,7 @@ suite('ExtHostLanguageFeatureCommands', function () {
 				return Promise.resolve(insta.invokeFunction(handler, ...args));
 			}
 		}));
-		services.set(IEnvironmentService, new class extends mock<IEnvironmentService>() {
+		services.set(EnvironmentServiceInterface, new class extends mock<EnvironmentServiceInterface>() {
 			override isBuilt: boolean = true;
 			override isExtensionDevelopment: boolean = false;
 		});

@@ -14,23 +14,23 @@ import { isAbsolute, posix } from '../../../base/common/path.js';
 import { isLinux, isMacintosh, isWindows } from '../../../base/common/platform.js';
 import { IExtUri, isEqualAuthority } from '../../../base/common/resources.js';
 import { URI } from '../../../base/common/uri.js';
-import { IWorkspaceBackupInfo, IFolderBackupInfo } from '../../backup/common/backup.js';
+import { WorkspaceInterfaceBackupInfo, IFolderBackupInfo } from '../../backup/common/backup.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { ILogService } from '../../log/common/log.js';
 import { getRemoteAuthority } from '../../remote/common/remoteHosts.js';
-import { IBaseWorkspace, IRawFileWorkspaceFolder, IRawUriWorkspaceFolder, IWorkspaceIdentifier, WorkspaceFolder } from '../../workspace/common/workspace.js';
+import { BaseWorkspaceInterface, IRawFileWorkspaceFolder, IRawUrWorkspaceInterfaceFolder, WorkspaceIdentifierInterface, WorkspaceFolder } from '../../workspace/common/workspace.js';
 
-export const IWorkspacesService = createDecorator<IWorkspacesService>('workspacesService');
+export const WorkspaceInterfacesService = createDecorator<WorkspaceInterfacesService>('workspacesService');
 
-export interface IWorkspacesService {
+export interface WorkspaceInterfacesService {
 
 	readonly _serviceBrand: undefined;
 
 	// Workspaces Management
 	enterWorkspace(workspaceUri: URI): Promise<IEnterWorkspaceResult | undefined>;
-	createUntitledWorkspace(folders?: IWorkspaceFolderCreationData[], remoteAuthority?: string): Promise<IWorkspaceIdentifier>;
-	deleteUntitledWorkspace(workspace: IWorkspaceIdentifier): Promise<void>;
-	getWorkspaceIdentifier(workspaceUri: URI): Promise<IWorkspaceIdentifier>;
+	createUntitledWorkspace(folders?: WorkspaceInterfaceFolderCreationData[], remoteAuthority?: string): Promise<WorkspaceIdentifierInterface>;
+	deleteUntitledWorkspace(workspace: WorkspaceIdentifierInterface): Promise<void>;
+	getWorkspaceIdentifier(workspaceUri: URI): Promise<WorkspaceIdentifierInterface>;
 
 	// Workspaces History
 	readonly onDidChangeRecentlyOpened: Event<void>;
@@ -40,7 +40,7 @@ export interface IWorkspacesService {
 	getRecentlyOpened(): Promise<IRecentlyOpened>;
 
 	// Dirty Workspaces
-	getDirtyWorkspaces(): Promise<Array<IWorkspaceBackupInfo | IFolderBackupInfo>>;
+	getDirtyWorkspaces(): Promise<Array<WorkspaceInterfaceBackupInfo | IFolderBackupInfo>>;
 }
 
 //#region Workspaces Recently Opened
@@ -53,7 +53,7 @@ export interface IRecentlyOpened {
 export type IRecent = IRecentWorkspace | IRecentFolder | IRecentFile;
 
 export interface IRecentWorkspace {
-	readonly workspace: IWorkspaceIdentifier;
+	readonly workspace: WorkspaceIdentifierInterface;
 	label?: string;
 	readonly remoteAuthority?: string;
 }
@@ -87,7 +87,7 @@ export function isRecentFile(curr: IRecent): curr is IRecentFile {
 //#region Workspace File Utilities
 
 export function isStoredWorkspaceFolder(obj: unknown): obj is IStoredWorkspaceFolder {
-	return isRawFileWorkspaceFolder(obj) || isRawUriWorkspaceFolder(obj);
+	return isRawFileWorkspaceFolder(obj) || isRawUrWorkspaceInterfaceFolder(obj);
 }
 
 function isRawFileWorkspaceFolder(obj: unknown): obj is IRawFileWorkspaceFolder {
@@ -96,30 +96,30 @@ function isRawFileWorkspaceFolder(obj: unknown): obj is IRawFileWorkspaceFolder 
 	return typeof candidate?.path === 'string' && (!candidate.name || typeof candidate.name === 'string');
 }
 
-function isRawUriWorkspaceFolder(obj: unknown): obj is IRawUriWorkspaceFolder {
-	const candidate = obj as IRawUriWorkspaceFolder | undefined;
+function isRawUrWorkspaceInterfaceFolder(obj: unknown): obj is IRawUrWorkspaceInterfaceFolder {
+	const candidate = obj as IRawUrWorkspaceInterfaceFolder | undefined;
 
 	return typeof candidate?.uri === 'string' && (!candidate.name || typeof candidate.name === 'string');
 }
 
-export type IStoredWorkspaceFolder = IRawFileWorkspaceFolder | IRawUriWorkspaceFolder;
+export type IStoredWorkspaceFolder = IRawFileWorkspaceFolder | IRawUrWorkspaceInterfaceFolder;
 
-export interface IStoredWorkspace extends IBaseWorkspace {
+export interface IStoredWorkspace extends BaseWorkspaceInterface {
 	folders: IStoredWorkspaceFolder[];
 }
 
-export interface IWorkspaceFolderCreationData {
+export interface WorkspaceInterfaceFolderCreationData {
 	readonly uri: URI;
 	readonly name?: string;
 }
 
 export interface IUntitledWorkspaceInfo {
-	readonly workspace: IWorkspaceIdentifier;
+	readonly workspace: WorkspaceIdentifierInterface;
 	readonly remoteAuthority?: string;
 }
 
 export interface IEnterWorkspaceResult {
-	readonly workspace: IWorkspaceIdentifier;
+	readonly workspace: WorkspaceIdentifierInterface;
 	readonly backupPath?: string;
 }
 
@@ -206,7 +206,7 @@ export function toWorkspaceFolders(configuredFolders: IStoredWorkspaceFolder[], 
 			if (configuredFolder.path) {
 				uri = extUri.resolvePath(relativeTo, configuredFolder.path);
 			}
-		} else if (isRawUriWorkspaceFolder(configuredFolder)) {
+		} else if (isRawUrWorkspaceInterfaceFolder(configuredFolder)) {
 			try {
 				uri = URI.parse(configuredFolder.uri);
 				if (uri.path[0] !== posix.sep) {

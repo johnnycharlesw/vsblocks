@@ -14,14 +14,14 @@ import { IModelService } from '../../../../editor/common/services/model.js';
 import { localize } from '../../../../nls.js';
 import { IFileDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { IInstantiationService, ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { GroupIdentifier, IRevertOptions, ISaveOptions, EditorResourceAccessor, IMoveResult, EditorInputCapabilities, IUntypedEditorInput } from '../../../common/editor.js';
 import { Memento } from '../../../common/memento.js';
 import { SearchEditorFindMatchClass, SearchEditorInputTypeId, SearchEditorScheme, SearchEditorWorkingCopyTypeId, SearchConfiguration } from './constants.js';
 import { SearchConfigurationModel, SearchEditorModel, searchEditorModelFactory } from './searchEditorModel.js';
 import { defaultSearchConfig, parseSavedSearchEditor, serializeSearchConfiguration } from './searchEditorSerialization.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { ITextFileSaveOptions, ITextFileService } from '../../../services/textfile/common/textfiles.js';
 import { IWorkingCopyService } from '../../../services/workingCopy/common/workingCopyService.js';
 import { IWorkingCopy, IWorkingCopyBackup, IWorkingCopySaveEvent, WorkingCopyCapabilities } from '../../../services/workingCopy/common/workingCopy.js';
@@ -97,8 +97,8 @@ export class SearchEditorInput extends EditorInput {
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IWorkingCopyService private readonly workingCopyService: IWorkingCopyService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IPathService private readonly pathService: IPathService,
-		@IStorageService storageService: IStorageService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super();
 
@@ -338,7 +338,7 @@ export const getOrMakeSearchEditorInput = (
 		| { from: 'existingFile'; fileUri: URI })
 ): SearchEditorInput => {
 
-	const storageService = accessor.get(IStorageService);
+	const storageService = accessor.get(StorageServiceInterface);
 	const configurationService = accessor.get(IConfigurationService);
 
 	const instantiationService = accessor.get(IInstantiationService);

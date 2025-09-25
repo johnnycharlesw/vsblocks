@@ -15,7 +15,7 @@ import { isString } from '../../../base/common/types.js';
 import { URI } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
 import { ConfigurationTarget } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { IInstantiationService } from '../../instantiation/common/instantiation.js';
 import { ILogService } from '../../log/common/log.js';
@@ -458,7 +458,7 @@ export class McpUserResourceManagementService extends AbstractMcpResourceManagem
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@ILogService logService: ILogService,
 		@IMcpResourceScannerService mcpResourceScannerService: IMcpResourceScannerService,
-		@IEnvironmentService environmentService: IEnvironmentService
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface
 	) {
 		super(mcpResource, ConfigurationTarget.USER, mcpGalleryService, fileService, uriIdentityService, logService, mcpResourceScannerService);
 		this.mcpLocation = uriIdentityService.extUri.joinPath(environmentService.userRoamingDataHome, 'mcp');

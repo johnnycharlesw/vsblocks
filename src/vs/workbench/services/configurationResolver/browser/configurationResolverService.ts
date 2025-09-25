@@ -8,13 +8,13 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { BaseConfigurationResolverService } from './baseConfigurationResolverService.js';
 import { IConfigurationResolverService } from '../common/configurationResolver.js';
 import { IEditorService } from '../../editor/common/editorService.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 
 export class ConfigurationResolverService extends BaseConfigurationResolverService {
 
@@ -22,12 +22,12 @@ export class ConfigurationResolverService extends BaseConfigurationResolverServi
 		@IEditorService editorService: IEditorService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@ICommandService commandService: ICommandService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@IQuickInputService quickInputService: IQuickInputService,
 		@ILabelService labelService: ILabelService,
-		@IPathService pathService: IPathService,
+		@PathInterfaceService pathService: PathInterfaceService,
 		@IExtensionService extensionService: IExtensionService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super({ getAppRoot: () => undefined, getExecPath: () => undefined },
 			Promise.resolve(Object.create(null)), editorService, configurationService,

@@ -1,11 +1,12 @@
-# VSBlocks - Open Source ("Code - OSS")
-[![Feature Requests](https://img.shields.io/github/issues/microsoft/vscode/feature-request.svg)](https://github.com/microsoft/vscode/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc)
-[![Bugs](https://img.shields.io/github/issues/microsoft/vscode/bug.svg)](https://github.com/microsoft/vscode/issues?utf8=✓&q=is%3Aissue+is%3Aopen+label%3Abug)
-[![Gitter](https://img.shields.io/badge/chat-on%20gitter-yellow.svg)](https://gitter.im/Microsoft/vscode)
+# VSBlocks
+[![Feature Requests](https://img.shields.io/github/issues/johnnycharlesw/feature-request.svg)](https://github.com/johnnycharlesw/vsblocks/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc)
+[![Bugs](https://img.shields.io/github/issues/johnnycharlesw/vsblocks/bug.svg)](https://github.com/johnnycharlesw/vsblocks/issues?utf8=✓&q=is%3Aissue+is%3Aopen+label%3Abug)
+[![Gitter](https://img.shields.io/badge/chat-on%20gitter-yellow.svg)](https://gitter.im/johnnycharlesw/vsblocks)
 
 ## The Repository
 
-This repository ("`Code - OSS`") is where we (Microsoft) develop the [VSBlocks](https://code.visualstudio.com) product together with the community. Not only do we work on code and issues here, we also publish our [roadmap](https://github.com/microsoft/vscode/wiki/Roadmap), [monthly iteration plans](https://github.com/microsoft/vscode/wiki/Iteration-Plans), and our [endgame plans](https://github.com/microsoft/vscode/wiki/Running-the-Endgame). This source code is available to everyone under the standard [MIT license](https://github.com/microsoft/vscode/blob/main/LICENSE.txt).
+This repository ("`Code - OSS`") is where all of us develop the [VSBlocks](https://code.visualstudio.com) product together with the community. Not only do we work on code and issues here, we also publish our [roadmap](https://github.com/johnnycharlesw/vsblocks/wiki/Roadmap), [monthly iteration plans](https://github.com/johnnycharlesw/vsblocks/wiki/Iteration-Plans), and our [endgame plans](https://github.com/johnnycharlesw/vsblocks/wiki/Running-the-Endgame). This source code is available to everyone under the standard [MIT license](https://github.com/johnnycharlesw/vsblocks/blob/main/LICENSE.txt).
+VSBlocks is based on [VSCode](https://code.visualstudio.com).
 
 ## VSBlocks
 
@@ -23,34 +24,34 @@ VSBlocks is updated monthly with new features and bug fixes. You can download it
 
 There are many ways in which you can participate in this project, for example:
 
-* [Submit bugs and feature requests](https://github.com/microsoft/vscode/issues), and help us verify as they are checked in
-* Review [source code changes](https://github.com/microsoft/vscode/pulls)
-* Review the [documentation](https://github.com/microsoft/vscode-docs) and make pull requests for anything from typos to additional and new content
+* [Submit bugs and feature requests](https://github.com/johnnycharlesw/vsblocks/issues), and help us verify as they are checked in
+* Review [source code changes](https://github.com/johnnycharlesw/vsblocks/pulls)
+* Review the [documentation](https://github.com/johnnycharlesw/vsblocks-docs) and make pull requests for anything from typos to additional and new content
 
 If you are interested in fixing issues and contributing directly to the code base,
-please see the document [How to Contribute](https://github.com/microsoft/vscode/wiki/How-to-Contribute), which covers the following:
+please see the document [How to Contribute](https://github.com/johnnycharlesw/vsblocks/wiki/How-to-Contribute), which covers the following:
 
-* [How to build and run from source](https://github.com/microsoft/vscode/wiki/How-to-Contribute)
-* [The development workflow, including debugging and running tests](https://github.com/microsoft/vscode/wiki/How-to-Contribute#debugging)
-* [Coding guidelines](https://github.com/microsoft/vscode/wiki/Coding-Guidelines)
-* [Submitting pull requests](https://github.com/microsoft/vscode/wiki/How-to-Contribute#pull-requests)
-* [Finding an issue to work on](https://github.com/microsoft/vscode/wiki/How-to-Contribute#where-to-contribute)
+* [How to build and run from source](https://github.com/johnnycharlesw/vsblocks/wiki/How-to-Contribute)
+* [The development workflow, including debugging and running tests](https://github.com/johnnycharlesw/vsblocks/wiki/How-to-Contribute#debugging)
+* [Coding guidelines](https://github.com/johnnycharlesw/vsblocks/wiki/Coding-Guidelines)
+* [Submitting pull requests](https://github.com/johnnycharlesw/vsblocks/wiki/How-to-Contribute#pull-requests)
+* [Finding an issue to work on](https://github.com/johnnycharlesw/vsblocks/wiki/How-to-Contribute#where-to-contribute)
 * [Contributing to translations](https://aka.ms/vscodeloc)
 
 ## Feedback
 
 * Ask a question on [Stack Overflow](https://stackoverflow.com/questions/tagged/vscode)
 * [Request a new feature](CONTRIBUTING.md)
-* Upvote [popular feature requests](https://github.com/microsoft/vscode/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc)
-* [File an issue](https://github.com/microsoft/vscode/issues)
-* Connect with the extension author community on [GitHub Discussions](https://github.com/microsoft/vscode-discussions/discussions) or [Slack](https://aka.ms/vscode-dev-community)
+* Upvote [popular feature requests](https://github.com/johnnycharlesw/vsblocks/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc)
+* [File an issue](https://github.com/johnnycharlesw/vsblocks/issues)
+* Connect with the extension author community on [GitHub Discussions](https://github.com/johnnycharlesw/vsblocks-discussions/discussions) or [Slack](https://aka.ms/vscode-dev-community)
 * Follow [@code](https://twitter.com/code) and let us know what you think!
 
-See our [wiki](https://github.com/microsoft/vscode/wiki/Feedback-Channels) for a description of each of these channels and information on some other available community-driven channels.
+See our [wiki](https://github.com/johnnycharlesw/vsblocks/wiki/Feedback-Channels) for a description of each of these channels and information on some other available community-driven channels.
 
 ## Related Projects
 
-Many of the core components and extensions to VSBlocks live in their own repositories on GitHub. For example, the [node debug adapter](https://github.com/microsoft/vscode-node-debug) and the [mono debug adapter](https://github.com/microsoft/vscode-mono-debug) repositories are separate from each other. For a complete list, please visit the [Related Projects](https://github.com/microsoft/vscode/wiki/Related-Projects) page on our [wiki](https://github.com/microsoft/vscode/wiki).
+Many of the core components and extensions to VSBlocks live in their own repositories on GitHub. For example, the [node debug adapter](https://github.com/johnnycharlesw/vsblocks-node-debug) and the [mono debug adapter](https://github.com/johnnycharlesw/vsblocks-mono-debug) repositories are separate from each other. For a complete list, please visit the [Related Projects](https://github.com/johnnycharlesw/vsblocks/wiki/Related-Projects) page on our [wiki](https://github.com/johnnycharlesw/vsblocks/wiki).
 
 ## Bundled Extensions
 
@@ -61,7 +62,7 @@ VSBlocks includes a set of built-in extensions located in the [extensions](exten
 This repository includes a VSBlocks Dev Containers / GitHub Codespaces development container.
 
 * For [Dev Containers](https://aka.ms/vscode-remote/download/containers), use the **Dev Containers: Clone Repository in Container Volume...** command which creates a Docker volume for better disk I/O on macOS and Windows.
-  * If you already have VSBlocks and Docker installed, you can also click [here](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/microsoft/vscode) to get started. This will cause VSBlocks to automatically install the Dev Containers extension if needed, clone the source code into a container volume, and spin up a dev container for use.
+  * If you already have VSBlocks and Docker installed, you can also click [here](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/woodsjohnnycharles/vsblocks) to get started. This will cause VSBlocks to automatically install the Dev Containers extension if needed, clone the source code into a container volume, and spin up a dev container for use.
 
 * For Codespaces, install the [GitHub Codespaces](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces) extension in VSBlocks, and use the **Codespaces: Create New Codespace** command.
 
@@ -73,6 +74,6 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 ## License
 
-Copyright (c) Microsoft Corporation. All rights reserved.
+Copyright (c) Microsoft Corporation, John Charles Woods. All rights reserved.
 
 Licensed under the [MIT](LICENSE.txt) license.

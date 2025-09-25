@@ -8,7 +8,7 @@ import { Color, RGBA } from '../../../../base/common/color.js';
 import { isDefined } from '../../../../base/common/types.js';
 import { editorHoverBackground, listActiveSelectionBackground, listFocusBackground, listInactiveFocusBackground, listInactiveSelectionBackground } from '../../../../platform/theme/common/colorRegistry.js';
 import { registerThemingParticipant } from '../../../../platform/theme/common/themeService.js';
-import { IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { PANEL_BACKGROUND, SIDE_BAR_BACKGROUND } from '../../../common/theme.js';
 import { ansiColorIdentifiers } from '../../terminal/common/terminalColorRegistry.js';
 import { ILinkDetector } from './linkDetector.js';
@@ -17,7 +17,7 @@ import { ILinkDetector } from './linkDetector.js';
  * @param text The content to stylize.
  * @returns An {@link HTMLSpanElement} that contains the potentially stylized text.
  */
-export function handleANSIOutput(text: string, linkDetector: ILinkDetector, workspaceFolder: IWorkspaceFolder | undefined, highlights: IHighlight[] | undefined): HTMLSpanElement {
+export function handleANSIOutput(text: string, linkDetector: ILinkDetector, workspaceFolder: WorkspaceInterfaceFolder | undefined, highlights: IHighlight[] | undefined): HTMLSpanElement {
 
 	const root: HTMLSpanElement = document.createElement('span');
 	const textLength: number = text.length;
@@ -407,7 +407,7 @@ export function appendStylizedStringToContainer(
 	stringContent: string,
 	cssClasses: string[],
 	linkDetector: ILinkDetector,
-	workspaceFolder: IWorkspaceFolder | undefined,
+	workspaceFolder: WorkspaceInterfaceFolder | undefined,
 	customTextColor: RGBA | string | undefined,
 	customBackgroundColor: RGBA | string | undefined,
 	customUnderlineColor: RGBA | string | undefined,

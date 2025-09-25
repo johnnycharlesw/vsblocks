@@ -6,7 +6,7 @@
 import type { IViewportRange, IBufferRange, IBufferLine, IBuffer, IBufferCellPosition } from '@xterm/xterm';
 import { IRange } from '../../../../../editor/common/core/range.js';
 import { OperatingSystem } from '../../../../../base/common/platform.js';
-import { IPath, posix, win32 } from '../../../../../base/common/path.js';
+import { PathInterface, posix, win32 } from '../../../../../base/common/path.js';
 import { ITerminalCapabilityStore, TerminalCapability } from '../../../../../platform/terminal/common/capabilities/capabilities.js';
 import { ITerminalLogService } from '../../../../../platform/terminal/common/terminal.js';
 
@@ -218,7 +218,7 @@ export function getXtermRangesByAttr(buffer: IBuffer, lineStart: number, lineEnd
  * For shells with the CommandDetection capability, the cwd for a command relative to the line of
  * the particular link can be used to narrow down the result for an exact file match.
  */
-export function updateLinkWithRelativeCwd(capabilities: ITerminalCapabilityStore, y: number, text: string, osPath: IPath, logService: ITerminalLogService): string[] | undefined {
+export function updateLinkWithRelativeCwd(capabilities: ITerminalCapabilityStore, y: number, text: string, osPath: PathInterface, logService: ITerminalLogService): string[] | undefined {
 	const cwd = capabilities.get(TerminalCapability.CommandDetection)?.getCwdForLine(y);
 	logService.trace('terminalLinkHelpers#updateLinkWithRelativeCwd cwd', cwd);
 	if (!cwd) {
@@ -250,6 +250,6 @@ export function updateLinkWithRelativeCwd(capabilities: ITerminalCapabilityStore
 	return result;
 }
 
-export function osPathModule(os: OperatingSystem): IPath {
+export function osPathModule(os: OperatingSystem): PathInterface {
 	return os === OperatingSystem.Windows ? win32 : posix;
 }

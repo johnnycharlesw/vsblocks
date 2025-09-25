@@ -6,7 +6,7 @@
 import assert from 'assert';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { IProductService } from '../../../../../platform/product/common/productService.js';
 import { TestStorageService, TestProductService } from '../../../../test/common/workbenchTestServices.js';
 import { AuthenticationMcpAccessService, AllowedMcpServer, IAuthenticationMcpAccessService } from '../../browser/authenticationMcpAccessService.js';
@@ -24,7 +24,7 @@ suite('AuthenticationMcpAccessService', () => {
 
 		// Set up storage service
 		storageService = disposables.add(new TestStorageService());
-		instantiationService.stub(IStorageService, storageService);
+		instantiationService.stub(StorageServiceInterface, storageService);
 
 		// Set up product service with no trusted servers by default
 		productService = { ...TestProductService };

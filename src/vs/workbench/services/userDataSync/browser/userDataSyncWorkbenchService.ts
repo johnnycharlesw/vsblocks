@@ -12,7 +12,7 @@ import { getCurrentAuthenticationSessionInfo } from '../../authentication/browse
 import { AuthenticationSession, AuthenticationSessionsChangeEvent, IAuthenticationService } from '../../authentication/common/authentication.js';
 import { IUserDataSyncAccountService } from '../../../../platform/userDataSync/common/userDataSyncAccount.js';
 import { IQuickInputService, IQuickPickSeparator } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
@@ -100,7 +100,7 @@ export class UserDataSyncWorkbenchService extends Disposable implements IUserDat
 		@IAuthenticationService private readonly authenticationService: IAuthenticationService,
 		@IUserDataSyncAccountService private readonly userDataSyncAccountService: IUserDataSyncAccountService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IUserDataSyncEnablementService private readonly userDataSyncEnablementService: IUserDataSyncEnablementService,
 		@IUserDataAutoSyncService private readonly userDataAutoSyncService: IUserDataAutoSyncService,
 		@ILogService private readonly logService: ILogService,

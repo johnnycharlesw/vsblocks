@@ -34,8 +34,8 @@ import { IRemoteExtensionsScannerService } from '../../../../platform/remote/com
 import { getRemoteName, parseAuthorityWithPort } from '../../../../platform/remote/common/remoteHosts.js';
 import { updateProxyConfigurationsScope } from '../../../../platform/request/common/request.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IWorkbenchEnvironmentService } from '../../environment/common/environmentService.js';
 import { EnablementState, IWorkbenchExtensionEnablementService, IWorkbenchExtensionManagementService } from '../../extensionManagement/common/extensionManagement.js';
 import { IWebWorkerExtensionHostDataProvider, IWebWorkerExtensionHostInitData, WebWorkerExtensionHost } from '../browser/webWorkerExtensionHost.js';
@@ -73,7 +73,7 @@ export class NativeExtensionService extends AbstractExtensionService implements 
 		@IFileService fileService: IFileService,
 		@IProductService productService: IProductService,
 		@IWorkbenchExtensionManagementService extensionManagementService: IWorkbenchExtensionManagementService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IExtensionManifestPropertiesService extensionManifestPropertiesService: IExtensionManifestPropertiesService,
 		@ILogService logService: ILogService,
@@ -85,7 +85,7 @@ export class NativeExtensionService extends AbstractExtensionService implements 
 		@IHostService private readonly _hostService: IHostService,
 		@IRemoteExplorerService private readonly _remoteExplorerService: IRemoteExplorerService,
 		@IExtensionGalleryService private readonly _extensionGalleryService: IExtensionGalleryService,
-		@IWorkspaceTrustManagementService private readonly _workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly _workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IDialogService dialogService: IDialogService,
 	) {
 		const extensionsProposedApi = instantiationService.createInstance(ExtensionsProposedApi);
@@ -133,7 +133,7 @@ export class NativeExtensionService extends AbstractExtensionService implements 
 		// extension host more (LifecyclePhase.Restored) because
 		// some editors require the extension host to restore
 		// and this would result in a deadlock
-		// see https://github.com/microsoft/vscode/issues/41322
+		// see https://github.com/johnnycharlesw/vsblocks/issues/41322
 		lifecycleService.when(LifecyclePhase.Ready).then(() => {
 			// reschedule to ensure this runs after restoring viewlets, panels, and editors
 			runWhenWindowIdle(mainWindow, () => {
@@ -351,7 +351,7 @@ export class NativeExtensionService extends AbstractExtensionService implements 
 			});
 
 			if (isCI) {
-				this._logService.info(`Starting to wait on IWorkspaceTrustManagementService.workspaceResolved...`);
+				this._logService.info(`Starting to wait on WorkspaceInterfaceTrustManagementService.workspaceResolved...`);
 			}
 
 			// Now that the canonical URI provider has been registered, we need to wait for the trust state to be
@@ -360,7 +360,7 @@ export class NativeExtensionService extends AbstractExtensionService implements 
 			await this._workspaceTrustManagementService.workspaceResolved;
 
 			if (isCI) {
-				this._logService.info(`Finished waiting on IWorkspaceTrustManagementService.workspaceResolved.`);
+				this._logService.info(`Finished waiting on WorkspaceInterfaceTrustManagementService.workspaceResolved.`);
 			}
 
 			const localExtensions = await this._scanAllLocalExtensions();

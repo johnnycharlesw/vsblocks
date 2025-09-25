@@ -15,7 +15,7 @@ import { Text, Variable, VariableResolver } from './snippetParser.js';
 import { OvertypingCapturer } from '../../suggest/browser/suggestOvertypingCapturer.js';
 import * as nls from '../../../../nls.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
-import { WORKSPACE_EXTENSION, isSingleFolderWorkspaceIdentifier, toWorkspaceIdentifier, IWorkspaceContextService, ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier, isEmptyWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
+import { WORKSPACE_EXTENSION, isSingleFolderWorkspaceIdentifier, toWorkspaceIdentifier, WorkspaceContextServiceInterface, SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface, isEmptyWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
 
 export const KnownSnippetVariableNames = Object.freeze<{ [key: string]: true }>({
 	'CURRENT_YEAR': true,
@@ -309,7 +309,7 @@ export class TimeBasedVariableResolver implements VariableResolver {
 
 export class WorkspaceBasedVariableResolver implements VariableResolver {
 	constructor(
-		private readonly _workspaceService: IWorkspaceContextService | undefined,
+		private readonly _workspaceService: WorkspaceContextServiceInterface | undefined,
 	) {
 		//
 	}
@@ -332,7 +332,7 @@ export class WorkspaceBasedVariableResolver implements VariableResolver {
 
 		return undefined;
 	}
-	private _resolveWorkspaceName(workspaceIdentifier: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier): string | undefined {
+	private _resolveWorkspaceName(workspaceIdentifier: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface): string | undefined {
 		if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
 			return path.basename(workspaceIdentifier.uri.path);
 		}
@@ -343,7 +343,7 @@ export class WorkspaceBasedVariableResolver implements VariableResolver {
 		}
 		return filename;
 	}
-	private _resoveWorkspacePath(workspaceIdentifier: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier): string | undefined {
+	private _resoveWorkspacePath(workspaceIdentifier: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface): string | undefined {
 		if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
 			return normalizeDriveLetter(workspaceIdentifier.uri.fsPath);
 		}

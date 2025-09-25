@@ -20,7 +20,7 @@ import { ILanguageFeatureDebounceService, LanguageFeatureDebounceService } from 
 import { TestLanguageConfigurationService } from '../../../../test/common/modes/testLanguageConfigurationService.js';
 import { SyncDescriptor } from '../../../../../platform/instantiation/common/descriptors.js';
 import { runWithFakedTimers } from '../../../../../base/test/common/timeTravelScheduler.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 import { DisposableStore } from '../../../../../base/common/lifecycle.js';
 
@@ -33,7 +33,7 @@ suite('Sticky Scroll Tests', () => {
 		[ILogService, new NullLogService()],
 		[IContextMenuService, new class extends mock<IContextMenuService>() { }],
 		[ILanguageConfigurationService, new TestLanguageConfigurationService()],
-		[IEnvironmentService, new class extends mock<IEnvironmentService>() {
+		[EnvironmentServiceInterface, new class extends mock<EnvironmentServiceInterface>() {
 			override isBuilt: boolean = true;
 			override isExtensionDevelopment: boolean = false;
 		}],

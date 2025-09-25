@@ -5,7 +5,7 @@
 
 import { Emitter, Event } from '../../../../base/common/event.js';
 import { IHistory } from '../../../../base/common/history.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 
 export class FindWidgetSearchHistory implements IHistory<string> {
 	public static readonly FIND_HISTORY_KEY = 'workbench.find.history';
@@ -16,7 +16,7 @@ export class FindWidgetSearchHistory implements IHistory<string> {
 	private static _instance: FindWidgetSearchHistory | null = null;
 
 	static getOrCreate(
-		storageService: IStorageService,
+		storageService: StorageServiceInterface,
 	): FindWidgetSearchHistory {
 		if (!FindWidgetSearchHistory._instance) {
 			FindWidgetSearchHistory._instance = new FindWidgetSearchHistory(storageService);
@@ -25,7 +25,7 @@ export class FindWidgetSearchHistory implements IHistory<string> {
 	}
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 	) {
 		this._onDidChangeEmitter = new Emitter<string[]>();
 		this.onDidChange = this._onDidChangeEmitter.event;

@@ -13,12 +13,12 @@ import { IsMacNativeContext, IsDevelopmentContext, IsWebContext, IsIOSContext } 
 import { Categories } from '../../../platform/action/common/actionCommonCategories.js';
 import { KeybindingsRegistry, KeybindingWeight } from '../../../platform/keybinding/common/keybindingsRegistry.js';
 import { IQuickInputButton, IQuickInputService, IQuickPickSeparator, IKeyMods, IQuickPickItem } from '../../../platform/quickinput/common/quickInput.js';
-import { IWorkspaceContextService, IWorkspaceIdentifier } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceIdentifierInterface } from '../../../platform/workspace/common/workspace.js';
 import { ILabelService, Verbosity } from '../../../platform/label/common/label.js';
 import { IKeybindingService } from '../../../platform/keybinding/common/keybinding.js';
 import { IModelService } from '../../../editor/common/services/model.js';
 import { ILanguageService } from '../../../editor/common/languages/language.js';
-import { IRecent, isRecentFolder, isRecentWorkspace, IWorkspacesService } from '../../../platform/workspaces/common/workspaces.js';
+import { IRecent, isRecentFolder, isRecentWorkspace, WorkspaceInterfacesService } from '../../../platform/workspaces/common/workspaces.js';
 import { URI } from '../../../base/common/uri.js';
 import { getIconClasses } from '../../../editor/common/services/getIconClasses.js';
 import { FileKind } from '../../../platform/files/common/files.js';
@@ -69,9 +69,9 @@ abstract class BaseOpenRecentAction extends Action2 {
 	protected abstract isQuickNavigate(): boolean;
 
 	override async run(accessor: ServicesAccessor): Promise<void> {
-		const workspacesService = accessor.get(IWorkspacesService);
+		const workspacesService = accessor.get(WorkspaceInterfacesService);
 		const quickInputService = accessor.get(IQuickInputService);
-		const contextService = accessor.get(IWorkspaceContextService);
+		const contextService = accessor.get(WorkspaceContextServiceInterface);
 		const labelService = accessor.get(ILabelService);
 		const keybindingService = accessor.get(IKeybindingService);
 		const modelService = accessor.get(IModelService);
@@ -86,7 +86,7 @@ abstract class BaseOpenRecentAction extends Action2 {
 
 		// Identify all folders and workspaces with unsaved files
 		const dirtyFolders = new ResourceMap<boolean>();
-		const dirtyWorkspaces = new ResourceMap<IWorkspaceIdentifier>();
+		const dirtyWorkspaces = new ResourceMap<WorkspaceIdentifierInterface>();
 		for (const dirtyWorkspace of dirtyWorkspacesAndFolders) {
 			if (isFolderBackupInfo(dirtyWorkspace)) {
 				dirtyFolders.set(dirtyWorkspace.folderUri, true);
@@ -98,7 +98,7 @@ abstract class BaseOpenRecentAction extends Action2 {
 
 		// Identify all recently opened folders and workspaces
 		const recentFolders = new ResourceMap<boolean>();
-		const recentWorkspaces = new ResourceMap<IWorkspaceIdentifier>();
+		const recentWorkspaces = new ResourceMap<WorkspaceIdentifierInterface>();
 		for (const recent of recentlyOpened.workspaces) {
 			if (isRecentFolder(recent)) {
 				recentFolders.set(recent.folderUri, true);

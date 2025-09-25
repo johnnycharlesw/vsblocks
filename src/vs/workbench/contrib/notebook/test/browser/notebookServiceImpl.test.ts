@@ -12,7 +12,7 @@ import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/tes
 import { IAccessibilityService } from '../../../../../platform/accessibility/common/accessibility.js';
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../../platform/uriIdentity/common/uriIdentity.js';
 import { NotebookProviderInfoStore } from '../../browser/services/notebookServiceImpl.js';
 import { INotebookEditorModelResolverService } from '../../common/notebookEditorModelResolverService.js';
@@ -28,7 +28,7 @@ suite('NotebookProviderInfoStore', function () {
 	test('Can\'t open untitled notebooks in test #119363', function () {
 		const instantiationService = workbenchInstantiationService(undefined, disposables);
 		const store = new NotebookProviderInfoStore(
-			new class extends mock<IStorageService>() {
+			new class extends mock<StorageServiceInterface>() {
 				override get() { return ''; }
 				override store() { }
 				override getObject() { return {}; }

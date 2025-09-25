@@ -9,7 +9,7 @@ import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../../base/
 import { CommandSimplifier } from '../../browser/commandSimplifier.js';
 import type { TestInstantiationService } from '../../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import type { TestContextService } from '../../../../../test/common/workbenchTestServices.js';
-import { IWorkspaceContextService } from '../../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../../platform/workspace/common/workspace.js';
 import { workbenchInstantiationService } from '../../../../../test/browser/workbenchTestServices.js';
 import type { ITerminalInstance } from '../../../../terminal/browser/terminal.js';
 import type { URI } from '../../../../../../base/common/uri.js';
@@ -41,7 +41,7 @@ suite('command re-writing', () => {
 		instantiationService = workbenchInstantiationService({
 			// configurationService: () => configurationService,
 		}, store);
-		workspaceService = instantiationService.invokeFunction(accessor => accessor.get(IWorkspaceContextService)) as TestContextService;
+		workspaceService = instantiationService.invokeFunction(accessor => accessor.get(WorkspaceContextServiceInterface)) as TestContextService;
 
 	});
 

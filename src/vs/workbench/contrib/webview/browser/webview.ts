@@ -16,8 +16,8 @@ import { generateUuid } from '../../../../base/common/uuid.js';
 import { IContextKeyService, RawContextKey } from '../../../../platform/contextkey/common/contextkey.js';
 import { ExtensionIdentifier } from '../../../../platform/extensions/common/extensions.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
-import { IWebviewPortMapping } from '../../../../platform/webview/common/webviewPortMapping.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { WebviewPortMappingInterface } from '../../../../platform/webview/common/webviewPortMapping.js';
 import { Memento, MementoObject } from '../../../common/memento.js';
 
 /**
@@ -132,7 +132,7 @@ export interface WebviewContentOptions {
 	/**
 	 * Set of localhost port mappings to apply inside the webview.
 	 */
-	readonly portMapping?: readonly IWebviewPortMapping[];
+	readonly portMapping?: readonly WebviewPortMappingInterface[];
 
 	/**
 	 * Are command uris enabled in the webview? Defaults to false.
@@ -353,7 +353,7 @@ export class WebviewOriginStore {
 
 	constructor(
 		rootStorageKey: string,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		this._memento = new Memento(rootStorageKey, storageService);
 		this._state = this._memento.getMemento(StorageScope.APPLICATION, StorageTarget.MACHINE);
@@ -389,7 +389,7 @@ export class ExtensionKeyedWebviewOriginStore {
 
 	constructor(
 		rootStorageKey: string,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		this._store = new WebviewOriginStore(rootStorageKey, storageService);
 	}

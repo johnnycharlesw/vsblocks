@@ -5,7 +5,7 @@
 
 import { extHostNamedCustomer, IExtHostContext } from '../../services/extensions/common/extHostCustomers.js';
 import { MainContext, MainThreadConsoleShape } from '../common/extHost.protocol.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { IRemoteConsoleLog, log } from '../../../base/common/console.js';
 import { logRemoteEntry, logRemoteEntryIfError } from '../../services/extensions/common/remoteConsoleUtil.js';
 import { parseExtensionDevOptions } from '../../services/extensions/common/extensionDevOptions.js';
@@ -18,7 +18,7 @@ export class MainThreadConsole implements MainThreadConsoleShape {
 
 	constructor(
 		_extHostContext: IExtHostContext,
-		@IEnvironmentService private readonly _environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly _environmentService: EnvironmentServiceInterface,
 		@ILogService private readonly _logService: ILogService,
 	) {
 		const devOpts = parseExtensionDevOptions(this._environmentService);

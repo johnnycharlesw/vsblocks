@@ -6,7 +6,7 @@
 import { Disposable, DisposableStore } from '../../../base/common/lifecycle.js';
 import { FileAccess, Schemas } from '../../../base/common/network.js';
 import { Client, IIPCOptions } from '../../../base/parts/ipc/node/ipc.cp.js';
-import { IEnvironmentService, INativeEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface, NativeEnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { parsePtyHostDebugPort } from '../../environment/node/environmentService.js';
 import { IReconnectConstants } from '../common/terminal.js';
 import { IPtyHostConnection, IPtyHostStarter } from './ptyHost.js';
@@ -14,7 +14,7 @@ import { IPtyHostConnection, IPtyHostStarter } from './ptyHost.js';
 export class NodePtyHostStarter extends Disposable implements IPtyHostStarter {
 	constructor(
 		private readonly _reconnectConstants: IReconnectConstants,
-		@IEnvironmentService private readonly _environmentService: INativeEnvironmentService
+		@EnvironmentServiceInterface private readonly _environmentService: NativeEnvironmentServiceInterface
 	) {
 		super();
 	}

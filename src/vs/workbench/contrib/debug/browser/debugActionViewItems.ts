@@ -15,7 +15,7 @@ import { IDebugService, IDebugSession, IDebugConfiguration, IConfig, ILaunch, St
 import { ThemeIcon } from '../../../../base/common/themables.js';
 import { selectBorder, selectBackground, asCssVariable } from '../../../../platform/theme/common/colorRegistry.js';
 import { IContextViewService } from '../../../../platform/contextview/browser/contextView.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IDisposable, dispose } from '../../../../base/common/lifecycle.js';
 import { ADD_CONFIGURATION_ID } from './debugCommands.js';
 import { BaseActionViewItem, IBaseActionViewItemOptions, SelectActionViewItem } from '../../../../base/browser/ui/actionbar/actionViewItems.js';
@@ -51,7 +51,7 @@ export class StartDebugActionViewItem extends BaseActionViewItem {
 		@IDebugService private readonly debugService: IDebugService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ICommandService private readonly commandService: ICommandService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IContextViewService contextViewService: IContextViewService,
 		@IKeybindingService private readonly keybindingService: IKeybindingService,
 		@IHoverService private readonly hoverService: IHoverService,
@@ -124,7 +124,7 @@ export class StartDebugActionViewItem extends BaseActionViewItem {
 			if (shouldBeSelected) {
 				this.selected = e.index;
 			} else {
-				// Some select options should not remain selected https://github.com/microsoft/vscode/issues/31526
+				// Some select options should not remain selected https://github.com/johnnycharlesw/vsblocks/issues/31526
 				this.selectBox.select(this.selected);
 			}
 		}));

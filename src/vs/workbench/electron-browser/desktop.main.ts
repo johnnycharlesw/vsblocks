@@ -17,9 +17,9 @@ import { INativeWorkbenchEnvironmentService, NativeWorkbenchEnvironmentService }
 import { ServiceCollection } from '../../platform/instantiation/common/serviceCollection.js';
 import { ILoggerService, ILogService, LogLevel } from '../../platform/log/common/log.js';
 import { NativeWorkbenchStorageService } from '../services/storage/electron-browser/storageService.js';
-import { IWorkspaceContextService, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, IAnyWorkspaceIdentifier, reviveIdentifier, toWorkspaceIdentifier } from '../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, AnyWorkspaceIdentifierInterface, reviveIdentifier, toWorkspaceIdentifier } from '../../platform/workspace/common/workspace.js';
 import { IWorkbenchConfigurationService } from '../services/configuration/common/configuration.js';
-import { IStorageService } from '../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../platform/storage/common/storage.js';
 import { Disposable } from '../../base/common/lifecycle.js';
 import { ISharedProcessService } from '../../platform/ipc/electron-browser/services.js';
 import { IMainProcessService } from '../../platform/ipc/common/mainProcessService.js';
@@ -42,7 +42,7 @@ import { LoggerChannelClient } from '../../platform/log/common/logIpc.js';
 import { ProxyChannel } from '../../base/parts/ipc/common/ipc.js';
 import { NativeLogService } from '../services/log/electron-browser/logService.js';
 import { WorkspaceTrustEnablementService, WorkspaceTrustManagementService } from '../services/workspaces/common/workspaceTrust.js';
-import { IWorkspaceTrustEnablementService, IWorkspaceTrustManagementService } from '../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustEnablementService, WorkspaceInterfaceTrustManagementService } from '../../platform/workspace/common/workspaceTrust.js';
 import { safeStringify } from '../../base/common/objects.js';
 import { IUtilityProcessWorkerWorkbenchService, UtilityProcessWorkerWorkbenchService } from '../services/utilityProcess/electron-browser/utilityProcessWorkerWorkbenchService.js';
 import { isBigSurOrNewer, isCI, isMacintosh } from '../../base/common/platform.js';
@@ -121,7 +121,7 @@ export class DesktopMain extends Disposable {
 		// workspace, so we need the resolved configuration service.
 		// Finally, it is possible for the window to have a custom
 		// zoom level that is not derived from settings.
-		// (fixes https://github.com/microsoft/vscode/issues/187982)
+		// (fixes https://github.com/johnnycharlesw/vsblocks/issues/187982)
 		this.applyWindowZoomLevel(services.configurationService);
 
 		// Create Workbench
@@ -296,7 +296,7 @@ export class DesktopMain extends Disposable {
 			this.createWorkspaceService(workspace, environmentService, userDataProfileService, userDataProfilesService, fileService, remoteAgentService, uriIdentityService, logService, policyService).then(service => {
 
 				// Workspace
-				serviceCollection.set(IWorkspaceContextService, service);
+				serviceCollection.set(WorkspaceContextServiceInterface, service);
 
 				// Configuration
 				serviceCollection.set(IWorkbenchConfigurationService, service);
@@ -307,7 +307,7 @@ export class DesktopMain extends Disposable {
 			this.createStorageService(workspace, environmentService, userDataProfileService, userDataProfilesService, mainProcessService).then(service => {
 
 				// Storage
-				serviceCollection.set(IStorageService, service);
+				serviceCollection.set(StorageServiceInterface, service);
 
 				return service;
 			}),
@@ -323,10 +323,10 @@ export class DesktopMain extends Disposable {
 
 		// Workspace Trust Service
 		const workspaceTrustEnablementService = new WorkspaceTrustEnablementService(configurationService, environmentService);
-		serviceCollection.set(IWorkspaceTrustEnablementService, workspaceTrustEnablementService);
+		serviceCollection.set(WorkspaceInterfaceTrustEnablementService, workspaceTrustEnablementService);
 
 		const workspaceTrustManagementService = new WorkspaceTrustManagementService(configurationService, remoteAuthorityResolverService, storageService, uriIdentityService, environmentService, configurationService, workspaceTrustEnablementService, fileService);
-		serviceCollection.set(IWorkspaceTrustManagementService, workspaceTrustManagementService);
+		serviceCollection.set(WorkspaceInterfaceTrustManagementService, workspaceTrustManagementService);
 
 		// Update workspace trust so that configuration is updated accordingly
 		configurationService.updateWorkspaceTrust(workspaceTrustManagementService.isWorkspaceTrusted());
@@ -346,7 +346,7 @@ export class DesktopMain extends Disposable {
 		return { serviceCollection, logService, storageService, configurationService };
 	}
 
-	private resolveWorkspaceIdentifier(environmentService: INativeWorkbenchEnvironmentService): IAnyWorkspaceIdentifier {
+	private resolveWorkspaceIdentifier(environmentService: INativeWorkbenchEnvironmentService): AnyWorkspaceIdentifierInterface {
 
 		// Return early for when a folder or multi-root is opened
 		if (this.configuration.workspace) {
@@ -358,7 +358,7 @@ export class DesktopMain extends Disposable {
 	}
 
 	private async createWorkspaceService(
-		workspace: IAnyWorkspaceIdentifier,
+		workspace: AnyWorkspaceIdentifierInterface,
 		environmentService: INativeWorkbenchEnvironmentService,
 		userDataProfileService: IUserDataProfileService,
 		userDataProfilesService: IUserDataProfilesService,
@@ -382,7 +382,7 @@ export class DesktopMain extends Disposable {
 		}
 	}
 
-	private async createStorageService(workspace: IAnyWorkspaceIdentifier, environmentService: INativeWorkbenchEnvironmentService, userDataProfileService: IUserDataProfileService, userDataProfilesService: IUserDataProfilesService, mainProcessService: IMainProcessService): Promise<NativeWorkbenchStorageService> {
+	private async createStorageService(workspace: AnyWorkspaceIdentifierInterface, environmentService: INativeWorkbenchEnvironmentService, userDataProfileService: IUserDataProfileService, userDataProfilesService: IUserDataProfilesService, mainProcessService: IMainProcessService): Promise<NativeWorkbenchStorageService> {
 		const storageService = new NativeWorkbenchStorageService(workspace, userDataProfileService, userDataProfilesService, mainProcessService, environmentService);
 
 		try {

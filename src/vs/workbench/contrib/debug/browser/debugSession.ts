@@ -31,7 +31,7 @@ import { INotificationService } from '../../../../platform/notification/common/n
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { ICustomEndpointTelemetryService, ITelemetryService, TelemetryLevel } from '../../../../platform/telemetry/common/telemetry.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { ViewContainerLocation } from '../../../common/views.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { IHostService } from '../../../services/host/browser/host.js';
@@ -101,7 +101,7 @@ export class DebugSession implements IDebugSession {
 	constructor(
 		private id: string,
 		private _configuration: { resolved: IConfig; unresolved: IConfig | undefined },
-		public root: IWorkspaceFolder | undefined,
+		public root: WorkspaceInterfaceFolder | undefined,
 		private model: DebugModel,
 		options: IDebugSessionOptions | undefined,
 		@IDebugService private readonly debugService: IDebugService,
@@ -109,7 +109,7 @@ export class DebugSession implements IDebugSession {
 		@IHostService private readonly hostService: IHostService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IPaneCompositePartService private readonly paneCompositeService: IPaneCompositePartService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IProductService private readonly productService: IProductService,
 		@INotificationService private readonly notificationService: INotificationService,
 		@ILifecycleService lifecycleService: ILifecycleService,
@@ -1178,7 +1178,7 @@ export class DebugSession implements IDebugSession {
 				const container = new ExpressionContainer(this, undefined, event.body.variablesReference, generateUuid());
 				const children = container.getChildren();
 				// we should put appendToRepl into queue to make sure the logs to be displayed in correct order
-				// see https://github.com/microsoft/vscode/issues/126967#issuecomment-874954269
+				// see https://github.com/johnnycharlesw/vsblocks/issues/126967#issuecomment-874954269
 				outputQueue.queue(async () => {
 					const resolved = await children;
 					// For single logged variables, try to use the output if we can so
@@ -1324,7 +1324,7 @@ export class DebugSession implements IDebugSession {
 		}));
 		this.rawListeners.add(this.raw.onDidInvalidated(async event => {
 			const areas = event.body.areas || ['all'];
-			// If invalidated event only requires to update variables or watch, do that, otherwise refetch threads https://github.com/microsoft/vscode/issues/106745
+			// If invalidated event only requires to update variables or watch, do that, otherwise refetch threads https://github.com/johnnycharlesw/vsblocks/issues/106745
 			if (areas.includes('threads') || areas.includes('stacks') || areas.includes('all')) {
 				this.cancelAllRequests();
 				this.model.clearThreads(this.getId(), true);

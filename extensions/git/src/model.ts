@@ -675,7 +675,7 @@ export class Model implements IRepositoryResolver, IBranchProtectionProviderRegi
 			const rawRoot = await this.git.getRepositoryRoot(repoPath);
 
 			// This can happen whenever `path` has the wrong case sensitivity in case
-			// insensitive file systems https://github.com/microsoft/vscode/issues/33498
+			// insensitive file systems https://github.com/johnnycharlesw/vsblocks/issues/33498
 			return { repositoryRoot: Uri.file(rawRoot).fsPath, unsafeRepositoryMatch: null };
 		} catch (err) {
 			// Handle unsafe repository

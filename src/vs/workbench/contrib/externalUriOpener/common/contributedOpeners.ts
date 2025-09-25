@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Disposable } from '../../../../base/common/lifecycle.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Memento } from '../../../common/memento.js';
 import { updateContributedOpeners } from './configuration.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
@@ -28,7 +28,7 @@ export class ContributedExternalUriOpenersStore extends Disposable {
 	private _mementoObject: OpenersMemento;
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IExtensionService private readonly _extensionService: IExtensionService
 	) {
 		super();

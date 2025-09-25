@@ -7,7 +7,7 @@ import * as nls from '../../../../nls.js';
 import { Event, Emitter } from '../../../../base/common/event.js';
 import { IInstantiationService, createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITunnelService, RemoteTunnel, TunnelProtocol } from '../../../../platform/tunnel/common/tunnel.js';
 import { IDisposable } from '../../../../base/common/lifecycle.js';
 import { IEditableData } from '../../../common/views.js';
@@ -163,7 +163,7 @@ class RemoteExplorerService implements IRemoteExplorerService {
 	public readonly namedProcesses = new Map<number, string>();
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@ITunnelService private readonly tunnelService: ITunnelService,
 		@IInstantiationService instantiationService: IInstantiationService,
 	) {

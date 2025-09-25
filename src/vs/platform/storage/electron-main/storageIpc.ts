@@ -12,7 +12,7 @@ import { IBaseSerializableStorageRequest, ISerializableItemsChangeEvent, ISerial
 import { IStorageChangeEvent, IStorageMain } from './storageMain.js';
 import { IStorageMainService } from './storageMainService.js';
 import { IUserDataProfile } from '../../userDataProfile/common/userDataProfile.js';
-import { reviveIdentifier, IAnyWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { reviveIdentifier, AnyWorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 export class StorageDatabaseChannel extends Disposable implements IServerChannel {
 
@@ -141,7 +141,7 @@ export class StorageDatabaseChannel extends Disposable implements IServerChannel
 		}
 	}
 
-	private async withStorageInitialized(profile: IUserDataProfile | undefined, workspace: IAnyWorkspaceIdentifier | undefined): Promise<IStorageMain> {
+	private async withStorageInitialized(profile: IUserDataProfile | undefined, workspace: AnyWorkspaceIdentifierInterface | undefined): Promise<IStorageMain> {
 		let storage: IStorageMain;
 		if (workspace) {
 			storage = this.storageMainService.workspaceStorage(workspace);

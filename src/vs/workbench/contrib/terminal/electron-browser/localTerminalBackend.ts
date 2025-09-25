@@ -10,10 +10,10 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ILocalPtyService, IProcessPropertyMap, IPtyHostLatencyMeasurement, IPtyService, IShellLaunchConfig, ITerminalBackend, ITerminalBackendRegistry, ITerminalChildProcess, ITerminalEnvironment, ITerminalLogService, ITerminalProcessOptions, ITerminalsLayoutInfo, ITerminalsLayoutInfoById, ProcessPropertyType, TerminalExtensions, TerminalIpcChannels, TerminalSettingId, TitleEventSource } from '../../../../platform/terminal/common/terminal.js';
 import { IGetTerminalLayoutInfoArgs, IProcessDetails, ISetTerminalLayoutInfoArgs } from '../../../../platform/terminal/common/terminalProcess.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { ITerminalInstanceService } from '../browser/terminal.js';
 import { ITerminalProfileResolverService } from '../common/terminal.js';
@@ -78,13 +78,13 @@ class LocalTerminalBackend extends BaseTerminalBackend implements ITerminalBacke
 	readonly onDidRequestDetach = this._onDidRequestDetach.event;
 
 	constructor(
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@ILifecycleService private readonly _lifecycleService: ILifecycleService,
 		@ITerminalLogService logService: ITerminalLogService,
 		@ILocalPtyService private readonly _localPtyService: ILocalPtyService,
 		@ILabelService private readonly _labelService: ILabelService,
 		@IShellEnvironmentService private readonly _shellEnvironmentService: IShellEnvironmentService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IConfigurationResolverService private readonly _configurationResolverService: IConfigurationResolverService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 		@IProductService private readonly _productService: IProductService,

@@ -7,7 +7,7 @@ import { splitGlobAware } from '../../../../base/common/glob.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { ISettableObservable, observableValue } from '../../../../base/common/observable.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IObservableValue, MutableObservableValue } from './observableValue.js';
 import { StoredValue } from './storedValue.js';
 import { namespaceTestTag } from './testTypes.js';
@@ -109,7 +109,7 @@ export class TestExplorerFilterState extends Disposable implements ITestExplorer
 	public readonly onDidSelectTestInExplorer = this.selectTestInExplorerEmitter.event;
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super();
 		this.fuzzy = this._register(MutableObservableValue.stored(new StoredValue<boolean>({

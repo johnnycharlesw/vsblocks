@@ -16,7 +16,7 @@ import { ContextKeyService } from '../../../../../platform/contextkey/browser/co
 import { ViewDescriptorService } from '../../browser/viewDescriptorService.js';
 import { Registry } from '../../../../../platform/registry/common/platform.js';
 import { SyncDescriptor } from '../../../../../platform/instantiation/common/descriptors.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { Event } from '../../../../../base/common/event.js';
 import { getViewsStateStorageId } from '../../common/viewContainerModel.js';
 import { runWithFakedTimers } from '../../../../../base/test/common/timeTravelScheduler.js';
@@ -48,13 +48,13 @@ suite('ViewContainerModel', () => {
 	const disposableStore = ensureNoDisposablesAreLeakedInTestSuite();
 	let contextKeyService: IContextKeyService;
 	let viewDescriptorService: IViewDescriptorService;
-	let storageService: IStorageService;
+	let storageService: StorageServiceInterface;
 
 	setup(() => {
 		const instantiationService: TestInstantiationService = workbenchInstantiationService(undefined, disposableStore);
 		contextKeyService = disposableStore.add(instantiationService.createInstance(ContextKeyService));
 		instantiationService.stub(IContextKeyService, contextKeyService);
-		storageService = instantiationService.get(IStorageService);
+		storageService = instantiationService.get(StorageServiceInterface);
 		viewDescriptorService = disposableStore.add(instantiationService.createInstance(ViewDescriptorService));
 	});
 

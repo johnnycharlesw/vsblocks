@@ -12,7 +12,7 @@ import { IContextKeyService } from '../../../../../platform/contextkey/common/co
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { MockContextKeyService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { IChatAgentService } from '../../common/chatAgents.js';
 import { ChatMode, ChatModeService } from '../../common/chatModes.js';
@@ -55,7 +55,7 @@ suite('ChatModeService', () => {
 
 		instantiationService.stub(IPromptsService, promptsService);
 		instantiationService.stub(IChatAgentService, chatAgentService);
-		instantiationService.stub(IStorageService, storageService);
+		instantiationService.stub(StorageServiceInterface, storageService);
 		instantiationService.stub(ILogService, new NullLogService());
 		instantiationService.stub(IContextKeyService, new MockContextKeyService());
 

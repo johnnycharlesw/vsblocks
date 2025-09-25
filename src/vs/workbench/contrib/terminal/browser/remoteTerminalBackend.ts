@@ -14,11 +14,11 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { IRemoteAuthorityResolverService } from '../../../../platform/remote/common/remoteAuthorityResolver.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ISerializedTerminalCommand } from '../../../../platform/terminal/common/capabilities/capabilities.js';
 import { IPtyHostLatencyMeasurement, IShellLaunchConfig, IShellLaunchConfigDto, ITerminalBackend, ITerminalBackendRegistry, ITerminalChildProcess, ITerminalEnvironment, ITerminalLogService, ITerminalProcessOptions, ITerminalProfile, ITerminalsLayoutInfo, ITerminalsLayoutInfoById, ProcessPropertyType, TerminalExtensions, TerminalIcon, TerminalSettingId, TitleEventSource } from '../../../../platform/terminal/common/terminal.js';
 import { IProcessDetails } from '../../../../platform/terminal/common/terminalProcess.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { BaseTerminalBackend } from './baseTerminalBackend.js';
 import { RemotePty } from './remotePty.js';
@@ -68,9 +68,9 @@ class RemoteTerminalBackend extends BaseTerminalBackend implements ITerminalBack
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 		@ITerminalLogService logService: ITerminalLogService,
 		@ICommandService private readonly _commandService: ICommandService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IRemoteAuthorityResolverService private readonly _remoteAuthorityResolverService: IRemoteAuthorityResolverService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@IConfigurationResolverService configurationResolverService: IConfigurationResolverService,
 		@IHistoryService private readonly _historyService: IHistoryService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,

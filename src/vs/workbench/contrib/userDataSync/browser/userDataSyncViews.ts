@@ -28,7 +28,7 @@ import { INotificationService, Severity } from '../../../../platform/notificatio
 import { basename } from '../../../../base/common/resources.js';
 import { API_OPEN_DIFF_EDITOR_COMMAND_ID, API_OPEN_EDITOR_COMMAND_ID } from '../../../browser/parts/editor/editorCommands.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
@@ -739,7 +739,7 @@ class UserDataSyncTroubleshootViewDataProvider implements ITreeViewDataProvider 
 	constructor(
 		@IFileService private readonly fileService: IFileService,
 		@IUserDataSyncWorkbenchService private readonly userDataSyncWorkbenchService: IUserDataSyncWorkbenchService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 	) {
 	}

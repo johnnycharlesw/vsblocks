@@ -13,7 +13,7 @@ import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
 import { IUriIdentityService } from '../../../../../platform/uriIdentity/common/uriIdentity.js';
 import { UriIdentityService } from '../../../../../platform/uriIdentity/common/uriIdentityService.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { TestWorkspace } from '../../../../../platform/workspace/test/common/testWorkspace.js';
 import { SearchModelImpl } from '../../browser/searchTreeModel/searchModel.js';
 import { MockLabelService } from '../../../../services/label/test/common/mockLabelService.js';
@@ -39,7 +39,7 @@ suite('Search - Viewlet', () => {
 		instantiation.stub(IModelService, stubModelService(instantiation, (e) => store.add(e)));
 		instantiation.stub(INotebookEditorService, stubNotebookEditorService(instantiation, (e) => store.add(e)));
 
-		instantiation.set(IWorkspaceContextService, new TestContextService(TestWorkspace));
+		instantiation.set(WorkspaceContextServiceInterface, new TestContextService(TestWorkspace));
 		const fileService = new FileService(new NullLogService());
 		store.add(fileService);
 		const uriIdentityService = new UriIdentityService(fileService);

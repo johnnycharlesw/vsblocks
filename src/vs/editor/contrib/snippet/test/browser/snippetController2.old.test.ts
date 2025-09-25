@@ -16,7 +16,7 @@ import { IContextKeyService } from '../../../../../platform/contextkey/common/co
 import { ServiceCollection } from '../../../../../platform/instantiation/common/serviceCollection.js';
 import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { NullLogService } from '../../../../../platform/log/common/log.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 
 class TestSnippetController extends SnippetController2 {
 
@@ -59,7 +59,7 @@ suite('SnippetController', () => {
 
 		const serviceCollection = new ServiceCollection(
 			[ILabelService, new class extends mock<ILabelService>() { }],
-			[IWorkspaceContextService, new class extends mock<IWorkspaceContextService>() { }],
+			[WorkspaceContextServiceInterface, new class extends mock<WorkspaceContextServiceInterface>() { }],
 		);
 
 		withTestCodeEditor(lines, { serviceCollection }, (editor) => {

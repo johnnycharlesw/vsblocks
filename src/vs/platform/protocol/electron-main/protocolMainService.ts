@@ -12,7 +12,7 @@ import { TernarySearchTree } from '../../../base/common/ternarySearchTree.js';
 import { URI } from '../../../base/common/uri.js';
 import { generateUuid } from '../../../base/common/uuid.js';
 import { validatedIpcMain } from '../../../base/parts/ipc/electron-main/ipcMain.js';
-import { INativeEnvironmentService } from '../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { ILogService } from '../../log/common/log.js';
 import { IIPCObjectUrl, IProtocolMainService } from './protocol.js';
 import { IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
@@ -24,10 +24,10 @@ export class ProtocolMainService extends Disposable implements IProtocolMainServ
 	declare readonly _serviceBrand: undefined;
 
 	private readonly validRoots = TernarySearchTree.forPaths<boolean>(!isLinux);
-	private readonly validExtensions = new Set(['.svg', '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp', '.mp4', '.otf', '.ttf']); // https://github.com/microsoft/vscode/issues/119384
+	private readonly validExtensions = new Set(['.svg', '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp', '.mp4', '.otf', '.ttf']); // https://github.com/johnnycharlesw/vsblocks/issues/119384
 
 	constructor(
-		@INativeEnvironmentService private readonly environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private readonly environmentService: NativeEnvironmentServiceInterface,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
 		@ILogService private readonly logService: ILogService
 	) {
@@ -36,7 +36,7 @@ export class ProtocolMainService extends Disposable implements IProtocolMainServ
 		// Define an initial set of roots we allow loading from
 		// - appRoot	: all files installed as part of the app
 		// - extensions : all files shipped from extensions
-		// - storage    : all files in global and workspace storage (https://github.com/microsoft/vscode/issues/116735)
+		// - storage    : all files in global and workspace storage (https://github.com/johnnycharlesw/vsblocks/issues/116735)
 		this.addValidFileRoot(environmentService.appRoot);
 		this.addValidFileRoot(environmentService.extensionsPath);
 		this.addValidFileRoot(userDataProfilesService.defaultProfile.globalStorageHome.with({ scheme: Schemas.file }).fsPath);
@@ -105,7 +105,7 @@ export class ProtocolMainService extends Disposable implements IProtocolMainServ
 		}
 
 		// In OSS, evict resources from the memory cache in the renderer process
-		// Refs https://github.com/microsoft/vscode/issues/148541#issuecomment-2670891511
+		// Refs https://github.com/johnnycharlesw/vsblocks/issues/148541#issuecomment-2670891511
 		if (!this.environmentService.isBuilt) {
 			headers = {
 				...headers,

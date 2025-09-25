@@ -96,7 +96,7 @@
         "editor.autoIndent": "advanced",
         "diffEditor.ignoreTrimWhitespace": false,
         "editor.defaultColorDecorators": "never",
-        "editor.quickSuggestions": { 
+        "editor.quickSuggestions": {
           "strings": "on"
         }
       },
@@ -109,6 +109,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/microsoft/vscode.git"
+    "url": "https://github.com/johnnycharlesw/vsblocks.git"
   }
 }

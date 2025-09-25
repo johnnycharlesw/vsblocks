@@ -214,7 +214,7 @@
 	"remote.extensionKind": {
 		"msjsdiag.debugger-for-chrome": "workspace"
 	},
-	// "application.experimental.rendererProfiling": true, // https://github.com/microsoft/vscode/issues/265654
+	// "application.experimental.rendererProfiling": true, // https://github.com/johnnycharlesw/vsblocks/issues/265654
 
 	"editor.aiStats.enabled": true, // Team selfhosting on ai stats
 	"chat.checkpoints.showFileChanges": true,

@@ -16,7 +16,7 @@ import { IResourceEditorInput } from '../../../../platform/editor/common/editor.
 import { FileOperation, IFileService } from '../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { DEFAULT_EDITOR_ASSOCIATION, EditorExtensions, GroupIdentifier, IEditorFactoryRegistry, IResourceDiffEditorInput } from '../../../common/editor.js';
 import { DiffEditorInput } from '../../../common/editor/diffEditorInput.js';
@@ -46,7 +46,7 @@ export class CustomEditorService extends Disposable implements ICustomEditorServ
 
 	constructor(
 		@IFileService fileService: IFileService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IEditorService private readonly editorService: IEditorService,
 		@IEditorGroupsService private readonly editorGroupService: IEditorGroupsService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,

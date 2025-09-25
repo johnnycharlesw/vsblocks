@@ -31,13 +31,13 @@ import { ILabelService } from '../../../../platform/label/common/label.js';
 import { WorkbenchCompressibleObjectTree } from '../../../../platform/list/browser/listService.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { IFileIconTheme, IThemeService } from '../../../../platform/theme/common/themeService.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { IResourceLabel, IResourceLabelOptions, IResourceLabelProps, ResourceLabels } from '../../../browser/labels.js';
 import { ViewAction, ViewPane } from '../../../browser/parts/views/viewPane.js';
 import { IViewletViewOptions } from '../../../browser/parts/views/viewsViewlet.js';
 import { IViewDescriptorService } from '../../../common/views.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { CONTEXT_LOADED_SCRIPTS_ITEM_TYPE, IDebugService, IDebugSession, LOADED_SCRIPTS_VIEW_ID } from '../common/debug.js';
 import { DebugContentProvider } from '../common/debugContentProvider.js';
 import { Source } from '../common/debugSource.js';
@@ -240,14 +240,14 @@ class BaseTreeItem {
 
 class RootFolderTreeItem extends BaseTreeItem {
 
-	constructor(parent: BaseTreeItem, public folder: IWorkspaceFolder) {
+	constructor(parent: BaseTreeItem, public folder: WorkspaceInterfaceFolder) {
 		super(parent, folder.name, true);
 	}
 }
 
 class RootTreeItem extends BaseTreeItem {
 
-	constructor(private _pathService: IPathService, private _contextService: IWorkspaceContextService, private _labelService: ILabelService) {
+	constructor(private _pathService: PathInterfaceService, private _contextService: WorkspaceContextServiceInterface, private _labelService: ILabelService) {
 		super(undefined, 'Root');
 	}
 
@@ -268,7 +268,7 @@ class SessionTreeItem extends BaseTreeItem {
 	private _map = new Map<string, BaseTreeItem>();
 	private _labelService: ILabelService;
 
-	constructor(labelService: ILabelService, parent: BaseTreeItem, session: IDebugSession, private _pathService: IPathService, private rootProvider: IWorkspaceContextService) {
+	constructor(labelService: ILabelService, parent: BaseTreeItem, session: IDebugSession, private _pathService: PathInterfaceService, private rootProvider: WorkspaceContextServiceInterface) {
 		super(parent, session.getLabel(), true);
 		this._labelService = labelService;
 		this._session = session;
@@ -318,7 +318,7 @@ class SessionTreeItem extends BaseTreeItem {
 
 	async addPath(source: Source): Promise<void> {
 
-		let folder: IWorkspaceFolder | null;
+		let folder: WorkspaceInterfaceFolder | null;
 		let url: string;
 
 		let path = source.raw.path;
@@ -430,10 +430,10 @@ export class LoadedScriptsView extends ViewPane {
 		@IConfigurationService configurationService: IConfigurationService,
 		@IEditorService private readonly editorService: IEditorService,
 		@IContextKeyService contextKeyService: IContextKeyService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IDebugService private readonly debugService: IDebugService,
 		@ILabelService private readonly labelService: ILabelService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IOpenerService openerService: IOpenerService,
 		@IThemeService themeService: IThemeService,
 		@IHoverService hoverService: IHoverService,

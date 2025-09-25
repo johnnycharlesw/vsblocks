@@ -17,7 +17,7 @@ import { ICommandService } from '../../../../platform/commands/common/commands.j
 import { Extensions as ConfigurationExtensions, ConfigurationScope, IConfigurationRegistry } from '../../../../platform/configuration/common/configurationRegistry.js';
 import { ContextKeyExpr, IContextKey, IContextKeyService, RawContextKey } from '../../../../platform/contextkey/common/contextkey.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
-import { INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogger, ILoggerService } from '../../../../platform/log/common/log.js';
 import { INotificationService, NotificationPriority, Severity } from '../../../../platform/notification/common/notification.js';
@@ -27,8 +27,8 @@ import { IProgress, IProgressService, IProgressStep, ProgressLocation } from '..
 import { IQuickInputService, IQuickPickItem, IQuickPickSeparator, QuickPickItem } from '../../../../platform/quickinput/common/quickInput.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { CONFIGURATION_KEY_HOST_NAME, CONFIGURATION_KEY_PREFIX, CONFIGURATION_KEY_PREVENT_SLEEP, ConnectionInfo, INACTIVE_TUNNEL_MODE, IRemoteTunnelService, IRemoteTunnelSession, LOGGER_NAME, LOG_ID, TunnelStatus } from '../../../../platform/remoteTunnel/common/remoteTunnel.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
-import { IWorkspaceContextService, isUntitledWorkspace } from '../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { WorkspaceContextServiceInterface, isUntitledWorkspace } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchContribution, IWorkbenchContributionsRegistry, Extensions as WorkbenchExtensions } from '../../../common/contributions.js';
 import { AuthenticationSession, IAuthenticationService } from '../../../services/authentication/common/authentication.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
@@ -97,13 +97,13 @@ export class RemoteTunnelWorkbenchContribution extends Disposable implements IWo
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@IProductService productService: IProductService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@ILoggerService loggerService: ILoggerService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
-		@INativeEnvironmentService private environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private environmentService: NativeEnvironmentServiceInterface,
 		@IRemoteTunnelService private remoteTunnelService: IRemoteTunnelService,
 		@ICommandService private commandService: ICommandService,
-		@IWorkspaceContextService private workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private workspaceContextService: WorkspaceContextServiceInterface,
 		@IProgressService private progressService: IProgressService,
 		@INotificationService private notificationService: INotificationService
 	) {
@@ -507,7 +507,7 @@ export class RemoteTunnelWorkbenchContribution extends Disposable implements IWo
 				const notificationService = accessor.get(INotificationService);
 				const clipboardService = accessor.get(IClipboardService);
 				const commandService = accessor.get(ICommandService);
-				const storageService = accessor.get(IStorageService);
+				const storageService = accessor.get(StorageServiceInterface);
 				const dialogService = accessor.get(IDialogService);
 				const quickInputService = accessor.get(IQuickInputService);
 				const productService = accessor.get(IProductService);

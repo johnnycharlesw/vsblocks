@@ -10,7 +10,7 @@ import { basename } from '../../../../base/common/resources.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { CommentNode, ICommentThreadChangedEvent, ResourceWithCommentThreads } from '../common/commentModel.js';
-import { ICommentService, IWorkspaceCommentThreadsEvent } from './commentService.js';
+import { ICommentService, WorkspaceInterfaceCommentThreadsEvent } from './commentService.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { ResourceLabels } from '../../../browser/labels.js';
 import { CommentsList, COMMENTS_VIEW_TITLE, Filter } from './commentsTreeViewer.js';
@@ -25,7 +25,7 @@ import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uri
 import { CommentsViewFilterFocusContextKey, ICommentsView } from './comments.js';
 import { CommentsFilters, CommentsFiltersChangeEvent, CommentsSortOrder } from './commentsViewActions.js';
 import { Memento, MementoObject } from '../../../common/memento.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { FilterOptions } from './commentsFilterOptions.js';
 import { CommentThreadApplicability, CommentThreadState } from '../../../../editor/common/languages.js';
 import { revealCommentThread } from './commentsController.js';
@@ -35,7 +35,7 @@ import { IHoverService } from '../../../../platform/hover/browser/hover.js';
 import { AccessibilityVerbositySettingId } from '../../accessibility/browser/accessibilityConfiguration.js';
 import { AccessibleViewAction } from '../../accessibility/browser/accessibleViewActions.js';
 import type { ITreeElement } from '../../../../base/browser/ui/tree/tree.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { isCodeEditor } from '../../../../editor/browser/editorBrowser.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IRange } from '../../../../editor/common/core/range.js';
@@ -149,8 +149,8 @@ export class CommentsPanel extends FilterViewPane implements ICommentsView {
 		@ICommentService private readonly commentService: ICommentService,
 		@IHoverService hoverService: IHoverService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
-		@IStorageService storageService: IStorageService,
-		@IPathService private readonly pathService: IPathService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 	) {
 		const stateMemento = new Memento(VIEW_STORAGE_ID, storageService);
 		const viewState = stateMemento.getMemento(StorageScope.WORKSPACE, StorageTarget.MACHINE);
@@ -514,7 +514,7 @@ export class CommentsPanel extends FilterViewPane implements ICommentsView {
 		}
 	}
 
-	private onAllCommentsChanged(e: IWorkspaceCommentThreadsEvent): void {
+	private onAllCommentsChanged(e: WorkspaceInterfaceCommentThreadsEvent): void {
 		this.cachedFilterStats = undefined;
 		this.totalComments += e.commentThreads.length;
 

@@ -367,7 +367,7 @@ function packageTask(platform, arch, sourceFolderName, destinationFolderName, op
 		let result = all
 			.pipe(util.skipDirectories())
 			.pipe(util.fixWin32DirectoryPermissions())
-			.pipe(filter(['**', '!**/.github/**'], { dot: true })) // https://github.com/microsoft/vscode/issues/116523
+			.pipe(filter(['**', '!**/.github/**'], { dot: true })) // https://github.com/johnnycharlesw/vsblocks/issues/116523
 			.pipe(electron({ ...config, platform, arch: arch === 'armhf' ? 'arm' : arch, ffmpegChromium: false }))
 			.pipe(filter(['**', '!LICENSE', '!version'], { dot: true }));
 

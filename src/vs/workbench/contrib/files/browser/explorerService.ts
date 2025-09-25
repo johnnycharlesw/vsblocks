@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Event } from '../../../../base/common/event.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { DisposableStore } from '../../../../base/common/lifecycle.js';
 import { IFilesConfiguration, ISortOrderConfiguration, SortOrder, LexicographicOptions } from '../common/files.js';
 import { ExplorerItem, ExplorerModel } from '../common/explorerModel.js';
@@ -47,7 +47,7 @@ export class ExplorerService implements IExplorerService {
 	constructor(
 		@IFileService private fileService: IFileService,
 		@IConfigurationService private configurationService: IConfigurationService,
-		@IWorkspaceContextService private contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private contextService: WorkspaceContextServiceInterface,
 		@IClipboardService private clipboardService: IClipboardService,
 		@IEditorService private editorService: IEditorService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,

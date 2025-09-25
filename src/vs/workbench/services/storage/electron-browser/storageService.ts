@@ -3,21 +3,21 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IMainProcessService } from '../../../../platform/ipc/common/mainProcessService.js';
 import { RemoteStorageService } from '../../../../platform/storage/common/storageService.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
-import { IAnyWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IUserDataProfileService } from '../../userDataProfile/common/userDataProfile.js';
 
 export class NativeWorkbenchStorageService extends RemoteStorageService {
 
 	constructor(
-		workspace: IAnyWorkspaceIdentifier | undefined,
+		workspace: AnyWorkspaceIdentifierInterface | undefined,
 		private readonly userDataProfileService: IUserDataProfileService,
 		userDataProfilesService: IUserDataProfilesService,
 		mainProcessService: IMainProcessService,
-		environmentService: IEnvironmentService
+		environmentService: EnvironmentServiceInterface
 	) {
 		super(workspace, { currentProfile: userDataProfileService.currentProfile, defaultProfile: userDataProfilesService.defaultProfile }, mainProcessService, environmentService);
 

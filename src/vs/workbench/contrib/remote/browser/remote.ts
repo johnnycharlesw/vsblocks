@@ -9,8 +9,8 @@ import * as dom from '../../../../base/browser/dom.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IWorkbenchLayoutService } from '../../../services/layout/browser/layoutService.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
@@ -130,7 +130,7 @@ class HelpModel extends Disposable {
 		private commandService: ICommandService,
 		private remoteExplorerService: IRemoteExplorerService,
 		private environmentService: IWorkbenchEnvironmentService,
-		private workspaceContextService: IWorkspaceContextService,
+		private workspaceContextService: WorkspaceContextServiceInterface,
 		private walkthroughsService: IWalkthroughsService
 	) {
 		super();
@@ -282,7 +282,7 @@ abstract class HelpItemBase implements IHelpItem {
 		private quickInputService: IQuickInputService,
 		private environmentService: IWorkbenchEnvironmentService,
 		private remoteExplorerService: IRemoteExplorerService,
-		private workspaceContextService: IWorkspaceContextService
+		private workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		this.iconClasses.push(...ThemeIcon.asClassNameArray(icon));
 		this.iconClasses.push('remote-help-tree-node-item-icon');
@@ -367,7 +367,7 @@ class GetStartedHelpItem extends HelpItemBase {
 		environmentService: IWorkbenchEnvironmentService,
 		private openerService: IOpenerService,
 		remoteExplorerService: IRemoteExplorerService,
-		workspaceContextService: IWorkspaceContextService,
+		workspaceContextService: WorkspaceContextServiceInterface,
 		private commandService: ICommandService
 	) {
 		super(icon, label, values, quickInputService, environmentService, remoteExplorerService, workspaceContextService);
@@ -392,7 +392,7 @@ class HelpItem extends HelpItemBase {
 		environmentService: IWorkbenchEnvironmentService,
 		private openerService: IOpenerService,
 		remoteExplorerService: IRemoteExplorerService,
-		workspaceContextService: IWorkspaceContextService
+		workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		super(icon, label, values, quickInputService, environmentService, remoteExplorerService, workspaceContextService);
 	}
@@ -412,7 +412,7 @@ class IssueReporterItem extends HelpItemBase {
 		private commandService: ICommandService,
 		private openerService: IOpenerService,
 		remoteExplorerService: IRemoteExplorerService,
-		workspaceContextService: IWorkspaceContextService
+		workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		super(icon, label, values, quickInputService, environmentService, remoteExplorerService, workspaceContextService);
 	}
@@ -463,7 +463,7 @@ class HelpPanel extends ViewPane {
 		@IWorkbenchEnvironmentService protected readonly environmentService: IWorkbenchEnvironmentService,
 		@IThemeService themeService: IThemeService,
 		@IHoverService hoverService: IHoverService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IWalkthroughsService private readonly walkthroughsService: IWalkthroughsService,
 	) {
 		super(options, keybindingService, contextMenuService, configurationService, contextKeyService, viewDescriptorService, instantiationService, openerService, themeService, hoverService);
@@ -533,8 +533,8 @@ class RemoteViewPaneContainer extends FilterViewPaneContainer implements IViewMo
 	constructor(
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@ITelemetryService telemetryService: ITelemetryService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
-		@IStorageService storageService: IStorageService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,

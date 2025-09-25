@@ -6,7 +6,7 @@
 import { BroadcastDataChannel } from '../../../base/browser/broadcast.js';
 import { revive } from '../../../base/common/marshalling.js';
 import { UriDto } from '../../../base/common/uri.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { ILogService } from '../../log/common/log.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
@@ -19,7 +19,7 @@ export class BrowserUserDataProfilesService extends UserDataProfilesService impl
 	private readonly changesBroadcastChannel: BroadcastDataChannel<BroadcastedProfileChanges>;
 
 	constructor(
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@ILogService logService: ILogService,

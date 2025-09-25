@@ -35,7 +35,7 @@ import { basename } from '../../../../base/common/path.js';
 import { IExtensionStorageService } from '../../../../platform/extensionManagement/common/extensionStorage.js';
 import { isNonEmptyArray } from '../../../../base/common/arrays.js';
 import { ILifecycleService, LifecyclePhase } from '../../lifecycle/common/lifecycle.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { validateExtensionManifest } from '../../../../platform/extensions/common/extensionValidator.js';
 import Severity from '../../../../base/common/severity.js';
@@ -110,7 +110,7 @@ export class WebExtensionsScannerService extends Disposable implements IWebExten
 		@IExtensionManifestPropertiesService private readonly extensionManifestPropertiesService: IExtensionManifestPropertiesService,
 		@IExtensionResourceLoaderService private readonly extensionResourceLoaderService: IExtensionResourceLoaderService,
 		@IExtensionStorageService private readonly extensionStorageService: IExtensionStorageService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IProductService private readonly productService: IProductService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
@@ -293,7 +293,7 @@ export class WebExtensionsScannerService extends Disposable implements IWebExten
 					continue;
 				}
 			}
-			/* Update preRelease flag in the cache - https://github.com/microsoft/vscode/issues/142831 */
+			/* Update preRelease flag in the cache - https://github.com/johnnycharlesw/vsblocks/issues/142831 */
 			if (webExtension.metadata?.isPreReleaseVersion && !webExtension.metadata?.preRelease) {
 				webExtension.metadata.preRelease = true;
 			}

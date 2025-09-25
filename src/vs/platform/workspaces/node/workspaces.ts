@@ -9,7 +9,7 @@ import { Schemas } from '../../../base/common/network.js';
 import { isLinux, isMacintosh, isWindows } from '../../../base/common/platform.js';
 import { originalFSPath } from '../../../base/common/resources.js';
 import { URI } from '../../../base/common/uri.js';
-import { IEmptyWorkspaceIdentifier, ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { EmptyWorkspaceIdentifierInterface, SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 /**
  * Length of workspace identifiers that are not empty. Those are
@@ -21,7 +21,7 @@ export const NON_EMPTY_WORKSPACE_ID_LENGTH = 128 / 4;
 // NOTE: DO NOT CHANGE. IDENTIFIERS HAVE TO REMAIN STABLE
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-export function getWorkspaceIdentifier(configPath: URI): IWorkspaceIdentifier {
+export function getWorkspaceIdentifier(configPath: URI): WorkspaceIdentifierInterface {
 
 	function getWorkspaceId(): string {
 		let configPathStr = configPath.scheme === Schemas.file ? originalFSPath(configPath) : configPath.toString();
@@ -42,9 +42,9 @@ export function getWorkspaceIdentifier(configPath: URI): IWorkspaceIdentifier {
 // NOTE: DO NOT CHANGE. IDENTIFIERS HAVE TO REMAIN STABLE
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-export function getSingleFolderWorkspaceIdentifier(folderUri: URI): ISingleFolderWorkspaceIdentifier | undefined;
-export function getSingleFolderWorkspaceIdentifier(folderUri: URI, folderStat: Stats): ISingleFolderWorkspaceIdentifier;
-export function getSingleFolderWorkspaceIdentifier(folderUri: URI, folderStat?: Stats): ISingleFolderWorkspaceIdentifier | undefined {
+export function getSingleFolderWorkspaceIdentifier(folderUri: URI): SingleFolderWorkspaceIdentifierInterface | undefined;
+export function getSingleFolderWorkspaceIdentifier(folderUri: URI, folderStat: Stats): SingleFolderWorkspaceIdentifierInterface;
+export function getSingleFolderWorkspaceIdentifier(folderUri: URI, folderStat?: Stats): SingleFolderWorkspaceIdentifierInterface | undefined {
 
 	function getFolderId(): string | undefined {
 
@@ -95,7 +95,7 @@ export function getSingleFolderWorkspaceIdentifier(folderUri: URI, folderStat?: 
 // NOTE: DO NOT CHANGE. IDENTIFIERS HAVE TO REMAIN STABLE
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-export function createEmptyWorkspaceIdentifier(): IEmptyWorkspaceIdentifier {
+export function createEmptyWorkspaceIdentifier(): EmptyWorkspaceIdentifierInterface {
 	return {
 		id: (Date.now() + Math.round(Math.random() * 1000)).toString()
 	};

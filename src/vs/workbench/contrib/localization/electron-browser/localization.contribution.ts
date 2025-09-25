@@ -11,7 +11,7 @@ import * as platform from '../../../../base/common/platform.js';
 import { IExtensionManagementService, IExtensionGalleryService, InstallOperation, ILocalExtension, InstallExtensionResult, DidUninstallExtensionEvent } from '../../../../platform/extensionManagement/common/extensionManagement.js';
 import { INotificationService, NeverShowAgainScope, NotificationPriority } from '../../../../platform/notification/common/notification.js';
 import Severity from '../../../../base/common/severity.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IExtensionsWorkbenchService } from '../../extensions/common/extensions.js';
 import { minimumTranslatedStrings } from './minimalTranslations.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
@@ -27,7 +27,7 @@ class NativeLocalizationWorkbenchContribution extends BaseLocalizationWorkbenchC
 		@INotificationService private readonly notificationService: INotificationService,
 		@ILocaleService private readonly localeService: ILocaleService,
 		@IProductService private readonly productService: IProductService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IExtensionManagementService private readonly extensionManagementService: IExtensionManagementService,
 		@IExtensionGalleryService private readonly galleryService: IExtensionGalleryService,
 		@IExtensionsWorkbenchService private readonly extensionsWorkbenchService: IExtensionsWorkbenchService,

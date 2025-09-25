@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import * as Platform from '../../../../base/common/platform.js';
 import * as uuid from '../../../../base/common/uuid.js';
 import { cleanRemoteAuthority } from '../../../../platform/telemetry/common/telemetryUtils.js';
@@ -21,7 +21,7 @@ function cleanUserAgent(userAgent: string): string {
 }
 
 export function resolveWorkbenchCommonProperties(
-	storageService: IStorageService,
+	storageService: StorageServiceInterface,
 	commit: string | undefined,
 	version: string | undefined,
 	isInternalTelemetry: boolean,

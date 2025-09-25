@@ -13,7 +13,7 @@ import { FileService } from '../../../../../../platform/files/common/fileService
 import { TestInstantiationService } from '../../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { ILogService, NullLogService } from '../../../../../../platform/log/common/log.js';
 import { IQuickInputService } from '../../../../../../platform/quickinput/common/quickInput.js';
-import { IWorkspaceContextService } from '../../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../../platform/workspace/common/workspace.js';
 import { CommandDetectionCapability } from '../../../../../../platform/terminal/common/capabilities/commandDetectionCapability.js';
 import { TerminalBuiltinLinkType } from '../../browser/links.js';
 import { TerminalLocalFileLinkOpener, TerminalLocalFolderInWorkspaceLinkOpener, TerminalSearchLinkOpener } from '../../browser/terminalLinkOpeners.js';
@@ -88,7 +88,7 @@ suite('Workbench - TerminalLinkOpeners', () => {
 		instantiationService.set(IFileService, fileService);
 		instantiationService.set(ILogService, new NullLogService());
 		instantiationService.set(ISearchService, searchService);
-		instantiationService.set(IWorkspaceContextService, new TestContextService());
+		instantiationService.set(WorkspaceContextServiceInterface, new TestContextService());
 		instantiationService.stub(ITerminalLogService, new NullLogService());
 		instantiationService.stub(IWorkbenchEnvironmentService, {
 			remoteAuthority: undefined
@@ -450,7 +450,7 @@ suite('Workbench - TerminalLinkOpeners', () => {
 				});
 			});
 
-			// Test for https://github.com/microsoft/vscode/pull/200919#discussion_r1428124196
+			// Test for https://github.com/johnnycharlesw/vsblocks/pull/200919#discussion_r1428124196
 			test('should extract column and/or line numbers from links and remove grepped lines incl singular spaces', async () => {
 				localFileOpener = instantiationService.createInstance(TerminalLocalFileLinkOpener);
 				const localFolderOpener = instantiationService.createInstance(TerminalLocalFolderInWorkspaceLinkOpener);
@@ -808,7 +808,7 @@ suite('Workbench - TerminalLinkOpeners', () => {
 				});
 			});
 
-			// Test for https://github.com/microsoft/vscode/pull/200919#discussion_r1428124196
+			// Test for https://github.com/johnnycharlesw/vsblocks/pull/200919#discussion_r1428124196
 			test('should extract column and/or line numbers from links and remove grepped lines incl singular spaces', async () => {
 				localFileOpener = instantiationService.createInstance(TerminalLocalFileLinkOpener);
 				const localFolderOpener = instantiationService.createInstance(TerminalLocalFolderInWorkspaceLinkOpener);

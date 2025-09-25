@@ -6,7 +6,7 @@
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { IUserDataProfileService } from '../../../services/userDataProfile/common/userDataProfile.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IRemoteAgentService } from '../../remote/common/remoteAgentService.js';
 import { McpManagementChannelClient } from '../../../../platform/mcp/common/mcpManagementIpc.js';
@@ -22,7 +22,7 @@ export class WorkbenchMcpManagementService extends BaseWorkbenchMcpManagementSer
 		@IAllowedMcpServersService allowedMcpServersService: IAllowedMcpServersService,
 		@IUserDataProfileService userDataProfileService: IUserDataProfileService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
 		@IRemoteUserDataProfilesService remoteUserDataProfilesService: IRemoteUserDataProfilesService,

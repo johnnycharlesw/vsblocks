@@ -10,8 +10,8 @@ import { INotificationService } from '../../../../platform/notification/common/n
 import { ExtensionRecommendationReason } from '../../../services/extensionRecommendations/common/extensionRecommendations.js';
 import { localize } from '../../../../nls.js';
 import { Emitter } from '../../../../base/common/event.js';
-import { IExtensionsConfigContent, IWorkspaceExtensionsConfigService } from '../../../services/extensionRecommendations/common/workspaceExtensionsConfig.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { IExtensionsConfigContent, WorkspaceInterfaceExtensionsConfigService } from '../../../services/extensionRecommendations/common/workspaceExtensionsConfig.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { FileChangeType, IFileService } from '../../../../platform/files/common/files.js';
 import { URI } from '../../../../base/common/uri.js';
@@ -35,8 +35,8 @@ export class WorkspaceRecommendations extends ExtensionRecommendations {
 	private readonly onDidChangeWorkspaceExtensionsScheduler: RunOnceScheduler;
 
 	constructor(
-		@IWorkspaceExtensionsConfigService private readonly workspaceExtensionsConfigService: IWorkspaceExtensionsConfigService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceInterfaceExtensionsConfigService private readonly workspaceExtensionsConfigService: WorkspaceInterfaceExtensionsConfigService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@IFileService private readonly fileService: IFileService,
 		@IWorkbenchExtensionManagementService private readonly workbenchExtensionManagementService: IWorkbenchExtensionManagementService,

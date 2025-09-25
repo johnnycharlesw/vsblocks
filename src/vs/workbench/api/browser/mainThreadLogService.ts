@@ -10,7 +10,7 @@ import { ExtHostContext, MainThreadLoggerShape, MainContext } from '../common/ex
 import { UriComponents, URI, UriDto } from '../../../base/common/uri.js';
 import { ServicesAccessor } from '../../../platform/instantiation/common/instantiation.js';
 import { CommandsRegistry } from '../../../platform/commands/common/commands.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 
 @extHostNamedCustomer(MainContext.MainThreadLogger)
 export class MainThreadLoggerService implements MainThreadLoggerShape {
@@ -77,7 +77,7 @@ export class MainThreadLoggerService implements MainThreadLoggerShape {
 
 CommandsRegistry.registerCommand('_extensionTests.setLogLevel', function (accessor: ServicesAccessor, level: string) {
 	const loggerService = accessor.get(ILoggerService);
-	const environmentService = accessor.get(IEnvironmentService);
+	const environmentService = accessor.get(EnvironmentServiceInterface);
 
 	if (environmentService.isExtensionDevelopment && !!environmentService.extensionTestsLocationURI) {
 		const logLevel = parseLogLevel(level);

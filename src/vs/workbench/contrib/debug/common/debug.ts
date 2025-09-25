@@ -21,7 +21,7 @@ import { ConfigurationTarget } from '../../../../platform/configuration/common/c
 import { RawContextKey } from '../../../../platform/contextkey/common/contextkey.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { ITelemetryEndpoint } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { IEditorPane } from '../../../common/editor.js';
 import { DebugCompoundRoot } from './debugCompoundRoot.js';
 import { IDataBreakpointOptions, IFunctionBreakpointOptions, IInstructionBreakpointOptions } from './debugModel.js';
@@ -374,7 +374,7 @@ export interface IDebugSession extends ITreeElement, IDisposable {
 	readonly configuration: IConfig;
 	readonly unresolvedConfiguration: IConfig | undefined;
 	readonly state: State;
-	readonly root: IWorkspaceFolder | undefined;
+	readonly root: WorkspaceInterfaceFolder | undefined;
 	readonly parentSession: IDebugSession | undefined;
 	readonly subId: string | undefined;
 	readonly compact: boolean;
@@ -892,7 +892,7 @@ export interface IDebugAdapter extends IDisposable {
 
 export interface IDebugAdapterFactory extends ITerminalLauncher {
 	createDebugAdapter(session: IDebugSession): IDebugAdapter;
-	substituteVariables(folder: IWorkspaceFolder | undefined, config: IConfig): Promise<IConfig>;
+	substituteVariables(folder: WorkspaceInterfaceFolder | undefined, config: IConfig): Promise<IConfig>;
 }
 
 export interface IDebugAdapterExecutableOptions {
@@ -1057,7 +1057,7 @@ export interface IAdapterManager {
 	registerDebugAdapterDescriptorFactory(debugAdapterDescriptorFactory: IDebugAdapterDescriptorFactory): IDisposable;
 	unregisterDebugAdapterDescriptorFactory(debugAdapterDescriptorFactory: IDebugAdapterDescriptorFactory): void;
 
-	substituteVariables(debugType: string, folder: IWorkspaceFolder | undefined, config: IConfig): Promise<IConfig>;
+	substituteVariables(debugType: string, folder: WorkspaceInterfaceFolder | undefined, config: IConfig): Promise<IConfig>;
 	runInTerminal(debugType: string, args: DebugProtocol.RunInTerminalRequestArguments, sessionId: string): Promise<number | undefined>;
 	getEnabledDebugger(type: string): (IDebugger & IDebuggerMetadata) | undefined;
 	guessDebugger(gettingConfigurations: boolean): Promise<IGuessedDebugger | undefined>;
@@ -1089,7 +1089,7 @@ export interface ILaunch {
 	/**
 	 * Workspace of the launch. Can be undefined.
 	 */
-	readonly workspace: IWorkspaceFolder | undefined;
+	readonly workspace: WorkspaceInterfaceFolder | undefined;
 
 	/**
 	 * Should this launch be shown in the debug dropdown.

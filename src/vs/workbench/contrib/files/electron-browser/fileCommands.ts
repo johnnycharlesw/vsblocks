@@ -4,14 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { URI } from '../../../../base/common/uri.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { sequence } from '../../../../base/common/async.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
 
 // Commands
 
-export function revealResourcesInOS(resources: URI[], nativeHostService: INativeHostService, workspaceContextService: IWorkspaceContextService): void {
+export function revealResourcesInOS(resources: URI[], nativeHostService: INativeHostService, workspaceContextService: WorkspaceContextServiceInterface): void {
 	if (resources.length) {
 		sequence(resources.map(r => async () => {
 			if (r.scheme === Schemas.file || r.scheme === Schemas.vscodeUserData) {

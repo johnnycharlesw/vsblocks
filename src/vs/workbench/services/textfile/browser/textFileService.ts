@@ -29,10 +29,10 @@ import { IFilesConfigurationService } from '../../filesConfiguration/common/file
 import { IResolvedTextEditorModel } from '../../../../editor/common/services/resolverService.js';
 import { BaseTextEditorModel } from '../../../common/editor/textEditorModel.js';
 import { ICodeEditorService } from '../../../../editor/browser/services/codeEditorService.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { IWorkingCopyFileService, IFileOperationUndoRedoInfo, ICreateFileOperation } from '../../workingCopy/common/workingCopyFileService.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService, WORKSPACE_EXTENSION } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WORKSPACE_EXTENSION } from '../../../../platform/workspace/common/workspace.js';
 import { UTF8, UTF8_with_bom, UTF16be, UTF16le, encodingExists, toEncodeReadable, toDecodeStream, IDecodeStreamResult, DecodeStreamError, DecodeStreamErrorKind } from '../common/encoding.js';
 import { consumeStream, ReadableStream } from '../../../../base/common/stream.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
@@ -67,7 +67,7 @@ export abstract class AbstractTextFileService extends Disposable implements ITex
 		@ITextResourceConfigurationService protected readonly textResourceConfigurationService: ITextResourceConfigurationService,
 		@IFilesConfigurationService protected readonly filesConfigurationService: IFilesConfigurationService,
 		@ICodeEditorService private readonly codeEditorService: ICodeEditorService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IWorkingCopyFileService private readonly workingCopyFileService: IWorkingCopyFileService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@ILanguageService private readonly languageService: ILanguageService,
@@ -234,8 +234,8 @@ export abstract class AbstractTextFileService extends Disposable implements ITex
 			// file is read we want to cancel the read
 			// instantly.
 			// Refs:
-			// - https://github.com/microsoft/vscode/issues/138805
-			// - https://github.com/microsoft/vscode/issues/132771
+			// - https://github.com/johnnycharlesw/vsblocks/issues/138805
+			// - https://github.com/johnnycharlesw/vsblocks/issues/132771
 			cts.dispose(true);
 
 			// special treatment for streams that are binary
@@ -407,7 +407,7 @@ export abstract class AbstractTextFileService extends Disposable implements ITex
 
 		// Just save if target is same as models own resource
 		if (isEqual(source, target)) {
-			return this.save(source, { ...options, force: true  /* force to save, even if not dirty (https://github.com/microsoft/vscode/issues/99619) */ });
+			return this.save(source, { ...options, force: true  /* force to save, even if not dirty (https://github.com/johnnycharlesw/vsblocks/issues/99619) */ });
 		}
 
 		// If the target is different but of same identity, we
@@ -547,7 +547,7 @@ export abstract class AbstractTextFileService extends Disposable implements ITex
 		// Confirm to overwrite if we have an untitled file with associated file where
 		// the file actually exists on disk and we are instructed to save to that file
 		// path. This can happen if the file was created after the untitled file was opened.
-		// See https://github.com/microsoft/vscode/issues/67946
+		// See https://github.com/johnnycharlesw/vsblocks/issues/67946
 		let write: boolean;
 		if (sourceModel instanceof UntitledTextEditorModel && sourceModel.hasAssociatedFilePath && targetExists && this.uriIdentityService.extUri.isEqual(target, toLocalResource(sourceModel.resource, this.environmentService.remoteAuthority, this.pathService.defaultUriScheme))) {
 			write = await this.confirmOverwrite(target);
@@ -770,7 +770,7 @@ export class EncodingOracle extends Disposable implements IResourceEncodings {
 	constructor(
 		@ITextResourceConfigurationService private textResourceConfigurationService: ITextResourceConfigurationService,
 		@IWorkbenchEnvironmentService private environmentService: IWorkbenchEnvironmentService,
-		@IWorkspaceContextService private contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private contextService: WorkspaceContextServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService
 	) {
 		super();

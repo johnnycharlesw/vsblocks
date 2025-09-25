@@ -23,7 +23,7 @@ import { Event, Emitter } from '../../../../../base/common/event.js';
 import { IPager } from '../../../../../base/common/paging.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { TestExtensionTipsService, TestSharedProcessService } from '../../../../test/electron-browser/workbenchTestServices.js';
 import { ConfigurationTarget, IConfigurationChangeEvent, IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
@@ -89,7 +89,7 @@ suite('ExtensionsWorkbenchServiceTest', () => {
 		instantiationService.stub(ISharedProcessService, TestSharedProcessService);
 		instantiationService.stub(IContextKeyService, new MockContextKeyService());
 
-		instantiationService.stub(IWorkspaceContextService, new TestContextService());
+		instantiationService.stub(WorkspaceContextServiceInterface, new TestContextService());
 		stubConfiguration();
 
 		instantiationService.stub(IRemoteAgentService, RemoteAgentService);

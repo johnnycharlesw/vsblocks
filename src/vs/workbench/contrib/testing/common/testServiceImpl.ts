@@ -19,9 +19,9 @@ import { IContextKey, IContextKeyService, RawContextKey } from '../../../../plat
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { bindContextKey } from '../../../../platform/observable/common/platformObservableUtils.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { getTestingConfiguration, TestingConfigKeys } from './configuration.js';
 import { MainThreadTestCollection } from './mainThreadTestCollection.js';
 import { MutableObservableValue } from './observableValue.js';
@@ -88,13 +88,13 @@ export class TestService extends Disposable implements ITestService {
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@IStorageService storage: IStorageService,
+		@StorageServiceInterface storage: StorageServiceInterface,
 		@IEditorService private readonly editorService: IEditorService,
 		@ITestProfileService private readonly testProfiles: ITestProfileService,
 		@INotificationService private readonly notificationService: INotificationService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ITestResultService private readonly testResults: ITestResultService,
-		@IWorkspaceTrustRequestService private readonly workspaceTrustRequestService: IWorkspaceTrustRequestService,
+		@WorkspaceInterfaceTrustRequestService private readonly workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
 	) {
 		super();
 		this.collection = new MainThreadTestCollection(uriIdentityService, this.expandTest.bind(this));

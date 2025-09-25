@@ -35,8 +35,8 @@ import { IMarkerData, IMarkerService, MarkerSeverity, MarkerTag } from '../../..
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { RangeHighlightDecorations } from '../../../browser/codeeditor.js';
 import { settingsEditIcon } from './preferencesIcons.js';
 import { EditPreferenceWidget } from './preferencesWidgets.js';
@@ -300,7 +300,7 @@ class EditSettingRenderer extends Disposable {
 				}
 				if (this.isDefaultSettings()) {
 					if (setting.key === 'launch') {
-						// Do not show because of https://github.com/microsoft/vscode/issues/32593
+						// Do not show because of https://github.com/johnnycharlesw/vsblocks/issues/32593
 						return false;
 					}
 					return true;
@@ -496,7 +496,7 @@ class UnsupportedSettingsRenderer extends Disposable implements languages.CodeAc
 		@IMarkerService private readonly markerService: IMarkerService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@IWorkbenchConfigurationService private readonly configurationService: IWorkbenchConfigurationService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@ILanguageFeaturesService languageFeaturesService: ILanguageFeaturesService,
 		@IUserDataProfileService private readonly userDataProfileService: IUserDataProfileService,
@@ -916,7 +916,7 @@ class WorkspaceConfigurationRenderer extends Disposable {
 	private renderingDelayer: Delayer<void> = new Delayer<void>(200);
 
 	constructor(private editor: ICodeEditor, private workspaceSettingsEditorModel: SettingsEditorModel,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IMarkerService private readonly markerService: IMarkerService
 	) {
 		super();

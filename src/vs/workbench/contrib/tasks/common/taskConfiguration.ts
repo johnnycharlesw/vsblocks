@@ -18,7 +18,7 @@ import {
 	isNamedProblemMatcher, ProblemMatcherRegistry, ProblemMatcher
 } from './problemMatcher.js';
 
-import { IWorkspaceFolder, IWorkspace } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder, WorkspaceInterface } from '../../../../platform/workspace/common/workspace.js';
 import * as Tasks from './tasks.js';
 import { ITaskDefinitionRegistry, TaskDefinitionRegistry } from './taskDefinitionRegistry.js';
 import { ConfiguredInput } from '../../../services/configurationResolver/common/configurationResolver.js';
@@ -750,8 +750,8 @@ export namespace InstancePolicy {
 }
 
 export interface IParseContext {
-	workspaceFolder: IWorkspaceFolder;
-	workspace: IWorkspace | undefined;
+	workspaceFolder: WorkspaceInterfaceFolder;
+	workspace: WorkspaceInterface | undefined;
 	problemReporter: IProblemReporter;
 	namedProblemMatchers: IStringDictionary<INamedProblemMatcher>;
 	uuidMap: UUIDMap;
@@ -2047,13 +2047,13 @@ export enum TaskConfigSource {
 
 class ConfigurationParser {
 
-	private workspaceFolder: IWorkspaceFolder;
-	private workspace: IWorkspace | undefined;
+	private workspaceFolder: WorkspaceInterfaceFolder;
+	private workspace: WorkspaceInterface | undefined;
 	private problemReporter: IProblemReporter;
 	private uuidMap: UUIDMap;
 	private platform: Platform;
 
-	constructor(workspaceFolder: IWorkspaceFolder, workspace: IWorkspace | undefined, platform: Platform, problemReporter: IProblemReporter, uuidMap: UUIDMap) {
+	constructor(workspaceFolder: WorkspaceInterfaceFolder, workspace: WorkspaceInterface | undefined, platform: Platform, problemReporter: IProblemReporter, uuidMap: UUIDMap) {
 		this.workspaceFolder = workspaceFolder;
 		this.workspace = workspace;
 		this.platform = platform;
@@ -2129,7 +2129,7 @@ class ConfigurationParser {
 			const name = Tasks.CommandString.value(globals.command.name);
 			const task: Tasks.CustomTask = new Tasks.CustomTask(
 				context.uuidMap.getUUID(name),
-				Object.assign({}, source, 'workspace', { config: { index: -1, element: fileConfig, workspaceFolder: context.workspaceFolder } }) satisfies Tasks.IWorkspaceTaskSource,
+				Object.assign({}, source, 'workspace', { config: { index: -1, element: fileConfig, workspaceFolder: context.workspaceFolder } }) satisfies Tasks.WorkspaceInterfaceTaskSource,
 				name,
 				Tasks.CUSTOMIZED_TASK_TYPE,
 				{
@@ -2166,7 +2166,7 @@ class ConfigurationParser {
 
 const uuidMaps: Map<TaskConfigSource, Map<string, UUIDMap>> = new Map();
 const recentUuidMaps: Map<TaskConfigSource, Map<string, UUIDMap>> = new Map();
-export function parse(workspaceFolder: IWorkspaceFolder, workspace: IWorkspace | undefined, platform: Platform, configuration: IExternalTaskRunnerConfiguration, logger: IProblemReporter, source: TaskConfigSource, contextKeyService: IContextKeyService, isRecents: boolean = false): IParseResult {
+export function parse(workspaceFolder: WorkspaceInterfaceFolder, workspace: WorkspaceInterface | undefined, platform: Platform, configuration: IExternalTaskRunnerConfiguration, logger: IProblemReporter, source: TaskConfigSource, contextKeyService: IContextKeyService, isRecents: boolean = false): IParseResult {
 	const recentOrOtherMaps = isRecents ? recentUuidMaps : uuidMaps;
 	let selectedUuidMaps = recentOrOtherMaps.get(source);
 	if (!selectedUuidMaps) {

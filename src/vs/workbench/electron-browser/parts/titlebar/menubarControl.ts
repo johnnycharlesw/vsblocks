@@ -6,7 +6,7 @@
 import { IAction, Separator } from '../../../../base/common/actions.js';
 import { IMenuService, SubmenuItemAction, MenuItemAction } from '../../../../platform/actions/common/actions.js';
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
-import { IWorkspacesService } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService } from '../../../../platform/workspaces/common/workspaces.js';
 import { isMacintosh } from '../../../../base/common/platform.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
@@ -16,7 +16,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { IUpdateService } from '../../../../platform/update/common/update.js';
 import { IOpenRecentAction, MenubarControl } from '../../../browser/parts/titlebar/menubarControl.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IMenubarData, IMenubarMenu, IMenubarKeybinding, IMenubarMenuItemSubmenu, IMenubarMenuItemAction, MenubarMenuItem } from '../../../../platform/menubar/common/menubar.js';
 import { IMenubarService } from '../../../../platform/menubar/electron-browser/menubar.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
@@ -31,13 +31,13 @@ export class NativeMenubarControl extends MenubarControl {
 
 	constructor(
 		@IMenuService menuService: IMenuService,
-		@IWorkspacesService workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService workspacesService: WorkspaceInterfacesService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IKeybindingService keybindingService: IKeybindingService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@ILabelService labelService: ILabelService,
 		@IUpdateService updateService: IUpdateService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@INotificationService notificationService: INotificationService,
 		@IPreferencesService preferencesService: IPreferencesService,
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,

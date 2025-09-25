@@ -21,7 +21,7 @@ import { ConfigurationTarget, IConfigurationService } from '../../../../../platf
 import { IResourceEditorInput } from '../../../../../platform/editor/common/editor.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { Memento, MementoObject } from '../../../../common/memento.js';
 import { INotebookEditorContribution, notebookPreloadExtensionPoint, notebookRendererExtensionPoint, notebooksExtensionPoint } from '../notebookExtensionPoint.js';
 import { INotebookEditorOptions } from '../notebookBrowser.js';
@@ -62,7 +62,7 @@ export class NotebookProviderInfoStore extends Disposable {
 	private readonly _contributedEditorDisposables = this._register(new DisposableStore());
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IExtensionService extensionService: IExtensionService,
 		@IEditorResolverService private readonly _editorResolverService: IEditorResolverService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
@@ -418,7 +418,7 @@ export class NotebookOutputRendererInfoStore {
 		() => this.preferredMimetypeMemento.getMemento(StorageScope.WORKSPACE, StorageTarget.MACHINE));
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		this.preferredMimetypeMemento = new Memento('workbench.editor.notebook.preferredRenderer2', storageService);
 	}
@@ -570,7 +570,7 @@ export class NotebookService extends Disposable implements INotebookService {
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 		@IAccessibilityService private readonly _accessibilityService: IAccessibilityService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@INotebookDocumentService private readonly _notebookDocumentService: INotebookDocumentService
 	) {
 		super();

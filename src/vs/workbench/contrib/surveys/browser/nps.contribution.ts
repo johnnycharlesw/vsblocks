@@ -8,7 +8,7 @@ import { language } from '../../../../base/common/platform.js';
 import { IWorkbenchContributionsRegistry, IWorkbenchContribution, Extensions as WorkbenchExtensions } from '../../../common/contributions.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js';
 import { Severity, INotificationService, NotificationPriority } from '../../../../platform/notification/common/notification.js';
@@ -26,7 +26,7 @@ const IS_CANDIDATE_KEY = 'nps/isCandidate';
 class NPSContribution implements IWorkbenchContribution {
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@INotificationService notificationService: INotificationService,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IOpenerService openerService: IOpenerService,

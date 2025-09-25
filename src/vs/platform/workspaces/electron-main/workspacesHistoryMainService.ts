@@ -21,14 +21,14 @@ import { ILogService } from '../../log/common/log.js';
 import { StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { IApplicationStorageMainService } from '../../storage/electron-main/storageMainService.js';
 import { IRecent, IRecentFile, IRecentFolder, IRecentlyOpened, IRecentWorkspace, isRecentFile, isRecentFolder, isRecentWorkspace, restoreRecentlyOpened, toStoreData } from '../common/workspaces.js';
-import { IWorkspaceIdentifier, WORKSPACE_EXTENSION } from '../../workspace/common/workspace.js';
-import { IWorkspacesManagementMainService } from './workspacesManagementMainService.js';
+import { WorkspaceIdentifierInterface, WORKSPACE_EXTENSION } from '../../workspace/common/workspace.js';
+import { WorkspaceInterfacesManagementMainService } from './workspacesManagementMainService.js';
 import { ResourceMap } from '../../../base/common/map.js';
 import { IDialogMainService } from '../../dialogs/electron-main/dialogMainService.js';
 
-export const IWorkspacesHistoryMainService = createDecorator<IWorkspacesHistoryMainService>('workspacesHistoryMainService');
+export const WorkspaceInterfacesHistoryMainService = createDecorator<WorkspaceInterfacesHistoryMainService>('workspacesHistoryMainService');
 
-export interface IWorkspacesHistoryMainService {
+export interface WorkspaceInterfacesHistoryMainService {
 
 	readonly _serviceBrand: undefined;
 
@@ -40,7 +40,7 @@ export interface IWorkspacesHistoryMainService {
 	clearRecentlyOpened(options?: { confirm?: boolean }): Promise<void>;
 }
 
-export class WorkspacesHistoryMainService extends Disposable implements IWorkspacesHistoryMainService {
+export class WorkspacesHistoryMainService extends Disposable implements WorkspaceInterfacesHistoryMainService {
 
 	private static readonly MAX_TOTAL_RECENT_ENTRIES = 500;
 
@@ -53,7 +53,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 
 	constructor(
 		@ILogService private readonly logService: ILogService,
-		@IWorkspacesManagementMainService private readonly workspacesManagementMainService: IWorkspacesManagementMainService,
+		@WorkspaceInterfacesManagementMainService private readonly workspacesManagementMainService: WorkspaceInterfacesManagementMainService,
 		@ILifecycleMainService private readonly lifecycleMainService: ILifecycleMainService,
 		@IApplicationStorageMainService private readonly applicationStorageMainService: IApplicationStorageMainService,
 		@IDialogMainService private readonly dialogMainService: IDialogMainService
@@ -275,7 +275,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		return recent.workspace.configPath;
 	}
 
-	private containsWorkspace(recents: IRecent[], candidate: IWorkspaceIdentifier): boolean {
+	private containsWorkspace(recents: IRecent[], candidate: WorkspaceIdentifierInterface): boolean {
 		return !!recents.find(recent => isRecentWorkspace(recent) && recent.workspace.id === candidate.id);
 	}
 
@@ -344,7 +344,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 			// The user might have meanwhile removed items from the jump list and we have to respect that
 			// so we need to update our list of recent paths with the choice of the user to not add them again
 			// Also: Windows will not show our custom category at all if there is any entry which was removed
-			// by the user! See https://github.com/microsoft/vscode/issues/15052
+			// by the user! See https://github.com/johnnycharlesw/vsblocks/issues/15052
 			const toRemove: URI[] = [];
 			for (const item of app.getJumpListSettings().removedItems) {
 				const args = item.args;
@@ -374,7 +374,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 				return {
 					type: 'task',
 					title: title.substr(0, 255), 				// Windows seems to be picky around the length of entries
-					description: description.substr(0, 255),	// (see https://github.com/microsoft/vscode/issues/111177)
+					description: description.substr(0, 255),	// (see https://github.com/johnnycharlesw/vsblocks/issues/111177)
 					program: process.execPath,
 					args,
 					iconPath: 'explorer.exe', // simulate folder icon
@@ -406,7 +406,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		}
 	}
 
-	private getWindowsJumpListLabel(workspace: IWorkspaceIdentifier | URI, recentLabel: string | undefined): { title: string; description: string } {
+	private getWindowsJumpListLabel(workspace: WorkspaceIdentifierInterface | URI, recentLabel: string | undefined): { title: string; description: string } {
 
 		// Prefer recent label
 		if (recentLabel) {
@@ -490,7 +490,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		// On top of that, the maximum number of documents can be configured by the user (defaults to 10). To ensure that
 		// we are not failing to show the most recent entries, we start by adding files first (in reverse order of recency)
 		// and then add folders (in reverse order of recency). Given that strategy, we can ensure that the most recent
-		// N folders are always appearing, even if the limit is low (https://github.com/microsoft/vscode/issues/74788)
+		// N folders are always appearing, even if the limit is low (https://github.com/johnnycharlesw/vsblocks/issues/74788)
 		fileEntries.reverse().forEach(fileEntry => app.addRecentDocument(fileEntry));
 		workspaceEntries.reverse().forEach(workspaceEntry => app.addRecentDocument(workspaceEntry));
 	}

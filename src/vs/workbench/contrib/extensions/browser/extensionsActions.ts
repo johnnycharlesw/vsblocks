@@ -21,7 +21,7 @@ import { areSameExtensions, getExtensionId } from '../../../../platform/extensio
 import { ExtensionType, ExtensionIdentifier, IExtensionDescription, IExtensionManifest, isLanguagePackExtension, getWorkspaceSupportTypeMessage, TargetPlatform, isApplicationScopedExtension } from '../../../../platform/extensions/common/extensions.js';
 import { IInstantiationService, ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { IFileService, IFileContent } from '../../../../platform/files/common/files.js';
-import { IWorkspaceContextService, WorkbenchState, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { IHostService } from '../../../services/host/browser/host.js';
 import { IExtensionService, toExtension, toExtensionDescription } from '../../../services/extensions/common/extensions.js';
 import { URI } from '../../../../base/common/uri.js';
@@ -57,7 +57,7 @@ import { ILogService } from '../../../../platform/log/common/log.js';
 import { errorIcon, infoIcon, manageExtensionIcon, syncEnabledIcon, syncIgnoredIcon, trustIcon, warningIcon } from './extensionsIcons.js';
 import { isIOS, isWeb, language } from '../../../../base/common/platform.js';
 import { IExtensionManifestPropertiesService } from '../../../services/extensions/common/extensionManifestPropertiesService.js';
-import { IWorkspaceTrustEnablementService, IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustEnablementService, WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { isVirtualWorkspace } from '../../../../platform/workspace/common/virtualWorkspace.js';
 import { escapeMarkdownSyntaxTokens, IMarkdownString, MarkdownString } from '../../../../base/common/htmlContent.js';
 import { fromNow } from '../../../../base/common/date.js';
@@ -449,7 +449,7 @@ export class InstallAction extends ExtensionAction {
 		@IDialogService private readonly dialogService: IDialogService,
 		@IPreferencesService private readonly preferencesService: IPreferencesService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IAllowedExtensionsService private readonly allowedExtensionsService: IAllowedExtensionsService,
 		@IExtensionGalleryManifestService private readonly extensionGalleryManifestService: IExtensionGalleryManifestService,
 	) {
@@ -1704,7 +1704,7 @@ export class DisableForWorkspaceAction extends ExtensionAction {
 	static readonly LABEL = localize('disableForWorkspaceAction', "Disable (Workspace)");
 
 	constructor(
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IExtensionsWorkbenchService private readonly extensionsWorkbenchService: IExtensionsWorkbenchService,
 		@IWorkbenchExtensionEnablementService private readonly extensionEnablementService: IWorkbenchExtensionEnablementService,
 		@IExtensionService private readonly extensionService: IExtensionService,
@@ -2234,7 +2234,7 @@ export abstract class AbstractConfigureRecommendedExtensionsAction extends Actio
 	constructor(
 		id: string,
 		label: string,
-		@IWorkspaceContextService protected contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected contextService: WorkspaceContextServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 		@ITextFileService private readonly textFileService: ITextFileService,
 		@IEditorService protected editorService: IEditorService,
@@ -2325,7 +2325,7 @@ export class ConfigureWorkspaceRecommendedExtensionsAction extends AbstractConfi
 		label: string,
 		@IFileService fileService: IFileService,
 		@ITextFileService textFileService: ITextFileService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IEditorService editorService: IEditorService,
 		@IJSONEditingService jsonEditingService: IJSONEditingService,
 		@ITextModelService textModelResolverService: ITextModelService
@@ -2360,7 +2360,7 @@ export class ConfigureWorkspaceFolderRecommendedExtensionsAction extends Abstrac
 		label: string,
 		@IFileService fileService: IFileService,
 		@ITextFileService textFileService: ITextFileService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IEditorService editorService: IEditorService,
 		@IJSONEditingService jsonEditingService: IJSONEditingService,
 		@ITextModelService textModelResolverService: ITextModelService,
@@ -2371,7 +2371,7 @@ export class ConfigureWorkspaceFolderRecommendedExtensionsAction extends Abstrac
 
 	public override run(): Promise<any> {
 		const folderCount = this.contextService.getWorkspace().folders.length;
-		const pickFolderPromise = folderCount === 1 ? Promise.resolve(this.contextService.getWorkspace().folders[0]) : this.commandService.executeCommand<IWorkspaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
+		const pickFolderPromise = folderCount === 1 ? Promise.resolve(this.contextService.getWorkspace().folders[0]) : this.commandService.executeCommand<WorkspaceInterfaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
 		return Promise.resolve(pickFolderPromise)
 			.then(workspaceFolder => {
 				if (workspaceFolder) {
@@ -2549,12 +2549,12 @@ export class ExtensionStatusAction extends ExtensionAction {
 		@IExtensionManagementServerService private readonly extensionManagementServerService: IExtensionManagementServerService,
 		@ILabelService private readonly labelService: ILabelService,
 		@ICommandService private readonly commandService: ICommandService,
-		@IWorkspaceTrustEnablementService private readonly workspaceTrustEnablementService: IWorkspaceTrustEnablementService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustEnablementService private readonly workspaceTrustEnablementService: WorkspaceInterfaceTrustEnablementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustService: WorkspaceInterfaceTrustManagementService,
 		@IExtensionsWorkbenchService private readonly extensionsWorkbenchService: IExtensionsWorkbenchService,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IExtensionManifestPropertiesService private readonly extensionManifestPropertiesService: IExtensionManifestPropertiesService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IProductService private readonly productService: IProductService,
 		@IAllowedExtensionsService private readonly allowedExtensionsService: IAllowedExtensionsService,
 		@IWorkbenchExtensionEnablementService private readonly workbenchExtensionEnablementService: IWorkbenchExtensionEnablementService,

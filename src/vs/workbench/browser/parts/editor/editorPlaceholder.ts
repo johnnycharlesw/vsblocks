@@ -17,10 +17,10 @@ import { IThemeService } from '../../../../platform/theme/common/themeService.js
 import { Dimension, size, clearNode, $, EventHelper } from '../../../../base/browser/dom.js';
 import { CancellationToken } from '../../../../base/common/cancellation.js';
 import { DisposableStore, IDisposable, MutableDisposable } from '../../../../base/common/lifecycle.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { assertReturnsAllDefined } from '../../../../base/common/types.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
-import { IWorkspaceContextService, isSingleFolderWorkspaceIdentifier, toWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, isSingleFolderWorkspaceIdentifier, toWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
 import { EditorOpenSource, IEditorOptions } from '../../../../platform/editor/common/editor.js';
 import { computeEditorAriaLabel, EditorPaneDescriptor } from '../../editor.js';
 import { ButtonBar } from '../../../../base/browser/ui/button/button.js';
@@ -60,7 +60,7 @@ export abstract class EditorPlaceholder extends EditorPane {
 		group: IEditorGroup,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService
+		@StorageServiceInterface storageService: StorageServiceInterface
 	) {
 		super(id, group, telemetryService, themeService, storageService);
 	}
@@ -193,8 +193,8 @@ export class WorkspaceTrustRequiredPlaceholderEditor extends EditorPlaceholder {
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
 		@ICommandService private readonly commandService: ICommandService,
-		@IWorkspaceContextService private readonly workspaceService: IWorkspaceContextService,
-		@IStorageService storageService: IStorageService
+		@WorkspaceContextServiceInterface private readonly workspaceService: WorkspaceContextServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface
 	) {
 		super(WorkspaceTrustRequiredPlaceholderEditor.ID, group, telemetryService, themeService, storageService);
 	}
@@ -230,7 +230,7 @@ export class ErrorPlaceholderEditor extends EditorPlaceholder {
 		group: IEditorGroup,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 		@IDialogService private readonly dialogService: IDialogService,
 		@ICommandService private readonly commandService: ICommandService

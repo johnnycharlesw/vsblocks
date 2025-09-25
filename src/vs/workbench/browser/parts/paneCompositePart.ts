@@ -18,7 +18,7 @@ import { IPaneCompositeBarOptions, PaneCompositeBar } from './paneCompositeBar.j
 import { Dimension, EventHelper, trackFocus, $, addDisposableListener, EventType, prepend, getWindow } from '../../../base/browser/dom.js';
 import { Registry } from '../../../platform/registry/common/platform.js';
 import { INotificationService } from '../../../platform/notification/common/notification.js';
-import { IStorageService } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../platform/storage/common/storage.js';
 import { IContextMenuService } from '../../../platform/contextview/browser/contextView.js';
 import { IKeybindingService } from '../../../platform/keybinding/common/keybinding.js';
 import { IThemeService } from '../../../platform/theme/common/themeService.js';
@@ -144,7 +144,7 @@ export abstract class AbstractPaneCompositePart extends CompositePart<PaneCompos
 		titleForegroundColor: string | undefined,
 		titleBorderColor: string | undefined,
 		@INotificationService notificationService: INotificationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IWorkbenchLayoutService layoutService: IWorkbenchLayoutService,
 		@IKeybindingService keybindingService: IKeybindingService,

@@ -17,7 +17,7 @@ import { IWorkbenchLayoutService } from '../../../services/layout/browser/layout
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { COMMENTS_SECTION, ICommentsConfiguration } from '../common/commentsConfiguration.js';
 import { IContextKey, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { CommentContextKeys } from '../common/commentContextKeys.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { CommentsModel, ICommentsModel } from './commentsModel.js';
@@ -43,7 +43,7 @@ export interface INotebookCommentInfo {
 	label?: string;
 }
 
-export interface IWorkspaceCommentThreadsEvent {
+export interface WorkspaceInterfaceCommentThreadsEvent {
 	ownerId: string;
 	ownerLabel: string;
 	commentThreads: CommentThread[];
@@ -81,7 +81,7 @@ export interface IContinueOnCommentProvider {
 export interface ICommentService {
 	readonly _serviceBrand: undefined;
 	readonly onDidSetResourceCommentInfos: Event<IResourceCommentThreadEvent>;
-	readonly onDidSetAllCommentThreads: Event<IWorkspaceCommentThreadsEvent>;
+	readonly onDidSetAllCommentThreads: Event<WorkspaceInterfaceCommentThreadsEvent>;
 	readonly onDidUpdateCommentThreads: Event<ICommentThreadChangedEvent>;
 	readonly onDidUpdateNotebookCommentThreads: Event<INotebookCommentThreadChangedEvent>;
 	readonly onDidChangeActiveEditingCommentThread: Event<CommentThread | null>;
@@ -135,8 +135,8 @@ export class CommentService extends Disposable implements ICommentService {
 	private readonly _onDidSetResourceCommentInfos: Emitter<IResourceCommentThreadEvent> = this._register(new Emitter<IResourceCommentThreadEvent>());
 	readonly onDidSetResourceCommentInfos: Event<IResourceCommentThreadEvent> = this._onDidSetResourceCommentInfos.event;
 
-	private readonly _onDidSetAllCommentThreads: Emitter<IWorkspaceCommentThreadsEvent> = this._register(new Emitter<IWorkspaceCommentThreadsEvent>());
-	readonly onDidSetAllCommentThreads: Event<IWorkspaceCommentThreadsEvent> = this._onDidSetAllCommentThreads.event;
+	private readonly _onDidSetAllCommentThreads: Emitter<WorkspaceInterfaceCommentThreadsEvent> = this._register(new Emitter<WorkspaceInterfaceCommentThreadsEvent>());
+	readonly onDidSetAllCommentThreads: Event<WorkspaceInterfaceCommentThreadsEvent> = this._onDidSetAllCommentThreads.event;
 
 	private readonly _onDidUpdateCommentThreads: Emitter<ICommentThreadChangedEvent> = this._register(new Emitter<ICommentThreadChangedEvent>());
 	readonly onDidUpdateCommentThreads: Event<ICommentThreadChangedEvent> = this._onDidUpdateCommentThreads.event;
@@ -188,7 +188,7 @@ export class CommentService extends Disposable implements ICommentService {
 		@IWorkbenchLayoutService private readonly layoutService: IWorkbenchLayoutService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IContextKeyService contextKeyService: IContextKeyService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@ILogService private readonly logService: ILogService,
 		@IModelService private readonly modelService: IModelService
 	) {

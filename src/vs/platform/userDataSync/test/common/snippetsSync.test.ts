@@ -9,7 +9,7 @@ import { IStringDictionary } from '../../../../base/common/collections.js';
 import { dirname, joinPath } from '../../../../base/common/resources.js';
 import { URI } from '../../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { IFileService } from '../../../files/common/files.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../../userDataProfile/common/userDataProfile.js';
 import { SnippetsSynchroniser } from '../../common/snippetsSync.js';
@@ -275,7 +275,7 @@ suite('SnippetsSync', () => {
 		await testObject.sync(await testClient.getLatestRef(SyncResource.Snippets));
 
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'html.json');
 		assertPreviews(testObject.conflicts.conflicts, [local]);
 	});
@@ -312,7 +312,7 @@ suite('SnippetsSync', () => {
 		await testObject.sync(await testClient.getLatestRef(SyncResource.Snippets));
 
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local1 = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'html.json');
 		const local2 = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'typescript.json');
 		assertPreviews(testObject.conflicts.conflicts, [local1, local2]);
@@ -332,7 +332,7 @@ suite('SnippetsSync', () => {
 
 		conflicts = testObject.conflicts.conflicts;
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'typescript.json');
 		assertPreviews(testObject.conflicts.conflicts, [local]);
 	});
@@ -448,7 +448,7 @@ suite('SnippetsSync', () => {
 		await updateSnippet('html.json', htmlSnippet3, testClient);
 		await testObject.sync(await testClient.getLatestRef(SyncResource.Snippets));
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'html.json');
 		assertPreviews(testObject.conflicts.conflicts, [local]);
 	});
@@ -552,7 +552,7 @@ suite('SnippetsSync', () => {
 		await testObject.sync(await testClient.getLatestRef(SyncResource.Snippets));
 
 		assert.strictEqual(testObject.status, SyncStatus.HasConflicts);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const local = joinPath(environmentService.userDataSyncHome, testObject.resource, PREVIEW_DIR_NAME, 'html.json');
 		assertPreviews(testObject.conflicts.conflicts, [local]);
 	});
@@ -673,7 +673,7 @@ suite('SnippetsSync', () => {
 	});
 
 	test('merge when there are multiple snippets and all snippets are merged', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updateSnippet('html.json', htmlSnippet2, testClient);
 		await updateSnippet('typescript.json', tsSnippet2, testClient);
@@ -700,7 +700,7 @@ suite('SnippetsSync', () => {
 	});
 
 	test('merge when there are multiple snippets and one snippet has no changes and one snippet is merged', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updateSnippet('html.json', htmlSnippet1, client2);
 		await client2.sync();
@@ -734,7 +734,7 @@ suite('SnippetsSync', () => {
 	});
 
 	test('merge when there are multiple snippets with conflicts and all snippets are merged', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updateSnippet('html.json', htmlSnippet1, client2);
 		await updateSnippet('typescript.json', tsSnippet1, client2);
@@ -758,7 +758,7 @@ suite('SnippetsSync', () => {
 	});
 
 	test('accept when there are multiple snippets with conflicts and only one snippet is accepted', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updateSnippet('html.json', htmlSnippet1, client2);
 		await updateSnippet('typescript.json', tsSnippet1, client2);
@@ -795,7 +795,7 @@ suite('SnippetsSync', () => {
 	});
 
 	test('accept when there are multiple snippets with conflicts and all snippets are accepted', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 
 		await updateSnippet('html.json', htmlSnippet1, client2);
 		await updateSnippet('typescript.json', tsSnippet1, client2);
@@ -830,7 +830,7 @@ suite('SnippetsSync', () => {
 	});
 
 	test('accept when there are multiple snippets with conflicts and all snippets are accepted and applied', async () => {
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		await updateSnippet('html.json', htmlSnippet1, client2);
 		await updateSnippet('typescript.json', tsSnippet1, client2);
 		await client2.sync();

@@ -20,7 +20,7 @@ import { TestInstantiationService } from '../../../../../../platform/instantiati
 import { ILabelService } from '../../../../../../platform/label/common/label.js';
 import { ILogService, NullLogService } from '../../../../../../platform/log/common/log.js';
 import { IOpenerService } from '../../../../../../platform/opener/common/opener.js';
-import { IStorageService } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../../platform/storage/common/storage.js';
 import { ITerminalCommand, TerminalCapability } from '../../../../../../platform/terminal/common/capabilities/capabilities.js';
 import { CommandDetectionCapability } from '../../../../../../platform/terminal/common/capabilities/commandDetectionCapability.js';
 import { TerminalCapabilityStore } from '../../../../../../platform/terminal/common/capabilities/terminalCapabilityStore.js';
@@ -50,7 +50,7 @@ suite('QuickFixAddon', () => {
 			cols: 80,
 			rows: 30
 		}));
-		instantiationService.stub(IStorageService, store.add(new TestStorageService()));
+		instantiationService.stub(StorageServiceInterface, store.add(new TestStorageService()));
 		instantiationService.stub(ITerminalQuickFixService, {
 			onDidRegisterProvider: Event.None,
 			onDidUnregisterProvider: Event.None,

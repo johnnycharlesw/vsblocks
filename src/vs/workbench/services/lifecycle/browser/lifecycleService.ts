@@ -10,7 +10,7 @@ import { localize } from '../../../../nls.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IDisposable } from '../../../../base/common/lifecycle.js';
 import { addDisposableListener, EventType } from '../../../../base/browser/dom.js';
-import { IStorageService, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
 import { CancellationToken } from '../../../../base/common/cancellation.js';
 import { mainWindow } from '../../../../base/browser/window.js';
 
@@ -25,7 +25,7 @@ export class BrowserLifecycleService extends AbstractLifecycleService {
 
 	constructor(
 		@ILogService logService: ILogService,
-		@IStorageService storageService: IStorageService
+		@StorageServiceInterface storageService: StorageServiceInterface
 	) {
 		super(logService, storageService);
 
@@ -41,7 +41,7 @@ export class BrowserLifecycleService extends AbstractLifecycleService {
 		// We explicitly do not listen to `unload` event
 		// which would disable certain browser caching.
 		// We currently do not handle the `persisted` property
-		// (https://github.com/microsoft/vscode/issues/136216)
+		// (https://github.com/johnnycharlesw/vsblocks/issues/136216)
 		this.unloadListener = addDisposableListener(mainWindow, EventType.PAGE_HIDE, () => this.onUnload());
 	}
 
@@ -201,7 +201,7 @@ export class BrowserLifecycleService extends AbstractLifecycleService {
 		// so in order to get back to a functional workbench, we
 		// currently can only reload the window
 		// Docs: https://web.dev/bfcache/#optimize-your-pages-for-bfcache
-		// Refs: https://github.com/microsoft/vscode/issues/136035
+		// Refs: https://github.com/johnnycharlesw/vsblocks/issues/136035
 		this.withExpectedShutdown({ disableShutdownHandling: true }, () => mainWindow.location.reload());
 	}
 

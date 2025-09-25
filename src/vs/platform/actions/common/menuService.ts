@@ -11,7 +11,7 @@ import { ICommandAction, ILocalizedString } from '../../action/common/action.js'
 import { ICommandService } from '../../commands/common/commands.js';
 import { ContextKeyExpression, IContextKeyService } from '../../contextkey/common/contextkey.js';
 import { IAction, Separator, toAction } from '../../../base/common/actions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { removeFastWithoutKeepingOrder } from '../../../base/common/arrays.js';
 import { localize } from '../../../nls.js';
 import { IKeybindingService } from '../../keybinding/common/keybinding.js';
@@ -25,7 +25,7 @@ export class MenuService implements IMenuService {
 	constructor(
 		@ICommandService private readonly _commandService: ICommandService,
 		@IKeybindingService private readonly _keybindingService: IKeybindingService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		this._hiddenStates = new PersistedMenuHideState(storageService);
 	}
@@ -64,7 +64,7 @@ class PersistedMenuHideState {
 
 	private _hiddenByDefaultCache = new Map<string, boolean>();
 
-	constructor(@IStorageService private readonly _storageService: IStorageService) {
+	constructor(@StorageServiceInterface private readonly _storageService: StorageServiceInterface) {
 		try {
 			const raw = _storageService.get(PersistedMenuHideState._key, StorageScope.PROFILE, '{}');
 			this._data = JSON.parse(raw);

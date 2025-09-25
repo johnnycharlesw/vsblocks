@@ -16,7 +16,7 @@ import { TestConfigurationService } from '../../../../../../platform/configurati
 import { IFileService } from '../../../../../../platform/files/common/files.js';
 import { TestInstantiationService } from '../../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { IRemoteAgentEnvironment } from '../../../../../../platform/remote/common/remoteAgentEnvironment.js';
-import { IStorageService } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../../platform/storage/common/storage.js';
 import { IRemoteAgentConnection, IRemoteAgentService } from '../../../../../services/remote/common/remoteAgentService.js';
 import { TestStorageService } from '../../../../../test/common/workbenchTestServices.js';
 import { fetchBashHistory, fetchFishHistory, fetchPwshHistory, fetchZshHistory, sanitizeFishHistoryCmd, TerminalPersistedHistory, type ITerminalPersistedHistory } from '../../common/history.js';
@@ -52,7 +52,7 @@ suite('Terminal history', () => {
 			configurationService = new TestConfigurationService(getConfig(5));
 			instantiationService = store.add(new TestInstantiationService());
 			instantiationService.set(IConfigurationService, configurationService);
-			instantiationService.set(IStorageService, store.add(new TestStorageService()));
+			instantiationService.set(StorageServiceInterface, store.add(new TestStorageService()));
 
 			history = store.add(instantiationService.createInstance(TerminalPersistedHistory<number>, 'test'));
 		});

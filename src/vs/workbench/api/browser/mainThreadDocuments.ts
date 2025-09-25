@@ -19,7 +19,7 @@ import { toLocalResource, extUri, IExtUri } from '../../../base/common/resources
 import { IWorkingCopyFileService } from '../../services/workingCopy/common/workingCopyFileService.js';
 import { IUriIdentityService } from '../../../platform/uriIdentity/common/uriIdentity.js';
 import { Emitter, Event } from '../../../base/common/event.js';
-import { IPathService } from '../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../services/path/common/pathService.js';
 import { ResourceMap } from '../../../base/common/map.js';
 import { IExtHostContext } from '../../services/extensions/common/extHostCustomers.js';
 import { ErrorNoTelemetry, onUnexpectedError } from '../../../base/common/errors.js';
@@ -141,7 +141,7 @@ export class MainThreadDocuments extends Disposable implements MainThreadDocumen
 		@IWorkbenchEnvironmentService private readonly _environmentService: IWorkbenchEnvironmentService,
 		@IUriIdentityService private readonly _uriIdentityService: IUriIdentityService,
 		@IWorkingCopyFileService workingCopyFileService: IWorkingCopyFileService,
-		@IPathService private readonly _pathService: IPathService
+		@PathInterfaceService private readonly _pathService: PathInterfaceService
 	) {
 		super();
 

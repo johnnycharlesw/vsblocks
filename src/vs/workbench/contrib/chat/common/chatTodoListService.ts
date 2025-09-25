@@ -5,7 +5,7 @@
 
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Memento } from '../../../common/memento.js';
 
 export interface IChatTodo {
@@ -31,7 +31,7 @@ export interface IChatTodoListService {
 export class ChatTodoListStorage implements IChatTodoListStorage {
 	private memento: Memento;
 
-	constructor(@IStorageService storageService: IStorageService) {
+	constructor(@StorageServiceInterface storageService: StorageServiceInterface) {
 		this.memento = new Memento('chat-todo-list', storageService);
 	}
 
@@ -60,7 +60,7 @@ export class ChatTodoListService extends Disposable implements IChatTodoListServ
 
 	private todoListStorage: IChatTodoListStorage;
 
-	constructor(@IStorageService storageService: IStorageService) {
+	constructor(@StorageServiceInterface storageService: StorageServiceInterface) {
 		super();
 		this.todoListStorage = new ChatTodoListStorage(storageService);
 	}

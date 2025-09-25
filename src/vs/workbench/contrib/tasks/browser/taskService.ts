@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as nls from '../../../../nls.js';
-import { IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { ITaskSystem } from '../common/taskSystem.js';
 import { ExecutionEngine } from '../common/tasks.js';
-import { AbstractTaskService, IWorkspaceFolderConfigurationResult } from './abstractTaskService.js';
+import { AbstractTaskService, WorkspaceInterfaceFolderConfigurationResult } from './abstractTaskService.js';
 import { ITaskFilter, ITaskService } from '../common/taskService.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 
@@ -32,7 +32,7 @@ export class TaskService extends AbstractTaskService {
 		return this._taskSystem;
 	}
 
-	protected _computeLegacyConfiguration(workspaceFolder: IWorkspaceFolder): Promise<IWorkspaceFolderConfigurationResult> {
+	protected _computeLegacyConfiguration(workspaceFolder: WorkspaceInterfaceFolder): Promise<WorkspaceInterfaceFolderConfigurationResult> {
 		throw new Error(TaskService.ProcessTaskSystemSupportMessage);
 	}
 

@@ -17,7 +17,7 @@ import { WorkbenchCompressibleAsyncDataTree, getSelectionKeyboardEvent } from '.
 import { FastAndSlowPicks, IPickerQuickAccessItem, IPickerQuickAccessSeparator, PickerQuickAccessProvider, Picks, TriggerAction } from '../../../../../platform/quickinput/browser/pickerQuickAccess.js';
 import { DefaultQuickAccessFilterValue, IQuickAccessProviderRunOptions } from '../../../../../platform/quickinput/common/quickAccess.js';
 import { IKeyMods, IQuickPick, IQuickPickItem, QuickInputButtonLocation, QuickInputHideReason } from '../../../../../platform/quickinput/common/quickInput.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchEditorConfiguration } from '../../../../common/editor.js';
 import { searchDetailsIcon, searchOpenInFileIcon, searchActivityBarIcon } from '../searchIcons.js';
 import { SearchView, getEditorSelectionFromMatch } from '../searchView.js';
@@ -82,7 +82,7 @@ export class TextSearchQuickAccess extends PickerQuickAccessProvider<ITextSearch
 
 	constructor(
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
-		@IWorkspaceContextService private readonly _contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _contextService: WorkspaceContextServiceInterface,
 		@IEditorService private readonly _editorService: IEditorService,
 		@ILabelService private readonly _labelService: ILabelService,
 		@IViewsService private readonly _viewsService: IViewsService,
@@ -183,12 +183,12 @@ export class TextSearchQuickAccess extends PickerQuickAccessProvider<ITextSearch
 			return undefined;
 		}
 
-		const folderResources: IWorkspaceFolder[] = this._contextService.getWorkspace().folders;
+		const folderResources: WorkspaceInterfaceFolder[] = this._contextService.getWorkspace().folders;
 		const content: IPatternInfo = {
 			pattern: contentPattern,
 		};
 		this.searchModel.searchResult.toggleHighlights(false);
-		const charsPerLine = content.isRegExp ? 10000 : 1000; // from https://github.com/microsoft/vscode/blob/e7ad5651ac26fa00a40aa1e4010e81b92f655569/src/vs/workbench/contrib/search/browser/searchView.ts#L1508
+		const charsPerLine = content.isRegExp ? 10000 : 1000; // from https://github.com/johnnycharlesw/vsblocks/blob/e7ad5651ac26fa00a40aa1e4010e81b92f655569/src/vs/workbench/contrib/search/browser/searchView.ts#L1508
 
 		const query: ITextQuery = this.queryBuilder.text(content, folderResources.map(folder => folder.uri), this._getTextQueryBuilderOptions(charsPerLine));
 
@@ -336,7 +336,7 @@ export class TextSearchQuickAccess extends PickerQuickAccessProvider<ITextSearch
 			selection: options.selection
 		};
 
-		// from https://github.com/microsoft/vscode/blob/f40dabca07a1622b2a0ae3ee741cfc94ab964bef/src/vs/workbench/contrib/search/browser/anythingQuickAccess.ts#L1037
+		// from https://github.com/johnnycharlesw/vsblocks/blob/f40dabca07a1622b2a0ae3ee741cfc94ab964bef/src/vs/workbench/contrib/search/browser/anythingQuickAccess.ts#L1037
 		const targetGroup = options.keyMods?.alt || (this.configuration.openEditorPinned && options.keyMods?.ctrlCmd) || options.forceOpenSideBySide ? SIDE_GROUP : ACTIVE_GROUP;
 
 		await this._editorService.openEditor({

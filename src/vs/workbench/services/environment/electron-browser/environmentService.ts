@@ -5,8 +5,8 @@
 
 import { PerformanceMark } from '../../../../base/common/performance.js';
 import { IBrowserWorkbenchEnvironmentService } from '../browser/environmentService.js';
-import { IColorScheme, INativeWindowConfiguration, IOSConfiguration, IPath, IPathsToWaitFor } from '../../../../platform/window/common/window.js';
-import { IEnvironmentService, INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { IColorScheme, INativeWindowConfiguration, IOSConfiguration, PathInterface, PathInterfacesToWaitFor } from '../../../../platform/window/common/window.js';
+import { EnvironmentServiceInterface, NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { refineServiceDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { AbstractNativeEnvironmentService } from '../../../../platform/environment/common/environmentService.js';
 import { memoize } from '../../../../base/common/decorators.js';
@@ -16,13 +16,13 @@ import { IProductService } from '../../../../platform/product/common/productServ
 import { joinPath } from '../../../../base/common/resources.js';
 import { VSBuffer } from '../../../../base/common/buffer.js';
 
-export const INativeWorkbenchEnvironmentService = refineServiceDecorator<IEnvironmentService, INativeWorkbenchEnvironmentService>(IEnvironmentService);
+export const INativeWorkbenchEnvironmentService = refineServiceDecorator<EnvironmentServiceInterface, INativeWorkbenchEnvironmentService>(EnvironmentServiceInterface);
 
 /**
  * A subclass of the `IWorkbenchEnvironmentService` to be used only in native
  * environments (Windows, Linux, macOS) but not e.g. web.
  */
-export interface INativeWorkbenchEnvironmentService extends IBrowserWorkbenchEnvironmentService, INativeEnvironmentService {
+export interface INativeWorkbenchEnvironmentService extends IBrowserWorkbenchEnvironmentService, NativeEnvironmentServiceInterface {
 
 	// --- Window
 	readonly window: {
@@ -52,7 +52,7 @@ export interface INativeWorkbenchEnvironmentService extends IBrowserWorkbenchEnv
 	readonly crashReporterId?: string;
 
 	// --- Editors to --wait
-	readonly filesToWait?: IPathsToWaitFor;
+	readonly filesToWait?: PathInterfacesToWaitFor;
 }
 
 export class NativeWorkbenchEnvironmentService extends AbstractNativeEnvironmentService implements INativeWorkbenchEnvironmentService {
@@ -136,16 +136,16 @@ export class NativeWorkbenchEnvironmentService extends AbstractNativeEnvironment
 	get os(): IOSConfiguration { return this.configuration.os; }
 
 	@memoize
-	get filesToOpenOrCreate(): IPath[] | undefined { return this.configuration.filesToOpenOrCreate; }
+	get filesToOpenOrCreate(): PathInterface[] | undefined { return this.configuration.filesToOpenOrCreate; }
 
 	@memoize
-	get filesToDiff(): IPath[] | undefined { return this.configuration.filesToDiff; }
+	get filesToDiff(): PathInterface[] | undefined { return this.configuration.filesToDiff; }
 
 	@memoize
-	get filesToMerge(): IPath[] | undefined { return this.configuration.filesToMerge; }
+	get filesToMerge(): PathInterface[] | undefined { return this.configuration.filesToMerge; }
 
 	@memoize
-	get filesToWait(): IPathsToWaitFor | undefined { return this.configuration.filesToWait; }
+	get filesToWait(): PathInterfacesToWaitFor | undefined { return this.configuration.filesToWait; }
 
 	constructor(
 		private readonly configuration: INativeWindowConfiguration,

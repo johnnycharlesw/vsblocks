@@ -9,7 +9,7 @@ import { ISharedProcessService } from '../../../../platform/ipc/electron-browser
 import { registerAction2, Action2, MenuId } from '../../../../platform/actions/common/actions.js';
 import { localize, localize2 } from '../../../../nls.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
 import { INotificationService, Severity } from '../../../../platform/notification/common/notification.js';
@@ -46,7 +46,7 @@ registerAction2(class OpenSyncBackupsFolder extends Action2 {
 		});
 	}
 	async run(accessor: ServicesAccessor): Promise<void> {
-		const syncHome = accessor.get(IEnvironmentService).userDataSyncHome;
+		const syncHome = accessor.get(EnvironmentServiceInterface).userDataSyncHome;
 		const nativeHostService = accessor.get(INativeHostService);
 		const fileService = accessor.get(IFileService);
 		const notificationService = accessor.get(INotificationService);
