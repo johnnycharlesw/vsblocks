@@ -57,5 +57,5 @@ steps:
         artifactName: $(ASSET_ID)
         displayName: Publish signed artifact with ID $(ASSET_ID)
         sbomBuildDropPath: $(Build.ArtifactStagingDirectory)/sign/${{ target }}
-        sbomPackageName: "VS Code macOS ${{ target }} CLI"
+        sbomPackageName: "VSBlocks macOS ${{ target }} CLI"
         sbomPackageVersion: $(Build.SourceVersion)

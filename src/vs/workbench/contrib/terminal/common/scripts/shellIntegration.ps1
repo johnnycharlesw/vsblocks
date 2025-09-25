@@ -85,7 +85,7 @@ if (-not $env:VSCODE_PYTHON_AUTOACTIVATE_GUARD) {
 		}
 		catch {
 			$activationError = $_
-			Write-Host "`e[0m`e[7m * `e[0;103m VS Code Python powershell activation failed with exit code $($activationError.Exception.Message) `e[0m"
+			Write-Host "`e[0m`e[7m * `e[0;103m VSBlocks Python powershell activation failed with exit code $($activationError.Exception.Message) `e[0m"
 		}
 	}
 }
@@ -233,7 +233,7 @@ else {
 	[Console]::Write("$([char]0x1b)]633;P;IsWindows=$IsWindows`a")
 }
 
-# Set always on key handlers which map to default VS Code keybindings
+# Set always on key handlers which map to default VSBlocks keybindings
 function Set-MappedKeyHandler {
 	param ([string[]] $Chord, [string[]]$Sequence)
 	try {

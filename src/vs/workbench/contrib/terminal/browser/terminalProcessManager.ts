@@ -203,7 +203,7 @@ export class TerminalProcessManager extends Disposable implements ITerminalProce
 		this._isDisposed = true;
 		if (this._process) {
 			// If the process was still connected this dispose came from
-			// within VS Code, not the process, so mark the process as
+			// within VSBlocks, not the process, so mark the process as
 			// killed by the user.
 			this._setProcessState(ProcessState.KilledByUser);
 			this._process.shutdown(immediate);
@@ -660,7 +660,7 @@ export class TerminalProcessManager extends Disposable implements ITerminalProce
 		}
 
 		// If TerminalInstance did not know about the process exit then it was
-		// triggered by the process, not on VS Code's side.
+		// triggered by the process, not on VSBlocks's side.
 		if (this.processState === ProcessState.Running) {
 			this._setProcessState(ProcessState.KilledByProcess);
 		}
