@@ -30,8 +30,8 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService, IWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { EditorsOrder } from '../../../common/editor.js';
 import { EditorInput } from '../../../common/editor/editorInput.js';
 import { IViewDescriptorService, ViewContainerLocation } from '../../../common/views.js';
@@ -100,7 +100,7 @@ export class DebugService implements IDebugService {
 		@INotificationService private readonly notificationService: INotificationService,
 		@IDialogService private readonly dialogService: IDialogService,
 		@IWorkbenchLayoutService private readonly layoutService: IWorkbenchLayoutService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@ILifecycleService private readonly lifecycleService: ILifecycleService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
@@ -111,7 +111,7 @@ export class DebugService implements IDebugService {
 		@IActivityService private readonly activityService: IActivityService,
 		@ICommandService private readonly commandService: ICommandService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
-		@IWorkspaceTrustRequestService private readonly workspaceTrustRequestService: IWorkspaceTrustRequestService,
+		@WorkspaceInterfaceTrustRequestService private readonly workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@ITestService private readonly testService: ITestService,
 	) {
@@ -621,7 +621,7 @@ export class DebugService implements IDebugService {
 	/**
 	 * instantiates the new session, initializes the session, registers session listeners and reports telemetry
 	 */
-	private async doCreateSession(sessionId: string, root: IWorkspaceFolder | undefined, configuration: { resolved: IConfig; unresolved: IConfig | undefined }, options?: IDebugSessionOptions, userConfirmedConcurrentSession = false): Promise<boolean> {
+	private async doCreateSession(sessionId: string, root: WorkspaceInterfaceFolder | undefined, configuration: { resolved: IConfig; unresolved: IConfig | undefined }, options?: IDebugSessionOptions, userConfirmedConcurrentSession = false): Promise<boolean> {
 
 		const session = this.instantiationService.createInstance(DebugSession, sessionId, configuration, root, this.model, options);
 		if (!userConfirmedConcurrentSession && options?.startedByUser && this.model.getSessions().some(s =>
@@ -979,7 +979,7 @@ export class DebugService implements IDebugService {
 	private async substituteVariables(launch: ILaunch | undefined, config: IConfig): Promise<IConfig | undefined> {
 		const dbg = this.adapterManager.getDebugger(config.type);
 		if (dbg) {
-			let folder: IWorkspaceFolder | undefined = undefined;
+			let folder: WorkspaceInterfaceFolder | undefined = undefined;
 			if (launch && launch.workspace) {
 				folder = launch.workspace;
 			} else {

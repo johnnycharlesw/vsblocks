@@ -12,7 +12,7 @@ import { CommonFindController } from '../../../find/browser/findController.js';
 import { AddSelectionToNextFindMatchAction, InsertCursorAbove, InsertCursorBelow, MultiCursorSelectionController, SelectHighlightsAction } from '../../browser/multicursor.js';
 import { ITestCodeEditor, withTestCodeEditor } from '../../../../test/browser/testCodeEditor.js';
 import { ServiceCollection } from '../../../../../platform/instantiation/common/serviceCollection.js';
-import { IStorageService, InMemoryStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, InMemoryStorageService } from '../../../../../platform/storage/common/storage.js';
 
 suite('Multicursor', () => {
 
@@ -86,7 +86,7 @@ suite('Multicursor selection', () => {
 	ensureNoDisposablesAreLeakedInTestSuite();
 
 	const serviceCollection = new ServiceCollection();
-	serviceCollection.set(IStorageService, new InMemoryStorageService());
+	serviceCollection.set(StorageServiceInterface, new InMemoryStorageService());
 
 	test('issue #8817: Cursor position changes when you cancel multicursor', () => {
 		withTestCodeEditor([

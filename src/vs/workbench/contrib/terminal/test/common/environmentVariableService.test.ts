@@ -7,7 +7,7 @@ import { deepStrictEqual } from 'assert';
 import { TestExtensionService, TestHistoryService, TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { EnvironmentVariableService } from '../../common/environmentVariableService.js';
 import { EnvironmentVariableMutatorType, IEnvironmentVariableMutator } from '../../../../../platform/terminal/common/environmentVariable.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { IExtensionService } from '../../../../services/extensions/common/extensions.js';
 import { Emitter } from '../../../../../base/common/event.js';
@@ -33,7 +33,7 @@ suite('EnvironmentVariable - EnvironmentVariableService', () => {
 
 		instantiationService = store.add(new TestInstantiationService());
 		instantiationService.stub(IExtensionService, TestExtensionService);
-		instantiationService.stub(IStorageService, store.add(new TestStorageService()));
+		instantiationService.stub(StorageServiceInterface, store.add(new TestStorageService()));
 		instantiationService.stub(IHistoryService, new TestHistoryService());
 		instantiationService.stub(IExtensionService, TestExtensionService);
 		instantiationService.stub(IExtensionService, 'onDidChangeExtensions', changeExtensionsEvent.event);

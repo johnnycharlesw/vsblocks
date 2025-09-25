@@ -7,7 +7,7 @@ import { spawn } from 'child_process';
 import { relative } from '../../../base/common/path.js';
 import { FileAccess } from '../../../base/common/network.js';
 import { StopWatch } from '../../../base/common/stopwatch.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { ILogService } from '../../log/common/log.js';
 
@@ -26,7 +26,7 @@ export class CSSDevelopmentService implements ICSSDevelopmentService {
 	private _cssModules?: Promise<string[]>;
 
 	constructor(
-		@IEnvironmentService private readonly envService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly envService: EnvironmentServiceInterface,
 		@ILogService private readonly logService: ILogService
 	) { }
 

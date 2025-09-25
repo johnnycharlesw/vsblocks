@@ -13,7 +13,7 @@ import { ContextKeyExpr, IContextKeyService, RawContextKey } from '../../../plat
 import { InstantiationType, registerSingleton } from '../../../platform/instantiation/common/extensions.js';
 import { createDecorator, ServicesAccessor } from '../../../platform/instantiation/common/instantiation.js';
 import { IQuickInputService, IQuickPickItem } from '../../../platform/quickinput/common/quickInput.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../platform/telemetry/common/telemetry.js';
 
 export const IInlineCompletionsService = createDecorator<IInlineCompletionsService>('IInlineCompletionsService');
@@ -193,7 +193,7 @@ export class SnoozeInlineCompletion extends Action2 {
 	public async run(accessor: ServicesAccessor, ...args: unknown[]): Promise<void> {
 		const quickInputService = accessor.get(IQuickInputService);
 		const inlineCompletionsService = accessor.get(IInlineCompletionsService);
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 
 		let durationMinutes: number | undefined;
 		if (args.length > 0 && typeof args[0] === 'number') {
@@ -209,7 +209,7 @@ export class SnoozeInlineCompletion extends Action2 {
 		}
 	}
 
-	private async getDurationFromUser(quickInputService: IQuickInputService, storageService: IStorageService): Promise<number | undefined> {
+	private async getDurationFromUser(quickInputService: IQuickInputService, storageService: StorageServiceInterface): Promise<number | undefined> {
 		const lastSelectedDuration = storageService.getNumber(LAST_SNOOZE_DURATION_KEY, StorageScope.PROFILE, 300_000);
 
 		const items: (IQuickPickItem & { value: number })[] = [

@@ -16,7 +16,7 @@ import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { ILogService } from '../../log/common/log.js';
 import { IStateService } from '../../state/node/state.js';
 import { ICodeWindow, LoadReason, UnloadReason } from '../../window/electron-main/window.js';
-import { ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 import { IEnvironmentMainService } from '../../environment/electron-main/environmentMainService.js';
 import { IAuxiliaryWindow } from '../../auxiliaryWindow/electron-main/auxiliaryWindow.js';
 import { getAllWindowsExcludingOffscreen } from '../../windows/electron-main/windows.js';
@@ -33,7 +33,7 @@ interface WindowLoadEvent {
 	/**
 	 * The workspace the window is loaded into.
 	 */
-	readonly workspace: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined;
+	readonly workspace: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined;
 
 	/**
 	 * More details why the window loads to a new workspace.

@@ -8,7 +8,7 @@ import { EnablementState } from '../../../services/extensionManagement/common/ex
 import { ExtensionRecommendationReason, IExtensionIgnoredRecommendationsService } from '../../../services/extensionRecommendations/common/extensionRecommendations.js';
 import { IExtensionsWorkbenchService, IExtension } from '../common/extensions.js';
 import { localize } from '../../../../nls.js';
-import { StorageScope, IStorageService, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageScope, StorageServiceInterface, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IFileContentCondition, IFilePathCondition, IFileLanguageCondition, IFileOpenCondition } from '../../../../base/common/product.js';
 import { IStringDictionary } from '../../../../base/common/collections.js';
@@ -24,7 +24,7 @@ import { distinct } from '../../../../base/common/arrays.js';
 import { DisposableStore } from '../../../../base/common/lifecycle.js';
 import { CellUri } from '../../notebook/common/notebookCommon.js';
 import { disposableTimeout } from '../../../../base/common/async.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { areSameExtensions } from '../../../../platform/extensionManagement/common/extensionManagementUtil.js';
 import { isEmptyObject } from '../../../../base/common/types.js';
 import { PLAINTEXT_LANGUAGE_ID } from '../../../../editor/common/languages/modesRegistry.js';
@@ -79,10 +79,10 @@ export class FileBasedRecommendations extends ExtensionRecommendations {
 		@IModelService private readonly modelService: IModelService,
 		@ILanguageService private readonly languageService: ILanguageService,
 		@IProductService productService: IProductService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IExtensionRecommendationNotificationService private readonly extensionRecommendationNotificationService: IExtensionRecommendationNotificationService,
 		@IExtensionIgnoredRecommendationsService private readonly extensionIgnoredRecommendationsService: IExtensionIgnoredRecommendationsService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 		this.fileOpenRecommendations = {};

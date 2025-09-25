@@ -9,12 +9,12 @@ import { join } from '../../../../base/common/path.js';
 import { URI } from '../../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 import { NullLogService } from '../../../log/common/log.js';
-import { IWorkspaceIdentifier } from '../../../workspace/common/workspace.js';
+import { WorkspaceIdentifierInterface } from '../../../workspace/common/workspace.js';
 import { IRecentFolder, IRecentlyOpened, IRecentWorkspace, isRecentFolder, restoreRecentlyOpened, toStoreData } from '../../common/workspaces.js';
 
 suite('History Storage', () => {
 
-	function toWorkspace(uri: URI): IWorkspaceIdentifier {
+	function toWorkspace(uri: URI): WorkspaceIdentifierInterface {
 		return {
 			id: '1234',
 			configPath: uri
@@ -24,7 +24,7 @@ suite('History Storage', () => {
 		assert.strictEqual(u1 && u1.toString(), u2 && u2.toString(), message);
 	}
 
-	function assertEqualWorkspace(w1: IWorkspaceIdentifier | undefined, w2: IWorkspaceIdentifier | undefined, message?: string): void {
+	function assertEqualWorkspace(w1: WorkspaceIdentifierInterface | undefined, w2: WorkspaceIdentifierInterface | undefined, message?: string): void {
 		if (!w1 || !w2) {
 			assert.strictEqual(w1, w2, message);
 			return;

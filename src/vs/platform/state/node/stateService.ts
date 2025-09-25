@@ -8,7 +8,7 @@ import { VSBuffer } from '../../../base/common/buffer.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 import { isUndefined, isUndefinedOrNull } from '../../../base/common/types.js';
 import { URI } from '../../../base/common/uri.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { FileOperationError, FileOperationResult, IFileService } from '../../files/common/files.js';
 import { ILogService } from '../../log/common/log.js';
 import { IStateReadService, IStateService } from './state.js';
@@ -162,7 +162,7 @@ export class StateReadonlyService extends Disposable implements IStateReadServic
 
 	constructor(
 		saveStrategy: SaveStrategy,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@ILogService logService: ILogService,
 		@IFileService fileService: IFileService
 	) {

@@ -21,9 +21,9 @@ import { ILogger, ILoggerService } from '../../../../platform/log/common/log.js'
 import { INotificationService, IPromptChoice, Severity } from '../../../../platform/notification/common/notification.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { IRemoteAuthorityResolverService } from '../../../../platform/remote/common/remoteAuthorityResolver.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
 import { IOutputService } from '../../../services/output/common/output.js';
@@ -135,7 +135,7 @@ export class McpServerMetadataCache extends Disposable {
 
 	constructor(
 		scope: StorageScope,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super();
 
@@ -366,7 +366,7 @@ export class McpServer extends Disposable implements IMcpServer {
 		private readonly _primitiveCache: McpServerMetadataCache,
 		toolPrefix: string,
 		@IMcpRegistry private readonly _mcpRegistry: IMcpRegistry,
-		@IWorkspaceContextService workspacesService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspacesService: WorkspaceContextServiceInterface,
 		@IExtensionService private readonly _extensionService: IExtensionService,
 		@ILoggerService private readonly _loggerService: ILoggerService,
 		@IOutputService private readonly _outputService: IOutputService,

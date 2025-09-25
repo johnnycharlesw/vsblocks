@@ -16,7 +16,7 @@ import { CLOSE_EDITOR_COMMAND_ID, MOVE_ACTIVE_EDITOR_COMMAND_ID, SelectedEditors
 import { IEditorGroupsService, IEditorGroup, GroupsArrangement, GroupLocation, GroupDirection, preferredSideBySideGroupDirection, IFindGroupScope, GroupOrientation, EditorGroupLayout, GroupsOrder, MergeGroupMode } from '../../../services/editor/common/editorGroupsService.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IWorkspacesService } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService } from '../../../../platform/workspaces/common/workspaces.js';
 import { IFileDialogService, ConfirmResult, IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { ItemActivation, IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
 import { AllEditorsByMostRecentlyUsedQuickAccess, ActiveGroupEditorsByMostRecentlyUsedQuickAccess, AllEditorsByAppearanceQuickAccess } from './editorQuickAccess.js';
@@ -1684,7 +1684,7 @@ export class ClearRecentFilesAction extends Action2 {
 
 	override async run(accessor: ServicesAccessor): Promise<void> {
 		const dialogService = accessor.get(IDialogService);
-		const workspacesService = accessor.get(IWorkspacesService);
+		const workspacesService = accessor.get(WorkspaceInterfacesService);
 		const historyService = accessor.get(IHistoryService);
 
 		// Ask for confirmation

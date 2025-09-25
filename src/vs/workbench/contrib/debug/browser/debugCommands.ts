@@ -23,7 +23,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { ContextKeyExpr, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { InputFocusedContext } from '../../../../platform/contextkey/common/contextkeys.js';
 import { IExtensionHostDebugService } from '../../../../platform/debug/common/extensionHostDebug.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { KeybindingsRegistry, KeybindingWeight } from '../../../../platform/keybinding/common/keybindingsRegistry.js';
 import { IListService } from '../../../../platform/list/browser/listService.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
@@ -1186,7 +1186,7 @@ registerAction2(class extends Action2 {
 	}
 
 	override async run(accessor: ServicesAccessor): Promise<any> {
-		const env = accessor.get(IEnvironmentService);
+		const env = accessor.get(EnvironmentServiceInterface);
 		if (!env.isExtensionDevelopment && !env.extensionTestsLocationURI) {
 			throw new Error('Refusing to attach to renderer outside of development context');
 		}

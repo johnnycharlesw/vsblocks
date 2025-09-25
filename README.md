@@ -5,7 +5,8 @@
 
 ## The Repository
 
-This repository ("`Code - OSS`") is where we (Microsoft) develop the [VSBlocks](https://code.visualstudio.com) product together with the community. Not only do we work on code and issues here, we also publish our [roadmap](https://github.com/johnnycharlesw/vsblocks/wiki/Roadmap), [monthly iteration plans](https://github.com/johnnycharlesw/vsblocks/wiki/Iteration-Plans), and our [endgame plans](https://github.com/johnnycharlesw/vsblocks/wiki/Running-the-Endgame). This source code is available to everyone under the standard [MIT license](https://github.com/johnnycharlesw/vsblocks/blob/main/LICENSE.txt).
+This repository ("`Code - OSS`") is where all of us develop the [VSBlocks](https://code.visualstudio.com) product together with the community. Not only do we work on code and issues here, we also publish our [roadmap](https://github.com/johnnycharlesw/vsblocks/wiki/Roadmap), [monthly iteration plans](https://github.com/johnnycharlesw/vsblocks/wiki/Iteration-Plans), and our [endgame plans](https://github.com/johnnycharlesw/vsblocks/wiki/Running-the-Endgame). This source code is available to everyone under the standard [MIT license](https://github.com/johnnycharlesw/vsblocks/blob/main/LICENSE.txt).
+VSBlocks is based on [VSCode](https://code.visualstudio.com).
 
 ## VSBlocks
 

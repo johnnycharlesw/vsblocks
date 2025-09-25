@@ -6,7 +6,7 @@
 import { URI } from '../../../../../base/common/uri.js';
 import { Event, Emitter } from '../../../../../base/common/event.js';
 import { localize } from '../../../../../nls.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { IDecorationsProvider, IDecorationData } from '../../../../services/decorations/common/decorations.js';
 import { listInvalidItemForeground, listDeemphasizedForeground } from '../../../../../platform/theme/common/colorRegistry.js';
 import { DisposableStore } from '../../../../../base/common/lifecycle.js';
@@ -51,7 +51,7 @@ export class ExplorerDecorationsProvider implements IDecorationsProvider {
 
 	constructor(
 		@IExplorerService private explorerService: IExplorerService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface
 	) {
 		this.toDispose.add(this._onDidChange);
 		this.toDispose.add(contextService.onDidChangeWorkspaceFolders(e => {

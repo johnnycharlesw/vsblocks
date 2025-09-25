@@ -8,10 +8,10 @@ import { hashAsync } from '../../../../../base/common/hash.js';
 import { ResourceMap } from '../../../../../base/common/map.js';
 import { joinPath } from '../../../../../base/common/resources.js';
 import { URI } from '../../../../../base/common/uri.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
 import { ILogService } from '../../../../../platform/log/common/log.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { EditSuggestionId } from '../../../../../editor/common/textModelEditSource.js';
 import { WorkingSetDisplayMetadata, ModifiedFileEntryState, ISnapshotEntry } from '../../common/chatEditingService.js';
 
@@ -30,9 +30,9 @@ export class ChatEditingSessionStorage {
 	constructor(
 		private readonly chatSessionId: string,
 		@IFileService private readonly _fileService: IFileService,
-		@IEnvironmentService private readonly _environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly _environmentService: EnvironmentServiceInterface,
 		@ILogService private readonly _logService: ILogService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 	) { }
 
 	protected _getStorageLocation(): URI {

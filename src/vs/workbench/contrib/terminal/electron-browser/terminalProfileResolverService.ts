@@ -6,7 +6,7 @@
 import { ErrorNoTelemetry } from '../../../../base/common/errors.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { ITerminalLogService } from '../../../../platform/terminal/common/terminal.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ITerminalInstanceService } from '../browser/terminal.js';
 import { BaseTerminalProfileResolverService } from '../browser/terminalProfileResolverService.js';
 import { ITerminalProfileService } from '../common/terminal.js';
@@ -21,7 +21,7 @@ export class ElectronTerminalProfileResolverService extends BaseTerminalProfileR
 		@IConfigurationService configurationService: IConfigurationService,
 		@IHistoryService historyService: IHistoryService,
 		@ITerminalLogService logService: ITerminalLogService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@ITerminalProfileService terminalProfileService: ITerminalProfileService,
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService,
 		@ITerminalInstanceService terminalInstanceService: ITerminalInstanceService

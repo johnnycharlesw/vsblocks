@@ -26,7 +26,7 @@ import { IContextMenuService, IContextViewService } from '../../../../platform/c
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
 import { KeybindingWeight } from '../../../../platform/keybinding/common/keybindingsRegistry.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IWorkspaceContextService, isStandaloneEditorWorkspace } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, isStandaloneEditorWorkspace } from '../../../../platform/workspace/common/workspace.js';
 
 export class ContextMenuController implements IEditorContribution {
 
@@ -48,7 +48,7 @@ export class ContextMenuController implements IEditorContribution {
 		@IKeybindingService private readonly _keybindingService: IKeybindingService,
 		@IMenuService private readonly _menuService: IMenuService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		this._editor = editor;
 

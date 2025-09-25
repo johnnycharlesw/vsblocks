@@ -35,13 +35,13 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { asCssVariable, badgeBackground, badgeForeground, contrastBorder } from '../../../../platform/theme/common/colorRegistry.js';
-import { isWorkspaceFolder, IWorkspaceContextService, IWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { isWorkspaceFolder, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { settingsEditIcon, settingsScopeDropDownIcon } from './preferencesIcons.js';
 
 export class FolderSettingsActionViewItem extends BaseActionViewItem {
 
-	private _folder: IWorkspaceFolder | null;
+	private _folder: WorkspaceInterfaceFolder | null;
 	private _folderSettingCounts = new Map<string, number>();
 
 	private container!: HTMLElement;
@@ -53,7 +53,7 @@ export class FolderSettingsActionViewItem extends BaseActionViewItem {
 
 	constructor(
 		action: IAction,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IContextMenuService private readonly contextMenuService: IContextMenuService,
 		@IHoverService private readonly hoverService: IHoverService,
 	) {
@@ -63,11 +63,11 @@ export class FolderSettingsActionViewItem extends BaseActionViewItem {
 		this._register(this.contextService.onDidChangeWorkspaceFolders(() => this.onWorkspaceFoldersChanged()));
 	}
 
-	get folder(): IWorkspaceFolder | null {
+	get folder(): WorkspaceInterfaceFolder | null {
 		return this._folder;
 	}
 
-	set folder(folder: IWorkspaceFolder | null) {
+	set folder(folder: WorkspaceInterfaceFolder | null) {
 		this._folder = folder;
 		this.update();
 	}
@@ -234,7 +234,7 @@ export class SettingsTargetsWidget extends Widget {
 	constructor(
 		parent: HTMLElement,
 		options: ISettingsTargetsWidgetOptions | undefined,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@ILabelService private readonly labelService: ILabelService,

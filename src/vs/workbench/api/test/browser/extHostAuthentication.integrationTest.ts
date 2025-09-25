@@ -10,7 +10,7 @@ import { TestInstantiationService } from '../../../../platform/instantiation/tes
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { TestNotificationService } from '../../../../platform/notification/test/common/testNotificationService.js';
 import { IQuickInputHideEvent, IQuickInputService, IQuickPickDidAcceptEvent, IQuickPickItem, QuickInputHideReason } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../platform/telemetry/common/telemetryUtils.js';
 import { MainThreadAuthentication } from '../../browser/mainThreadAuthentication.js';
@@ -133,7 +133,7 @@ suite('ExtHostAuthentication', () => {
 		const services = new ServiceCollection();
 		services.set(ILogService, new SyncDescriptor(NullLogService));
 		services.set(IDialogService, new SyncDescriptor(TestDialogService, [{ confirmed: true }]));
-		services.set(IStorageService, new SyncDescriptor(TestStorageService));
+		services.set(StorageServiceInterface, new SyncDescriptor(TestStorageService));
 		services.set(ISecretStorageService, new SyncDescriptor(TestSecretStorageService));
 		services.set(IDynamicAuthenticationProviderStorageService, new SyncDescriptor(DynamicAuthenticationProviderStorageService));
 		services.set(IQuickInputService, new SyncDescriptor(AuthTestQuickInputService));

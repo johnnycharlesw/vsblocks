@@ -8,7 +8,7 @@ import { PickerQuickAccessProvider, IPickerQuickAccessItem, TriggerAction } from
 import { localize } from '../../../../nls.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { IDebugService } from '../common/debug.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
 import { matchesFuzzy } from '../../../../base/common/filters.js';
 import { ADD_CONFIGURATION_ID, DEBUG_QUICK_ACCESS_PREFIX } from './debugCommands.js';
@@ -19,7 +19,7 @@ export class StartDebugQuickAccessProvider extends PickerQuickAccessProvider<IPi
 
 	constructor(
 		@IDebugService private readonly debugService: IDebugService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@ICommandService private readonly commandService: ICommandService,
 		@INotificationService private readonly notificationService: INotificationService,
 	) {

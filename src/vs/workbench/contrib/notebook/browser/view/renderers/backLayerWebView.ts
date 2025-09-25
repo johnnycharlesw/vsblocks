@@ -33,12 +33,12 @@ import { IFileDialogService } from '../../../../../../platform/dialogs/common/di
 import { ITextEditorOptions, ITextEditorSelection } from '../../../../../../platform/editor/common/editor.js';
 import { IFileService } from '../../../../../../platform/files/common/files.js';
 import { IOpenerService } from '../../../../../../platform/opener/common/opener.js';
-import { IStorageService } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../../platform/telemetry/common/telemetry.js';
 import { editorFindMatch, editorFindMatchHighlight } from '../../../../../../platform/theme/common/colorRegistry.js';
 import { IThemeService, Themable } from '../../../../../../platform/theme/common/themeService.js';
-import { IWorkspaceContextService } from '../../../../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustManagementService } from '../../../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceContextServiceInterface } from '../../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../../../platform/workspace/common/workspaceTrust.js';
 import { EditorInput } from '../../../../../common/editor/editorInput.js';
 import { CellEditState, ICellOutputViewModel, ICellViewModel, ICommonCellInfo, IDisplayOutputLayoutUpdateRequest, IDisplayOutputViewModel, IFocusNotebookCellOptions, IGenericCellViewModel, IInsetRenderOutput, INotebookEditorCreationOptions, INotebookWebviewMessage, RenderOutputType } from '../../notebookBrowser.js';
 import { NOTEBOOK_WEBVIEW_BOUNDARY } from '../notebookCellList.js';
@@ -55,7 +55,7 @@ import { WebviewWindowDragMonitor } from '../../../../webview/browser/webviewWin
 import { asWebviewUri, webviewGenericCspSource } from '../../../../webview/common/webview.js';
 import { IEditorGroup, IEditorGroupsService } from '../../../../../services/editor/common/editorGroupsService.js';
 import { IWorkbenchEnvironmentService } from '../../../../../services/environment/common/environmentService.js';
-import { IPathService } from '../../../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../../../services/path/common/pathService.js';
 import { FromWebviewMessage, IAckOutputHeight, IClickedDataUrlMessage, ICodeBlockHighlightRequest, IContentWidgetTopRequest, IControllerPreload, ICreationContent, ICreationRequestMessage, IFindMatch, IMarkupCellInitialization, RendererMetadata, StaticPreloadMetadata, ToWebviewMessage } from './webviewMessages.js';
 import { getOutputText, getOutputStreamText, TEXT_BASED_MIMETYPES } from '../../viewModel/cellOutputTextHelper.js';
 
@@ -130,7 +130,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 
 	private static _originStore?: WebviewOriginStore;
 
-	private static getOriginStore(storageService: IStorageService): WebviewOriginStore {
+	private static getOriginStore(storageService: StorageServiceInterface): WebviewOriginStore {
 		this._originStore ??= new WebviewOriginStore('notebook.backlayerWebview.origins', storageService);
 		return this._originStore;
 	}
@@ -167,19 +167,19 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		@IWebviewService private readonly webviewService: IWebviewService,
 		@IOpenerService private readonly openerService: IOpenerService,
 		@INotebookService private readonly notebookService: INotebookService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
 		@IFileService private readonly fileService: IFileService,
 		@IContextMenuService private readonly contextMenuService: IContextMenuService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ILanguageService private readonly languageService: ILanguageService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IEditorGroupsService private readonly editorGroupService: IEditorGroupsService,
-		@IStorageService private readonly storageService: IStorageService,
-		@IPathService private readonly pathService: IPathService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@INotebookLoggingService private readonly notebookLogService: INotebookLoggingService,
 		@IThemeService themeService: IThemeService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService

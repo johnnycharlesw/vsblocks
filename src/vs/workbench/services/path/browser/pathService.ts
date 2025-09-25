@@ -5,10 +5,10 @@
 
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IRemoteAgentService } from '../../remote/common/remoteAgentService.js';
-import { IPathService, AbstractPathService } from '../common/pathService.js';
+import { PathInterfaceService, AbstractPathService } from '../common/pathService.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IWorkbenchEnvironmentService } from '../../environment/common/environmentService.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { dirname } from '../../../../base/common/resources.js';
 
 export class BrowserPathService extends AbstractPathService {
@@ -16,7 +16,7 @@ export class BrowserPathService extends AbstractPathService {
 	constructor(
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface
 	) {
 		super(
 			guessLocalUserHome(environmentService, contextService),
@@ -27,7 +27,7 @@ export class BrowserPathService extends AbstractPathService {
 	}
 }
 
-function guessLocalUserHome(environmentService: IWorkbenchEnvironmentService, contextService: IWorkspaceContextService): URI {
+function guessLocalUserHome(environmentService: IWorkbenchEnvironmentService, contextService: WorkspaceContextServiceInterface): URI {
 
 	// In web we do not really have the concept of a "local" user home
 	// but we still require it in many places as a fallback. As such,
@@ -56,4 +56,4 @@ function guessLocalUserHome(environmentService: IWorkbenchEnvironmentService, co
 	});
 }
 
-registerSingleton(IPathService, BrowserPathService, InstantiationType.Delayed);
+registerSingleton(PathInterfaceService, BrowserPathService, InstantiationType.Delayed);

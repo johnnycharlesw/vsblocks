@@ -570,14 +570,14 @@ export type IImmediateCellEditOperation = ICellOutputEditByHandle | ICellPartial
 export type ICellEditOperation = IImmediateCellEditOperation | ICellReplaceEdit | ICellOutputEdit | ICellMetadataEdit | ICellPartialMetadataEdit | ICellPartialInternalMetadataEdit | IDocumentMetadataEdit | ICellMoveEdit | ICellOutputItemEdit | ICellLanguageEdit;
 
 
-export interface IWorkspaceNotebookCellEdit {
+export interface WorkspaceInterfaceNotebookCellEdit {
 	metadata?: WorkspaceEditMetadata;
 	resource: URI;
 	notebookVersionId: number | undefined;
 	cellEdit: ICellPartialMetadataEdit | IDocumentMetadataEdit | ICellReplaceEdit;
 }
 
-export interface IWorkspaceNotebookCellEditDto {
+export interface WorkspaceInterfaceNotebookCellEditDto {
 	metadata?: WorkspaceEditMetadata;
 	resource: URI;
 	notebookVersionId: number | undefined;

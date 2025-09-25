@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { localize, localize2 } from '../../../nls.js';
-import { hasWorkspaceFileExtension, IWorkspaceContextService } from '../../../platform/workspace/common/workspace.js';
-import { IWorkspaceEditingService } from '../../services/workspaces/common/workspaceEditing.js';
+import { hasWorkspaceFileExtension, WorkspaceContextServiceInterface } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceEditingService } from '../../services/workspaces/common/workspaceEditing.js';
 import { dirname } from '../../../base/common/resources.js';
 import { CancellationToken } from '../../../base/common/cancellation.js';
 import { mnemonicButtonLabel } from '../../../base/common/labels.js';
@@ -20,9 +20,9 @@ import { ILanguageService } from '../../../editor/common/languages/language.js';
 import { IFileDialogService, IPickAndOpenOptions } from '../../../platform/dialogs/common/dialogs.js';
 import { URI, UriComponents } from '../../../base/common/uri.js';
 import { Schemas } from '../../../base/common/network.js';
-import { IFileToOpen, IFolderToOpen, IOpenEmptyWindowOptions, IOpenWindowOptions, IWorkspaceToOpen } from '../../../platform/window/common/window.js';
-import { IRecent, IWorkspacesService } from '../../../platform/workspaces/common/workspaces.js';
-import { IPathService } from '../../services/path/common/pathService.js';
+import { IFileToOpen, IFolderToOpen, IOpenEmptyWindowOptions, IOpenWindowOptions, WorkspaceInterfaceToOpen } from '../../../platform/window/common/window.js';
+import { IRecent, WorkspaceInterfacesService } from '../../../platform/workspaces/common/workspaces.js';
+import { PathInterfaceService } from '../../services/path/common/pathService.js';
 import { ILocalizedString } from '../../../platform/action/common/action.js';
 
 export const ADD_ROOT_FOLDER_COMMAND_ID = 'addRootFolder';
@@ -62,7 +62,7 @@ CommandsRegistry.registerCommand({
 CommandsRegistry.registerCommand({
 	id: ADD_ROOT_FOLDER_COMMAND_ID,
 	handler: async (accessor) => {
-		const workspaceEditingService = accessor.get(IWorkspaceEditingService);
+		const workspaceEditingService = accessor.get(WorkspaceInterfaceEditingService);
 
 		const folders = await selectWorkspaceFolders(accessor);
 		if (!folders || !folders.length) {
@@ -76,8 +76,8 @@ CommandsRegistry.registerCommand({
 CommandsRegistry.registerCommand({
 	id: SET_ROOT_FOLDER_COMMAND_ID,
 	handler: async (accessor) => {
-		const workspaceEditingService = accessor.get(IWorkspaceEditingService);
-		const contextService = accessor.get(IWorkspaceContextService);
+		const workspaceEditingService = accessor.get(WorkspaceInterfaceEditingService);
+		const contextService = accessor.get(WorkspaceContextServiceInterface);
 
 		const folders = await selectWorkspaceFolders(accessor);
 		if (!folders || !folders.length) {
@@ -90,7 +90,7 @@ CommandsRegistry.registerCommand({
 
 async function selectWorkspaceFolders(accessor: ServicesAccessor): Promise<URI[] | undefined> {
 	const dialogsService = accessor.get(IFileDialogService);
-	const pathService = accessor.get(IPathService);
+	const pathService = accessor.get(PathInterfaceService);
 
 	const folders = await dialogsService.showOpenDialog({
 		openLabel: mnemonicButtonLabel(localize({ key: 'add', comment: ['&& denotes a mnemonic'] }, "&&Add")),
@@ -107,7 +107,7 @@ async function selectWorkspaceFolders(accessor: ServicesAccessor): Promise<URI[]
 CommandsRegistry.registerCommand(PICK_WORKSPACE_FOLDER_COMMAND_ID, async function (accessor, args?: [IPickOptions<IQuickPickItem>, CancellationToken]) {
 	const quickInputService = accessor.get(IQuickInputService);
 	const labelService = accessor.get(ILabelService);
-	const contextService = accessor.get(IWorkspaceContextService);
+	const contextService = accessor.get(WorkspaceContextServiceInterface);
 	const modelService = accessor.get(IModelService);
 	const languageService = accessor.get(ILanguageService);
 
@@ -198,7 +198,7 @@ CommandsRegistry.registerCommand({
 			forceTempProfile: arg?.forceTempProfile,
 		};
 
-		const workspaceToOpen: IWorkspaceToOpen | IFolderToOpen = (hasWorkspaceFileExtension(uri) || uri.scheme === Schemas.untitled) ? { workspaceUri: uri } : { folderUri: uri };
+		const workspaceToOpen: WorkspaceInterfaceToOpen | IFolderToOpen = (hasWorkspaceFileExtension(uri) || uri.scheme === Schemas.untitled) ? { workspaceUri: uri } : { folderUri: uri };
 		const filesToOpen: IFileToOpen[] = arg?.filesToOpen?.map(file => ({ fileUri: URI.from(file, true) })) ?? [];
 		return commandService.executeCommand('_files.windowOpen', [workspaceToOpen, ...filesToOpen], options);
 	},
@@ -263,14 +263,14 @@ CommandsRegistry.registerCommand({
 // recent history commands
 
 CommandsRegistry.registerCommand('_workbench.removeFromRecentlyOpened', function (accessor: ServicesAccessor, uri: URI) {
-	const workspacesService = accessor.get(IWorkspacesService);
+	const workspacesService = accessor.get(WorkspaceInterfacesService);
 	return workspacesService.removeRecentlyOpened([uri]);
 });
 
 CommandsRegistry.registerCommand({
 	id: 'vscode.removeFromRecentlyOpened',
 	handler: (accessor: ServicesAccessor, path: string | URI): Promise<void> => {
-		const workspacesService = accessor.get(IWorkspacesService);
+		const workspacesService = accessor.get(WorkspaceInterfacesService);
 
 		if (typeof path === 'string') {
 			path = path.match(/^[^:/?#]+:\/\//) ? URI.parse(path) : URI.file(path);
@@ -296,7 +296,7 @@ interface RecentEntry {
 }
 
 CommandsRegistry.registerCommand('_workbench.addToRecentlyOpened', async function (accessor: ServicesAccessor, recentEntry: RecentEntry) {
-	const workspacesService = accessor.get(IWorkspacesService);
+	const workspacesService = accessor.get(WorkspaceInterfacesService);
 	const uri = recentEntry.uri;
 	const label = recentEntry.label;
 	const remoteAuthority = recentEntry.remoteAuthority;
@@ -315,7 +315,7 @@ CommandsRegistry.registerCommand('_workbench.addToRecentlyOpened', async functio
 });
 
 CommandsRegistry.registerCommand('_workbench.getRecentlyOpened', async function (accessor: ServicesAccessor) {
-	const workspacesService = accessor.get(IWorkspacesService);
+	const workspacesService = accessor.get(WorkspaceInterfacesService);
 
 	return workspacesService.getRecentlyOpened();
 });

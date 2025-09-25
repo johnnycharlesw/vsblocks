@@ -22,8 +22,8 @@ import { OPTIONS, parseArgs } from '../../../environment/node/argv.js';
 import { HotExitConfiguration } from '../../../files/common/files.js';
 import { ConsoleMainLogger } from '../../../log/common/log.js';
 import product from '../../../product/common/product.js';
-import { IFolderBackupInfo, isFolderBackupInfo, IWorkspaceBackupInfo } from '../../common/backup.js';
-import { IWorkspaceIdentifier } from '../../../workspace/common/workspace.js';
+import { IFolderBackupInfo, isFolderBackupInfo, WorkspaceInterfaceBackupInfo } from '../../common/backup.js';
+import { WorkspaceIdentifierInterface } from '../../../workspace/common/workspace.js';
 import { InMemoryTestStateMainService } from '../../../test/electron-main/workbenchTestServices.js';
 import { LogService } from '../../../log/common/logService.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
@@ -35,14 +35,14 @@ flakySuite('BackupMainService', () => {
 		assert.deepStrictEqual(actual.map(withUriAsString), expected.map(withUriAsString));
 	}
 
-	function toWorkspace(path: string): IWorkspaceIdentifier {
+	function toWorkspace(path: string): WorkspaceIdentifierInterface {
 		return {
 			id: createHash('md5').update(sanitizePath(path)).digest('hex'), // CodeQL [SM04514] Using MD5 to convert a file path to a fixed length
 			configPath: URI.file(path)
 		};
 	}
 
-	function toWorkspaceBackupInfo(path: string, remoteAuthority?: string): IWorkspaceBackupInfo {
+	function toWorkspaceBackupInfo(path: string, remoteAuthority?: string): WorkspaceInterfaceBackupInfo {
 		return {
 			workspace: {
 				id: createHash('md5').update(sanitizePath(path)).digest('hex'), // CodeQL [SM04514] Using MD5 to convert a file path to a fixed length
@@ -56,7 +56,7 @@ flakySuite('BackupMainService', () => {
 		return { folderUri: uri, remoteAuthority };
 	}
 
-	function toSerializedWorkspace(ws: IWorkspaceIdentifier): ISerializedWorkspaceBackupInfo {
+	function toSerializedWorkspace(ws: WorkspaceIdentifierInterface): ISerializedWorkspaceBackupInfo {
 		return {
 			id: ws.id,
 			configURIPath: ws.configPath.toString()
@@ -72,7 +72,7 @@ flakySuite('BackupMainService', () => {
 		return createBackupFolder(backupFolder);
 	}
 
-	async function ensureWorkspaceExists(workspace: IWorkspaceIdentifier): Promise<IWorkspaceIdentifier> {
+	async function ensureWorkspaceExists(workspace: WorkspaceIdentifierInterface): Promise<WorkspaceIdentifierInterface> {
 		if (!fs.existsSync(workspace.configPath.fsPath)) {
 			await Promises.writeFile(workspace.configPath.fsPath, 'Hello');
 		}
@@ -113,7 +113,7 @@ flakySuite('BackupMainService', () => {
 	let service: BackupMainService & {
 		toBackupPath(arg: URI | string): string;
 		testGetFolderHash(folder: IFolderBackupInfo): string;
-		testGetWorkspaceBackups(): IWorkspaceBackupInfo[];
+		testGetWorkspaceBackups(): WorkspaceInterfaceBackupInfo[];
 		testGetFolderBackups(): IFolderBackupInfo[];
 	};
 	let configService: TestConfigurationService;
@@ -152,7 +152,7 @@ flakySuite('BackupMainService', () => {
 				return super.getFolderHash(folder);
 			}
 
-			testGetWorkspaceBackups(): IWorkspaceBackupInfo[] {
+			testGetWorkspaceBackups(): WorkspaceInterfaceBackupInfo[] {
 				return super.getWorkspaceBackups();
 			}
 

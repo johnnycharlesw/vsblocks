@@ -33,12 +33,12 @@ import { MockKeybindingService } from '../../../../../platform/keybinding/test/c
 import { ILayoutService } from '../../../../../platform/layout/browser/layoutService.js';
 import { IListService, ListService } from '../../../../../platform/list/browser/listService.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { IThemeService } from '../../../../../platform/theme/common/themeService.js';
 import { TestThemeService } from '../../../../../platform/theme/test/common/testThemeService.js';
 import { IUndoRedoService } from '../../../../../platform/undoRedo/common/undoRedo.js';
 import { UndoRedoService } from '../../../../../platform/undoRedo/common/undoRedoService.js';
-import { IWorkspaceTrustRequestService } from '../../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustRequestService } from '../../../../../platform/workspace/common/workspaceTrust.js';
 import { EditorInput } from '../../../../common/editor/editorInput.js';
 import { EditorModel } from '../../../../common/editor/editorModel.js';
 import { CellFindMatchWithIndex, CellFocusMode, IActiveNotebookEditorDelegate, IBaseCellEditorOptions, ICellViewModel, INotebookEditorDelegate } from '../../browser/notebookBrowser.js';
@@ -198,8 +198,8 @@ export function setupInstantiationService(disposables: Pick<DisposableStore, 'ad
 	instantiationService.stub(ILayoutService, new TestLayoutService());
 	instantiationService.stub(ILogService, new NullLogService());
 	instantiationService.stub(IClipboardService, TestClipboardService);
-	instantiationService.stub(IStorageService, disposables.add(new TestStorageService()));
-	instantiationService.stub(IWorkspaceTrustRequestService, disposables.add(new TestWorkspaceTrustRequestService(true)));
+	instantiationService.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
+	instantiationService.stub(WorkspaceInterfaceTrustRequestService, disposables.add(new TestWorkspaceTrustRequestService(true)));
 	instantiationService.stub(INotebookExecutionStateService, new TestNotebookExecutionStateService());
 	instantiationService.stub(IKeybindingService, new MockKeybindingService());
 	instantiationService.stub(INotebookCellStatusBarService, disposables.add(new NotebookCellStatusBarService()));

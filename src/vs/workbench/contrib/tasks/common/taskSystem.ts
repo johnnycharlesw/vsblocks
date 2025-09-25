@@ -8,7 +8,7 @@ import Severity from '../../../../base/common/severity.js';
 import { TerminateResponse } from '../../../../base/common/processes.js';
 import { Event } from '../../../../base/common/event.js';
 import { Platform } from '../../../../base/common/platform.js';
-import { IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { Task, ITaskEvent, KeyedTaskIdentifier } from './tasks.js';
 import { ConfigurationTarget } from '../../../../platform/configuration/common/configuration.js';
 
@@ -32,7 +32,7 @@ export class VerifiedTask {
 	readonly trigger: string;
 	resolvedVariables?: IResolvedVariables;
 	systemInfo?: ITaskSystemInfo;
-	workspaceFolder?: IWorkspaceFolder;
+	workspaceFolder?: WorkspaceInterfaceFolder;
 	shellLaunchConfig?: IShellLaunchConfig;
 
 	constructor(task: Task, resolver: ITaskResolver, trigger: string) {
@@ -49,7 +49,7 @@ export class VerifiedTask {
 		return verified;
 	}
 
-	public getVerifiedTask(): { task: Task; resolver: ITaskResolver; trigger: string; resolvedVariables: IResolvedVariables; systemInfo: ITaskSystemInfo; workspaceFolder: IWorkspaceFolder; shellLaunchConfig: IShellLaunchConfig } {
+	public getVerifiedTask(): { task: Task; resolver: ITaskResolver; trigger: string; resolvedVariables: IResolvedVariables; systemInfo: ITaskSystemInfo; workspaceFolder: WorkspaceInterfaceFolder; shellLaunchConfig: IShellLaunchConfig } {
 		if (this.verify()) {
 			return { task: this.task, resolver: this.resolver, trigger: this.trigger, resolvedVariables: this.resolvedVariables!, systemInfo: this.systemInfo!, workspaceFolder: this.workspaceFolder!, shellLaunchConfig: this.shellLaunchConfig! };
 		} else {
@@ -127,12 +127,12 @@ export interface ITaskSystemInfo {
 	platform: Platform;
 	context: any;
 	uriProvider: (this: void, path: string) => URI;
-	resolveVariables(workspaceFolder: IWorkspaceFolder, toResolve: IResolveSet, target: ConfigurationTarget): Promise<IResolvedVariables | undefined>;
+	resolveVariables(workspaceFolder: WorkspaceInterfaceFolder, toResolve: IResolveSet, target: ConfigurationTarget): Promise<IResolvedVariables | undefined>;
 	findExecutable(command: string, cwd?: string, paths?: string[]): Promise<string | undefined>;
 }
 
 export interface ITaskSystemInfoResolver {
-	(workspaceFolder: IWorkspaceFolder | undefined): ITaskSystemInfo | undefined;
+	(workspaceFolder: WorkspaceInterfaceFolder | undefined): ITaskSystemInfo | undefined;
 }
 
 export interface ITaskSystem {

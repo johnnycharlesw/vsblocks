@@ -7,7 +7,7 @@ import { localize } from '../../../../nls.js';
 import { asCssVariable, asCssVariableName, registerColor, transparent } from '../../../../platform/theme/common/colorRegistry.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { IDebugService, State, IDebugSession, IDebugConfiguration } from '../common/debug.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { STATUS_BAR_FOREGROUND, STATUS_BAR_BORDER, COMMAND_CENTER_BACKGROUND } from '../../../common/theme.js';
 import { DisposableStore, IDisposable } from '../../../../base/common/lifecycle.js';
 import { IStatusbarService } from '../../../services/statusbar/browser/statusbar.js';
@@ -67,7 +67,7 @@ export class StatusBarColorProvider implements IWorkbenchContribution {
 
 	constructor(
 		@IDebugService private readonly debugService: IDebugService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IStatusbarService private readonly statusbarService: IStatusbarService,
 		@IConfigurationService private readonly configurationService: IConfigurationService
 	) {

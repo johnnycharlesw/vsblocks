@@ -7,7 +7,7 @@ import { IExtensionTipsService, IConfigBasedExtensionTip } from '../../../../pla
 import { ExtensionRecommendations, ExtensionRecommendation } from './extensionRecommendations.js';
 import { localize } from '../../../../nls.js';
 import { ExtensionRecommendationReason } from '../../../services/extensionRecommendations/common/extensionRecommendations.js';
-import { IWorkspaceContextService, IWorkspaceFoldersChangeEvent } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFoldersChangeEvent } from '../../../../platform/workspace/common/workspace.js';
 import { Emitter } from '../../../../base/common/event.js';
 
 type ConfigBasedExtensionRecommendation = ExtensionRecommendation & { whenNotInstalled: string[] | undefined };
@@ -30,7 +30,7 @@ export class ConfigBasedRecommendations extends ExtensionRecommendations {
 
 	constructor(
 		@IExtensionTipsService private readonly extensionTipsService: IExtensionTipsService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 	}
@@ -60,7 +60,7 @@ export class ConfigBasedRecommendations extends ExtensionRecommendations {
 		this._importantRecommendations = this.importantTips.map(tip => this.toExtensionRecommendation(tip));
 	}
 
-	private async onWorkspaceFoldersChanged(event: IWorkspaceFoldersChangeEvent): Promise<void> {
+	private async onWorkspaceFoldersChanged(event: WorkspaceInterfaceFoldersChangeEvent): Promise<void> {
 		if (event.added.length) {
 			const oldImportantRecommended = this.importantTips;
 			await this.fetch();

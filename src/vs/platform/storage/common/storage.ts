@@ -11,12 +11,12 @@ import { isUndefinedOrNull } from '../../../base/common/types.js';
 import { InMemoryStorageDatabase, IStorage, IStorageChangeEvent, Storage, StorageHint, StorageValue } from '../../../base/parts/storage/common/storage.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { isUserDataProfile, IUserDataProfile } from '../../userDataProfile/common/userDataProfile.js';
-import { IAnyWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 export const IS_NEW_KEY = '__$__isNewStorageMarker';
 export const TARGET_KEY = '__$__targetStorageMarker';
 
-export const IStorageService = createDecorator<IStorageService>('storageService');
+export const StorageServiceInterface = createDecorator<StorageServiceInterface>('storageService');
 
 export enum WillSaveStateReason {
 
@@ -42,7 +42,7 @@ export interface IStorageEntry {
 	readonly target: StorageTarget;
 }
 
-export interface IWorkspaceStorageValueChangeEvent extends IStorageValueChangeEvent {
+export interface WorkspaceInterfaceStorageValueChangeEvent extends IStorageValueChangeEvent {
 	readonly scope: StorageScope.WORKSPACE;
 }
 
@@ -54,7 +54,7 @@ export interface IApplicationStorageValueChangeEvent extends IStorageValueChange
 	readonly scope: StorageScope.APPLICATION;
 }
 
-export interface IStorageService {
+export interface StorageServiceInterface {
 
 	readonly _serviceBrand: undefined;
 
@@ -66,7 +66,7 @@ export interface IStorageService {
 	 * @param key the optional key to filter for or all keys of
 	 * the scope if `undefined`
 	 */
-	onDidChangeValue(scope: StorageScope.WORKSPACE, key: string | undefined, disposable: DisposableStore): Event<IWorkspaceStorageValueChangeEvent>;
+	onDidChangeValue(scope: StorageScope.WORKSPACE, key: string | undefined, disposable: DisposableStore): Event<WorkspaceInterfaceStorageValueChangeEvent>;
 	onDidChangeValue(scope: StorageScope.PROFILE, key: string | undefined, disposable: DisposableStore): Event<IProfileStorageValueChangeEvent>;
 	onDidChangeValue(scope: StorageScope.APPLICATION, key: string | undefined, disposable: DisposableStore): Event<IApplicationStorageValueChangeEvent>;
 	onDidChangeValue(scope: StorageScope, key: string | undefined, disposable: DisposableStore): Event<IStorageValueChangeEvent>;
@@ -190,13 +190,13 @@ export interface IStorageService {
 	/**
 	 * Returns true if the storage service handles the provided scope.
 	 */
-	hasScope(scope: IAnyWorkspaceIdentifier | IUserDataProfile): boolean;
+	hasScope(scope: AnyWorkspaceIdentifierInterface | IUserDataProfile): boolean;
 
 	/**
 	 * Switch storage to another workspace or profile. Optionally preserve the
 	 * current data to the new storage.
 	 */
-	switch(to: IAnyWorkspaceIdentifier | IUserDataProfile, preserveData: boolean): Promise<void>;
+	switch(to: AnyWorkspaceIdentifierInterface | IUserDataProfile, preserveData: boolean): Promise<void>;
 
 	/**
 	 * Whether the storage for the given scope was created during this session or
@@ -295,7 +295,7 @@ interface IKeyTargets {
 	[key: string]: StorageTarget;
 }
 
-export interface IStorageServiceOptions {
+export interface StorageServiceInterfaceOptions {
 	readonly flushInterval: number;
 }
 
@@ -312,7 +312,7 @@ export function loadKeyTargets(storage: IStorage): IKeyTargets {
 	return Object.create(null);
 }
 
-export abstract class AbstractStorageService extends Disposable implements IStorageService {
+export abstract class AbstractStorageService extends Disposable implements StorageServiceInterface {
 
 	declare readonly _serviceBrand: undefined;
 
@@ -331,13 +331,13 @@ export abstract class AbstractStorageService extends Disposable implements IStor
 	private readonly flushWhenIdleScheduler: RunOnceScheduler;
 	private readonly runFlushWhenIdle = this._register(new MutableDisposable());
 
-	constructor(options: IStorageServiceOptions = { flushInterval: AbstractStorageService.DEFAULT_FLUSH_INTERVAL }) {
+	constructor(options: StorageServiceInterfaceOptions = { flushInterval: AbstractStorageService.DEFAULT_FLUSH_INTERVAL }) {
 		super();
 
 		this.flushWhenIdleScheduler = this._register(new RunOnceScheduler(() => this.doFlushWhenIdle(), options.flushInterval));
 	}
 
-	onDidChangeValue(scope: StorageScope.WORKSPACE, key: string | undefined, disposable: DisposableStore): Event<IWorkspaceStorageValueChangeEvent>;
+	onDidChangeValue(scope: StorageScope.WORKSPACE, key: string | undefined, disposable: DisposableStore): Event<WorkspaceInterfaceStorageValueChangeEvent>;
 	onDidChangeValue(scope: StorageScope.PROFILE, key: string | undefined, disposable: DisposableStore): Event<IProfileStorageValueChangeEvent>;
 	onDidChangeValue(scope: StorageScope.APPLICATION, key: string | undefined, disposable: DisposableStore): Event<IApplicationStorageValueChangeEvent>;
 	onDidChangeValue(scope: StorageScope, key: string | undefined, disposable: DisposableStore): Event<IStorageValueChangeEvent> {
@@ -641,7 +641,7 @@ export abstract class AbstractStorageService extends Disposable implements IStor
 		return this.getStorage(scope)?.optimize();
 	}
 
-	async switch(to: IAnyWorkspaceIdentifier | IUserDataProfile, preserveData: boolean): Promise<void> {
+	async switch(to: AnyWorkspaceIdentifierInterface | IUserDataProfile, preserveData: boolean): Promise<void> {
 
 		// Signal as event so that clients can store data before we switch
 		this.emitWillSaveState(WillSaveStateReason.NONE);
@@ -688,7 +688,7 @@ export abstract class AbstractStorageService extends Disposable implements IStor
 
 	// --- abstract
 
-	abstract hasScope(scope: IAnyWorkspaceIdentifier | IUserDataProfile): boolean;
+	abstract hasScope(scope: AnyWorkspaceIdentifierInterface | IUserDataProfile): boolean;
 
 	protected abstract doInitialize(): Promise<void>;
 
@@ -697,7 +697,7 @@ export abstract class AbstractStorageService extends Disposable implements IStor
 	protected abstract getLogDetails(scope: StorageScope): string | undefined;
 
 	protected abstract switchToProfile(toProfile: IUserDataProfile, preserveData: boolean): Promise<void>;
-	protected abstract switchToWorkspace(toWorkspace: IAnyWorkspaceIdentifier | IUserDataProfile, preserveData: boolean): Promise<void>;
+	protected abstract switchToWorkspace(toWorkspace: AnyWorkspaceIdentifierInterface | IUserDataProfile, preserveData: boolean): Promise<void>;
 }
 
 export function isProfileUsingDefaultStorage(profile: IUserDataProfile): boolean {
@@ -754,7 +754,7 @@ export class InMemoryStorageService extends AbstractStorageService {
 		return false;
 	}
 
-	hasScope(scope: IAnyWorkspaceIdentifier | IUserDataProfile): boolean {
+	hasScope(scope: AnyWorkspaceIdentifierInterface | IUserDataProfile): boolean {
 		return false;
 	}
 }

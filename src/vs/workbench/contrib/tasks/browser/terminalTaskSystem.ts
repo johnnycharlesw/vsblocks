@@ -21,7 +21,7 @@ import * as nls from '../../../../nls.js';
 import { IModelService } from '../../../../editor/common/services/model.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { IMarkerData, IMarkerService, MarkerSeverity } from '../../../../platform/markers/common/markers.js';
-import { IWorkspaceContextService, IWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { Markers } from '../../markers/common/markers.js';
 import { ProblemMatcher, ProblemMatcherRegistry /*, ProblemPattern, getResource */ } from '../common/problemMatcher.js';
 
@@ -49,7 +49,7 @@ import { IConfigurationResolverService } from '../../../services/configurationRe
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { IOutputService } from '../../../services/output/common/output.js';
 import { IPaneCompositePartService } from '../../../services/panecomposite/browser/panecomposite.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { IContextKey, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { TaskProblemMonitor } from './taskProblemMonitor.js';
 
@@ -82,7 +82,7 @@ const ReconnectionType = 'Task';
 
 class VariableResolver {
 	private static _regex = /\$\{(.*?)\}/g;
-	constructor(public workspaceFolder: IWorkspaceFolder | undefined, public taskSystemInfo: ITaskSystemInfo | undefined, public readonly values: Map<string, string>, private _service: IConfigurationResolverService | undefined) {
+	constructor(public workspaceFolder: WorkspaceInterfaceFolder | undefined, public taskSystemInfo: ITaskSystemInfo | undefined, public readonly values: Map<string, string>, private _service: IConfigurationResolverService | undefined) {
 	}
 	async resolve(value: string): Promise<string> {
 		const replacers: Promise<string>[] = [];
@@ -198,12 +198,12 @@ export class TerminalTaskSystem extends Disposable implements ITaskSystem {
 		private _markerService: IMarkerService,
 		private _modelService: IModelService,
 		private _configurationResolverService: IConfigurationResolverService,
-		private _contextService: IWorkspaceContextService,
+		private _contextService: WorkspaceContextServiceInterface,
 		private _environmentService: IWorkbenchEnvironmentService,
 		private _outputChannelId: string,
 		private _fileService: IFileService,
 		private _terminalProfileResolverService: ITerminalProfileResolverService,
-		private _pathService: IPathService,
+		private _pathService: PathInterfaceService,
 		private _viewDescriptorService: IViewDescriptorService,
 		private _logService: ILogService,
 		private _notificationService: INotificationService,
@@ -670,7 +670,7 @@ export class TerminalTaskSystem extends Disposable implements ITaskSystem {
 		return Promise.race([inactivePromise, this._executeTask(task, resolver, trigger, liveDependencies, encounteredTasks, alreadyResolved)]);
 	}
 
-	private async _resolveAndFindExecutable(systemInfo: ITaskSystemInfo | undefined, workspaceFolder: IWorkspaceFolder | undefined, task: CustomTask | ContributedTask, cwd: string | undefined, envPath: string | undefined): Promise<string> {
+	private async _resolveAndFindExecutable(systemInfo: ITaskSystemInfo | undefined, workspaceFolder: WorkspaceInterfaceFolder | undefined, task: CustomTask | ContributedTask, cwd: string | undefined, envPath: string | undefined): Promise<string> {
 		const command = await this._configurationResolverService.resolveAsync(workspaceFolder, CommandString.value(task.command.name!));
 		cwd = cwd ? await this._configurationResolverService.resolveAsync(workspaceFolder, cwd) : undefined;
 		const delimiter = (await this._pathService.path).delimiter;
@@ -706,13 +706,13 @@ export class TerminalTaskSystem extends Disposable implements ITaskSystem {
 		}
 	}
 
-	private async _acquireInput(taskSystemInfo: ITaskSystemInfo | undefined, workspaceFolder: IWorkspaceFolder | undefined, task: CustomTask | ContributedTask, variables: Set<string>, alreadyResolved: Map<string, string>): Promise<IResolvedVariables | undefined> {
+	private async _acquireInput(taskSystemInfo: ITaskSystemInfo | undefined, workspaceFolder: WorkspaceInterfaceFolder | undefined, task: CustomTask | ContributedTask, variables: Set<string>, alreadyResolved: Map<string, string>): Promise<IResolvedVariables | undefined> {
 		const resolved = await this._resolveVariablesFromSet(taskSystemInfo, workspaceFolder, task, variables, alreadyResolved);
 		this._fireTaskEvent(TaskEvent.general(TaskEventKind.AcquiredInput, task));
 		return resolved;
 	}
 
-	private _resolveVariablesFromSet(taskSystemInfo: ITaskSystemInfo | undefined, workspaceFolder: IWorkspaceFolder | undefined, task: CustomTask | ContributedTask, variables: Set<string>, alreadyResolved: Map<string, string>): Promise<IResolvedVariables | undefined> {
+	private _resolveVariablesFromSet(taskSystemInfo: ITaskSystemInfo | undefined, workspaceFolder: WorkspaceInterfaceFolder | undefined, task: CustomTask | ContributedTask, variables: Set<string>, alreadyResolved: Map<string, string>): Promise<IResolvedVariables | undefined> {
 		const isProcess = task.command && task.command.runtime === RuntimeType.Process;
 		const options = task.command && task.command.options ? task.command.options : undefined;
 		const cwd = options ? options.cwd : undefined;
@@ -794,7 +794,7 @@ export class TerminalTaskSystem extends Disposable implements ITaskSystem {
 
 	private _executeCommand(task: CustomTask | ContributedTask, trigger: string, alreadyResolved: Map<string, string>): Promise<ITaskSummary> {
 		const taskWorkspaceFolder = task.getWorkspaceFolder();
-		let workspaceFolder: IWorkspaceFolder | undefined;
+		let workspaceFolder: WorkspaceInterfaceFolder | undefined;
 		if (taskWorkspaceFolder) {
 			workspaceFolder = this._currentTask.workspaceFolder = taskWorkspaceFolder;
 		} else {
@@ -861,7 +861,7 @@ export class TerminalTaskSystem extends Disposable implements ITaskSystem {
 		}
 	}
 
-	private async _executeInTerminal(task: CustomTask | ContributedTask, trigger: string, resolver: VariableResolver, workspaceFolder: IWorkspaceFolder | undefined): Promise<ITaskSummary> {
+	private async _executeInTerminal(task: CustomTask | ContributedTask, trigger: string, resolver: VariableResolver, workspaceFolder: WorkspaceInterfaceFolder | undefined): Promise<ITaskSummary> {
 		let terminal: ITerminalInstance | undefined = undefined;
 		let error: TaskError | undefined = undefined;
 		let promise: Promise<ITaskSummary> | undefined = undefined;
@@ -1145,7 +1145,7 @@ export class TerminalTaskSystem extends Disposable implements ITaskSystem {
 		return needsFolderQualification ? task.getQualifiedLabel() : (task.configurationProperties.name || '');
 	}
 
-	private async _createShellLaunchConfig(task: CustomTask | ContributedTask, workspaceFolder: IWorkspaceFolder | undefined, variableResolver: VariableResolver, platform: Platform.Platform, options: CommandOptions, command: CommandString, args: CommandString[], waitOnExit: WaitOnExitValue): Promise<IShellLaunchConfig | undefined> {
+	private async _createShellLaunchConfig(task: CustomTask | ContributedTask, workspaceFolder: WorkspaceInterfaceFolder | undefined, variableResolver: VariableResolver, platform: Platform.Platform, options: CommandOptions, command: CommandString, args: CommandString[], waitOnExit: WaitOnExitValue): Promise<IShellLaunchConfig | undefined> {
 		let shellLaunchConfig: IShellLaunchConfig;
 		const isShellCommand = task.command.runtime === RuntimeType.Shell;
 		const needsFolderQualification = this._contextService.getWorkbenchState() === WorkbenchState.WORKSPACE;
@@ -1453,7 +1453,7 @@ export class TerminalTaskSystem extends Disposable implements ITaskSystem {
 		}
 	}
 
-	private async _createTerminal(task: CustomTask | ContributedTask, resolver: VariableResolver, workspaceFolder: IWorkspaceFolder | undefined): Promise<[ITerminalInstance | undefined, TaskError | undefined]> {
+	private async _createTerminal(task: CustomTask | ContributedTask, resolver: VariableResolver, workspaceFolder: WorkspaceInterfaceFolder | undefined): Promise<[ITerminalInstance | undefined, TaskError | undefined]> {
 		const platform = resolver.taskSystemInfo ? resolver.taskSystemInfo.platform : Platform.platform;
 		const options = await this._resolveOptions(resolver, task.command.options);
 		const presentationOptions = task.command.presentation;

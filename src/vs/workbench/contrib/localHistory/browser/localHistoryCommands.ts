@@ -30,7 +30,7 @@ import { ILanguageService } from '../../../../editor/common/languages/language.j
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { coalesce } from '../../../../base/common/arrays.js';
 import { getLocalHistoryDateFormatter, LOCAL_HISTORY_ICON_RESTORE, LOCAL_HISTORY_MENU_CONTEXT_KEY } from './localHistory.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { ResourceSet } from '../../../../base/common/map.js';
 import { IHistoryService } from '../../../services/history/common/history.js';
 import { DisposableStore } from '../../../../base/common/lifecycle.js';
@@ -570,7 +570,7 @@ registerAction2(class extends Action2 {
 		const quickInputService = accessor.get(IQuickInputService);
 		const editorService = accessor.get(IEditorService);
 		const labelService = accessor.get(ILabelService);
-		const pathService = accessor.get(IPathService);
+		const pathService = accessor.get(PathInterfaceService);
 
 		const resource = EditorResourceAccessor.getOriginalUri(editorService.activeEditor, { supportSideBySide: SideBySideEditor.PRIMARY });
 		if (resource?.scheme !== pathService.defaultUriScheme && resource?.scheme !== Schemas.vscodeUserData) {

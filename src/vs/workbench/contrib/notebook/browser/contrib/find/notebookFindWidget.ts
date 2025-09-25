@@ -23,7 +23,7 @@ import { IContextKey, IContextKeyService } from '../../../../../../platform/cont
 import { IContextMenuService, IContextViewService } from '../../../../../../platform/contextview/browser/contextView.js';
 import { IHoverService } from '../../../../../../platform/hover/browser/hover.js';
 import { IInstantiationService } from '../../../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../../platform/storage/common/storage.js';
 import { NotebookFindFilters } from './findFilters.js';
 import { FindModel } from './findModel.js';
 import { SimpleFindReplaceWidget } from './notebookFindReplaceWidget.js';
@@ -94,7 +94,7 @@ class NotebookFindWidget extends SimpleFindReplaceWidget implements INotebookEdi
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IHoverService hoverService: IHoverService,
 		@IInstantiationService instantiationService: IInstantiationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		const findSearchHistory = FindWidgetSearchHistory.getOrCreate(storageService);
 		const replaceHistory = ReplaceWidgetHistory.getOrCreate(storageService);

@@ -9,7 +9,7 @@ import { Event } from '../../../../base/common/event.js';
 import { joinPath } from '../../../../base/common/resources.js';
 import { runWithFakedTimers } from '../../../../base/test/common/timeTravelScheduler.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { IFileService } from '../../../files/common/files.js';
 import { IUserDataProfilesService } from '../../../userDataProfile/common/userDataProfile.js';
 import { UserDataAutoSyncService } from '../../common/userDataAutoSyncService.js';
@@ -202,7 +202,7 @@ suite('UserDataAutoSyncService', () => {
 
 			// Do changes in the client
 			const fileService = client.instantiationService.get(IFileService);
-			const environmentService = client.instantiationService.get(IEnvironmentService);
+			const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 			const userDataProfilesService = client.instantiationService.get(IUserDataProfilesService);
 			await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
 			await fileService.writeFile(userDataProfilesService.defaultProfile.keybindingsResource, VSBuffer.fromString(JSON.stringify([{ 'command': 'abcd', 'key': 'cmd+c' }])));

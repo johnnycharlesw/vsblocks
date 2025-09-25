@@ -11,7 +11,7 @@ import { IProgressService, ProgressLocation, } from '../../../../../platform/pro
 import { INotificationService, Severity } from '../../../../../platform/notification/common/notification.js';
 import { IFileService, FileKind, FileOperationError, FileOperationResult, FileChangeType } from '../../../../../platform/files/common/files.js';
 import { IWorkbenchLayoutService } from '../../../../services/layout/browser/layoutService.js';
-import { isTemporaryWorkspace, IWorkspaceContextService, WorkbenchState } from '../../../../../platform/workspace/common/workspace.js';
+import { isTemporaryWorkspace, WorkspaceContextServiceInterface, WorkbenchState } from '../../../../../platform/workspace/common/workspace.js';
 import { IDisposable, Disposable, dispose, toDisposable, DisposableStore } from '../../../../../base/common/lifecycle.js';
 import { KeyCode } from '../../../../../base/common/keyCodes.js';
 import { IFileLabelOptions, IResourceLabel, ResourceLabels } from '../../../../browser/labels.js';
@@ -37,10 +37,10 @@ import { Schemas } from '../../../../../base/common/network.js';
 import { NativeDragAndDropData, ExternalElementsDragAndDropData, ElementsDragAndDropData, ListViewTargetSector } from '../../../../../base/browser/ui/list/listView.js';
 import { isMacintosh, isWeb } from '../../../../../base/common/platform.js';
 import { IDialogService, getFileNamesMessage } from '../../../../../platform/dialogs/common/dialogs.js';
-import { IWorkspaceEditingService } from '../../../../services/workspaces/common/workspaceEditing.js';
+import { WorkspaceInterfaceEditingService } from '../../../../services/workspaces/common/workspaceEditing.js';
 import { URI } from '../../../../../base/common/uri.js';
 import { IEditorService } from '../../../../services/editor/common/editorService.js';
-import { IWorkspaceFolderCreationData } from '../../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfaceFolderCreationData } from '../../../../../platform/workspaces/common/workspaces.js';
 import { findValidPasteFileTarget } from '../fileActions.js';
 import { FuzzyScore, createMatches } from '../../../../../base/common/filters.js';
 import { Emitter, Event, EventMultiplexer } from '../../../../../base/common/event.js';
@@ -100,7 +100,7 @@ export class ExplorerDataSource implements IAsyncDataSource<ExplorerItem | Explo
 		@IWorkbenchLayoutService private readonly layoutService: IWorkbenchLayoutService,
 		@IFileService private readonly fileService: IFileService,
 		@IExplorerService private readonly explorerService: IExplorerService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IFilesConfigurationService private readonly filesConfigService: IFilesConfigurationService
 	) { }
 
@@ -862,7 +862,7 @@ export class FilesRenderer implements ICompressibleTreeRenderer<ExplorerItem, Fu
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IExplorerService private readonly explorerService: IExplorerService,
 		@ILabelService private readonly labelService: ILabelService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IContextMenuService private readonly contextMenuService: IContextMenuService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService
 	) {
@@ -1254,7 +1254,7 @@ export class FilesFilter implements ITreeFilter<ExplorerItem, FuzzyScore> {
 	private ignoreTreesPerRoot = new Map<string, TernarySearchTree<URI, IgnoreFile>>();
 
 	constructor(
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IExplorerService private readonly explorerService: IExplorerService,
 		@IEditorService private readonly editorService: IEditorService,
@@ -1455,7 +1455,7 @@ export class FileSorter implements ITreeSorter<ExplorerItem> {
 
 	constructor(
 		@IExplorerService private readonly explorerService: IExplorerService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface
 	) { }
 
 	compare(statA: ExplorerItem, statB: ExplorerItem): number {
@@ -1596,11 +1596,11 @@ export class FileDragAndDrop implements ITreeDragAndDrop<ExplorerItem> {
 		@IExplorerService private explorerService: IExplorerService,
 		@IEditorService private editorService: IEditorService,
 		@IDialogService private dialogService: IDialogService,
-		@IWorkspaceContextService private contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private contextService: WorkspaceContextServiceInterface,
 		@IFileService private fileService: IFileService,
 		@IConfigurationService private configurationService: IConfigurationService,
 		@IInstantiationService private instantiationService: IInstantiationService,
-		@IWorkspaceEditingService private workspaceEditingService: IWorkspaceEditingService,
+		@WorkspaceInterfaceEditingService private workspaceEditingService: WorkspaceInterfaceEditingService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService
 	) {
 		const updateDropEnablement = (e: IConfigurationChangeEvent | undefined) => {
@@ -1913,8 +1913,8 @@ export class FileDragAndDrop implements ITreeDragAndDrop<ExplorerItem> {
 		const folders = this.contextService.getWorkspace().folders;
 		let targetIndex: number | undefined;
 		const sourceIndices: number[] = [];
-		const workspaceCreationData: IWorkspaceFolderCreationData[] = [];
-		const rootsToMove: IWorkspaceFolderCreationData[] = [];
+		const workspaceCreationData: WorkspaceInterfaceFolderCreationData[] = [];
+		const rootsToMove: WorkspaceInterfaceFolderCreationData[] = [];
 
 		for (let index = 0; index < folders.length; index++) {
 			const data = {

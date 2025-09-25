@@ -5,7 +5,7 @@
 
 import { Event, Emitter } from '../../../../base/common/event.js';
 import { debounce, throttle } from '../../../../base/common/decorators.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
 import { MergedEnvironmentVariableCollection } from '../../../../platform/terminal/common/environmentVariableCollection.js';
 import { deserializeEnvironmentDescriptionMap, deserializeEnvironmentVariableCollection, serializeEnvironmentDescriptionMap, serializeEnvironmentVariableCollection } from '../../../../platform/terminal/common/environmentVariableShared.js';
@@ -34,7 +34,7 @@ export class EnvironmentVariableService extends Disposable implements IEnvironme
 
 	constructor(
 		@IExtensionService private readonly _extensionService: IExtensionService,
-		@IStorageService private readonly _storageService: IStorageService
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface
 	) {
 		super();
 

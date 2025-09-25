@@ -18,7 +18,7 @@ import { isString } from '../../../../base/common/types.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 
 export class TasksQuickAccessProvider extends PickerQuickAccessProvider<IPickerQuickAccessItem> {
 
@@ -32,7 +32,7 @@ export class TasksQuickAccessProvider extends PickerQuickAccessProvider<IPickerQ
 		@INotificationService private _notificationService: INotificationService,
 		@IDialogService private _dialogService: IDialogService,
 		@IThemeService private _themeService: IThemeService,
-		@IStorageService private _storageService: IStorageService
+		@StorageServiceInterface private _storageService: StorageServiceInterface
 	) {
 		super(TasksQuickAccessProvider.PREFIX, {
 			noResultsPick: {

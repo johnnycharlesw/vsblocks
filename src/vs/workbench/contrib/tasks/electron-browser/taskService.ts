@@ -5,7 +5,7 @@
 
 import * as nls from '../../../../nls.js';
 import * as semver from '../../../../base/common/semver/semver.js';
-import { IWorkspaceFolder, IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder, WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ITaskSystem } from '../common/taskSystem.js';
 import { ExecutionEngine } from '../common/tasks.js';
 import * as TaskConfig from '../common/taskConfiguration.js';
@@ -27,7 +27,7 @@ import { INotificationService } from '../../../../platform/notification/common/n
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { IProgressService } from '../../../../platform/progress/common/progress.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IViewDescriptorService } from '../../../common/views.js';
 import { IViewsService } from '../../../services/views/common/viewsService.js';
@@ -38,10 +38,10 @@ import { IEditorService } from '../../../services/editor/common/editorService.js
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
 import { ILifecycleService } from '../../../services/lifecycle/common/lifecycle.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { IPreferencesService } from '../../../services/preferences/common/preferences.js';
 import { ITextFileService } from '../../../services/textfile/common/textfiles.js';
-import { IWorkspaceTrustManagementService, IWorkspaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService, WorkspaceInterfaceTrustRequestService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { ITerminalProfileResolverService } from '../../terminal/common/terminal.js';
 import { IPaneCompositePartService } from '../../../services/panecomposite/browser/panecomposite.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
@@ -51,8 +51,8 @@ import { IAccessibilitySignalService } from '../../../../platform/accessibilityS
 import { IChatService } from '../../chat/common/chatService.js';
 import { IChatAgentService } from '../../chat/common/chatAgents.js';
 
-interface IWorkspaceFolderConfigurationResult {
-	workspaceFolder: IWorkspaceFolder;
+interface WorkspaceInterfaceFolderConfigurationResult {
+	workspaceFolder: WorkspaceInterfaceFolder;
 	config: TaskConfig.IExternalTaskRunnerConfiguration | undefined;
 	hasErrors: boolean;
 }
@@ -66,7 +66,7 @@ export class TaskService extends AbstractTaskService {
 		@ICommandService commandService: ICommandService,
 		@IEditorService editorService: IEditorService,
 		@IFileService fileService: IFileService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@ITextFileService textFileService: ITextFileService,
 		@ILifecycleService lifecycleService: ILifecycleService,
@@ -76,7 +76,7 @@ export class TaskService extends AbstractTaskService {
 		@IConfigurationResolverService configurationResolverService: IConfigurationResolverService,
 		@ITerminalService terminalService: ITerminalService,
 		@ITerminalGroupService terminalGroupService: ITerminalGroupService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IProgressService progressService: IProgressService,
 		@IOpenerService openerService: IOpenerService,
 		@IDialogService dialogService: IDialogService,
@@ -84,12 +84,12 @@ export class TaskService extends AbstractTaskService {
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
 		@ITerminalProfileResolverService terminalProfileResolverService: ITerminalProfileResolverService,
-		@IPathService pathService: IPathService,
+		@PathInterfaceService pathService: PathInterfaceService,
 		@ITextModelService textModelResolverService: ITextModelService,
 		@IPreferencesService preferencesService: IPreferencesService,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
-		@IWorkspaceTrustRequestService workspaceTrustRequestService: IWorkspaceTrustRequestService,
-		@IWorkspaceTrustManagementService workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustRequestService workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
+		@WorkspaceInterfaceTrustManagementService workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@ILogService logService: ILogService,
 		@IThemeService themeService: IThemeService,
 		@IInstantiationService instantiationService: IInstantiationService,
@@ -156,7 +156,7 @@ export class TaskService extends AbstractTaskService {
 		return this._taskSystem;
 	}
 
-	protected _computeLegacyConfiguration(workspaceFolder: IWorkspaceFolder): Promise<IWorkspaceFolderConfigurationResult> {
+	protected _computeLegacyConfiguration(workspaceFolder: WorkspaceInterfaceFolder): Promise<WorkspaceInterfaceFolderConfigurationResult> {
 		const { config, hasParseErrors } = this._getConfiguration(workspaceFolder);
 		if (hasParseErrors) {
 			return Promise.resolve({ workspaceFolder: workspaceFolder, hasErrors: true, config: undefined });

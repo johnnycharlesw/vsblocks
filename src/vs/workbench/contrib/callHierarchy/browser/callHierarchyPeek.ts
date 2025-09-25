@@ -26,7 +26,7 @@ import { toDisposable, DisposableStore } from '../../../../base/common/lifecycle
 import { TrackedRangeStickiness, IModelDeltaDecoration, IModelDecorationOptions, OverviewRulerLane } from '../../../../editor/common/model.js';
 import { themeColorFromId, IThemeService, IColorTheme } from '../../../../platform/theme/common/themeService.js';
 import { IPosition } from '../../../../editor/common/core/position.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Color } from '../../../../base/common/color.js';
 import { TreeMouseEventTarget, ITreeNode } from '../../../../base/browser/ui/tree/tree.js';
 import { URI } from '../../../../base/common/uri.js';
@@ -42,11 +42,11 @@ const enum State {
 
 class LayoutInfo {
 
-	static store(info: LayoutInfo, storageService: IStorageService): void {
+	static store(info: LayoutInfo, storageService: StorageServiceInterface): void {
 		storageService.store('callHierarchyPeekLayout', JSON.stringify(info), StorageScope.PROFILE, StorageTarget.MACHINE);
 	}
 
-	static retrieve(storageService: IStorageService): LayoutInfo {
+	static retrieve(storageService: StorageServiceInterface): LayoutInfo {
 		const value = storageService.get('callHierarchyPeekLayout', StorageScope.PROFILE, '{}');
 		const defaultInfo: LayoutInfo = { ratio: 0.7, height: 17 };
 		try {
@@ -87,7 +87,7 @@ export class CallHierarchyTreePeekWidget extends peekView.PeekViewWidget {
 		@peekView.IPeekViewService private readonly _peekViewService: peekView.IPeekViewService,
 		@IEditorService private readonly _editorService: IEditorService,
 		@ITextModelService private readonly _textModelService: ITextModelService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IMenuService private readonly _menuService: IMenuService,
 		@IContextKeyService private readonly _contextKeyService: IContextKeyService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,

@@ -22,8 +22,8 @@ import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { ILogService } from '../../../../../platform/log/common/log.js';
 import { INativeHostService } from '../../../../../platform/native/common/native.js';
 import { IOpenerService } from '../../../../../platform/opener/common/opener.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
-import { IWorkspacesService } from '../../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfacesService } from '../../../../../platform/workspaces/common/workspaces.js';
 import { ISimpleFileDialog } from '../../browser/simpleFileDialog.js';
 import { FileDialogService } from '../../electron-browser/fileDialogService.js';
 import { IEditorService } from '../../../editor/common/editorService.js';
@@ -31,16 +31,16 @@ import { BrowserWorkbenchEnvironmentService } from '../../../environment/browser
 import { IWorkbenchEnvironmentService } from '../../../environment/common/environmentService.js';
 import { IHistoryService } from '../../../history/common/history.js';
 import { IHostService } from '../../../host/browser/host.js';
-import { IPathService } from '../../../path/common/pathService.js';
+import { PathInterfaceService } from '../../../path/common/pathService.js';
 import { BrowserWorkspaceEditingService } from '../../../workspaces/browser/workspaceEditingService.js';
-import { IWorkspaceEditingService } from '../../../workspaces/common/workspaceEditing.js';
+import { WorkspaceInterfaceEditingService } from '../../../workspaces/common/workspaceEditing.js';
 import { workbenchInstantiationService } from '../../../../test/browser/workbenchTestServices.js';
 
 class TestFileDialogService extends FileDialogService {
 	constructor(
 		private simple: ISimpleFileDialog,
 		@IHostService hostService: IHostService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IHistoryService historyService: IHistoryService,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
 		@IInstantiationService instantiationService: IInstantiationService,
@@ -50,9 +50,9 @@ class TestFileDialogService extends FileDialogService {
 		@INativeHostService nativeHostService: INativeHostService,
 		@IDialogService dialogService: IDialogService,
 		@ILanguageService languageService: ILanguageService,
-		@IWorkspacesService workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService workspacesService: WorkspaceInterfacesService,
 		@ILabelService labelService: ILabelService,
-		@IPathService pathService: IPathService,
+		@PathInterfaceService pathService: PathInterfaceService,
 		@ICommandService commandService: ICommandService,
 		@IEditorService editorService: IEditorService,
 		@ICodeEditorService codeEditorService: ICodeEditorService,
@@ -102,7 +102,7 @@ suite('FileDialogService', function () {
 
 		const dialogService = instantiationService.createInstance(TestFileDialogService, new TestSimpleFileDialog());
 		instantiationService.set(IFileDialogService, dialogService);
-		const workspaceService: IWorkspaceEditingService = disposables.add(instantiationService.createInstance(BrowserWorkspaceEditingService));
+		const workspaceService: WorkspaceInterfaceEditingService = disposables.add(instantiationService.createInstance(BrowserWorkspaceEditingService));
 		assert.strictEqual((await workspaceService.pickNewWorkspacePath())?.path.startsWith(testFile.path), true);
 		assert.strictEqual(await dialogService.pickWorkspaceAndOpen({}), undefined);
 	});
@@ -122,13 +122,13 @@ suite('FileDialogService', function () {
 			dispose(): void { }
 		}
 
-		instantiationService.stub(IPathService, new class {
+		instantiationService.stub(PathInterfaceService, new class {
 			defaultUriScheme: string = 'vscode-virtual-test';
 			userHome = async () => URI.file('/user/home');
-		} as IPathService);
+		} as PathInterfaceService);
 		const dialogService = instantiationService.createInstance(TestFileDialogService, new TestSimpleFileDialog());
 		instantiationService.set(IFileDialogService, dialogService);
-		const workspaceService: IWorkspaceEditingService = disposables.add(instantiationService.createInstance(BrowserWorkspaceEditingService));
+		const workspaceService: WorkspaceInterfaceEditingService = disposables.add(instantiationService.createInstance(BrowserWorkspaceEditingService));
 		assert.strictEqual((await workspaceService.pickNewWorkspacePath())?.path.startsWith(testFile.path), true);
 		assert.strictEqual(await dialogService.pickWorkspaceAndOpen({}), undefined);
 	});
@@ -155,13 +155,13 @@ suite('FileDialogService', function () {
 				return 'testRemote';
 			}
 		});
-		instantiationService.stub(IPathService, new class {
+		instantiationService.stub(PathInterfaceService, new class {
 			defaultUriScheme: string = Schemas.vscodeRemote;
 			userHome = async () => URI.file('/user/home');
-		} as IPathService);
+		} as PathInterfaceService);
 		const dialogService = instantiationService.createInstance(TestFileDialogService, new TestSimpleFileDialog());
 		instantiationService.set(IFileDialogService, dialogService);
-		const workspaceService: IWorkspaceEditingService = disposables.add(instantiationService.createInstance(BrowserWorkspaceEditingService));
+		const workspaceService: WorkspaceInterfaceEditingService = disposables.add(instantiationService.createInstance(BrowserWorkspaceEditingService));
 		assert.strictEqual((await workspaceService.pickNewWorkspacePath())?.path.startsWith(testFile.path), true);
 		assert.strictEqual(await dialogService.pickWorkspaceAndOpen({}), undefined);
 	});
@@ -181,10 +181,10 @@ suite('FileDialogService', function () {
 				return 'testRemote';
 			}
 		});
-		instantiationService.stub(IPathService, new class {
+		instantiationService.stub(PathInterfaceService, new class {
 			defaultUriScheme: string = Schemas.vscodeRemote;
 			userHome = async () => URI.file('/user/home');
-		} as IPathService);
+		} as PathInterfaceService);
 
 
 		const dialogService = instantiationService.createInstance(TestFileDialogService, new TestSimpleFileDialog());

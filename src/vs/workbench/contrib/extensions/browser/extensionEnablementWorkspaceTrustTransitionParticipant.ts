@@ -5,7 +5,7 @@
 
 import { localize } from '../../../../nls.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
-import { IWorkspaceTrustEnablementService, IWorkspaceTrustManagementService, IWorkspaceTrustTransitionParticipant } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustEnablementService, WorkspaceInterfaceTrustManagementService, WorkspaceInterfaceTrustTransitionParticipant } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { IWorkbenchExtensionEnablementService } from '../../../services/extensionManagement/common/extensionManagement.js';
@@ -18,8 +18,8 @@ export class ExtensionEnablementWorkspaceTrustTransitionParticipant extends Disp
 		@IHostService hostService: IHostService,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
 		@IWorkbenchExtensionEnablementService extensionEnablementService: IWorkbenchExtensionEnablementService,
-		@IWorkspaceTrustEnablementService workspaceTrustEnablementService: IWorkspaceTrustEnablementService,
-		@IWorkspaceTrustManagementService workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustEnablementService workspaceTrustEnablementService: WorkspaceInterfaceTrustEnablementService,
+		@WorkspaceInterfaceTrustManagementService workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 	) {
 		super();
 
@@ -29,7 +29,7 @@ export class ExtensionEnablementWorkspaceTrustTransitionParticipant extends Disp
 			// the participant as part of the initialization process, as the workspace
 			// trust state is initialized before starting the extension host.
 			workspaceTrustManagementService.workspaceTrustInitialized.then(() => {
-				const workspaceTrustTransitionParticipant = new class implements IWorkspaceTrustTransitionParticipant {
+				const workspaceTrustTransitionParticipant = new class implements WorkspaceInterfaceTrustTransitionParticipant {
 					async participate(trusted: boolean): Promise<void> {
 						if (trusted) {
 							// Untrusted -> Trusted

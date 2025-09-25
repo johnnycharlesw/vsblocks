@@ -13,7 +13,7 @@ import { IFileService } from '../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import type { ICodeEditor } from '../../../browser/editorBrowser.js';
 import { EditorAction, registerEditorAction, type ServicesAccessor } from '../../../browser/editorExtensions.js';
 import { ensureNonNullable } from '../../../browser/gpu/gpuUtils.js';
@@ -68,7 +68,7 @@ class DebugEditorGpuRendererAction extends EditorAction {
 				break;
 			case 'saveTextureAtlas':
 				instantiationService.invokeFunction(async accessor => {
-					const workspaceContextService = accessor.get(IWorkspaceContextService);
+					const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 					const fileService = accessor.get(IFileService);
 					const folders = workspaceContextService.getWorkspace().folders;
 					if (folders.length > 0) {
@@ -95,7 +95,7 @@ class DebugEditorGpuRendererAction extends EditorAction {
 					const configurationService = accessor.get(IConfigurationService);
 					const fileService = accessor.get(IFileService);
 					const quickInputService = accessor.get(IQuickInputService);
-					const workspaceContextService = accessor.get(IWorkspaceContextService);
+					const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 
 					const folders = workspaceContextService.getWorkspace().folders;
 					if (folders.length === 0) {

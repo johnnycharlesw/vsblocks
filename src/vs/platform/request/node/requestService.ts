@@ -14,7 +14,7 @@ import * as streams from '../../../base/common/stream.js';
 import { isBoolean, isNumber } from '../../../base/common/types.js';
 import { IRequestContext, IRequestOptions } from '../../../base/parts/request/common/request.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { INativeEnvironmentService } from '../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { getResolvedShellEnv } from '../../shell/node/shellEnv.js';
 import { ILogService } from '../../log/common/log.js';
 import { AbstractRequestService, AuthInfo, Credentials, IRequestService } from '../common/request.js';
@@ -48,7 +48,7 @@ export class RequestService extends AbstractRequestService implements IRequestSe
 	constructor(
 		private readonly machine: 'local' | 'remote',
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@INativeEnvironmentService private readonly environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private readonly environmentService: NativeEnvironmentServiceInterface,
 		@ILogService logService: ILogService,
 	) {
 		super(logService);

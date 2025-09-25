@@ -14,7 +14,7 @@ import { IInstantiationService, ServicesAccessor } from '../../../../platform/in
 import { INativeHostService } from '../../../../platform/native/common/native.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IProgressService, ProgressLocation } from '../../../../platform/progress/common/progress.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ActiveEditorContext } from '../../../common/contextkeys.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { ExtensionHostKind } from '../../../services/extensions/common/extensionHostKind.js';
@@ -126,7 +126,7 @@ export class DebugExtensionHostInNewWindowAction extends Action2 {
 }
 
 class Storage {
-	constructor(@IStorageService private readonly _storageService: IStorageService,) {
+	constructor(@StorageServiceInterface private readonly _storageService: StorageServiceInterface,) {
 	}
 
 	storeDebugOnNewWindow(targetPort: number) {

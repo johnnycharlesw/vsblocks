@@ -12,7 +12,7 @@ import { localize } from '../../../nls.js';
 import { ExtensionIdentifier } from '../../../platform/extensions/common/extensions.js';
 import { INotificationService, Severity } from '../../../platform/notification/common/notification.js';
 import { IOpenerService } from '../../../platform/opener/common/opener.js';
-import { IStorageService } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../platform/storage/common/storage.js';
 import { ExtHostContext, ExtHostUriOpenersShape, MainContext, MainThreadUriOpenersShape } from '../common/extHost.protocol.js';
 import { defaultExternalUriOpenerId } from '../../contrib/externalUriOpener/common/configuration.js';
 import { ContributedExternalUriOpenersStore } from '../../contrib/externalUriOpener/common/contributedOpeners.js';
@@ -35,7 +35,7 @@ export class MainThreadUriOpeners extends Disposable implements MainThreadUriOpe
 
 	constructor(
 		context: IExtHostContext,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IExternalUriOpenerService externalUriOpenerService: IExternalUriOpenerService,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IOpenerService private readonly openerService: IOpenerService,

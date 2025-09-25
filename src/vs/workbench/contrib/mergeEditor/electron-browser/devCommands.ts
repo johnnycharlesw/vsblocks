@@ -12,7 +12,7 @@ import { localize, localize2 } from '../../../../nls.js';
 import { ILocalizedString } from '../../../../platform/action/common/action.js';
 import { Action2, IAction2Options } from '../../../../platform/actions/common/actions.js';
 import { IClipboardService } from '../../../../platform/clipboard/common/clipboardService.js';
-import { INativeEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
@@ -40,7 +40,7 @@ export class MergeEditorOpenContentsFromJSON extends Action2 {
 		const clipboardService = accessor.get(IClipboardService);
 		const editorService = accessor.get(IEditorService);
 		const languageService = accessor.get(ILanguageService);
-		const env = accessor.get(INativeEnvironmentService);
+		const env = accessor.get(NativeEnvironmentServiceInterface);
 		const fileService = accessor.get(IFileService);
 
 		if (!args) {

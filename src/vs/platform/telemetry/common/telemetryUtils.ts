@@ -8,7 +8,7 @@ import { isObject } from '../../../base/common/types.js';
 import { URI } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { LoggerGroup } from '../../log/common/log.js';
 import { IProductService } from '../../product/common/productService.js';
 import { getRemoteName } from '../../remote/common/remoteHosts.js';
@@ -92,7 +92,7 @@ export interface URIDescriptor {
  * @param environmentService
  * @returns false - telemetry is completely disabled, true - telemetry is logged locally, but may not be sent
  */
-export function supportsTelemetry(productService: IProductService, environmentService: IEnvironmentService): boolean {
+export function supportsTelemetry(productService: IProductService, environmentService: EnvironmentServiceInterface): boolean {
 	// If it's OSS and telemetry isn't disabled via the CLI we will allow it for logging only purposes
 	if (!environmentService.isBuilt && !environmentService.disableTelemetry) {
 		return true;
@@ -107,7 +107,7 @@ export function supportsTelemetry(productService: IProductService, environmentSe
  * @param environmentService
  * @returns True if telemetry is actually disabled and we're only logging for debug purposes
  */
-export function isLoggingOnly(productService: IProductService, environmentService: IEnvironmentService): boolean {
+export function isLoggingOnly(productService: IProductService, environmentService: EnvironmentServiceInterface): boolean {
 	// If we're testing an extension, log telemetry for debug purposes
 	if (environmentService.extensionTestsLocationURI) {
 		return true;
@@ -253,7 +253,7 @@ export function isInternalTelemetry(productService: IProductService, configServi
 	return verifyMicrosoftInternalDomain(msftInternalDomains) || internalTesting;
 }
 
-interface IPathEnvironment {
+interface PathInterfaceEnvironment {
 	appRoot: string;
 	extensionsPath: string;
 	userDataPath: string;

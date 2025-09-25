@@ -53,7 +53,7 @@ import { TestAccessibilityService } from '../../../platform/accessibility/test/c
 import { IAccessibilitySignalService } from '../../../platform/accessibilitySignal/browser/accessibilitySignalService.js';
 import { IActionViewItemService, NullActionViewItemService } from '../../../platform/actions/browser/actionViewItemService.js';
 import { IMenu, IMenuActionOptions, IMenuChangeEvent, IMenuService, MenuId, MenuItemAction, SubmenuItemAction } from '../../../platform/actions/common/actions.js';
-import { IFolderBackupInfo, IWorkspaceBackupInfo } from '../../../platform/backup/common/backup.js';
+import { IFolderBackupInfo, WorkspaceInterfaceBackupInfo } from '../../../platform/backup/common/backup.js';
 import { ConfigurationTarget, IConfigurationService, IConfigurationValue } from '../../../platform/configuration/common/configuration.js';
 import { TestConfigurationService } from '../../../platform/configuration/test/common/testConfigurationService.js';
 import { ContextKeyValue, IContextKeyService } from '../../../platform/contextkey/common/contextkey.js';
@@ -64,7 +64,7 @@ import { IDiagnosticInfo, IDiagnosticInfoOptions } from '../../../platform/diagn
 import { ConfirmResult, IDialogService, IFileDialogService, IOpenDialogOptions, IPickAndOpenOptions, ISaveDialogOptions } from '../../../platform/dialogs/common/dialogs.js';
 import { TestDialogService } from '../../../platform/dialogs/test/common/testDialogService.js';
 import { IEditorOptions, IResourceEditorInput, IResourceEditorInputIdentifier, ITextEditorOptions, ITextResourceEditorInput } from '../../../platform/editor/common/editor.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { IExtensionManagementParticipant, IExtensionsControlManifest, IGalleryExtension, IGalleryMetadata, ILocalExtension, InstallExtensionInfo, InstallExtensionResult, InstallExtensionSummary, InstallOptions, Metadata, UninstallExtensionInfo, UninstallOptions } from '../../../platform/extensionManagement/common/extensionManagement.js';
 import { ExtensionType, IExtension, IExtensionDescription, IRelaxedExtensionManifest, TargetPlatform } from '../../../platform/extensions/common/extensions.js';
 import { FileOperationError, FileSystemProviderCapabilities, FileType, IFileChange, IFileDeleteOptions, IFileOpenOptions, IFileOverwriteOptions, IFileReadStreamOptions, IFileService, IFileStatWithMetadata, IFileSystemProvider, IFileSystemProviderWithFileReadStreamCapability, IFileWriteOptions, IStat, IWatchOptions } from '../../../platform/files/common/files.js';
@@ -93,7 +93,7 @@ import { Registry } from '../../../platform/registry/common/platform.js';
 import { IRemoteAgentEnvironment } from '../../../platform/remote/common/remoteAgentEnvironment.js';
 import { IRemoteExtensionsScannerService } from '../../../platform/remote/common/remoteExtensionsScanner.js';
 import { IRemoteSocketFactoryService, RemoteSocketFactoryService } from '../../../platform/remote/common/remoteSocketFactoryService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
 import { ITelemetryData, ITelemetryService, TelemetryLevel } from '../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../platform/telemetry/common/telemetryUtils.js';
 import { IExtensionTerminalProfile, IShellLaunchConfig, ITerminalBackend, ITerminalLogService, ITerminalProfile, TerminalIcon, TerminalLocation, TerminalShellType } from '../../../platform/terminal/common/terminal.js';
@@ -107,10 +107,10 @@ import { IUriIdentityService } from '../../../platform/uriIdentity/common/uriIde
 import { UriIdentityService } from '../../../platform/uriIdentity/common/uriIdentityService.js';
 import { IUserDataProfile, IUserDataProfilesService, UserDataProfilesService } from '../../../platform/userDataProfile/common/userDataProfile.js';
 import { IOpenEmptyWindowOptions, IOpenWindowOptions, IRectangle, IWindowOpenable, MenuBarVisibility } from '../../../platform/window/common/window.js';
-import { IWorkspaceContextService, IWorkspaceIdentifier } from '../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustManagementService, IWorkspaceTrustRequestService } from '../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceContextServiceInterface, WorkspaceIdentifierInterface } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustManagementService, WorkspaceInterfaceTrustRequestService } from '../../../platform/workspace/common/workspaceTrust.js';
 import { TestWorkspace } from '../../../platform/workspace/test/common/testWorkspace.js';
-import { IEnterWorkspaceResult, IRecent, IRecentlyOpened, IWorkspaceFolderCreationData, IWorkspacesService } from '../../../platform/workspaces/common/workspaces.js';
+import { IEnterWorkspaceResult, IRecent, IRecentlyOpened, WorkspaceInterfaceFolderCreationData, WorkspaceInterfacesService } from '../../../platform/workspaces/common/workspaces.js';
 import { EditorPaneDescriptor, IEditorPaneRegistry } from '../../browser/editor.js';
 import { PaneComposite, PaneCompositeDescriptor } from '../../browser/panecomposite.js';
 import { Part } from '../../browser/part.js';
@@ -162,7 +162,7 @@ import { ILanguageDetectionService } from '../../services/languageDetection/comm
 import { IWorkbenchLayoutService, PanelAlignment, Position as PartPosition, Parts } from '../../services/layout/browser/layoutService.js';
 import { BeforeShutdownErrorEvent, ILifecycleService, InternalBeforeShutdownEvent, IWillShutdownEventJoiner, LifecyclePhase, ShutdownReason, StartupKind, WillShutdownEvent } from '../../services/lifecycle/common/lifecycle.js';
 import { IPaneCompositePartService } from '../../services/panecomposite/browser/panecomposite.js';
-import { IPathService } from '../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../services/path/common/pathService.js';
 import { QuickInputService } from '../../services/quickinput/browser/quickInputService.js';
 import { IExtensionHostExitInfo, IRemoteAgentConnection, IRemoteAgentService } from '../../services/remote/common/remoteAgentService.js';
 import { BrowserTextFileService } from '../../services/textfile/browser/browserTextFileService.js';
@@ -252,12 +252,12 @@ export class TestWorkingCopyService extends WorkingCopyService {
 
 export function workbenchInstantiationService(
 	overrides?: {
-		environmentService?: (instantiationService: IInstantiationService) => IEnvironmentService;
+		environmentService?: (instantiationService: IInstantiationService) => EnvironmentServiceInterface;
 		fileService?: (instantiationService: IInstantiationService) => IFileService;
 		workingCopyBackupService?: (instantiationService: IInstantiationService) => IWorkingCopyBackupService;
 		configurationService?: (instantiationService: IInstantiationService) => TestConfigurationService;
 		textFileService?: (instantiationService: IInstantiationService) => ITextFileService;
-		pathService?: (instantiationService: IInstantiationService) => IPathService;
+		pathService?: (instantiationService: IInstantiationService) => PathInterfaceService;
 		editorService?: (instantiationService: IInstantiationService) => IEditorService;
 		contextKeyService?: (instantiationService: IInstantiationService) => IContextKeyService;
 		textEditorService?: (instantiationService: IInstantiationService) => ITextEditorService;
@@ -273,14 +273,14 @@ export function workbenchInstantiationService(
 	instantiationService.stub(IEditorWorkerService, new TestEditorWorkerService());
 	instantiationService.stub(IWorkingCopyService, disposables.add(new TestWorkingCopyService()));
 	const environmentService = overrides?.environmentService ? overrides.environmentService(instantiationService) : TestEnvironmentService;
-	instantiationService.stub(IEnvironmentService, environmentService);
+	instantiationService.stub(EnvironmentServiceInterface, environmentService);
 	instantiationService.stub(IWorkbenchEnvironmentService, environmentService);
 	instantiationService.stub(ILogService, new NullLogService());
 	const contextKeyService = overrides?.contextKeyService ? overrides.contextKeyService(instantiationService) : instantiationService.createInstance(MockContextKeyService);
 	instantiationService.stub(IContextKeyService, contextKeyService);
 	instantiationService.stub(IProgressService, new TestProgressService());
 	const workspaceContextService = new TestContextService(TestWorkspace);
-	instantiationService.stub(IWorkspaceContextService, workspaceContextService);
+	instantiationService.stub(WorkspaceContextServiceInterface, workspaceContextService);
 	const configService = overrides?.configurationService ? overrides.configurationService(instantiationService) : new TestConfigurationService({
 		files: {
 			participants: {
@@ -292,10 +292,10 @@ export function workbenchInstantiationService(
 	const textResourceConfigurationService = new TestTextResourceConfigurationService(configService);
 	instantiationService.stub(ITextResourceConfigurationService, textResourceConfigurationService);
 	instantiationService.stub(IUntitledTextEditorService, disposables.add(instantiationService.createInstance(UntitledTextEditorService)));
-	instantiationService.stub(IStorageService, disposables.add(new TestStorageService()));
+	instantiationService.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
 	instantiationService.stub(IRemoteAgentService, new TestRemoteAgentService());
 	instantiationService.stub(ILanguageDetectionService, new TestLanguageDetectionService());
-	instantiationService.stub(IPathService, overrides?.pathService ? overrides.pathService(instantiationService) : new TestPathService());
+	instantiationService.stub(PathInterfaceService, overrides?.pathService ? overrides.pathService(instantiationService) : new TestPathService());
 	const layoutService = new TestLayoutService();
 	instantiationService.stub(IWorkbenchLayoutService, layoutService);
 	instantiationService.stub(IDialogService, new TestDialogService());
@@ -355,9 +355,9 @@ export function workbenchInstantiationService(
 	instantiationService.stub(IContextViewService, disposables.add(instantiationService.createInstance(ContextViewService)));
 	instantiationService.stub(IContextMenuService, disposables.add(instantiationService.createInstance(ContextMenuService)));
 	instantiationService.stub(IQuickInputService, disposables.add(new QuickInputService(configService, instantiationService, keybindingService, contextKeyService, themeService, layoutService)));
-	instantiationService.stub(IWorkspacesService, new TestWorkspacesService());
-	instantiationService.stub(IWorkspaceTrustManagementService, disposables.add(new TestWorkspaceTrustManagementService()));
-	instantiationService.stub(IWorkspaceTrustRequestService, disposables.add(new TestWorkspaceTrustRequestService(false)));
+	instantiationService.stub(WorkspaceInterfacesService, new TestWorkspacesService());
+	instantiationService.stub(WorkspaceInterfaceTrustManagementService, disposables.add(new TestWorkspaceTrustManagementService()));
+	instantiationService.stub(WorkspaceInterfaceTrustRequestService, disposables.add(new TestWorkspaceTrustRequestService(false)));
 	instantiationService.stub(ITerminalInstanceService, new TestTerminalInstanceService());
 	instantiationService.stub(ITerminalEditorService, new TestTerminalEditorService());
 	instantiationService.stub(ITerminalGroupService, new TestTerminalGroupService());
@@ -382,7 +382,7 @@ export class TestServiceAccessor {
 		@ITextEditorService public textEditorService: ITextEditorService,
 		@IWorkingCopyFileService public workingCopyFileService: IWorkingCopyFileService,
 		@IFilesConfigurationService public filesConfigurationService: TestFilesConfigurationService,
-		@IWorkspaceContextService public contextService: TestContextService,
+		@WorkspaceContextServiceInterface public contextService: TestContextService,
 		@IModelService public modelService: ModelService,
 		@IFileService public fileService: TestFileService,
 		@IFileDialogService public fileDialogService: TestFileDialogService,
@@ -391,7 +391,7 @@ export class TestServiceAccessor {
 		@IEditorService public editorService: TestEditorService,
 		@IEditorPaneService public editorPaneService: IEditorPaneService,
 		@IWorkbenchEnvironmentService public environmentService: IWorkbenchEnvironmentService,
-		@IPathService public pathService: IPathService,
+		@PathInterfaceService public pathService: PathInterfaceService,
 		@IEditorGroupsService public editorGroupService: IEditorGroupsService,
 		@IEditorResolverService public editorResolverService: IEditorResolverService,
 		@ILanguageService public languageService: ILanguageService,
@@ -409,7 +409,7 @@ export class TestServiceAccessor {
 		@IWorkingCopyEditorService public workingCopyEditorService: IWorkingCopyEditorService,
 		@IInstantiationService public instantiationService: IInstantiationService,
 		@IElevatedFileService public elevatedFileService: IElevatedFileService,
-		@IWorkspaceTrustRequestService public workspaceTrustRequestService: TestWorkspaceTrustRequestService,
+		@WorkspaceInterfaceTrustRequestService public workspaceTrustRequestService: TestWorkspaceTrustRequestService,
 		@IDecorationsService public decorationsService: IDecorationsService,
 		@IProgressService public progressService: IProgressService,
 	) { }
@@ -431,7 +431,7 @@ export class TestTextFileService extends BrowserTextFileService {
 		@ITextResourceConfigurationService textResourceConfigurationService: ITextResourceConfigurationService,
 		@IFilesConfigurationService filesConfigurationService: IFilesConfigurationService,
 		@ICodeEditorService codeEditorService: ICodeEditorService,
-		@IPathService pathService: IPathService,
+		@PathInterfaceService pathService: PathInterfaceService,
 		@IWorkingCopyFileService workingCopyFileService: IWorkingCopyFileService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@ILanguageService languageService: ILanguageService,
@@ -590,7 +590,7 @@ export class TestFileDialogService implements IFileDialogService {
 	private confirmResult!: ConfirmResult;
 
 	constructor(
-		@IPathService private readonly pathService: IPathService
+		@PathInterfaceService private readonly pathService: PathInterfaceService
 	) { }
 	async defaultFilePath(_schemeFilter?: string): Promise<URI> { return this.pathService.userHome(); }
 	async defaultFolderPath(_schemeFilter?: string): Promise<URI> { return this.pathService.userHome(); }
@@ -1779,7 +1779,7 @@ export class TestListService implements IListService {
 	}
 }
 
-export class TestPathService implements IPathService {
+export class TestPathService implements PathInterfaceService {
 
 	declare readonly _serviceBrand: undefined;
 
@@ -1825,20 +1825,20 @@ export function getLastResolvedFileStat(model: unknown): IFileStatWithMetadata |
 	return candidate?.lastResolvedFileStat;
 }
 
-export class TestWorkspacesService implements IWorkspacesService {
+export class TestWorkspacesService implements WorkspaceInterfacesService {
 	_serviceBrand: undefined;
 
 	onDidChangeRecentlyOpened = Event.None;
 
-	async createUntitledWorkspace(folders?: IWorkspaceFolderCreationData[], remoteAuthority?: string): Promise<IWorkspaceIdentifier> { throw new Error('Method not implemented.'); }
-	async deleteUntitledWorkspace(workspace: IWorkspaceIdentifier): Promise<void> { }
+	async createUntitledWorkspace(folders?: WorkspaceInterfaceFolderCreationData[], remoteAuthority?: string): Promise<WorkspaceIdentifierInterface> { throw new Error('Method not implemented.'); }
+	async deleteUntitledWorkspace(workspace: WorkspaceIdentifierInterface): Promise<void> { }
 	async addRecentlyOpened(recents: IRecent[]): Promise<void> { }
 	async removeRecentlyOpened(workspaces: URI[]): Promise<void> { }
 	async clearRecentlyOpened(): Promise<void> { }
 	async getRecentlyOpened(): Promise<IRecentlyOpened> { return { files: [], workspaces: [] }; }
-	async getDirtyWorkspaces(): Promise<(IFolderBackupInfo | IWorkspaceBackupInfo)[]> { return []; }
+	async getDirtyWorkspaces(): Promise<(IFolderBackupInfo | WorkspaceInterfaceBackupInfo)[]> { return []; }
 	async enterWorkspace(path: URI): Promise<IEnterWorkspaceResult | undefined> { throw new Error('Method not implemented.'); }
-	async getWorkspaceIdentifier(workspacePath: URI): Promise<IWorkspaceIdentifier> { throw new Error('Method not implemented.'); }
+	async getWorkspaceIdentifier(workspacePath: URI): Promise<WorkspaceIdentifierInterface> { throw new Error('Method not implemented.'); }
 }
 
 export class TestTerminalInstanceService implements ITerminalInstanceService {

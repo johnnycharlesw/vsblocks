@@ -30,7 +30,7 @@ import { ISearchViewModelWorkbenchService } from './searchTreeModel/searchViewMo
 import { SearchSortOrder, SEARCH_EXCLUDE_CONFIG, VIEWLET_ID, ViewMode, VIEW_ID, DEFAULT_MAX_SEARCH_RESULTS, SemanticSearchBehavior } from '../../../services/search/common/search.js';
 import { CommandsRegistry } from '../../../../platform/commands/common/commands.js';
 import { assertType } from '../../../../base/common/types.js';
-import { getWorkspaceSymbols, IWorkspaceSymbol } from '../common/search.js';
+import { getWorkspaceSymbols, WorkspaceInterfaceSymbol } from '../common/search.js';
 import * as Constants from '../common/constants.js';
 import { SearchChatContextContribution } from './searchChatContext.js';
 
@@ -409,7 +409,7 @@ configurationRegistry.registerConfiguration({
 	}
 });
 
-CommandsRegistry.registerCommand('_executeWorkspaceSymbolProvider', async function (accessor, ...args): Promise<IWorkspaceSymbol[]> {
+CommandsRegistry.registerCommand('_executeWorkspaceSymbolProvider', async function (accessor, ...args): Promise<WorkspaceInterfaceSymbol[]> {
 	const [query] = args;
 	assertType(typeof query === 'string');
 	const result = await getWorkspaceSymbols(query);

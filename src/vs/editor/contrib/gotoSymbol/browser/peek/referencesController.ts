@@ -25,7 +25,7 @@ import { IInstantiationService, ServicesAccessor } from '../../../../../platform
 import { KeybindingsRegistry, KeybindingWeight } from '../../../../../platform/keybinding/common/keybindingsRegistry.js';
 import { IListService, WorkbenchListFocusContextKey, WorkbenchTreeElementCanCollapse, WorkbenchTreeElementCanExpand } from '../../../../../platform/list/browser/listService.js';
 import { INotificationService } from '../../../../../platform/notification/common/notification.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { OneReference, ReferencesModel } from '../referencesModel.js';
 import { LayoutData, ReferenceWidget } from './referencesWidget.js';
 import { EditorContextKeys } from '../../../../common/editorContextKeys.js';
@@ -58,7 +58,7 @@ export abstract class ReferencesController implements IEditorContribution {
 		@ICodeEditorService private readonly _editorService: ICodeEditorService,
 		@INotificationService private readonly _notificationService: INotificationService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 	) {
 

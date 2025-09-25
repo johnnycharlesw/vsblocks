@@ -5,7 +5,7 @@
 
 import { OperatingSystem } from '../../../../../base/common/platform.js';
 import type { URI } from '../../../../../base/common/uri.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import type { ITerminalInstance } from '../../../terminal/browser/terminal.js';
 import { isPowerShell } from './runInTerminalHelpers.js';
 import type { IRunInTerminalInputParams } from './tools/runInTerminalTool.js';
@@ -13,7 +13,7 @@ import type { IRunInTerminalInputParams } from './tools/runInTerminalTool.js';
 export class CommandSimplifier {
 	constructor(
 		private readonly _osBackend: Promise<OperatingSystem>,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 	}
 

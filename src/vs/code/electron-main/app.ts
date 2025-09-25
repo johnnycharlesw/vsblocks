@@ -88,10 +88,10 @@ import { ICodeWindow } from '../../platform/window/electron-main/window.js';
 import { WindowsMainService } from '../../platform/windows/electron-main/windowsMainService.js';
 import { ActiveWindowManager } from '../../platform/windows/node/windowTracker.js';
 import { hasWorkspaceFileExtension } from '../../platform/workspace/common/workspace.js';
-import { IWorkspacesService } from '../../platform/workspaces/common/workspaces.js';
-import { IWorkspacesHistoryMainService, WorkspacesHistoryMainService } from '../../platform/workspaces/electron-main/workspacesHistoryMainService.js';
+import { WorkspaceInterfacesService } from '../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesHistoryMainService, WorkspacesHistoryMainService } from '../../platform/workspaces/electron-main/workspacesHistoryMainService.js';
 import { WorkspacesMainService } from '../../platform/workspaces/electron-main/workspacesMainService.js';
-import { IWorkspacesManagementMainService, WorkspacesManagementMainService } from '../../platform/workspaces/electron-main/workspacesManagementMainService.js';
+import { WorkspaceInterfacesManagementMainService, WorkspacesManagementMainService } from '../../platform/workspaces/electron-main/workspacesManagementMainService.js';
 import { IPolicyService } from '../../platform/policy/common/policy.js';
 import { PolicyChannel } from '../../platform/policy/common/policyIpc.js';
 import { IUserDataProfilesMainService } from '../../platform/userDataProfile/electron-main/userDataProfile.js';
@@ -1072,9 +1072,9 @@ export class CodeApplication extends Disposable {
 
 		// Workspaces
 		const workspacesManagementMainService = new WorkspacesManagementMainService(this.environmentMainService, this.logService, this.userDataProfilesMainService, backupMainService, dialogMainService);
-		services.set(IWorkspacesManagementMainService, workspacesManagementMainService);
-		services.set(IWorkspacesService, new SyncDescriptor(WorkspacesMainService, undefined, false /* proxied to other processes */));
-		services.set(IWorkspacesHistoryMainService, new SyncDescriptor(WorkspacesHistoryMainService, undefined, false));
+		services.set(WorkspaceInterfacesManagementMainService, workspacesManagementMainService);
+		services.set(WorkspaceInterfacesService, new SyncDescriptor(WorkspacesMainService, undefined, false /* proxied to other processes */));
+		services.set(WorkspaceInterfacesHistoryMainService, new SyncDescriptor(WorkspacesHistoryMainService, undefined, false));
 
 		// URL handling
 		services.set(IURLService, new SyncDescriptor(NativeURLService, undefined, false /* proxied to other processes */));
@@ -1187,7 +1187,7 @@ export class CodeApplication extends Disposable {
 		mainProcessElectronServer.registerChannel('webContentExtractor', webContentExtractorChannel);
 
 		// Workspaces
-		const workspacesChannel = ProxyChannel.fromService(accessor.get(IWorkspacesService), disposables);
+		const workspacesChannel = ProxyChannel.fromService(accessor.get(WorkspaceInterfacesService), disposables);
 		mainProcessElectronServer.registerChannel('workspaces', workspacesChannel);
 
 		// Menubar

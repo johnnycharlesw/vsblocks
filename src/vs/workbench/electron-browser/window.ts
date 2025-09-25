@@ -21,14 +21,14 @@ import { setFullscreen, getZoomLevel, onDidChangeZoomLevel, getZoomFactor } from
 import { ICommandService, CommandsRegistry } from '../../platform/commands/common/commands.js';
 import { IResourceEditorInput } from '../../platform/editor/common/editor.js';
 import { ipcRenderer, process } from '../../base/parts/sandbox/electron-browser/globals.js';
-import { IWorkspaceEditingService } from '../services/workspaces/common/workspaceEditing.js';
+import { WorkspaceInterfaceEditingService } from '../services/workspaces/common/workspaceEditing.js';
 import { IMenuService, MenuId, IMenu, MenuItemAction, MenuRegistry } from '../../platform/actions/common/actions.js';
 import { ICommandAction } from '../../platform/action/common/action.js';
 import { getFlatActionBarActions } from '../../platform/actions/browser/menuEntryActionViewItem.js';
 import { RunOnceScheduler } from '../../base/common/async.js';
 import { Disposable, DisposableStore, MutableDisposable, toDisposable } from '../../base/common/lifecycle.js';
 import { LifecyclePhase, ILifecycleService, WillShutdownEvent, ShutdownReason, BeforeShutdownErrorEvent, BeforeShutdownEvent } from '../services/lifecycle/common/lifecycle.js';
-import { IWorkspaceFolderCreationData } from '../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfaceFolderCreationData } from '../../platform/workspaces/common/workspaces.js';
 import { IIntegrityService } from '../services/integrity/common/integrity.js';
 import { isWindows, isMacintosh } from '../../base/common/platform.js';
 import { IProductService } from '../../platform/product/common/productService.js';
@@ -36,10 +36,10 @@ import { INotificationService, NotificationPriority, Severity } from '../../plat
 import { IKeybindingService } from '../../platform/keybinding/common/keybinding.js';
 import { INativeWorkbenchEnvironmentService } from '../services/environment/electron-browser/environmentService.js';
 import { IAccessibilityService, AccessibilitySupport } from '../../platform/accessibility/common/accessibility.js';
-import { WorkbenchState, IWorkspaceContextService } from '../../platform/workspace/common/workspace.js';
+import { WorkbenchState, WorkspaceContextServiceInterface } from '../../platform/workspace/common/workspace.js';
 import { coalesce } from '../../base/common/arrays.js';
 import { ConfigurationTarget, IConfigurationService } from '../../platform/configuration/common/configuration.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
 import { IOpenerService, IResolvedExternalUri, OpenOptions } from '../../platform/opener/common/opener.js';
 import { Schemas } from '../../base/common/network.js';
 import { INativeHostService } from '../../platform/native/common/native.js';
@@ -100,14 +100,14 @@ export class NativeWindow extends BaseWindow {
 		@ICommandService private readonly commandService: ICommandService,
 		@IKeybindingService private readonly keybindingService: IKeybindingService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IWorkspaceEditingService private readonly workspaceEditingService: IWorkspaceEditingService,
+		@WorkspaceInterfaceEditingService private readonly workspaceEditingService: WorkspaceInterfaceEditingService,
 		@IFileService private readonly fileService: IFileService,
 		@IMenuService private readonly menuService: IMenuService,
 		@ILifecycleService private readonly lifecycleService: ILifecycleService,
 		@IIntegrityService private readonly integrityService: IIntegrityService,
 		@INativeWorkbenchEnvironmentService private readonly nativeEnvironmentService: INativeWorkbenchEnvironmentService,
 		@IAccessibilityService private readonly accessibilityService: IAccessibilityService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IOpenerService private readonly openerService: IOpenerService,
 		@INativeHostService private readonly nativeHostService: INativeHostService,
 		@ITunnelService private readonly tunnelService: ITunnelService,
@@ -117,7 +117,7 @@ export class NativeWindow extends BaseWindow {
 		@IProductService private readonly productService: IProductService,
 		@IRemoteAuthorityResolverService private readonly remoteAuthorityResolverService: IRemoteAuthorityResolverService,
 		@IDialogService private readonly dialogService: IDialogService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@ILogService private readonly logService: ILogService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@ISharedProcessService private readonly sharedProcessService: ISharedProcessService,
@@ -971,7 +971,7 @@ export class NativeWindow extends BaseWindow {
 	}
 
 	private async doAddRemoveFolders(): Promise<void> {
-		const foldersToAdd: IWorkspaceFolderCreationData[] = this.pendingFoldersToAdd.map(folder => ({ uri: folder }));
+		const foldersToAdd: WorkspaceInterfaceFolderCreationData[] = this.pendingFoldersToAdd.map(folder => ({ uri: folder }));
 		const foldersToRemove = this.pendingFoldersToRemove.slice(0);
 
 		this.pendingFoldersToAdd = [];

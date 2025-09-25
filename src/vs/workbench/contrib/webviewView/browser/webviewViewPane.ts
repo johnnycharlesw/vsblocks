@@ -16,7 +16,7 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { IProgressService } from '../../../../platform/progress/common/progress.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { ViewPane, ViewPaneShowActions } from '../../../browser/parts/views/viewPane.js';
 import { IViewletViewOptions } from '../../../browser/parts/views/viewsViewlet.js';
@@ -38,7 +38,7 @@ export class WebviewViewPane extends ViewPane {
 
 	private static _originStore?: ExtensionKeyedWebviewOriginStore;
 
-	private static getOriginStore(storageService: IStorageService): ExtensionKeyedWebviewOriginStore {
+	private static getOriginStore(storageService: StorageServiceInterface): ExtensionKeyedWebviewOriginStore {
 		this._originStore ??= new ExtensionKeyedWebviewOriginStore('webviewViews.origins', storageService);
 		return this._originStore;
 	}
@@ -77,7 +77,7 @@ export class WebviewViewPane extends ViewPane {
 		@IActivityService private readonly activityService: IActivityService,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IProgressService private readonly progressService: IProgressService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IViewsService private readonly viewService: IViewsService,
 		@IWebviewService private readonly webviewService: IWebviewService,
 		@IWebviewViewService private readonly webviewViewService: IWebviewViewService,

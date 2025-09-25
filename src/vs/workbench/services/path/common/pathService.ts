@@ -5,24 +5,24 @@
 
 import { isValidBasename } from '../../../../base/common/extpath.js';
 import { Schemas } from '../../../../base/common/network.js';
-import { IPath, win32, posix } from '../../../../base/common/path.js';
+import { PathInterface, win32, posix } from '../../../../base/common/path.js';
 import { OperatingSystem, OS } from '../../../../base/common/platform.js';
 import { basename } from '../../../../base/common/resources.js';
 import { URI } from '../../../../base/common/uri.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { getVirtualWorkspaceScheme } from '../../../../platform/workspace/common/virtualWorkspace.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchEnvironmentService } from '../../environment/common/environmentService.js';
 import { IRemoteAgentService } from '../../remote/common/remoteAgentService.js';
 
-export const IPathService = createDecorator<IPathService>('pathService');
+export const PathInterfaceService = createDecorator<PathInterfaceService>('pathService');
 
 /**
  * Provides access to path related properties that will match the
  * environment. If the environment is connected to a remote, the
  * path properties will match that of the remotes operating system.
  */
-export interface IPathService {
+export interface PathInterfaceService {
 
 	readonly _serviceBrand: undefined;
 
@@ -32,7 +32,7 @@ export interface IPathService {
 	 * path library of the remote file system. Otherwise it will be
 	 * the local file system's path library depending on the OS.
 	 */
-	readonly path: Promise<IPath>;
+	readonly path: Promise<PathInterface>;
 
 	/**
 	 * Determines the best default URI scheme for the current workspace.
@@ -78,7 +78,7 @@ export interface IPathService {
 	readonly resolvedUserHome: URI | undefined;
 }
 
-export abstract class AbstractPathService implements IPathService {
+export abstract class AbstractPathService implements PathInterfaceService {
 
 	declare readonly _serviceBrand: undefined;
 
@@ -91,7 +91,7 @@ export abstract class AbstractPathService implements IPathService {
 		private localUserHome: URI,
 		@IRemoteAgentService private readonly remoteAgentService: IRemoteAgentService,
 		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
-		@IWorkspaceContextService private contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface private contextService: WorkspaceContextServiceInterface
 	) {
 
 		// OS
@@ -139,7 +139,7 @@ export abstract class AbstractPathService implements IPathService {
 		return AbstractPathService.findDefaultUriScheme(this.environmentService, this.contextService);
 	}
 
-	static findDefaultUriScheme(environmentService: IWorkbenchEnvironmentService, contextService: IWorkspaceContextService): string {
+	static findDefaultUriScheme(environmentService: IWorkbenchEnvironmentService, contextService: WorkspaceContextServiceInterface): string {
 		if (environmentService.remoteAuthority) {
 			return Schemas.vscodeRemote;
 		}
@@ -172,7 +172,7 @@ export abstract class AbstractPathService implements IPathService {
 		return this.maybeUnresolvedUserHome;
 	}
 
-	get path(): Promise<IPath> {
+	get path(): Promise<PathInterface> {
 		return this.resolveOS.then(os => {
 			return os === OperatingSystem.Windows ?
 				win32 :

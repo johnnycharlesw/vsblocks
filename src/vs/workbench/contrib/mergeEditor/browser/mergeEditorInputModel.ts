@@ -16,7 +16,7 @@ import { IResolvedTextEditorModel, ITextModelService } from '../../../../editor/
 import { localize } from '../../../../nls.js';
 import { ConfirmResult, IDialogService, IPromptButton } from '../../../../platform/dialogs/common/dialogs.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IRevertOptions, SaveSourceRegistry } from '../../../common/editor.js';
 import { EditorModel } from '../../../common/editor/editorModel.js';
 import { MergeEditorInputData } from './mergeEditorInput.js';
@@ -373,7 +373,7 @@ class WorkspaceMergeEditorInputModel extends EditorModel implements IMergeEditor
 		private readonly resultTextFileModel: ITextFileEditorModel,
 		private readonly telemetry: MergeEditorTelemetry,
 		@IDialogService private readonly _dialogService: IDialogService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 	) {
 		super();
 		this.isDirty = observableFromEvent(this,

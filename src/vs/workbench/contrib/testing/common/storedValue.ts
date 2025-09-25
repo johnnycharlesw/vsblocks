@@ -5,7 +5,7 @@
 
 import { Event } from '../../../../base/common/event.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
-import { IStorageService, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 
 export interface IStoredValueSerialization<T> {
 	deserialize(data: string): T;
@@ -41,7 +41,7 @@ export class StoredValue<T> extends Disposable {
 
 	constructor(
 		options: IStoredValueOptions<T>,
-		@IStorageService private readonly storage: IStorageService,
+		@StorageServiceInterface private readonly storage: StorageServiceInterface,
 	) {
 		super();
 

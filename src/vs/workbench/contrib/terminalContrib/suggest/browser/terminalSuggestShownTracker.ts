@@ -5,7 +5,7 @@
 
 import { TimeoutTimer } from '../../../../../base/common/async.js';
 import { Disposable, IDisposable } from '../../../../../base/common/lifecycle.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { TerminalShellType } from '../../../../../platform/terminal/common/terminal.js';
 import { IExtensionService } from '../../../../services/extensions/common/extensions.js';
 
@@ -31,7 +31,7 @@ export class TerminalSuggestShownTracker extends Disposable implements ITerminal
 
 	constructor(
 		private readonly _shellType: TerminalShellType | undefined,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IExtensionService private readonly _extensionService: IExtensionService
 
 	) {

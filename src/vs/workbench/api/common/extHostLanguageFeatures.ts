@@ -547,7 +547,7 @@ class CodeActionAdapter {
 		return { cacheId, actions };
 	}
 
-	async resolveCodeAction(id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ edit?: extHostProtocol.IWorkspaceEditDto; command?: extHostProtocol.ICommandDto }> {
+	async resolveCodeAction(id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ edit?: extHostProtocol.WorkspaceInterfaceEditDto; command?: extHostProtocol.ICommandDto }> {
 		const [sessionId, itemId] = id;
 		const item = this._cache.get(sessionId, itemId);
 		if (!item || CodeActionAdapter._isCommand(item)) {
@@ -560,7 +560,7 @@ class CodeActionAdapter {
 
 		const resolvedItem = (await this._provider.resolveCodeAction(item, token)) ?? item;
 
-		let resolvedEdit: extHostProtocol.IWorkspaceEditDto | undefined;
+		let resolvedEdit: extHostProtocol.WorkspaceInterfaceEditDto | undefined;
 		if (resolvedItem.edit) {
 			resolvedEdit = typeConvert.WorkspaceEdit.from(resolvedItem.edit, undefined);
 		}
@@ -680,7 +680,7 @@ class DocumentPasteEditProvider {
 		}));
 	}
 
-	async resolvePasteEdit(id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ insertText?: string | vscode.SnippetString; additionalEdit?: extHostProtocol.IWorkspaceEditDto }> {
+	async resolvePasteEdit(id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ insertText?: string | vscode.SnippetString; additionalEdit?: extHostProtocol.WorkspaceInterfaceEditDto }> {
 		const [sessionId, itemId] = id;
 		const item = this._editsCache.get(sessionId, itemId);
 		if (!item || !this._provider.resolveDocumentPasteEdit) {
@@ -781,7 +781,7 @@ class NavigateTypeAdapter {
 		private readonly _logService: ILogService
 	) { }
 
-	async provideWorkspaceSymbols(search: string, token: CancellationToken): Promise<extHostProtocol.IWorkspaceSymbolsDto> {
+	async provideWorkspaceSymbols(search: string, token: CancellationToken): Promise<extHostProtocol.WorkspaceInterfaceSymbolsDto> {
 		const value = await this._provider.provideWorkspaceSymbols(search, token);
 
 		if (!isNonEmptyArray(value)) {
@@ -789,7 +789,7 @@ class NavigateTypeAdapter {
 		}
 
 		const sid = this._cache.add(value);
-		const result: extHostProtocol.IWorkspaceSymbolsDto = {
+		const result: extHostProtocol.WorkspaceInterfaceSymbolsDto = {
 			cacheId: sid,
 			symbols: []
 		};
@@ -809,7 +809,7 @@ class NavigateTypeAdapter {
 		return result;
 	}
 
-	async resolveWorkspaceSymbol(symbol: extHostProtocol.IWorkspaceSymbolDto, token: CancellationToken): Promise<extHostProtocol.IWorkspaceSymbolDto | undefined> {
+	async resolveWorkspaceSymbol(symbol: extHostProtocol.WorkspaceInterfaceSymbolDto, token: CancellationToken): Promise<extHostProtocol.WorkspaceInterfaceSymbolDto | undefined> {
 		if (typeof this._provider.resolveWorkspaceSymbol !== 'function') {
 			return symbol;
 		}
@@ -841,7 +841,7 @@ class RenameAdapter {
 		private readonly _logService: ILogService
 	) { }
 
-	async provideRenameEdits(resource: URI, position: IPosition, newName: string, token: CancellationToken): Promise<extHostProtocol.IWorkspaceEditDto & languages.Rejection | undefined> {
+	async provideRenameEdits(resource: URI, position: IPosition, newName: string, token: CancellationToken): Promise<extHostProtocol.WorkspaceInterfaceEditDto & languages.Rejection | undefined> {
 
 		const doc = this._documents.getDocument(resource);
 		const pos = typeConvert.Position.to(position);
@@ -859,7 +859,7 @@ class RenameAdapter {
 				return { rejectReason, edits: undefined! };
 			} else {
 				// generic error
-				return Promise.reject<extHostProtocol.IWorkspaceEditDto>(err);
+				return Promise.reject<extHostProtocol.WorkspaceInterfaceEditDto>(err);
 			}
 		}
 	}
@@ -2065,7 +2065,7 @@ class DocumentDropEditAdapter {
 		}));
 	}
 
-	async resolveDropEdit(id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ additionalEdit?: extHostProtocol.IWorkspaceEditDto }> {
+	async resolveDropEdit(id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ additionalEdit?: extHostProtocol.WorkspaceInterfaceEditDto }> {
 		const [sessionId, itemId] = id;
 		const item = this._cache.get(sessionId, itemId);
 		if (!item || !this._provider.resolveDocumentDropEdit) {
@@ -2414,7 +2414,7 @@ export class ExtHostLanguageFeatures extends CoreDisposable implements extHostPr
 		return this._withAdapter(handle, CodeActionAdapter, adapter => adapter.provideCodeActions(URI.revive(resource), rangeOrSelection, context, token), undefined, token);
 	}
 
-	$resolveCodeAction(handle: number, id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ edit?: extHostProtocol.IWorkspaceEditDto; command?: extHostProtocol.ICommandDto }> {
+	$resolveCodeAction(handle: number, id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ edit?: extHostProtocol.WorkspaceInterfaceEditDto; command?: extHostProtocol.ICommandDto }> {
 		return this._withAdapter(handle, CodeActionAdapter, adapter => adapter.resolveCodeAction(id, token), {}, undefined);
 	}
 
@@ -2467,11 +2467,11 @@ export class ExtHostLanguageFeatures extends CoreDisposable implements extHostPr
 		return this._createDisposable(handle);
 	}
 
-	$provideWorkspaceSymbols(handle: number, search: string, token: CancellationToken): Promise<extHostProtocol.IWorkspaceSymbolsDto> {
+	$provideWorkspaceSymbols(handle: number, search: string, token: CancellationToken): Promise<extHostProtocol.WorkspaceInterfaceSymbolsDto> {
 		return this._withAdapter(handle, NavigateTypeAdapter, adapter => adapter.provideWorkspaceSymbols(search, token), { symbols: [] }, token);
 	}
 
-	$resolveWorkspaceSymbol(handle: number, symbol: extHostProtocol.IWorkspaceSymbolDto, token: CancellationToken): Promise<extHostProtocol.IWorkspaceSymbolDto | undefined> {
+	$resolveWorkspaceSymbol(handle: number, symbol: extHostProtocol.WorkspaceInterfaceSymbolDto, token: CancellationToken): Promise<extHostProtocol.WorkspaceInterfaceSymbolDto | undefined> {
 		return this._withAdapter(handle, NavigateTypeAdapter, adapter => adapter.resolveWorkspaceSymbol(symbol, token), undefined, undefined);
 	}
 
@@ -2487,7 +2487,7 @@ export class ExtHostLanguageFeatures extends CoreDisposable implements extHostPr
 		return this._createDisposable(handle);
 	}
 
-	$provideRenameEdits(handle: number, resource: UriComponents, position: IPosition, newName: string, token: CancellationToken): Promise<extHostProtocol.IWorkspaceEditDto | undefined> {
+	$provideRenameEdits(handle: number, resource: UriComponents, position: IPosition, newName: string, token: CancellationToken): Promise<extHostProtocol.WorkspaceInterfaceEditDto | undefined> {
 		return this._withAdapter(handle, RenameAdapter, adapter => adapter.provideRenameEdits(URI.revive(resource), position, newName, token), undefined, token);
 	}
 
@@ -2826,7 +2826,7 @@ export class ExtHostLanguageFeatures extends CoreDisposable implements extHostPr
 			Promise.resolve(adapter.provideDocumentOnDropEdits(requestId, URI.revive(resource), position, dataTransferDto, token)), undefined, undefined);
 	}
 
-	$resolveDropEdit(handle: number, id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ additionalEdit?: extHostProtocol.IWorkspaceEditDto }> {
+	$resolveDropEdit(handle: number, id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ additionalEdit?: extHostProtocol.WorkspaceInterfaceEditDto }> {
 		return this._withAdapter(handle, DocumentDropEditAdapter, adapter => adapter.resolveDropEdit(id, token), {}, undefined);
 	}
 
@@ -2858,7 +2858,7 @@ export class ExtHostLanguageFeatures extends CoreDisposable implements extHostPr
 		return this._withAdapter(handle, DocumentPasteEditProvider, adapter => adapter.providePasteEdits(requestId, URI.revive(resource), ranges, dataTransferDto, context, token), undefined, token);
 	}
 
-	$resolvePasteEdit(handle: number, id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ additionalEdit?: extHostProtocol.IWorkspaceEditDto }> {
+	$resolvePasteEdit(handle: number, id: extHostProtocol.ChainedCacheId, token: CancellationToken): Promise<{ additionalEdit?: extHostProtocol.WorkspaceInterfaceEditDto }> {
 		return this._withAdapter(handle, DocumentPasteEditProvider, adapter => adapter.resolvePasteEdit(id, token), {}, undefined);
 	}
 

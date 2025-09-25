@@ -9,7 +9,7 @@ import { Registry } from '../../platform/registry/common/platform.js';
 import { IdleDeadline, DeferredPromise, runWhenGlobalIdle } from '../../base/common/async.js';
 import { mark } from '../../base/common/performance.js';
 import { ILogService } from '../../platform/log/common/log.js';
-import { IEnvironmentService } from '../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../platform/environment/common/environment.js';
 import { getOrSet } from '../../base/common/map.js';
 import { Disposable, DisposableStore, isDisposable } from '../../base/common/lifecycle.js';
 import { IEditorPaneService } from '../services/editor/common/editorPaneService.js';
@@ -148,7 +148,7 @@ export class WorkbenchContributionsRegistry extends Disposable implements IWorkb
 	private instantiationService: IInstantiationService | undefined;
 	private lifecycleService: ILifecycleService | undefined;
 	private logService: ILogService | undefined;
-	private environmentService: IEnvironmentService | undefined;
+	private environmentService: EnvironmentServiceInterface | undefined;
 	private editorPaneService: IEditorPaneService | undefined;
 
 	private readonly contributionsByPhase = new Map<LifecyclePhase, IWorkbenchContributionRegistration[]>();
@@ -247,7 +247,7 @@ export class WorkbenchContributionsRegistry extends Disposable implements IWorkb
 		const instantiationService = this.instantiationService = accessor.get(IInstantiationService);
 		const lifecycleService = this.lifecycleService = accessor.get(ILifecycleService);
 		const logService = this.logService = accessor.get(ILogService);
-		const environmentService = this.environmentService = accessor.get(IEnvironmentService);
+		const environmentService = this.environmentService = accessor.get(EnvironmentServiceInterface);
 		const editorPaneService = this.editorPaneService = accessor.get(IEditorPaneService);
 
 		// Dispose contributions on shutdown
@@ -269,7 +269,7 @@ export class WorkbenchContributionsRegistry extends Disposable implements IWorkb
 		this._register(editorPaneService.onWillInstantiateEditorPane(e => this.onEditor(e.typeId, instantiationService, lifecycleService, logService, environmentService)));
 	}
 
-	private onEditor(editorTypeId: string, instantiationService: IInstantiationService, lifecycleService: ILifecycleService, logService: ILogService, environmentService: IEnvironmentService): void {
+	private onEditor(editorTypeId: string, instantiationService: IInstantiationService, lifecycleService: ILifecycleService, logService: ILogService, environmentService: EnvironmentServiceInterface): void {
 		const contributions = this.contributionsByEditor.get(editorTypeId);
 		if (contributions) {
 			this.contributionsByEditor.delete(editorTypeId);
@@ -280,7 +280,7 @@ export class WorkbenchContributionsRegistry extends Disposable implements IWorkb
 		}
 	}
 
-	private instantiateByPhase(instantiationService: IInstantiationService, lifecycleService: ILifecycleService, logService: ILogService, environmentService: IEnvironmentService, phase: LifecyclePhase): void {
+	private instantiateByPhase(instantiationService: IInstantiationService, lifecycleService: ILifecycleService, logService: ILogService, environmentService: EnvironmentServiceInterface, phase: LifecyclePhase): void {
 
 		// Instantiate contributions directly when phase is already reached
 		if (lifecycleService.phase >= phase) {
@@ -293,7 +293,7 @@ export class WorkbenchContributionsRegistry extends Disposable implements IWorkb
 		}
 	}
 
-	private async doInstantiateByPhase(instantiationService: IInstantiationService, logService: ILogService, environmentService: IEnvironmentService, phase: LifecyclePhase): Promise<void> {
+	private async doInstantiateByPhase(instantiationService: IInstantiationService, logService: ILogService, environmentService: EnvironmentServiceInterface, phase: LifecyclePhase): Promise<void> {
 		const contributions = this.contributionsByPhase.get(phase);
 		if (contributions) {
 			this.contributionsByPhase.delete(phase);
@@ -337,7 +337,7 @@ export class WorkbenchContributionsRegistry extends Disposable implements IWorkb
 		}
 	}
 
-	private doInstantiateWhenIdle(contributions: IWorkbenchContributionRegistration[], instantiationService: IInstantiationService, logService: ILogService, environmentService: IEnvironmentService, phase: LifecyclePhase): void {
+	private doInstantiateWhenIdle(contributions: IWorkbenchContributionRegistration[], instantiationService: IInstantiationService, logService: ILogService, environmentService: EnvironmentServiceInterface, phase: LifecyclePhase): void {
 		mark(`code/willCreateWorkbenchContributions/${phase}`);
 
 		let i = 0;
@@ -366,7 +366,7 @@ export class WorkbenchContributionsRegistry extends Disposable implements IWorkb
 		runWhenGlobalIdle(instantiateSome, forcedTimeout);
 	}
 
-	private safeCreateContribution(instantiationService: IInstantiationService, logService: ILogService, environmentService: IEnvironmentService, contribution: IWorkbenchContributionRegistration, phase: LifecyclePhase): void {
+	private safeCreateContribution(instantiationService: IInstantiationService, logService: ILogService, environmentService: EnvironmentServiceInterface, contribution: IWorkbenchContributionRegistration, phase: LifecyclePhase): void {
 		if (typeof contribution.id === 'string' && this.instancesById.has(contribution.id)) {
 			return;
 		}

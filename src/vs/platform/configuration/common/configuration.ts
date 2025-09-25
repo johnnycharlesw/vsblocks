@@ -9,7 +9,7 @@ import { Event } from '../../../base/common/event.js';
 import * as types from '../../../base/common/types.js';
 import { URI, UriComponents } from '../../../base/common/uri.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
-import { IWorkspaceFolder } from '../../workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../workspace/common/workspace.js';
 
 export const IConfigurationService = createDecorator<IConfigurationService>('configurationService');
 
@@ -192,7 +192,7 @@ export interface IConfigurationService {
 
 	inspect<T>(key: string, overrides?: IConfigurationOverrides): IConfigurationValue<Readonly<T>>;
 
-	reloadConfiguration(target?: ConfigurationTarget | IWorkspaceFolder): Promise<void>;
+	reloadConfiguration(target?: ConfigurationTarget | WorkspaceInterfaceFolder): Promise<void>;
 
 	keys(): {
 		default: string[];

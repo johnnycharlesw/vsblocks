@@ -7,11 +7,11 @@ import { onUnexpectedError } from '../../../../base/common/errors.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IFileService, IFileStat } from '../../../../platform/files/common/files.js';
 import { ITelemetryService, TelemetryLevel } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { ITextFileService, } from '../../../services/textfile/common/textfiles.js';
-import { IWorkspaceTagsService, Tags, getHashedRemotesFromConfig as baseGetHashedRemotesFromConfig } from '../common/workspaceTags.js';
-import { IDiagnosticsService, IWorkspaceInformation } from '../../../../platform/diagnostics/common/diagnostics.js';
+import { WorkspaceInterfaceTagsService, Tags, getHashedRemotesFromConfig as baseGetHashedRemotesFromConfig } from '../common/workspaceTags.js';
+import { IDiagnosticsService, WorkspaceInterfaceInformation } from '../../../../platform/diagnostics/common/diagnostics.js';
 import { IRequestService } from '../../../../platform/request/common/request.js';
 import { isWindows } from '../../../../base/common/platform.js';
 import { AllowedSecondLevelDomains, getDomainsOfRemotes } from '../../../../platform/extensionManagement/common/configRemotes.js';
@@ -27,11 +27,11 @@ export class WorkspaceTags implements IWorkbenchContribution {
 
 	constructor(
 		@IFileService private readonly fileService: IFileService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IRequestService private readonly requestService: IRequestService,
 		@ITextFileService private readonly textFileService: ITextFileService,
-		@IWorkspaceTagsService private readonly workspaceTagsService: IWorkspaceTagsService,
+		@WorkspaceInterfaceTagsService private readonly workspaceTagsService: WorkspaceInterfaceTagsService,
 		@IDiagnosticsService private readonly diagnosticsService: IDiagnosticsService,
 		@IProductService private readonly productService: IProductService,
 		@INativeHostService private readonly nativeHostService: INativeHostService
@@ -70,7 +70,7 @@ export class WorkspaceTags implements IWorkbenchContribution {
 		this.telemetryService.publicLog2<{ edition: string }, { owner: 'sbatten'; comment: 'Information about the Windows edition.'; edition: { classification: 'SystemMetaData'; purpose: 'BusinessInsight'; comment: 'The Windows edition.' } }>('windowsEdition', { edition: value });
 	}
 
-	private async getWorkspaceInformation(): Promise<IWorkspaceInformation> {
+	private async getWorkspaceInformation(): Promise<WorkspaceInterfaceInformation> {
 		const workspace = this.contextService.getWorkspace();
 		const state = this.contextService.getWorkbenchState();
 		const telemetryId = await this.workspaceTagsService.getTelemetryWorkspaceId(workspace, state);

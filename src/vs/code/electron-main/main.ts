@@ -12,7 +12,7 @@ import { coalesce, distinct } from '../../base/common/arrays.js';
 import { Promises } from '../../base/common/async.js';
 import { toErrorMessage } from '../../base/common/errorMessage.js';
 import { ExpectedError, setUnexpectedErrorHandler } from '../../base/common/errors.js';
-import { IPathWithLineAndColumn, isValidBasename, parseLineAndColumnAware, sanitizeFilePath } from '../../base/common/extpath.js';
+import { PathInterfaceWithLineAndColumn, isValidBasename, parseLineAndColumnAware, sanitizeFilePath } from '../../base/common/extpath.js';
 import { Event } from '../../base/common/event.js';
 import { getPathLabel } from '../../base/common/labels.js';
 import { Schemas } from '../../base/common/network.js';
@@ -559,7 +559,7 @@ class CodeMain {
 		const result = args.map(arg => {
 			let pathCandidate = String(arg);
 
-			let parsedPath: IPathWithLineAndColumn | undefined = undefined;
+			let parsedPath: PathInterfaceWithLineAndColumn | undefined = undefined;
 			if (gotoLineMode) {
 				parsedPath = parseLineAndColumnAware(pathCandidate);
 				pathCandidate = parsedPath.path;
@@ -613,7 +613,7 @@ class CodeMain {
 		return path;
 	}
 
-	private toPath(pathWithLineAndCol: IPathWithLineAndColumn): string {
+	private toPath(pathWithLineAndCol: PathInterfaceWithLineAndColumn): string {
 		const segments = [pathWithLineAndCol.path];
 
 		if (typeof pathWithLineAndCol.line === 'number') {

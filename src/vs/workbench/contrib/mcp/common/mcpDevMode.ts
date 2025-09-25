@@ -14,7 +14,7 @@ import { localize } from '../../../../nls.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IConfig, IDebugService, IDebugSessionOptions } from '../../debug/common/debug.js';
 import { IMcpRegistry } from './mcpRegistryTypes.js';
 import { IMcpServer, McpServerDefinition, McpServerLaunch, McpServerTransportType } from './mcpTypes.js';
@@ -27,7 +27,7 @@ export class McpDevModeServerAttache extends Disposable {
 		fwdRef: { lastModeDebugged: boolean },
 		@IMcpRegistry registry: IMcpRegistry,
 		@IFileService fileService: IFileService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 

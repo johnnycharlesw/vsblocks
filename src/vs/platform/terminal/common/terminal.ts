@@ -11,7 +11,7 @@ import { IPtyHostProcessReplayEvent, ISerializedCommandDetectionCapability, ITer
 import { IGetTerminalLayoutInfoArgs, IProcessDetails, ISetTerminalLayoutInfoArgs } from './terminalProcess.js';
 import { ThemeIcon } from '../../../base/common/themables.js';
 import { ISerializableEnvironmentVariableCollections } from './environmentVariable.js';
-import { IWorkspaceFolder } from '../../workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../workspace/common/workspace.js';
 import { Registry } from '../../registry/common/platform.js';
 import type * as performance from '../../../base/common/performance.js';
 import { ILogService } from '../../log/common/log.js';
@@ -714,7 +714,7 @@ export interface ITerminalProcessOptions {
 	windowsEnableConpty: boolean;
 	windowsUseConptyDll: boolean;
 	environmentVariableCollections: ISerializableEnvironmentVariableCollections | undefined;
-	workspaceFolder: IWorkspaceFolder | undefined;
+	workspaceFolder: WorkspaceInterfaceFolder | undefined;
 	isScreenReaderOptimized: boolean;
 }
 

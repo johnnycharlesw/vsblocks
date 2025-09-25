@@ -14,10 +14,10 @@ import { ServiceCollection } from '../../../../../platform/instantiation/common/
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { ILoggerService, NullLogService } from '../../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../../platform/product/common/productService.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { TestContextService, TestLoggerService, TestProductService, TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { IMcpRegistry } from '../../common/mcpRegistryTypes.js';
 import { McpResourceFilesystem } from '../../common/mcpResourceFilesystem.js';
@@ -37,9 +37,9 @@ suite('Workbench - MCP - ResourceFilesystem', () => {
 	setup(() => {
 		const services = new ServiceCollection(
 			[IFileService, { registerProvider: () => { } }],
-			[IStorageService, ds.add(new TestStorageService())],
+			[StorageServiceInterface, ds.add(new TestStorageService())],
 			[ILoggerService, ds.add(new TestLoggerService())],
-			[IWorkspaceContextService, new TestContextService()],
+			[WorkspaceContextServiceInterface, new TestContextService()],
 			[ITelemetryService, NullTelemetryService],
 			[IProductService, TestProductService],
 		);

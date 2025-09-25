@@ -9,10 +9,10 @@ import { InstantiationType, registerSingleton } from '../../../../platform/insta
 import { ILayoutService } from '../../../../platform/layout/browser/layoutService.js';
 import { IEditorService } from '../../editor/common/editorService.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IWindowSettings, IWindowOpenable, IOpenWindowOptions, isFolderToOpen, isWorkspaceToOpen, isFileToOpen, IOpenEmptyWindowOptions, IPathData, IFileToOpen } from '../../../../platform/window/common/window.js';
+import { IWindowSettings, IWindowOpenable, IOpenWindowOptions, isFolderToOpen, isWorkspaceToOpen, isFileToOpen, IOpenEmptyWindowOptions, PathInterfaceData, IFileToOpen } from '../../../../platform/window/common/window.js';
 import { isResourceEditorInput, pathsToEditors } from '../../../common/editor.js';
 import { whenEditorClosed } from '../../../browser/editor.js';
-import { IWorkspace, IWorkspaceProvider } from '../../../browser/web.api.js';
+import { WorkspaceInterface, WorkspaceInterfaceProvider } from '../../../browser/web.api.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { ILabelService, Verbosity } from '../../../../platform/label/common/label.js';
 import { EventType, ModifierKeyEmitter, addDisposableListener, addDisposableThrottledListener, detectFullscreen, disposableWindowInterval, getActiveDocument, getWindowId, onDidRegisterWindow, trackFocus } from '../../../../base/browser/dom.js';
@@ -20,8 +20,8 @@ import { Disposable, DisposableStore, toDisposable } from '../../../../base/comm
 import { IBrowserWorkbenchEnvironmentService } from '../../environment/browser/environmentService.js';
 import { memoize } from '../../../../base/common/decorators.js';
 import { parseLineAndColumnAware } from '../../../../base/common/extpath.js';
-import { IWorkspaceFolderCreationData } from '../../../../platform/workspaces/common/workspaces.js';
-import { IWorkspaceEditingService } from '../../workspaces/common/workspaceEditing.js';
+import { WorkspaceInterfaceFolderCreationData } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfaceEditingService } from '../../workspaces/common/workspaceEditing.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILifecycleService, BeforeShutdownEvent, ShutdownReason } from '../../lifecycle/common/lifecycle.js';
 import { BrowserLifecycleService } from '../../lifecycle/browser/lifecycleService.js';
@@ -32,7 +32,7 @@ import Severity from '../../../../base/common/severity.js';
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { DomEmitter } from '../../../../base/browser/event.js';
 import { isUndefined } from '../../../../base/common/types.js';
-import { isTemporaryWorkspace, IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { isTemporaryWorkspace, WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ServicesAccessor } from '../../../../editor/browser/editorExtensions.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { ITextEditorOptions } from '../../../../platform/editor/common/editor.js';
@@ -66,7 +66,7 @@ export class BrowserHostService extends Disposable implements IHostService {
 
 	declare readonly _serviceBrand: undefined;
 
-	private workspaceProvider: IWorkspaceProvider;
+	private workspaceProvider: WorkspaceInterfaceProvider;
 
 	private shutdownReason = HostShutdownReason.Unknown;
 
@@ -80,7 +80,7 @@ export class BrowserHostService extends Disposable implements IHostService {
 		@ILifecycleService private readonly lifecycleService: BrowserLifecycleService,
 		@ILogService private readonly logService: ILogService,
 		@IDialogService private readonly dialogService: IDialogService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService
 	) {
 		super();
@@ -88,7 +88,7 @@ export class BrowserHostService extends Disposable implements IHostService {
 		if (environmentService.options?.workspaceProvider) {
 			this.workspaceProvider = environmentService.options.workspaceProvider;
 		} else {
-			this.workspaceProvider = new class implements IWorkspaceProvider {
+			this.workspaceProvider = new class implements WorkspaceInterfaceProvider {
 				readonly workspace = undefined;
 				readonly trusted = undefined;
 				async open() { return true; }
@@ -243,7 +243,7 @@ export class BrowserHostService extends Disposable implements IHostService {
 		const payload = this.preservePayload(false /* not an empty window */, options);
 		const fileOpenables: IFileToOpen[] = [];
 
-		const foldersToAdd: IWorkspaceFolderCreationData[] = [];
+		const foldersToAdd: WorkspaceInterfaceFolderCreationData[] = [];
 		const foldersToRemove: URI[] = [];
 
 		for (const openable of toOpen) {
@@ -274,7 +274,7 @@ export class BrowserHostService extends Disposable implements IHostService {
 		// Handle Folders to add or remove
 		if (foldersToAdd.length > 0 || foldersToRemove.length > 0) {
 			this.withServices(async accessor => {
-				const workspaceEditingService: IWorkspaceEditingService = accessor.get(IWorkspaceEditingService);
+				const workspaceEditingService: WorkspaceInterfaceEditingService = accessor.get(WorkspaceInterfaceEditingService);
 				if (foldersToAdd.length > 0) {
 					await workspaceEditingService.addFolders(foldersToAdd);
 				}
@@ -352,7 +352,7 @@ export class BrowserHostService extends Disposable implements IHostService {
 
 						// Same Window: open via editor service in current window
 						if (this.shouldReuse(options, true /* file */)) {
-							let openables: IPathData<ITextEditorOptions>[] = [];
+							let openables: PathInterfaceData<ITextEditorOptions>[] = [];
 
 							// Support: --goto parameter to open on line/col
 							if (options?.gotoLineMode) {
@@ -474,7 +474,7 @@ export class BrowserHostService extends Disposable implements IHostService {
 		});
 	}
 
-	private async doOpen(workspace: IWorkspace, options?: { reuse?: boolean; payload?: object }): Promise<void> {
+	private async doOpen(workspace: WorkspaceInterface, options?: { reuse?: boolean; payload?: object }): Promise<void> {
 
 		// When we are in a temporary workspace and are asked to open a local folder
 		// we swap that folder into the workspace to avoid a window reload. Access
@@ -482,7 +482,7 @@ export class BrowserHostService extends Disposable implements IHostService {
 		// needs user activation.
 		if (workspace && isFolderToOpen(workspace) && workspace.folderUri.scheme === Schemas.file && isTemporaryWorkspace(this.contextService.getWorkspace())) {
 			this.withServices(async accessor => {
-				const workspaceEditingService: IWorkspaceEditingService = accessor.get(IWorkspaceEditingService);
+				const workspaceEditingService: WorkspaceInterfaceEditingService = accessor.get(WorkspaceInterfaceEditingService);
 
 				await workspaceEditingService.updateFolders(0, this.contextService.getWorkspace().folders.length, [{ uri: workspace.folderUri }]);
 			});

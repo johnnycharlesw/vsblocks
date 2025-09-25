@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import assert from 'assert';
 import * as extHostTypes from '../../common/extHostTypes.js';
-import { MainContext, IWorkspaceEditDto, MainThreadBulkEditsShape, IWorkspaceTextEditDto } from '../../common/extHost.protocol.js';
+import { MainContext, WorkspaceInterfaceEditDto, MainThreadBulkEditsShape, WorkspaceInterfaceTextEditDto } from '../../common/extHost.protocol.js';
 import { URI } from '../../../../base/common/uri.js';
 import { mock } from '../../../../base/test/common/mock.js';
 import { ExtHostDocumentsAndEditors } from '../../common/extHostDocumentsAndEditors.js';
@@ -19,14 +19,14 @@ suite('ExtHostBulkEdits.applyWorkspaceEdit', () => {
 
 	const resource = URI.parse('foo:bar');
 	let bulkEdits: ExtHostBulkEdits;
-	let workspaceResourceEdits: IWorkspaceEditDto;
+	let workspaceResourceEdits: WorkspaceInterfaceEditDto;
 
 	setup(() => {
 		workspaceResourceEdits = null!;
 
 		const rpcProtocol = new TestRPCProtocol();
 		rpcProtocol.set(MainContext.MainThreadBulkEdits, new class extends mock<MainThreadBulkEditsShape>() {
-			override $tryApplyWorkspaceEdit(_workspaceResourceEdits: SerializableObjectWithBuffers<IWorkspaceEditDto>): Promise<boolean> {
+			override $tryApplyWorkspaceEdit(_workspaceResourceEdits: SerializableObjectWithBuffers<WorkspaceInterfaceEditDto>): Promise<boolean> {
 				workspaceResourceEdits = _workspaceResourceEdits.value;
 				return Promise.resolve(true);
 			}
@@ -54,7 +54,7 @@ suite('ExtHostBulkEdits.applyWorkspaceEdit', () => {
 		await bulkEdits.applyWorkspaceEdit(edit, nullExtensionDescription, undefined);
 		assert.strictEqual(workspaceResourceEdits.edits.length, 1);
 		const [first] = workspaceResourceEdits.edits;
-		assert.strictEqual((<IWorkspaceTextEditDto>first).versionId, 1337);
+		assert.strictEqual((<WorkspaceInterfaceTextEditDto>first).versionId, 1337);
 	});
 
 	test('does not use version id if document is not available', async () => {
@@ -63,7 +63,7 @@ suite('ExtHostBulkEdits.applyWorkspaceEdit', () => {
 		await bulkEdits.applyWorkspaceEdit(edit, nullExtensionDescription, undefined);
 		assert.strictEqual(workspaceResourceEdits.edits.length, 1);
 		const [first] = workspaceResourceEdits.edits;
-		assert.ok(typeof (<IWorkspaceTextEditDto>first).versionId === 'undefined');
+		assert.ok(typeof (<WorkspaceInterfaceTextEditDto>first).versionId === 'undefined');
 	});
 
 });

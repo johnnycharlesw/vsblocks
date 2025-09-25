@@ -13,7 +13,7 @@ import { URI } from '../../../base/common/uri.js';
 import { generateUuid } from '../../../base/common/uuid.js';
 import { Promises as FSPromises } from '../../../base/node/pfs.js';
 import { buffer, CorruptZipMessage } from '../../../base/node/zip.js';
-import { INativeEnvironmentService } from '../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { toExtensionManagementError } from '../common/abstractExtensionManagementService.js';
 import { ExtensionManagementError, ExtensionManagementErrorCode, ExtensionSignatureVerificationCode, IExtensionGalleryService, IGalleryExtension, InstallOperation } from '../common/extensionManagement.js';
 import { ExtensionKey, groupByExtension } from '../common/extensionManagementUtil.js';
@@ -46,7 +46,7 @@ export class ExtensionsDownloader extends Disposable {
 	private readonly cleanUpPromise: Promise<void>;
 
 	constructor(
-		@INativeEnvironmentService environmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface environmentService: NativeEnvironmentServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 		@IExtensionGalleryService private readonly extensionGalleryService: IExtensionGalleryService,
 		@IExtensionSignatureVerificationService private readonly extensionSignatureVerificationService: IExtensionSignatureVerificationService,

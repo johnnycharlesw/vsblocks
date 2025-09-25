@@ -22,7 +22,7 @@ import { FileEditorInput } from './fileEditorInput.js';
 import { SAVE_FILE_AS_LABEL } from '../fileConstants.js';
 import { INotificationService, INotificationHandle, INotificationActions, Severity } from '../../../../../platform/notification/common/notification.js';
 import { IOpenerService } from '../../../../../platform/opener/common/opener.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { IProductService } from '../../../../../platform/product/common/productService.js';
 import { Event } from '../../../../../base/common/event.js';
 import { IEditorService } from '../../../../services/editor/common/editorService.js';
@@ -55,7 +55,7 @@ export class TextFileSaveErrorHandler extends Disposable implements ISaveErrorHa
 		@IEditorService private readonly editorService: IEditorService,
 		@ITextModelService textModelService: ITextModelService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		super();
 
@@ -220,7 +220,7 @@ class ResolveConflictLearnMoreAction extends Action {
 class DoNotShowResolveConflictLearnMoreAction extends Action {
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		super('workbench.files.action.resolveConflictLearnMoreDoNotShowAgain', localize('dontShowAgain', "Don't Show Again"));
 	}

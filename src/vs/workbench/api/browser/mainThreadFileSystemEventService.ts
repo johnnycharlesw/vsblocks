@@ -15,11 +15,11 @@ import { raceCancellation } from '../../../base/common/async.js';
 import { CancellationToken, CancellationTokenSource } from '../../../base/common/cancellation.js';
 import { IDialogService } from '../../../platform/dialogs/common/dialogs.js';
 import Severity from '../../../base/common/severity.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
 import { Action2, registerAction2 } from '../../../platform/actions/common/actions.js';
 import { ServicesAccessor } from '../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../platform/log/common/log.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { IUriIdentityService } from '../../../platform/uriIdentity/common/uriIdentity.js';
 import { reviveWorkspaceEditDto } from './mainThreadBulkEdits.js';
 import { UriComponents, URI } from '../../../base/common/uri.js';
@@ -41,9 +41,9 @@ export class MainThreadFileSystemEventService implements MainThreadFileSystemEve
 		@IBulkEditService bulkEditService: IBulkEditService,
 		@IProgressService progressService: IProgressService,
 		@IDialogService dialogService: IDialogService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILogService logService: ILogService,
-		@IEnvironmentService envService: IEnvironmentService,
+		@EnvironmentServiceInterface envService: EnvironmentServiceInterface,
 		@IUriIdentityService uriIdentService: IUriIdentityService,
 		@ILogService private readonly _logService: ILogService,
 	) {
@@ -280,6 +280,6 @@ registerAction2(class ResetMemento extends Action2 {
 		});
 	}
 	run(accessor: ServicesAccessor) {
-		accessor.get(IStorageService).remove(MainThreadFileSystemEventService.MementoKeyAdditionalEdits, StorageScope.PROFILE);
+		accessor.get(StorageServiceInterface).remove(MainThreadFileSystemEventService.MementoKeyAdditionalEdits, StorageScope.PROFILE);
 	}
 });

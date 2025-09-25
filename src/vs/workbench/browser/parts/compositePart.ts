@@ -16,7 +16,7 @@ import { Part, IPartOptions } from '../part.js';
 import { Composite, CompositeRegistry } from '../composite.js';
 import { IComposite } from '../../common/composite.js';
 import { IWorkbenchLayoutService } from '../../services/layout/browser/layoutService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
 import { IContextMenuService } from '../../../platform/contextview/browser/contextView.js';
 import { IInstantiationService } from '../../../platform/instantiation/common/instantiation.js';
 import { ServiceCollection } from '../../../platform/instantiation/common/serviceCollection.js';
@@ -79,7 +79,7 @@ export abstract class CompositePart<T extends Composite> extends Part {
 
 	constructor(
 		private readonly notificationService: INotificationService,
-		protected readonly storageService: IStorageService,
+		protected readonly storageService: StorageServiceInterface,
 		protected readonly contextMenuService: IContextMenuService,
 		layoutService: IWorkbenchLayoutService,
 		protected readonly keybindingService: IKeybindingService,

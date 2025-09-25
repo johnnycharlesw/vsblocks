@@ -11,7 +11,7 @@ import { getIconClasses } from '../../../../editor/common/services/getIconClasse
 import { FileKind, IFileService } from '../../../../platform/files/common/files.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { isWorkspace, IWorkspace, IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { isWorkspace, WorkspaceInterface, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { IQuickInputService, IQuickPickItem, IQuickPickSeparator } from '../../../../platform/quickinput/common/quickInput.js';
 import { IModelService } from '../../../../editor/common/services/model.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
@@ -27,9 +27,9 @@ export interface IExtensionsConfigContent {
 	unwantedRecommendations?: string[];
 }
 
-export const IWorkspaceExtensionsConfigService = createDecorator<IWorkspaceExtensionsConfigService>('IWorkspaceExtensionsConfigService');
+export const WorkspaceInterfaceExtensionsConfigService = createDecorator<WorkspaceInterfaceExtensionsConfigService>('WorkspaceInterfaceExtensionsConfigService');
 
-export interface IWorkspaceExtensionsConfigService {
+export interface WorkspaceInterfaceExtensionsConfigService {
 	readonly _serviceBrand: undefined;
 
 	onDidChangeExtensionsConfigs: Event<void>;
@@ -41,7 +41,7 @@ export interface IWorkspaceExtensionsConfigService {
 	toggleUnwantedRecommendation(extensionId: string): Promise<void>;
 }
 
-export class WorkspaceExtensionsConfigService extends Disposable implements IWorkspaceExtensionsConfigService {
+export class WorkspaceExtensionsConfigService extends Disposable implements WorkspaceInterfaceExtensionsConfigService {
 
 	declare readonly _serviceBrand: undefined;
 
@@ -49,7 +49,7 @@ export class WorkspaceExtensionsConfigService extends Disposable implements IWor
 	readonly onDidChangeExtensionsConfigs = this._onDidChangeExtensionsConfigs.event;
 
 	constructor(
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
 		@IModelService private readonly modelService: IModelService,
@@ -142,7 +142,7 @@ export class WorkspaceExtensionsConfigService extends Disposable implements IWor
 		}
 	}
 
-	private async addOrRemoveWorkspaceFolderRecommendation(extensionId: string, workspaceFolder: IWorkspaceFolder, extensionsConfigContent: IExtensionsConfigContent, add: boolean): Promise<void> {
+	private async addOrRemoveWorkspaceFolderRecommendation(extensionId: string, workspaceFolder: WorkspaceInterfaceFolder, extensionsConfigContent: IExtensionsConfigContent, add: boolean): Promise<void> {
 		const values: IJSONValue[] = [];
 		if (add) {
 			if (Array.isArray(extensionsConfigContent.recommendations)) {
@@ -166,7 +166,7 @@ export class WorkspaceExtensionsConfigService extends Disposable implements IWor
 		}
 	}
 
-	private async addOrRemoveWorkspaceRecommendation(extensionId: string, workspace: IWorkspace, extensionsConfigContent: IExtensionsConfigContent | undefined, add: boolean): Promise<void> {
+	private async addOrRemoveWorkspaceRecommendation(extensionId: string, workspace: WorkspaceInterface, extensionsConfigContent: IExtensionsConfigContent | undefined, add: boolean): Promise<void> {
 		const values: IJSONValue[] = [];
 		if (extensionsConfigContent) {
 			if (add) {
@@ -195,7 +195,7 @@ export class WorkspaceExtensionsConfigService extends Disposable implements IWor
 		}
 	}
 
-	private async addOrRemoveWorkspaceFolderUnwantedRecommendation(extensionId: string, workspaceFolder: IWorkspaceFolder, extensionsConfigContent: IExtensionsConfigContent, add: boolean): Promise<void> {
+	private async addOrRemoveWorkspaceFolderUnwantedRecommendation(extensionId: string, workspaceFolder: WorkspaceInterfaceFolder, extensionsConfigContent: IExtensionsConfigContent, add: boolean): Promise<void> {
 		const values: IJSONValue[] = [];
 		if (add) {
 			const path: JSONPath = ['unwantedRecommendations'];
@@ -219,7 +219,7 @@ export class WorkspaceExtensionsConfigService extends Disposable implements IWor
 		}
 	}
 
-	private async addOrRemoveWorkspaceUnwantedRecommendation(extensionId: string, workspace: IWorkspace, extensionsConfigContent: IExtensionsConfigContent | undefined, add: boolean): Promise<void> {
+	private async addOrRemoveWorkspaceUnwantedRecommendation(extensionId: string, workspace: WorkspaceInterface, extensionsConfigContent: IExtensionsConfigContent | undefined, add: boolean): Promise<void> {
 		const values: IJSONValue[] = [];
 		if (extensionsConfigContent) {
 			if (add) {
@@ -248,13 +248,13 @@ export class WorkspaceExtensionsConfigService extends Disposable implements IWor
 		}
 	}
 
-	private async pickWorkspaceOrFolders(workspaceFolders: IWorkspaceFolder[], workspace: IWorkspace | undefined, placeHolder: string): Promise<(IWorkspace | IWorkspaceFolder)[]> {
+	private async pickWorkspaceOrFolders(workspaceFolders: WorkspaceInterfaceFolder[], workspace: WorkspaceInterface | undefined, placeHolder: string): Promise<(WorkspaceInterface | WorkspaceInterfaceFolder)[]> {
 		const workspaceOrFolders = workspace ? [...workspaceFolders, workspace] : [...workspaceFolders];
 		if (workspaceOrFolders.length === 1) {
 			return workspaceOrFolders;
 		}
 
-		const folderPicks: (IQuickPickItem & { workspaceOrFolder: IWorkspace | IWorkspaceFolder } | IQuickPickSeparator)[] = workspaceFolders.map(workspaceFolder => {
+		const folderPicks: (IQuickPickItem & { workspaceOrFolder: WorkspaceInterface | WorkspaceInterfaceFolder } | IQuickPickSeparator)[] = workspaceFolders.map(workspaceFolder => {
 			return {
 				label: workspaceFolder.name,
 				description: localize('workspace folder', "Workspace Folder"),
@@ -284,7 +284,7 @@ export class WorkspaceExtensionsConfigService extends Disposable implements IWor
 		return undefined;
 	}
 
-	private async resolveWorkspaceFolderExtensionConfig(workspaceFolder: IWorkspaceFolder): Promise<IExtensionsConfigContent> {
+	private async resolveWorkspaceFolderExtensionConfig(workspaceFolder: WorkspaceInterfaceFolder): Promise<IExtensionsConfigContent> {
 		try {
 			const content = await this.fileService.readFile(workspaceFolder.toResource(EXTENSIONS_CONFIG));
 			const extensionsConfigContent = <IExtensionsConfigContent>parse(content.value.toString());
@@ -310,4 +310,4 @@ export class WorkspaceExtensionsConfigService extends Disposable implements IWor
 
 }
 
-registerSingleton(IWorkspaceExtensionsConfigService, WorkspaceExtensionsConfigService, InstantiationType.Delayed);
+registerSingleton(WorkspaceInterfaceExtensionsConfigService, WorkspaceExtensionsConfigService, InstantiationType.Delayed);

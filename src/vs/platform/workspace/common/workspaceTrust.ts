@@ -23,17 +23,17 @@ export interface WorkspaceTrustRequestOptions {
 	readonly message?: string;
 }
 
-export const IWorkspaceTrustEnablementService = createDecorator<IWorkspaceTrustEnablementService>('workspaceTrustEnablementService');
+export const WorkspaceInterfaceTrustEnablementService = createDecorator<WorkspaceInterfaceTrustEnablementService>('workspaceTrustEnablementService');
 
-export interface IWorkspaceTrustEnablementService {
+export interface WorkspaceInterfaceTrustEnablementService {
 	readonly _serviceBrand: undefined;
 
 	isWorkspaceTrustEnabled(): boolean;
 }
 
-export const IWorkspaceTrustManagementService = createDecorator<IWorkspaceTrustManagementService>('workspaceTrustManagementService');
+export const WorkspaceInterfaceTrustManagementService = createDecorator<WorkspaceInterfaceTrustManagementService>('workspaceTrustManagementService');
 
-export interface IWorkspaceTrustManagementService {
+export interface WorkspaceInterfaceTrustManagementService {
 	readonly _serviceBrand: undefined;
 
 	onDidChangeTrust: Event<boolean>;
@@ -52,13 +52,13 @@ export interface IWorkspaceTrustManagementService {
 	canSetWorkspaceTrust(): boolean;
 	setWorkspaceTrust(trusted: boolean): Promise<void>;
 
-	getUriTrustInfo(uri: URI): Promise<IWorkspaceTrustUriInfo>;
+	getUriTrustInfo(uri: URI): Promise<WorkspaceInterfaceTrustUriInfo>;
 	setUrisTrust(uri: URI[], trusted: boolean): Promise<void>;
 
 	getTrustedUris(): URI[];
 	setTrustedUris(uris: URI[]): Promise<void>;
 
-	addWorkspaceTrustTransitionParticipant(participant: IWorkspaceTrustTransitionParticipant): IDisposable;
+	addWorkspaceTrustTransitionParticipant(participant: WorkspaceInterfaceTrustTransitionParticipant): IDisposable;
 }
 
 export const enum WorkspaceTrustUriResponse {
@@ -67,9 +67,9 @@ export const enum WorkspaceTrustUriResponse {
 	Cancel = 3
 }
 
-export const IWorkspaceTrustRequestService = createDecorator<IWorkspaceTrustRequestService>('workspaceTrustRequestService');
+export const WorkspaceInterfaceTrustRequestService = createDecorator<WorkspaceInterfaceTrustRequestService>('workspaceTrustRequestService');
 
-export interface IWorkspaceTrustRequestService {
+export interface WorkspaceInterfaceTrustRequestService {
 	readonly _serviceBrand: undefined;
 
 	readonly onDidInitiateOpenFilesTrustRequest: Event<void>;
@@ -85,15 +85,15 @@ export interface IWorkspaceTrustRequestService {
 	requestWorkspaceTrustOnStartup(): void;
 }
 
-export interface IWorkspaceTrustTransitionParticipant {
+export interface WorkspaceInterfaceTrustTransitionParticipant {
 	participate(trusted: boolean): Promise<void>;
 }
 
-export interface IWorkspaceTrustUriInfo {
+export interface WorkspaceInterfaceTrustUriInfo {
 	uri: URI;
 	trusted: boolean;
 }
 
-export interface IWorkspaceTrustInfo {
-	uriTrustInfo: IWorkspaceTrustUriInfo[];
+export interface WorkspaceInterfaceTrustInfo {
+	uriTrustInfo: WorkspaceInterfaceTrustUriInfo[];
 }

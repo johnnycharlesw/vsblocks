@@ -6,7 +6,7 @@
 import { Codicon } from '../../../base/common/codicons.js';
 import { localize } from '../../../nls.js';
 import { IQuickPick, IQuickPickItem, QuickPickItem } from '../common/quickInput.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { ThemeIcon } from '../../../base/common/themables.js';
 import { DisposableStore, IDisposable } from '../../../base/common/lifecycle.js';
 
@@ -19,7 +19,7 @@ const buttonClasses = [pinButtonClass, pinnedButtonClass];
  * be removed if @param filterDupliates has been provided. Pin and pinned button events trigger updates to the underlying storage.
  * Shows the quickpick once formatted.
  */
-export function showWithPinnedItems(storageService: IStorageService, storageKey: string, quickPick: IQuickPick<IQuickPickItem, { useSeparators: true }>, filterDuplicates?: boolean): IDisposable {
+export function showWithPinnedItems(storageService: StorageServiceInterface, storageKey: string, quickPick: IQuickPick<IQuickPickItem, { useSeparators: true }>, filterDuplicates?: boolean): IDisposable {
 	const itemsWithoutPinned = quickPick.items;
 	let itemsWithPinned = _formatPinnedItems(storageKey, quickPick, storageService, undefined, filterDuplicates);
 	const disposables = new DisposableStore();
@@ -44,7 +44,7 @@ export function showWithPinnedItems(storageService: IStorageService, storageKey:
 	return disposables;
 }
 
-function _formatPinnedItems(storageKey: string, quickPick: IQuickPick<IQuickPickItem, { useSeparators: true }>, storageService: IStorageService, changedItem?: IQuickPickItem, filterDuplicates?: boolean): QuickPickItem[] {
+function _formatPinnedItems(storageKey: string, quickPick: IQuickPick<IQuickPickItem, { useSeparators: true }>, storageService: StorageServiceInterface, changedItem?: IQuickPickItem, filterDuplicates?: boolean): QuickPickItem[] {
 	const formattedItems: QuickPickItem[] = [];
 	let pinnedItems;
 	if (changedItem) {
@@ -99,7 +99,7 @@ function itemsMatch(itemA: QuickPickItem, itemB: QuickPickItem): boolean {
 	return getItemIdentifier(itemA) === getItemIdentifier(itemB);
 }
 
-function updatePinnedItems(storageKey: string, changedItem: IQuickPickItem, storageService: IStorageService): IQuickPickItem[] {
+function updatePinnedItems(storageKey: string, changedItem: IQuickPickItem, storageService: StorageServiceInterface): IQuickPickItem[] {
 	const removePin = changedItem.buttons?.find(b => b.iconClass === pinnedButtonClass);
 	let items = getPinnedItems(storageKey, storageService);
 	if (removePin) {
@@ -111,7 +111,7 @@ function updatePinnedItems(storageKey: string, changedItem: IQuickPickItem, stor
 	return items;
 }
 
-function getPinnedItems(storageKey: string, storageService: IStorageService): IQuickPickItem[] {
+function getPinnedItems(storageKey: string, storageService: StorageServiceInterface): IQuickPickItem[] {
 	const items = storageService.get(storageKey, StorageScope.WORKSPACE);
 	return items ? JSON.parse(items) : [];
 }

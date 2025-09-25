@@ -20,7 +20,7 @@ import { CancellationToken } from '../../../../base/common/cancellation.js';
 import { IEditorGroup, IEditorGroupsService } from '../../../services/editor/common/editorGroupsService.js';
 import { SplitView, Sizing, Orientation } from '../../../../base/browser/ui/splitview/splitview.js';
 import { Event, Relay, Emitter } from '../../../../base/common/event.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { assertReturnsDefined } from '../../../../base/common/types.js';
 import { IEditorOptions } from '../../../../platform/editor/common/editor.js';
 import { IConfigurationChangeEvent, IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
@@ -127,7 +127,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ITextResourceConfigurationService textResourceConfigurationService: ITextResourceConfigurationService,
 		@IEditorService editorService: IEditorService,

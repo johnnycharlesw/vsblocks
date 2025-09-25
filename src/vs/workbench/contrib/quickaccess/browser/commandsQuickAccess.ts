@@ -27,7 +27,7 @@ import { CommandsHistory, ICommandQuickPick } from '../../../../platform/quickin
 import { TriggerAction } from '../../../../platform/quickinput/browser/pickerQuickAccess.js';
 import { DefaultQuickAccessFilterValue } from '../../../../platform/quickinput/common/quickAccess.js';
 import { IQuickInputService, IQuickPickSeparator } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IWorkbenchQuickAccessConfiguration } from '../../../browser/quickaccess.js';
 import { CommandInformationResult, IAiRelatedInformationService, RelatedInformationType } from '../../../services/aiRelatedInformation/common/aiRelatedInformation.js';
@@ -293,7 +293,7 @@ export class ClearCommandHistoryAction extends Action2 {
 
 	async run(accessor: ServicesAccessor): Promise<void> {
 		const configurationService = accessor.get(IConfigurationService);
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 		const dialogService = accessor.get(IDialogService);
 
 		const commandHistoryLength = CommandsHistory.getConfiguredCommandHistoryLength(configurationService);

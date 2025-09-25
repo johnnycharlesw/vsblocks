@@ -18,7 +18,7 @@ import { TestLanguageConfigurationService } from '../../../../test/common/modes/
 import { createTextModel } from '../../../../test/common/testTextModel.js';
 import { ServiceCollection } from '../../../../../platform/instantiation/common/serviceCollection.js';
 import { ILabelService } from '../../../../../platform/label/common/label.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 
 suite('SnippetSession', function () {
 
@@ -40,7 +40,7 @@ suite('SnippetSession', function () {
 		const serviceCollection = new ServiceCollection(
 			[ILabelService, new class extends mock<ILabelService>() { }],
 			[ILanguageConfigurationService, languageConfigurationService],
-			[IWorkspaceContextService, new class extends mock<IWorkspaceContextService>() {
+			[WorkspaceContextServiceInterface, new class extends mock<WorkspaceContextServiceInterface>() {
 				override getWorkspace() {
 					return {
 						id: 'workspace-id',

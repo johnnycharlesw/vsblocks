@@ -7,7 +7,7 @@ import * as assert from 'assert';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { IAuthenticationQueryService } from '../../common/authenticationQuery.js';
 import { AuthenticationQueryService } from '../../browser/authenticationQueryService.js';
@@ -46,7 +46,7 @@ suite('AuthenticationQueryService Integration Tests', () => {
 
 		// Set up storage service
 		const storageService = disposables.add(new TestStorageService());
-		instantiationService.stub(IStorageService, storageService);
+		instantiationService.stub(StorageServiceInterface, storageService);
 
 		// Set up log service
 		instantiationService.stub(ILogService, new NullLogService());

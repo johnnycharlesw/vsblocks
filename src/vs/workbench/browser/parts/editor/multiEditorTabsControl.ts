@@ -40,8 +40,8 @@ import { assertReturnsAllDefined, assertReturnsDefined } from '../../../../base/
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { basenameOrAuthority } from '../../../../base/common/resources.js';
 import { RunOnceScheduler } from '../../../../base/common/async.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
-import { IPath, win32, posix } from '../../../../base/common/path.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
+import { PathInterface, win32, posix } from '../../../../base/common/path.js';
 import { coalesce, insert } from '../../../../base/common/arrays.js';
 import { isHighContrast } from '../../../../platform/theme/common/theme.js';
 import { isSafari } from '../../../../base/browser/browser.js';
@@ -129,7 +129,7 @@ export class MultiEditorTabsControl extends EditorTabsControl {
 	private readonly layoutScheduler = this._register(new MutableDisposable<IScheduledMultiEditorTabsControlLayout>());
 	private blockRevealActiveTab: boolean | undefined;
 
-	private path: IPath = isWindows ? win32 : posix;
+	private path: PathInterface = isWindows ? win32 : posix;
 
 	private lastMouseWheelEventTime = 0;
 	private isMouseOverTabs = false;
@@ -148,7 +148,7 @@ export class MultiEditorTabsControl extends EditorTabsControl {
 		@IQuickInputService quickInputService: IQuickInputService,
 		@IThemeService themeService: IThemeService,
 		@IEditorService private readonly editorService: EditorServiceImpl,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@ITreeViewsDnDService private readonly treeViewsDragAndDropService: ITreeViewsDnDService,
 		@IEditorResolverService editorResolverService: IEditorResolverService,
 		@IHostService hostService: IHostService,

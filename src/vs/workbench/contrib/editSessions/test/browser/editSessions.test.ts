@@ -17,7 +17,7 @@ import { ISCMService } from '../../../scm/common/scm.js';
 import { SCMService } from '../../../scm/common/scmService.js';
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../../platform/workspace/common/workspace.js';
 import { mock } from '../../../../../base/test/common/mock.js';
 import * as sinon from 'sinon';
 import assert from 'assert';
@@ -27,7 +27,7 @@ import { joinPath } from '../../../../../base/common/resources.js';
 import { INotificationService } from '../../../../../platform/notification/common/notification.js';
 import { TestNotificationService } from '../../../../../platform/notification/test/common/testNotificationService.js';
 import { TestEnvironmentService } from '../../../../test/browser/workbenchTestServices.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { MockContextKeyService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
 import { IContextKeyService } from '../../../../../platform/contextkey/common/contextkey.js';
 import { IThemeService } from '../../../../../platform/theme/common/themeService.js';
@@ -45,11 +45,11 @@ import { IExtensionService } from '../../../../services/extensions/common/extens
 import { IEditSessionIdentityService } from '../../../../../platform/workspace/common/editSessions.js';
 import { IUserDataProfilesService } from '../../../../../platform/userDataProfile/common/userDataProfile.js';
 import { IProductService } from '../../../../../platform/product/common/productService.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { IUriIdentityService } from '../../../../../platform/uriIdentity/common/uriIdentity.js';
 import { UriIdentityService } from '../../../../../platform/uriIdentity/common/uriIdentityService.js';
-import { IWorkspaceIdentityService, WorkspaceIdentityService } from '../../../../services/workspaces/common/workspaceIdentityService.js';
+import { WorkspaceInterfaceIdentityService, WorkspaceIdentityService } from '../../../../services/workspaces/common/workspaceIdentityService.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 
 const folderName = 'test-folder';
@@ -84,7 +84,7 @@ suite('Edit session sync', () => {
 		});
 		instantiationService.stub(INotificationService, new TestNotificationService());
 		instantiationService.stub(IProductService, { 'editSessions.store': { url: 'https://test.com', canSwitch: true, authenticationProviders: {} } });
-		instantiationService.stub(IStorageService, new TestStorageService());
+		instantiationService.stub(StorageServiceInterface, new TestStorageService());
 		instantiationService.stub(IUriIdentityService, new UriIdentityService(fileService));
 		instantiationService.stub(IEditSessionsStorageService, new class extends mock<IEditSessionsStorageService>() {
 			override onDidSignIn = Event.None;
@@ -95,7 +95,7 @@ suite('Edit session sync', () => {
 		});
 		instantiationService.stub(IProgressService, ProgressService);
 		instantiationService.stub(ISCMService, SCMService);
-		instantiationService.stub(IEnvironmentService, TestEnvironmentService);
+		instantiationService.stub(EnvironmentServiceInterface, TestEnvironmentService);
 		instantiationService.stub(ITelemetryService, NullTelemetryService);
 		instantiationService.stub(IDialogService, new class extends mock<IDialogService>() {
 			override async prompt(prompt: IPrompt<any>) {
@@ -112,7 +112,7 @@ suite('Edit session sync', () => {
 			}
 		});
 		instantiationService.stub(IConfigurationService, new TestConfigurationService({ workbench: { experimental: { editSessions: { enabled: true } } } }));
-		instantiationService.stub(IWorkspaceContextService, new class extends mock<IWorkspaceContextService>() {
+		instantiationService.stub(WorkspaceContextServiceInterface, new class extends mock<WorkspaceContextServiceInterface>() {
 			override getWorkspace() {
 				return {
 					id: 'workspace-id',
@@ -150,7 +150,7 @@ suite('Edit session sync', () => {
 				return 'test-identity';
 			}
 		});
-		instantiationService.set(IWorkspaceIdentityService, instantiationService.createInstance(WorkspaceIdentityService));
+		instantiationService.set(WorkspaceInterfaceIdentityService, instantiationService.createInstance(WorkspaceIdentityService));
 		instantiationService.stub(IUserDataProfilesService, new class extends mock<IUserDataProfilesService>() {
 			override defaultProfile = {
 				id: 'default',

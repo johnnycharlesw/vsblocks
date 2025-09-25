@@ -5,15 +5,15 @@
 
 import { getErrorMessage } from '../../../../base/common/errors.js';
 import { URI } from '../../../../base/common/uri.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IExtensionStorageService } from '../../../../platform/extensionManagement/common/extensionStorage.js';
 import { FileSystemProviderError, FileSystemProviderErrorCode, IFileService } from '../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 
 /**
  * An extension storage has following
@@ -22,13 +22,13 @@ import { IWorkspaceContextService } from '../../../../platform/workspace/common/
  */
 export async function migrateExtensionStorage(fromExtensionId: string, toExtensionId: string, global: boolean, instantionService: IInstantiationService): Promise<void> {
 	return instantionService.invokeFunction(async serviceAccessor => {
-		const environmentService = serviceAccessor.get(IEnvironmentService);
+		const environmentService = serviceAccessor.get(EnvironmentServiceInterface);
 		const userDataProfilesService = serviceAccessor.get(IUserDataProfilesService);
 		const extensionStorageService = serviceAccessor.get(IExtensionStorageService);
-		const storageService = serviceAccessor.get(IStorageService);
+		const storageService = serviceAccessor.get(StorageServiceInterface);
 		const uriIdentityService = serviceAccessor.get(IUriIdentityService);
 		const fileService = serviceAccessor.get(IFileService);
-		const workspaceContextService = serviceAccessor.get(IWorkspaceContextService);
+		const workspaceContextService = serviceAccessor.get(WorkspaceContextServiceInterface);
 		const logService = serviceAccessor.get(ILogService);
 		const storageMigratedKey = `extensionStorage.migrate.${fromExtensionId}-${toExtensionId}`;
 		const migrateLowerCaseStorageKey = fromExtensionId.toLowerCase() === toExtensionId.toLowerCase() ? `extension.storage.migrateFromLowerCaseKey.${fromExtensionId.toLowerCase()}` : undefined;

@@ -16,7 +16,7 @@ import { generateUuid } from '../../../../base/common/uuid.js';
 import { IHeaders, IRequestContext, IRequestOptions } from '../../../../base/parts/request/common/request.js';
 import { IConfigurationService } from '../../../configuration/common/configuration.js';
 import { ConfigurationService } from '../../../configuration/common/configurationService.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { GlobalExtensionEnablementService } from '../../../extensionManagement/common/extensionEnablementService.js';
 import { DidUninstallExtensionEvent, IExtensionGalleryService, IExtensionManagementService, IGlobalExtensionEnablementService, InstallExtensionResult } from '../../../extensionManagement/common/extensionManagement.js';
 import { IFileService } from '../../../files/common/files.js';
@@ -27,7 +27,7 @@ import { ILogService, NullLogService } from '../../../log/common/log.js';
 import product from '../../../product/common/product.js';
 import { IProductService } from '../../../product/common/productService.js';
 import { AuthInfo, Credentials, IRequestService } from '../../../request/common/request.js';
-import { InMemoryStorageService, IStorageService } from '../../../storage/common/storage.js';
+import { InMemoryStorageService, StorageServiceInterface } from '../../../storage/common/storage.js';
 import { ITelemetryService } from '../../../telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../telemetry/common/telemetryUtils.js';
 import { IUriIdentityService } from '../../../uriIdentity/common/uriIdentity.js';
@@ -62,7 +62,7 @@ export class UserDataSyncClient extends Disposable {
 
 		const userRoamingDataHome = URI.file('userdata').with({ scheme: Schemas.inMemory });
 		const userDataSyncHome = joinPath(userRoamingDataHome, '.sync');
-		const environmentService = this.instantiationService.stub(IEnvironmentService, {
+		const environmentService = this.instantiationService.stub(EnvironmentServiceInterface, {
 			userDataSyncHome,
 			userRoamingDataHome,
 			cacheHome: joinPath(userRoamingDataHome, 'cache'),
@@ -94,7 +94,7 @@ export class UserDataSyncClient extends Disposable {
 		this.instantiationService.stub(IUserDataProfilesService, userDataProfilesService);
 
 		const storageService = this._register(new TestStorageService(userDataProfilesService.defaultProfile));
-		this.instantiationService.stub(IStorageService, this._register(storageService));
+		this.instantiationService.stub(StorageServiceInterface, this._register(storageService));
 		this.instantiationService.stub(IUserDataProfileStorageService, this._register(new TestUserDataProfileStorageService(false, storageService)));
 
 		const configurationService = this._register(new ConfigurationService(userDataProfilesService.defaultProfile.settingsResource, fileService, new NullPolicyService(), logService));

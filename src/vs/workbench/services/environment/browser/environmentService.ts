@@ -6,8 +6,8 @@
 import { Schemas } from '../../../../base/common/network.js';
 import { joinPath } from '../../../../base/common/resources.js';
 import { URI } from '../../../../base/common/uri.js';
-import { ExtensionKind, IEnvironmentService, IExtensionHostDebugParams } from '../../../../platform/environment/common/environment.js';
-import { IPath } from '../../../../platform/window/common/window.js';
+import { ExtensionKind, EnvironmentServiceInterface, ExtensionHostDebugParamsInterface } from '../../../../platform/environment/common/environment.js';
+import { PathInterface } from '../../../../platform/window/common/window.js';
 import { IWorkbenchEnvironmentService } from '../common/environmentService.js';
 import { IWorkbenchConstructionOptions } from '../../../browser/web.api.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
@@ -20,7 +20,7 @@ import { refineServiceDecorator } from '../../../../platform/instantiation/commo
 import { ITextEditorOptions } from '../../../../platform/editor/common/editor.js';
 import { EXTENSION_IDENTIFIER_WITH_LOG_REGEX } from '../../../../platform/environment/common/environmentService.js';
 
-export const IBrowserWorkbenchEnvironmentService = refineServiceDecorator<IEnvironmentService, IBrowserWorkbenchEnvironmentService>(IEnvironmentService);
+export const IBrowserWorkbenchEnvironmentService = refineServiceDecorator<EnvironmentServiceInterface, IBrowserWorkbenchEnvironmentService>(EnvironmentServiceInterface);
 
 /**
  * A subclass of the `IWorkbenchEnvironmentService` to be used only environments
@@ -147,7 +147,7 @@ export class BrowserWorkbenchEnvironmentService implements IBrowserWorkbenchEnvi
 	private extensionHostDebugEnvironment: IExtensionHostDebugEnvironment | undefined = undefined;
 
 	@memoize
-	get debugExtensionHost(): IExtensionHostDebugParams {
+	get debugExtensionHost(): ExtensionHostDebugParamsInterface {
 		if (!this.extensionHostDebugEnvironment) {
 			this.extensionHostDebugEnvironment = this.resolveExtensionHostDebugEnvironment();
 		}
@@ -342,7 +342,7 @@ export class BrowserWorkbenchEnvironmentService implements IBrowserWorkbenchEnvi
 	}
 
 	@memoize
-	get filesToOpenOrCreate(): IPath<ITextEditorOptions>[] | undefined {
+	get filesToOpenOrCreate(): PathInterface<ITextEditorOptions>[] | undefined {
 		if (this.payload) {
 			const fileToOpen = this.payload.get('openFile');
 			if (fileToOpen) {
@@ -368,7 +368,7 @@ export class BrowserWorkbenchEnvironmentService implements IBrowserWorkbenchEnvi
 	}
 
 	@memoize
-	get filesToDiff(): IPath[] | undefined {
+	get filesToDiff(): PathInterface[] | undefined {
 		if (this.payload) {
 			const fileToDiffPrimary = this.payload.get('diffFilePrimary');
 			const fileToDiffSecondary = this.payload.get('diffFileSecondary');
@@ -384,7 +384,7 @@ export class BrowserWorkbenchEnvironmentService implements IBrowserWorkbenchEnvi
 	}
 
 	@memoize
-	get filesToMerge(): IPath[] | undefined {
+	get filesToMerge(): PathInterface[] | undefined {
 		if (this.payload) {
 			const fileToMerge1 = this.payload.get('mergeFile1');
 			const fileToMerge2 = this.payload.get('mergeFile2');
@@ -405,7 +405,7 @@ export class BrowserWorkbenchEnvironmentService implements IBrowserWorkbenchEnvi
 }
 
 interface IExtensionHostDebugEnvironment {
-	params: IExtensionHostDebugParams;
+	params: ExtensionHostDebugParamsInterface;
 	debugRenderer: boolean;
 	isExtensionDevelopment: boolean;
 	extensionDevelopmentLocationURI?: URI[];

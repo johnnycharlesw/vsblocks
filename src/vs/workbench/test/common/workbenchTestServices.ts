@@ -25,8 +25,8 @@ import product from '../../../platform/product/common/product.js';
 import { IProgress, IProgressStep } from '../../../platform/progress/common/progress.js';
 import { InMemoryStorageService, WillSaveStateReason } from '../../../platform/storage/common/storage.js';
 import { toUserDataProfile } from '../../../platform/userDataProfile/common/userDataProfile.js';
-import { ISingleFolderWorkspaceIdentifier, IWorkspace, IWorkspaceContextService, IWorkspaceFolder, IWorkspaceFoldersChangeEvent, IWorkspaceFoldersWillChangeEvent, IWorkspaceIdentifier, WorkbenchState, Workspace } from '../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustEnablementService, IWorkspaceTrustManagementService, IWorkspaceTrustRequestService, IWorkspaceTrustTransitionParticipant, IWorkspaceTrustUriInfo, WorkspaceTrustRequestOptions, WorkspaceTrustUriResponse } from '../../../platform/workspace/common/workspaceTrust.js';
+import { SingleFolderWorkspaceIdentifierInterface, WorkspaceInterface, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkspaceInterfaceFoldersChangeEvent, WorkspaceInterfaceFoldersWillChangeEvent, WorkspaceIdentifierInterface, WorkbenchState, Workspace } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustEnablementService, WorkspaceInterfaceTrustManagementService, WorkspaceInterfaceTrustRequestService, WorkspaceInterfaceTrustTransitionParticipant, WorkspaceInterfaceTrustUriInfo, WorkspaceTrustRequestOptions, WorkspaceTrustUriResponse } from '../../../platform/workspace/common/workspaceTrust.js';
 import { TestWorkspace } from '../../../platform/workspace/test/common/testWorkspace.js';
 import { GroupIdentifier, IRevertOptions, ISaveOptions, SaveReason } from '../../common/editor.js';
 import { EditorInput } from '../../common/editor/editorInput.js';
@@ -73,7 +73,7 @@ export class TestUserDataProfileService implements IUserDataProfileService {
 	async updateCurrentProfile(): Promise<void> { }
 }
 
-export class TestContextService implements IWorkspaceContextService {
+export class TestContextService implements WorkspaceContextServiceInterface {
 
 	declare readonly _serviceBrand: undefined;
 
@@ -83,11 +83,11 @@ export class TestContextService implements IWorkspaceContextService {
 	private readonly _onDidChangeWorkspaceName: Emitter<void>;
 	get onDidChangeWorkspaceName(): Event<void> { return this._onDidChangeWorkspaceName.event; }
 
-	private readonly _onWillChangeWorkspaceFolders: Emitter<IWorkspaceFoldersWillChangeEvent>;
-	get onWillChangeWorkspaceFolders(): Event<IWorkspaceFoldersWillChangeEvent> { return this._onWillChangeWorkspaceFolders.event; }
+	private readonly _onWillChangeWorkspaceFolders: Emitter<WorkspaceInterfaceFoldersWillChangeEvent>;
+	get onWillChangeWorkspaceFolders(): Event<WorkspaceInterfaceFoldersWillChangeEvent> { return this._onWillChangeWorkspaceFolders.event; }
 
-	private readonly _onDidChangeWorkspaceFolders: Emitter<IWorkspaceFoldersChangeEvent>;
-	get onDidChangeWorkspaceFolders(): Event<IWorkspaceFoldersChangeEvent> { return this._onDidChangeWorkspaceFolders.event; }
+	private readonly _onDidChangeWorkspaceFolders: Emitter<WorkspaceInterfaceFoldersChangeEvent>;
+	get onDidChangeWorkspaceFolders(): Event<WorkspaceInterfaceFoldersChangeEvent> { return this._onDidChangeWorkspaceFolders.event; }
 
 	private readonly _onDidChangeWorkbenchState: Emitter<WorkbenchState>;
 	get onDidChangeWorkbenchState(): Event<WorkbenchState> { return this._onDidChangeWorkbenchState.event; }
@@ -96,12 +96,12 @@ export class TestContextService implements IWorkspaceContextService {
 		this.workspace = workspace;
 		this.options = options || Object.create(null);
 		this._onDidChangeWorkspaceName = new Emitter<void>();
-		this._onWillChangeWorkspaceFolders = new Emitter<IWorkspaceFoldersWillChangeEvent>();
-		this._onDidChangeWorkspaceFolders = new Emitter<IWorkspaceFoldersChangeEvent>();
+		this._onWillChangeWorkspaceFolders = new Emitter<WorkspaceInterfaceFoldersWillChangeEvent>();
+		this._onDidChangeWorkspaceFolders = new Emitter<WorkspaceInterfaceFoldersChangeEvent>();
 		this._onDidChangeWorkbenchState = new Emitter<WorkbenchState>();
 	}
 
-	getFolders(): IWorkspaceFolder[] {
+	getFolders(): WorkspaceInterfaceFolder[] {
 		return this.workspace ? this.workspace.folders : [];
 	}
 
@@ -117,15 +117,15 @@ export class TestContextService implements IWorkspaceContextService {
 		return WorkbenchState.EMPTY;
 	}
 
-	getCompleteWorkspace(): Promise<IWorkspace> {
+	getCompleteWorkspace(): Promise<WorkspaceInterface> {
 		return Promise.resolve(this.getWorkspace());
 	}
 
-	getWorkspace(): IWorkspace {
+	getWorkspace(): WorkspaceInterface {
 		return this.workspace;
 	}
 
-	getWorkspaceFolder(resource: URI): IWorkspaceFolder | null {
+	getWorkspaceFolder(resource: URI): WorkspaceInterfaceFolder | null {
 		return this.workspace.getFolder(resource);
 	}
 
@@ -151,7 +151,7 @@ export class TestContextService implements IWorkspaceContextService {
 		return URI.file(join('C:\\', workspaceRelativePath));
 	}
 
-	isCurrentWorkspace(workspaceIdOrFolder: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | URI): boolean {
+	isCurrentWorkspace(workspaceIdOrFolder: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | URI): boolean {
 		return URI.isUri(workspaceIdOrFolder) && isEqual(this.workspace.folders[0].uri, workspaceIdOrFolder);
 	}
 }
@@ -347,7 +347,7 @@ export const NullFilesConfigurationService = new class implements IFilesConfigur
 	preventSaveConflicts(resource: URI, language?: string | undefined): boolean { throw new Error('Method not implemented.'); }
 };
 
-export class TestWorkspaceTrustEnablementService implements IWorkspaceTrustEnablementService {
+export class TestWorkspaceTrustEnablementService implements WorkspaceInterfaceTrustEnablementService {
 	_serviceBrand: undefined;
 
 	constructor(private isEnabled: boolean = true) { }
@@ -357,7 +357,7 @@ export class TestWorkspaceTrustEnablementService implements IWorkspaceTrustEnabl
 	}
 }
 
-export class TestWorkspaceTrustManagementService extends Disposable implements IWorkspaceTrustManagementService {
+export class TestWorkspaceTrustManagementService extends Disposable implements WorkspaceInterfaceTrustManagementService {
 	_serviceBrand: undefined;
 
 	private _onDidChangeTrust = this._register(new Emitter<boolean>());
@@ -384,7 +384,7 @@ export class TestWorkspaceTrustManagementService extends Disposable implements I
 		throw new Error('Method not implemented.');
 	}
 
-	addWorkspaceTrustTransitionParticipant(participant: IWorkspaceTrustTransitionParticipant): IDisposable {
+	addWorkspaceTrustTransitionParticipant(participant: WorkspaceInterfaceTrustTransitionParticipant): IDisposable {
 		throw new Error('Method not implemented.');
 	}
 
@@ -396,7 +396,7 @@ export class TestWorkspaceTrustManagementService extends Disposable implements I
 		throw new Error('Method not implemented.');
 	}
 
-	getUriTrustInfo(uri: URI): Promise<IWorkspaceTrustUriInfo> {
+	getUriTrustInfo(uri: URI): Promise<WorkspaceInterfaceTrustUriInfo> {
 		throw new Error('Method not implemented.');
 	}
 
@@ -440,7 +440,7 @@ export class TestWorkspaceTrustManagementService extends Disposable implements I
 	}
 }
 
-export class TestWorkspaceTrustRequestService extends Disposable implements IWorkspaceTrustRequestService {
+export class TestWorkspaceTrustRequestService extends Disposable implements WorkspaceInterfaceTrustRequestService {
 	_serviceBrand: any;
 
 	private readonly _onDidInitiateOpenFilesTrustRequest = this._register(new Emitter<void>());

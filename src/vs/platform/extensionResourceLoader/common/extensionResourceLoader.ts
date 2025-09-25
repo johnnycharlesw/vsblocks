@@ -7,12 +7,12 @@ import { isWeb } from '../../../base/common/platform.js';
 import { format2 } from '../../../base/common/strings.js';
 import { URI } from '../../../base/common/uri.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { IProductService } from '../../product/common/productService.js';
 import { getServiceMachineId } from '../../externalServices/common/serviceMachineId.js';
-import { IStorageService } from '../../storage/common/storage.js';
+import { StorageServiceInterface } from '../../storage/common/storage.js';
 import { TelemetryLevel } from '../../telemetry/common/telemetry.js';
 import { getTelemetryLevel, supportsTelemetry } from '../../telemetry/common/telemetryUtils.js';
 import { RemoteAuthorities } from '../../../base/common/network.js';
@@ -75,9 +75,9 @@ export abstract class AbstractExtensionResourceLoaderService extends Disposable 
 
 	constructor(
 		protected readonly _fileService: IFileService,
-		private readonly _storageService: IStorageService,
+		private readonly _storageService: StorageServiceInterface,
 		private readonly _productService: IProductService,
-		private readonly _environmentService: IEnvironmentService,
+		private readonly _environmentService: EnvironmentServiceInterface,
 		private readonly _configurationService: IConfigurationService,
 		private readonly _extensionGalleryManifestService: IExtensionGalleryManifestService,
 		protected readonly _logService: ILogService,

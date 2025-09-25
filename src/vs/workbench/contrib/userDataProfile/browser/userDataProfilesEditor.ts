@@ -11,7 +11,7 @@ import { ThemeIcon } from '../../../../base/common/themables.js';
 import { localize } from '../../../../nls.js';
 import { IContextMenuService, IContextViewService } from '../../../../platform/contextview/browser/contextView.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { IUserDataProfile, IUserDataProfilesService, ProfileResourceType } from '../../../../platform/userDataProfile/common/userDataProfile.js';
@@ -111,7 +111,7 @@ export class UserDataProfilesEditor extends EditorPane implements IUserDataProfi
 		group: IEditorGroup,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
 		@IContextMenuService private readonly contextMenuService: IContextMenuService,
@@ -1987,7 +1987,7 @@ class WorkspaceUriEmptyColumnRenderer implements ITableRenderer<WorkspaceTableEl
 
 }
 
-interface IWorkspaceUriHostColumnTemplateData {
+interface WorkspaceInterfaceUriHostColumnTemplateData {
 	element: HTMLElement;
 	hostContainer: HTMLElement;
 	buttonBarContainer: HTMLElement;
@@ -1995,7 +1995,7 @@ interface IWorkspaceUriHostColumnTemplateData {
 	renderDisposables: DisposableStore;
 }
 
-class WorkspaceUriHostColumnRenderer implements ITableRenderer<WorkspaceTableElement, IWorkspaceUriHostColumnTemplateData> {
+class WorkspaceUriHostColumnRenderer implements ITableRenderer<WorkspaceTableElement, WorkspaceInterfaceUriHostColumnTemplateData> {
 	static readonly TEMPLATE_ID = 'host';
 
 	readonly templateId: string = WorkspaceUriHostColumnRenderer.TEMPLATE_ID;
@@ -2005,7 +2005,7 @@ class WorkspaceUriHostColumnRenderer implements ITableRenderer<WorkspaceTableEle
 		@ILabelService private readonly labelService: ILabelService,
 	) { }
 
-	renderTemplate(container: HTMLElement): IWorkspaceUriHostColumnTemplateData {
+	renderTemplate(container: HTMLElement): WorkspaceInterfaceUriHostColumnTemplateData {
 		const disposables = new DisposableStore();
 		const renderDisposables = disposables.add(new DisposableStore());
 
@@ -2022,7 +2022,7 @@ class WorkspaceUriHostColumnRenderer implements ITableRenderer<WorkspaceTableEle
 		};
 	}
 
-	renderElement(item: WorkspaceTableElement, index: number, templateData: IWorkspaceUriHostColumnTemplateData): void {
+	renderElement(item: WorkspaceTableElement, index: number, templateData: WorkspaceInterfaceUriHostColumnTemplateData): void {
 		templateData.renderDisposables.clear();
 		templateData.renderDisposables.add({ dispose: () => { clearNode(templateData.buttonBarContainer); } });
 
@@ -2033,13 +2033,13 @@ class WorkspaceUriHostColumnRenderer implements ITableRenderer<WorkspaceTableEle
 		templateData.buttonBarContainer.style.display = 'none';
 	}
 
-	disposeTemplate(templateData: IWorkspaceUriHostColumnTemplateData): void {
+	disposeTemplate(templateData: WorkspaceInterfaceUriHostColumnTemplateData): void {
 		templateData.disposables.dispose();
 	}
 
 }
 
-interface IWorkspaceUriPathColumnTemplateData {
+interface WorkspaceInterfaceUriPathColumnTemplateData {
 	element: HTMLElement;
 	pathLabel: HTMLElement;
 	pathHover: IManagedHover;
@@ -2047,7 +2047,7 @@ interface IWorkspaceUriPathColumnTemplateData {
 	disposables: DisposableStore;
 }
 
-class WorkspaceUriPathColumnRenderer implements ITableRenderer<WorkspaceTableElement, IWorkspaceUriPathColumnTemplateData> {
+class WorkspaceUriPathColumnRenderer implements ITableRenderer<WorkspaceTableElement, WorkspaceInterfaceUriPathColumnTemplateData> {
 	static readonly TEMPLATE_ID = 'path';
 
 	readonly templateId: string = WorkspaceUriPathColumnRenderer.TEMPLATE_ID;
@@ -2061,7 +2061,7 @@ class WorkspaceUriPathColumnRenderer implements ITableRenderer<WorkspaceTableEle
 		this.hoverDelegate = getDefaultHoverDelegate('mouse');
 	}
 
-	renderTemplate(container: HTMLElement): IWorkspaceUriPathColumnTemplateData {
+	renderTemplate(container: HTMLElement): WorkspaceInterfaceUriPathColumnTemplateData {
 		const disposables = new DisposableStore();
 		const element = container.appendChild($('.path'));
 		const pathLabel = element.appendChild($('div.path-label'));
@@ -2077,7 +2077,7 @@ class WorkspaceUriPathColumnRenderer implements ITableRenderer<WorkspaceTableEle
 		};
 	}
 
-	renderElement(item: WorkspaceTableElement, index: number, templateData: IWorkspaceUriPathColumnTemplateData): void {
+	renderElement(item: WorkspaceTableElement, index: number, templateData: WorkspaceInterfaceUriPathColumnTemplateData): void {
 		templateData.renderDisposables.clear();
 		const stringValue = this.formatPath(item.workspace);
 		templateData.pathLabel.innerText = stringValue;
@@ -2085,7 +2085,7 @@ class WorkspaceUriPathColumnRenderer implements ITableRenderer<WorkspaceTableEle
 		templateData.pathHover.update(stringValue);
 	}
 
-	disposeTemplate(templateData: IWorkspaceUriPathColumnTemplateData): void {
+	disposeTemplate(templateData: WorkspaceInterfaceUriPathColumnTemplateData): void {
 		templateData.disposables.dispose();
 		templateData.renderDisposables.dispose();
 	}

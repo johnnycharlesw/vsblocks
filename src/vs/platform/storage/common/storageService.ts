@@ -8,12 +8,12 @@ import { DisposableStore } from '../../../base/common/lifecycle.js';
 import { Schemas } from '../../../base/common/network.js';
 import { joinPath } from '../../../base/common/resources.js';
 import { IStorage, Storage } from '../../../base/parts/storage/common/storage.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IRemoteService } from '../../ipc/common/services.js';
 import { AbstractStorageService, isProfileUsingDefaultStorage, StorageScope, WillSaveStateReason } from './storage.js';
 import { ApplicationStorageDatabaseClient, ProfileStorageDatabaseClient, WorkspaceStorageDatabaseClient } from './storageIpc.js';
 import { isUserDataProfile, IUserDataProfile } from '../../userDataProfile/common/userDataProfile.js';
-import { IAnyWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 export class RemoteStorageService extends AbstractStorageService {
 
@@ -29,10 +29,10 @@ export class RemoteStorageService extends AbstractStorageService {
 	private workspaceStorage: IStorage | undefined;
 
 	constructor(
-		initialWorkspace: IAnyWorkspaceIdentifier | undefined,
+		initialWorkspace: AnyWorkspaceIdentifierInterface | undefined,
 		initialProfiles: { defaultProfile: IUserDataProfile; currentProfile: IUserDataProfile },
 		private readonly remoteService: IRemoteService,
-		private readonly environmentService: IEnvironmentService
+		private readonly environmentService: EnvironmentServiceInterface
 	) {
 		super();
 
@@ -82,9 +82,9 @@ export class RemoteStorageService extends AbstractStorageService {
 		return profileStorage;
 	}
 
-	private createWorkspaceStorage(workspace: IAnyWorkspaceIdentifier): IStorage;
-	private createWorkspaceStorage(workspace: IAnyWorkspaceIdentifier | undefined): IStorage | undefined;
-	private createWorkspaceStorage(workspace: IAnyWorkspaceIdentifier | undefined): IStorage | undefined {
+	private createWorkspaceStorage(workspace: AnyWorkspaceIdentifierInterface): IStorage;
+	private createWorkspaceStorage(workspace: AnyWorkspaceIdentifierInterface | undefined): IStorage | undefined;
+	private createWorkspaceStorage(workspace: AnyWorkspaceIdentifierInterface | undefined): IStorage | undefined {
 
 		// First clear any previously associated disposables
 		this.workspaceStorageDisposables.clear();
@@ -173,7 +173,7 @@ export class RemoteStorageService extends AbstractStorageService {
 		this.switchData(oldItems, this.profileStorage, StorageScope.PROFILE);
 	}
 
-	protected async switchToWorkspace(toWorkspace: IAnyWorkspaceIdentifier, preserveData: boolean): Promise<void> {
+	protected async switchToWorkspace(toWorkspace: AnyWorkspaceIdentifierInterface, preserveData: boolean): Promise<void> {
 		const oldWorkspaceStorage = this.workspaceStorage;
 		const oldItems = oldWorkspaceStorage?.items ?? new Map();
 
@@ -188,7 +188,7 @@ export class RemoteStorageService extends AbstractStorageService {
 		this.switchData(oldItems, this.workspaceStorage, StorageScope.WORKSPACE);
 	}
 
-	hasScope(scope: IAnyWorkspaceIdentifier | IUserDataProfile): boolean {
+	hasScope(scope: AnyWorkspaceIdentifierInterface | IUserDataProfile): boolean {
 		if (isUserDataProfile(scope)) {
 			return this.profileStorageProfile.id === scope.id;
 		}

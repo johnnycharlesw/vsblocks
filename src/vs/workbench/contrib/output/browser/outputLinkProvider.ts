@@ -7,7 +7,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { RunOnceScheduler } from '../../../../base/common/async.js';
 import { IModelService } from '../../../../editor/common/services/model.js';
 import { ILink } from '../../../../editor/common/languages.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { OUTPUT_MODE_ID, LOG_MODE_ID } from '../../../services/output/common/output.js';
 import { OutputLinkComputer } from '../common/outputLinkComputer.js';
 import { IDisposable, dispose, Disposable } from '../../../../base/common/lifecycle.js';
@@ -26,7 +26,7 @@ export class OutputLinkProvider extends Disposable {
 	private linkProviderRegistration: IDisposable | undefined;
 
 	constructor(
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IModelService private readonly modelService: IModelService,
 		@ILanguageFeaturesService private readonly languageFeaturesService: ILanguageFeaturesService,
 	) {
@@ -94,7 +94,7 @@ class OutputLinkWorkerClient extends Disposable {
 	private readonly _initializeBarrier: Promise<void>;
 
 	constructor(
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IModelService modelService: IModelService,
 	) {
 		super();

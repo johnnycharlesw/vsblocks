@@ -9,7 +9,7 @@ import { URI } from '../../../base/common/uri.js';
 import { IChannel, IServerChannel } from '../../../base/parts/ipc/common/ipc.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
 import { IProductService } from '../../product/common/productService.js';
-import { IStorageService } from '../../storage/common/storage.js';
+import { StorageServiceInterface } from '../../storage/common/storage.js';
 import { IUserDataSyncStore, IUserDataSyncStoreManagementService, UserDataSyncStoreType } from './userDataSync.js';
 import { IUserDataSyncAccount, IUserDataSyncAccountService } from './userDataSyncAccount.js';
 import { AbstractUserDataSyncStoreManagementService } from './userDataSyncStoreService.js';
@@ -88,7 +88,7 @@ export class UserDataSyncStoreManagementServiceChannelClient extends AbstractUse
 		private readonly channel: IChannel,
 		@IProductService productService: IProductService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super(productService, configurationService, storageService);
 		this._register(this.channel.listen<void>('onDidChangeUserDataSyncStore')(() => this.updateUserDataSyncStore()));

@@ -12,7 +12,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { generateUuid } from '../../../../base/common/uuid.js';
 import { mock } from '../../../../base/test/common/mock.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
-import { INativeEnvironmentService } from '../../../environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { ExtensionSignatureVerificationCode, getTargetPlatform, IExtensionGalleryService, IGalleryExtension, IGalleryExtensionAssets, InstallOperation } from '../../common/extensionManagement.js';
 import { getGalleryExtensionId } from '../../common/extensionManagementUtil.js';
 import { ExtensionsDownloader } from '../../node/extensionDownloader.js';
@@ -70,7 +70,7 @@ suite('ExtensionDownloader Tests', () => {
 		instantiationService.stub(IFileService, fileService);
 		instantiationService.stub(ILogService, logService);
 		instantiationService.stub(IUriIdentityService, disposables.add(new UriIdentityService(fileService)));
-		instantiationService.stub(INativeEnvironmentService, { extensionsDownloadLocation: joinPath(ROOT, 'CachedExtensionVSIXs') });
+		instantiationService.stub(NativeEnvironmentServiceInterface, { extensionsDownloadLocation: joinPath(ROOT, 'CachedExtensionVSIXs') });
 		instantiationService.stub(IExtensionGalleryService, {
 			async download(extension, location, operation) {
 				await fileService.writeFile(location, VSBuffer.fromString('extension vsix'));

@@ -12,7 +12,7 @@ import { commonPrefixLength } from '../../../../../base/common/strings.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { IContextKey } from '../../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { TerminalCapability, type ITerminalCapabilityStore } from '../../../../../platform/terminal/common/capabilities/capabilities.js';
 import type { IPromptInputModel, IPromptInputModelState } from '../../../../../platform/terminal/common/capabilities/commandDetection/promptInputModel.js';
 import type { IXtermCore } from '../../../terminal/browser/xterm-private.js';
@@ -1025,7 +1025,7 @@ class PersistedWidgetSize {
 	private readonly _key = TerminalStorageKeys.TerminalSuggestSize;
 
 	constructor(
-		@IStorageService private readonly _storageService: IStorageService
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface
 	) {
 	}
 

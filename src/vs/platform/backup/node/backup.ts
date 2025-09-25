@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { URI } from '../../../base/common/uri.js';
-import { IBaseBackupInfo, IFolderBackupInfo, IWorkspaceBackupInfo } from '../common/backup.js';
+import { IBaseBackupInfo, IFolderBackupInfo, WorkspaceInterfaceBackupInfo } from '../common/backup.js';
 
 export interface IEmptyWindowBackupInfo extends IBaseBackupInfo {
 	readonly backupFolder: string;
@@ -22,8 +22,8 @@ export interface ISerializedWorkspaceBackupInfo {
 	remoteAuthority?: string;
 }
 
-export function deserializeWorkspaceInfos(serializedBackupWorkspaces: ISerializedBackupWorkspaces): IWorkspaceBackupInfo[] {
-	let workspaceBackupInfos: IWorkspaceBackupInfo[] = [];
+export function deserializeWorkspaceInfos(serializedBackupWorkspaces: ISerializedBackupWorkspaces): WorkspaceInterfaceBackupInfo[] {
+	let workspaceBackupInfos: WorkspaceInterfaceBackupInfo[] = [];
 	try {
 		if (Array.isArray(serializedBackupWorkspaces.workspaces)) {
 			workspaceBackupInfos = serializedBackupWorkspaces.workspaces.map(workspace => (

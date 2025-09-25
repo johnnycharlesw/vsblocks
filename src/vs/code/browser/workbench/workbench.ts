@@ -18,7 +18,7 @@ import { URI, UriComponents } from '../../../base/common/uri.js';
 import product from '../../../platform/product/common/product.js';
 import { ISecretStorageProvider } from '../../../platform/secrets/common/secrets.js';
 import { isFolderToOpen, isWorkspaceToOpen } from '../../../platform/window/common/window.js';
-import type { IWorkbenchConstructionOptions, IWorkspace, IWorkspaceProvider } from '../../../workbench/browser/web.api.js';
+import type { IWorkbenchConstructionOptions, WorkspaceInterface, WorkspaceInterfaceProvider } from '../../../workbench/browser/web.api.js';
 import { AuthenticationSessionInfo } from '../../../workbench/services/authentication/browser/authenticationService.js';
 import type { IURLCallbackProvider } from '../../../workbench/services/url/browser/urlService.js';
 import { create } from '../../../workbench/workbench.web.main.internal.js';
@@ -401,7 +401,7 @@ class LocalStorageURLCallbackProvider extends Disposable implements IURLCallback
 	}
 }
 
-class WorkspaceProvider implements IWorkspaceProvider {
+class WorkspaceProvider implements WorkspaceInterfaceProvider {
 
 	private static QUERY_PARAM_EMPTY_WINDOW = 'ew';
 	private static QUERY_PARAM_FOLDER = 'folder';
@@ -411,7 +411,7 @@ class WorkspaceProvider implements IWorkspaceProvider {
 
 	static create(config: IWorkbenchConstructionOptions & { folderUri?: UriComponents; workspaceUri?: UriComponents }) {
 		let foundWorkspace = false;
-		let workspace: IWorkspace;
+		let workspace: WorkspaceInterface;
 		let payload = Object.create(null);
 
 		const query = new URL(document.location.href).searchParams;
@@ -477,13 +477,13 @@ class WorkspaceProvider implements IWorkspaceProvider {
 	readonly trusted = true;
 
 	private constructor(
-		readonly workspace: IWorkspace,
+		readonly workspace: WorkspaceInterface,
 		readonly payload: object,
 		private readonly config: IWorkbenchConstructionOptions
 	) {
 	}
 
-	async open(workspace: IWorkspace, options?: { reuse?: boolean; payload?: object }): Promise<boolean> {
+	async open(workspace: WorkspaceInterface, options?: { reuse?: boolean; payload?: object }): Promise<boolean> {
 		if (options?.reuse && !options.payload && this.isSame(this.workspace, workspace)) {
 			return true; // return early if workspace and environment is not changing and we are reusing window
 		}
@@ -508,7 +508,7 @@ class WorkspaceProvider implements IWorkspaceProvider {
 		return false;
 	}
 
-	private createTargetUrl(workspace: IWorkspace, options?: { reuse?: boolean; payload?: object }): string | undefined {
+	private createTargetUrl(workspace: WorkspaceInterface, options?: { reuse?: boolean; payload?: object }): string | undefined {
 
 		// Empty
 		let targetHref: string | undefined = undefined;
@@ -552,7 +552,7 @@ class WorkspaceProvider implements IWorkspaceProvider {
 		return encodeURIComponent(uri.toString(true));
 	}
 
-	private isSame(workspaceA: IWorkspace, workspaceB: IWorkspace): boolean {
+	private isSame(workspaceA: WorkspaceInterface, workspaceB: WorkspaceInterface): boolean {
 		if (!workspaceA || !workspaceB) {
 			return workspaceA === workspaceB; // both empty
 		}

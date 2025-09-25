@@ -21,7 +21,7 @@ import { MenuId, registerAction2 } from '../../../../platform/actions/common/act
 import { ContextKeyExpr, IContextKey, IContextKeyService, RawContextKey } from '../../../../platform/contextkey/common/contextkey.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { KeybindingWeight } from '../../../../platform/keybinding/common/keybindingsRegistry.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { TypeHierarchyTreePeekWidget } from './typeHierarchyPeek.js';
 import { TypeHierarchyDirection, TypeHierarchyModel, TypeHierarchyProviderRegistry } from '../common/typeHierarchy.js';
 
@@ -56,7 +56,7 @@ class TypeHierarchyController implements IEditorContribution {
 	constructor(
 		readonly _editor: ICodeEditor,
 		@IContextKeyService private readonly _contextKeyService: IContextKeyService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@ICodeEditorService private readonly _editorService: ICodeEditorService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 	) {

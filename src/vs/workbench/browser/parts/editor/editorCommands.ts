@@ -34,7 +34,7 @@ import { EditorGroupColumn, columnToEditorGroup } from '../../../services/editor
 import { EditorGroupLayout, GroupDirection, GroupLocation, GroupsOrder, IEditorGroup, IEditorGroupsService, IEditorReplacement, preferredSideBySideGroupDirection } from '../../../services/editor/common/editorGroupsService.js';
 import { IEditorResolverService } from '../../../services/editor/common/editorResolverService.js';
 import { IEditorService, SIDE_GROUP } from '../../../services/editor/common/editorService.js';
-import { IPathService } from '../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../services/path/common/pathService.js';
 import { IUntitledTextEditorService } from '../../../services/untitled/common/untitledTextEditorService.js';
 import { DIFF_FOCUS_OTHER_SIDE, DIFF_FOCUS_PRIMARY_SIDE, DIFF_FOCUS_SECONDARY_SIDE, registerDiffEditorCommands } from './diffEditorCommands.js';
 import { IResolvedEditorCommandsContext, resolveCommandsContext } from './editorCommandsContext.js';
@@ -424,7 +424,7 @@ function registerOpenEditorAPICommands(): void {
 		const editorService = accessor.get(IEditorService);
 		const editorGroupsService = accessor.get(IEditorGroupsService);
 		const openerService = accessor.get(IOpenerService);
-		const pathService = accessor.get(IPathService);
+		const pathService = accessor.get(PathInterfaceService);
 		const configurationService = accessor.get(IConfigurationService);
 		const untitledTextEditorService = accessor.get(IUntitledTextEditorService);
 

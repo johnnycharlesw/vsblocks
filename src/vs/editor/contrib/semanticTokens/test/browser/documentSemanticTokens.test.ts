@@ -29,7 +29,7 @@ import { TestLanguageConfigurationService } from '../../../../test/common/modes/
 import { TestTextResourcePropertiesService } from '../../../../test/common/services/testTextResourcePropertiesService.js';
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
 import { TestDialogService } from '../../../../../platform/dialogs/test/common/testDialogService.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { NullLogService } from '../../../../../platform/log/common/log.js';
 import { TestNotificationService } from '../../../../../platform/notification/test/common/testNotificationService.js';
@@ -64,7 +64,7 @@ suite('ModelSemanticColoring', () => {
 			new UndoRedoService(new TestDialogService(), new TestNotificationService()),
 			instantiationService
 		));
-		const envService = new class extends mock<IEnvironmentService>() {
+		const envService = new class extends mock<EnvironmentServiceInterface>() {
 			override isBuilt: boolean = true;
 			override isExtensionDevelopment: boolean = false;
 		};

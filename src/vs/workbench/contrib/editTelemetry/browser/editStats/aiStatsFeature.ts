@@ -11,7 +11,7 @@ import { autorun, derived, mapObservableArrayCached, observableValue, runOnChang
 import { AnnotatedStringEdit } from '../../../../../editor/common/core/edits/stringEdit.js';
 import { isAiEdit, isUserEdit } from '../../../../../editor/common/textModelEditSource.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { AnnotatedDocuments } from '../helpers/annotatedDocuments.js';
 import { AiStatsStatusBar } from './aiStatsStatusBar.js';
 
@@ -21,7 +21,7 @@ export class AiStatsFeature extends Disposable {
 
 	constructor(
 		annotatedDocuments: AnnotatedDocuments,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 	) {
 		super();
@@ -215,7 +215,7 @@ function rateLimitWrite<T>(targetValue: IValue<T>, maxWritesPerSecond: number, s
 	};
 }
 
-function getStoredValue<T>(service: IStorageService, key: string, scope: StorageScope, target: StorageTarget): IValue<T> {
+function getStoredValue<T>(service: StorageServiceInterface, key: string, scope: StorageScope, target: StorageTarget): IValue<T> {
 	let lastValue: T | undefined = undefined;
 	let hasLastValue = false;
 	return {

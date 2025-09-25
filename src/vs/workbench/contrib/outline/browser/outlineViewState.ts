@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Emitter } from '../../../../base/common/event.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IOutlineViewState, OutlineSortOrder } from './outline.js';
 
 export class OutlineViewState implements IOutlineViewState {
@@ -53,7 +53,7 @@ export class OutlineViewState implements IOutlineViewState {
 		return this._sortBy;
 	}
 
-	persist(storageService: IStorageService): void {
+	persist(storageService: StorageServiceInterface): void {
 		storageService.store('outline/state', JSON.stringify({
 			followCursor: this.followCursor,
 			sortBy: this.sortBy,
@@ -61,7 +61,7 @@ export class OutlineViewState implements IOutlineViewState {
 		}), StorageScope.WORKSPACE, StorageTarget.MACHINE);
 	}
 
-	restore(storageService: IStorageService): void {
+	restore(storageService: StorageServiceInterface): void {
 		const raw = storageService.get('outline/state', StorageScope.WORKSPACE);
 		if (!raw) {
 			return;

@@ -12,7 +12,7 @@ import { IStateService } from '../../state/node/state.js';
 import { IPartsSplash } from '../common/themeService.js';
 import { IColorScheme } from '../../window/common/window.js';
 import { ThemeTypeSelector } from '../common/theme.js';
-import { ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 import { coalesce } from '../../../base/common/arrays.js';
 import { getAllWindowsExcludingOffscreen } from '../../windows/electron-main/windows.js';
 import { ILogService } from '../../log/common/log.js';
@@ -187,7 +187,7 @@ export class ThemeMainService extends Disposable implements IThemeMainService {
 		}
 	}
 
-	saveWindowSplash(windowId: number | undefined, workspace: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined, splash: IPartsSplash): void {
+	saveWindowSplash(windowId: number | undefined, workspace: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined, splash: IPartsSplash): void {
 
 		// Update override as needed
 		const splashOverride = this.updateWindowSplashOverride(workspace, splash);
@@ -209,7 +209,7 @@ export class ThemeMainService extends Disposable implements IThemeMainService {
 		this.updateSystemColorTheme();
 	}
 
-	private updateWindowSplashOverride(workspace: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined, splash: IPartsSplash): IPartsSplashOverride | undefined {
+	private updateWindowSplashOverride(workspace: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined, splash: IPartsSplash): IPartsSplashOverride | undefined {
 		let splashOverride: IPartsSplashOverride | undefined = undefined;
 		let changed = false;
 		if (workspace) {
@@ -222,7 +222,7 @@ export class ThemeMainService extends Disposable implements IThemeMainService {
 		return changed ? splashOverride : undefined;
 	}
 
-	private doUpdateWindowSplashOverride(workspace: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier, splash: IPartsSplash, splashOverride: IPartsSplashOverride, part: 'sideBar' | 'auxiliaryBar'): boolean {
+	private doUpdateWindowSplashOverride(workspace: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface, splash: IPartsSplash, splashOverride: IPartsSplashOverride, part: 'sideBar' | 'auxiliaryBar'): boolean {
 		const currentWidth = part === 'sideBar' ? splash.layoutInfo?.sideBarWidth : splash.layoutInfo?.auxiliaryBarWidth;
 		const overrideWidth = part === 'sideBar' ? splashOverride.layoutInfo.sideBarWidth : splashOverride.layoutInfo.auxiliaryBarWidth;
 
@@ -303,7 +303,7 @@ export class ThemeMainService extends Disposable implements IThemeMainService {
 		}
 	}
 
-	getWindowSplash(workspace: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined): IPartsSplash | undefined {
+	getWindowSplash(workspace: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined): IPartsSplash | undefined {
 		try {
 			return this.doGetWindowSplash(workspace);
 		} catch (error) {
@@ -313,7 +313,7 @@ export class ThemeMainService extends Disposable implements IThemeMainService {
 		}
 	}
 
-	private doGetWindowSplash(workspace: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined): IPartsSplash | undefined {
+	private doGetWindowSplash(workspace: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined): IPartsSplash | undefined {
 		const partSplash = this.stateService.getItem<IPartsSplash>(THEME_WINDOW_SPLASH_KEY);
 		if (!partSplash?.layoutInfo) {
 			return partSplash; // return early: overrides currently only apply to layout info

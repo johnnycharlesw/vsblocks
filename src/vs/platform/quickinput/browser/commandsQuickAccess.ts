@@ -23,7 +23,7 @@ import { ILogService } from '../../log/common/log.js';
 import { FastAndSlowPicks, IPickerQuickAccessItem, IPickerQuickAccessProviderOptions, PickerQuickAccessProvider, Picks } from './pickerQuickAccess.js';
 import { IQuickAccessProviderRunOptions } from '../common/quickAccess.js';
 import { IQuickPickSeparator } from '../common/quickInput.js';
-import { IStorageService, StorageScope, StorageTarget, WillSaveStateReason } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget, WillSaveStateReason } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 
 export interface ICommandQuickPick extends IPickerQuickAccessItem {
@@ -334,7 +334,7 @@ export class CommandsHistory extends Disposable {
 	private configuredCommandsHistoryLength = 0;
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ILogService private readonly logService: ILogService
 	) {
@@ -437,7 +437,7 @@ export class CommandsHistory extends Disposable {
 		return CommandsHistory.DEFAULT_COMMANDS_HISTORY_LENGTH;
 	}
 
-	static clearHistory(configurationService: IConfigurationService, storageService: IStorageService): void {
+	static clearHistory(configurationService: IConfigurationService, storageService: StorageServiceInterface): void {
 		const commandHistoryLength = CommandsHistory.getConfiguredCommandHistoryLength(configurationService);
 		CommandsHistory.cache = new LRUCache<string, number>(commandHistoryLength);
 		CommandsHistory.counter = 1;

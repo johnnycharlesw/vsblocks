@@ -14,7 +14,7 @@ import * as languages from '../../../editor/common/languages.js';
 import { decodeSemanticTokensDto } from '../../../editor/common/services/semanticTokensDto.js';
 import { validateWhenClauses } from '../../../platform/contextkey/common/contextkey.js';
 import { ITextEditorOptions } from '../../../platform/editor/common/editor.js';
-import { ICallHierarchyItemDto, IIncomingCallDto, IInlineValueContextDto, IOutgoingCallDto, IRawColorInfo, ITypeHierarchyItemDto, IWorkspaceEditDto } from './extHost.protocol.js';
+import { ICallHierarchyItemDto, IIncomingCallDto, IInlineValueContextDto, IOutgoingCallDto, IRawColorInfo, ITypeHierarchyItemDto, WorkspaceInterfaceEditDto } from './extHost.protocol.js';
 import { ApiCommand, ApiCommandArgument, ApiCommandResult, ExtHostCommands } from './extHostCommands.js';
 import { CustomCodeAction } from './extHostLanguageFeatures.js';
 import * as typeConverters from './extHostTypeConverters.js';
@@ -162,7 +162,7 @@ const newCommands: ApiCommand[] = [
 	new ApiCommand(
 		'vscode.executeWorkspaceSymbolProvider', '_executeWorkspaceSymbolProvider', 'Execute all workspace symbol providers.',
 		[ApiCommandArgument.String.with('query', 'Search string')],
-		new ApiCommandResult<search.IWorkspaceSymbol[], types.SymbolInformation[]>('A promise that resolves to an array of SymbolInformation-instances.', value => {
+		new ApiCommandResult<search.WorkspaceInterfaceSymbol[], types.SymbolInformation[]>('A promise that resolves to an array of SymbolInformation-instances.', value => {
 			return value.map(typeConverters.WorkspaceSymbol.to);
 		})
 	),
@@ -199,7 +199,7 @@ const newCommands: ApiCommand[] = [
 	new ApiCommand(
 		'vscode.executeDocumentRenameProvider', '_executeDocumentRenameProvider', 'Execute rename provider.',
 		[ApiCommandArgument.Uri, ApiCommandArgument.Position, ApiCommandArgument.String.with('newName', 'The new symbol name')],
-		new ApiCommandResult<IWorkspaceEditDto & { rejectReason?: string }, types.WorkspaceEdit | undefined>('A promise that resolves to a WorkspaceEdit.', value => {
+		new ApiCommandResult<WorkspaceInterfaceEditDto & { rejectReason?: string }, types.WorkspaceEdit | undefined>('A promise that resolves to a WorkspaceEdit.', value => {
 			if (!value) {
 				return undefined;
 			}

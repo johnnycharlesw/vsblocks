@@ -6,7 +6,7 @@
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { Emitter, Event } from '../../../base/common/event.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
-import { IProfileStorageValueChangeEvent, IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { IProfileStorageValueChangeEvent, StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { adoptToGalleryExtensionId, areSameExtensions, getExtensionId } from './extensionManagementUtil.js';
 import { IProductService } from '../../product/common/productService.js';
 import { distinct } from '../../../base/common/arrays.js';
@@ -59,7 +59,7 @@ export class ExtensionStorageService extends Disposable implements IExtensionSto
 	}
 
 	/* TODO @sandy081: This has to be done across all profiles */
-	static async removeOutdatedExtensionVersions(extensionManagementService: IExtensionManagementService, storageService: IStorageService): Promise<void> {
+	static async removeOutdatedExtensionVersions(extensionManagementService: IExtensionManagementService, storageService: StorageServiceInterface): Promise<void> {
 		const extensions = await extensionManagementService.getInstalled();
 		const extensionVersionsToRemove: string[] = [];
 		for (const [id, versions] of ExtensionStorageService.readAllExtensionsWithKeysForSync(storageService)) {
@@ -75,7 +75,7 @@ export class ExtensionStorageService extends Disposable implements IExtensionSto
 		}
 	}
 
-	private static readAllExtensionsWithKeysForSync(storageService: IStorageService): Map<string, string[]> {
+	private static readAllExtensionsWithKeysForSync(storageService: StorageServiceInterface): Map<string, string[]> {
 		const extensionsWithKeysForSync = new Map<string, string[]>();
 		const keys = storageService.keys(StorageScope.PROFILE, StorageTarget.MACHINE);
 		for (const key of keys) {
@@ -97,7 +97,7 @@ export class ExtensionStorageService extends Disposable implements IExtensionSto
 	private readonly extensionsWithKeysForSync: Map<string, string[]>;
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IProductService private readonly productService: IProductService,
 		@ILogService private readonly logService: ILogService,
 	) {

@@ -8,7 +8,7 @@ import { GLOBSTAR, GLOB_SPLIT, IRelativePattern, parse } from '../../../base/com
 import { URI } from '../../../base/common/uri.js';
 import { ExtHostDocumentsAndEditors } from './extHostDocumentsAndEditors.js';
 import type * as vscode from 'vscode';
-import { ExtHostFileSystemEventServiceShape, FileSystemEvents, IMainContext, SourceTargetPair, IWorkspaceEditDto, IWillRunFileOperationParticipation, MainContext, IRelativePatternDto } from './extHost.protocol.js';
+import { ExtHostFileSystemEventServiceShape, FileSystemEvents, IMainContext, SourceTargetPair, WorkspaceInterfaceEditDto, IWillRunFileOperationParticipation, MainContext, IRelativePatternDto } from './extHost.protocol.js';
 import * as typeConverter from './extHostTypeConverters.js';
 import { Disposable, WorkspaceEdit } from './extHostTypes.js';
 import { IExtensionDescription } from '../../../platform/extensions/common/extensions.js';
@@ -373,7 +373,7 @@ export class ExtHostFileSystemEventService implements ExtHostFileSystemEventServ
 		}
 
 		// concat all WorkspaceEdits collected via waitUntil-call and send them over to the renderer
-		const dto: IWorkspaceEditDto = { edits: [] };
+		const dto: WorkspaceInterfaceEditDto = { edits: [] };
 		for (const [, edit] of edits) {
 			const { edits } = typeConverter.WorkspaceEdit.from(edit, {
 				getTextDocumentVersion: uri => this._extHostDocumentsAndEditors.getDocument(uri)?.version,

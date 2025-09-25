@@ -25,7 +25,7 @@ import { INotificationService, Severity } from '../../../../platform/notificatio
 import { observableConfigValue } from '../../../../platform/observable/common/platformObservableUtils.js';
 import { IQuickInputButton, IQuickInputService, IQuickPickItem } from '../../../../platform/quickinput/common/quickInput.js';
 import { StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
-import { IWorkspaceFolderData } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolderData } from '../../../../platform/workspace/common/workspace.js';
 import { IConfigurationResolverService } from '../../../services/configurationResolver/common/configurationResolver.js';
 import { ConfigurationResolverExpression, IResolvedValue } from '../../../services/configurationResolver/common/configurationResolverExpression.js';
 import { AUX_WINDOW_GROUP, IEditorService } from '../../../services/editor/common/editorService.js';
@@ -180,7 +180,7 @@ export class McpRegistry extends Disposable implements IMcpRegistry {
 		this._onDidChangeInputs.fire();
 	}
 
-	public async editSavedInput(inputId: string, folderData: IWorkspaceFolderData | undefined, configSection: string, target: ConfigurationTarget): Promise<void> {
+	public async editSavedInput(inputId: string, folderData: WorkspaceInterfaceFolderData | undefined, configSection: string, target: ConfigurationTarget): Promise<void> {
 		const storage = this._getInputStorageInConfigTarget(target);
 		const expr = ConfigurationResolverExpression.parse(inputId);
 

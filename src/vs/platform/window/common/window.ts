@@ -17,7 +17,7 @@ import { ILoggerResource, LogLevel } from '../../log/common/log.js';
 import { PolicyDefinition, PolicyValue } from '../../policy/common/policy.js';
 import { IPartsSplash } from '../../theme/common/themeService.js';
 import { IUserDataProfile } from '../../userDataProfile/common/userDataProfile.js';
-import { IAnyWorkspaceIdentifier, ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface, SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 export const WindowMinimumSize = {
 	WIDTH: 400,
@@ -83,7 +83,7 @@ interface IOpenedWindow {
 }
 
 export interface IOpenedMainWindow extends IOpenedWindow {
-	readonly workspace?: IAnyWorkspaceIdentifier;
+	readonly workspace?: AnyWorkspaceIdentifierInterface;
 	readonly dirty: boolean;
 }
 
@@ -97,13 +97,13 @@ export function isOpenedAuxiliaryWindow(candidate: IOpenedMainWindow | IOpenedAu
 
 export interface IOpenEmptyWindowOptions extends IBaseOpenWindowsOptions { }
 
-export type IWindowOpenable = IWorkspaceToOpen | IFolderToOpen | IFileToOpen;
+export type IWindowOpenable = WorkspaceInterfaceToOpen | IFolderToOpen | IFileToOpen;
 
 export interface IBaseWindowOpenable {
 	label?: string;
 }
 
-export interface IWorkspaceToOpen extends IBaseWindowOpenable {
+export interface WorkspaceInterfaceToOpen extends IBaseWindowOpenable {
 	readonly workspaceUri: URI;
 }
 
@@ -115,8 +115,8 @@ export interface IFileToOpen extends IBaseWindowOpenable {
 	readonly fileUri: URI;
 }
 
-export function isWorkspaceToOpen(uriToOpen: IWindowOpenable): uriToOpen is IWorkspaceToOpen {
-	return !!(uriToOpen as IWorkspaceToOpen).workspaceUri;
+export function isWorkspaceToOpen(uriToOpen: IWindowOpenable): uriToOpen is WorkspaceInterfaceToOpen {
+	return !!(uriToOpen as WorkspaceInterfaceToOpen).workspaceUri;
 }
 
 export function isFolderToOpen(uriToOpen: IWindowOpenable): uriToOpen is IFolderToOpen {
@@ -328,7 +328,7 @@ export function useNativeFullScreen(configurationService: IConfigurationService)
 }
 
 
-export interface IPath<T = IEditorOptions> extends IPathData<T> {
+export interface PathInterface<T = IEditorOptions> extends PathInterfaceData<T> {
 
 	/**
 	 * The file path to open within the instance
@@ -336,7 +336,7 @@ export interface IPath<T = IEditorOptions> extends IPathData<T> {
 	fileUri?: URI;
 }
 
-export interface IPathData<T = IEditorOptions> {
+export interface PathInterfaceData<T = IEditorOptions> {
 
 	/**
 	 * The file path to open within the instance
@@ -368,20 +368,20 @@ export interface IPathData<T = IEditorOptions> {
 	readonly openOnlyIfExists?: boolean;
 }
 
-export interface IPathsToWaitFor extends IPathsToWaitForData {
-	paths: IPath[];
+export interface PathInterfacesToWaitFor extends PathInterfacesToWaitForData {
+	paths: PathInterface[];
 	waitMarkerFileUri: URI;
 }
 
-interface IPathsToWaitForData {
-	readonly paths: IPathData[];
+interface PathInterfacesToWaitForData {
+	readonly paths: PathInterfaceData[];
 	readonly waitMarkerFileUri: UriComponents;
 }
 
 export interface IOpenFileRequest {
-	readonly filesToOpenOrCreate?: IPathData[];
-	readonly filesToDiff?: IPathData[];
-	readonly filesToMerge?: IPathData[];
+	readonly filesToOpenOrCreate?: PathInterfaceData[];
+	readonly filesToDiff?: PathInterfaceData[];
+	readonly filesToMerge?: PathInterfaceData[];
 }
 
 /**
@@ -389,7 +389,7 @@ export interface IOpenFileRequest {
  */
 export interface INativeOpenFileRequest extends IOpenFileRequest {
 	readonly termProgram?: string;
-	readonly filesToWait?: IPathsToWaitForData;
+	readonly filesToWait?: PathInterfacesToWaitForData;
 }
 
 export interface INativeRunActionInWindowRequest {
@@ -410,9 +410,9 @@ export interface IColorScheme {
 export interface IWindowConfiguration {
 	remoteAuthority?: string;
 
-	filesToOpenOrCreate?: IPath[];
-	filesToDiff?: IPath[];
-	filesToMerge?: IPath[];
+	filesToOpenOrCreate?: PathInterface[];
+	filesToDiff?: PathInterface[];
+	filesToMerge?: PathInterface[];
 }
 
 export interface IOSConfiguration {
@@ -444,7 +444,7 @@ export interface INativeWindowConfiguration extends IWindowConfiguration, Native
 
 	partsSplash?: IPartsSplash;
 
-	workspace?: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier;
+	workspace?: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface;
 
 	isInitialStartup?: boolean;
 	logLevel: LogLevel;
@@ -460,7 +460,7 @@ export interface INativeWindowConfiguration extends IWindowConfiguration, Native
 
 	perfMarks: PerformanceMark[];
 
-	filesToWait?: IPathsToWaitFor;
+	filesToWait?: PathInterfacesToWaitFor;
 
 	os: IOSConfiguration;
 	policiesData?: IStringDictionary<{ definition: PolicyDefinition; value: PolicyValue }>;

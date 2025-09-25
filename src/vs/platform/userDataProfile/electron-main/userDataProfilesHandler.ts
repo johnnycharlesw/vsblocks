@@ -7,7 +7,7 @@ import { Disposable } from '../../../base/common/lifecycle.js';
 import { ILifecycleMainService, } from '../../lifecycle/electron-main/lifecycleMainService.js';
 import { ICodeWindow, LoadReason } from '../../window/electron-main/window.js';
 import { IUserDataProfilesMainService } from './userDataProfile.js';
-import { IAnyWorkspaceIdentifier, toWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface, toWorkspaceIdentifier } from '../../workspace/common/workspace.js';
 import { RunOnceScheduler } from '../../../base/common/async.js';
 import { IWindowsMainService } from '../../windows/electron-main/windows.js';
 
@@ -39,7 +39,7 @@ export class UserDataProfilesHandler extends Disposable {
 		}
 	}
 
-	private getWorkspace(window: ICodeWindow): IAnyWorkspaceIdentifier {
+	private getWorkspace(window: ICodeWindow): AnyWorkspaceIdentifierInterface {
 		return window.openedWorkspace ?? toWorkspaceIdentifier(window.backupPath, window.isExtensionDevelopmentHost);
 	}
 

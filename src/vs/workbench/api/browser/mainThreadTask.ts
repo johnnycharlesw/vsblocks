@@ -12,7 +12,7 @@ import * as Platform from '../../../base/common/platform.js';
 import { IStringDictionary } from '../../../base/common/collections.js';
 import { Disposable, IDisposable } from '../../../base/common/lifecycle.js';
 
-import { IWorkspace, IWorkspaceContextService, IWorkspaceFolder } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterface, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../platform/workspace/common/workspace.js';
 
 import {
 	ContributedTask, ConfiguringTask, KeyedTaskIdentifier, ITaskExecution, Task, ITaskEvent,
@@ -308,9 +308,9 @@ namespace TaskSourceDTO {
 		}
 		return result;
 	}
-	export function to(value: ITaskSourceDTO, workspace: IWorkspaceContextService): IExtensionTaskSource {
+	export function to(value: ITaskSourceDTO, workspace: WorkspaceContextServiceInterface): IExtensionTaskSource {
 		let scope: TaskScope;
-		let workspaceFolder: IWorkspaceFolder | undefined;
+		let workspaceFolder: WorkspaceInterfaceFolder | undefined;
 		if ((value.scope === undefined) || ((typeof value.scope === 'number') && (value.scope !== TaskScope.Global))) {
 			if (workspace.getWorkspace().folders.length === 0) {
 				scope = TaskScope.Global;
@@ -382,7 +382,7 @@ namespace TaskDTO {
 		return result;
 	}
 
-	export function to(task: ITaskDTO | undefined, workspace: IWorkspaceContextService, executeOnly: boolean, icon?: { id?: string; color?: string }, hide?: boolean): ContributedTask | undefined {
+	export function to(task: ITaskDTO | undefined, workspace: WorkspaceContextServiceInterface, executeOnly: boolean, icon?: { id?: string; color?: string }, hide?: boolean): ContributedTask | undefined {
 		if (!task || (typeof task.name !== 'string')) {
 			return undefined;
 		}
@@ -462,7 +462,7 @@ export class MainThreadTask extends Disposable implements MainThreadTaskShape {
 	constructor(
 		extHostContext: IExtHostContext,
 		@ITaskService private readonly _taskService: ITaskService,
-		@IWorkspaceContextService private readonly _workspaceContextServer: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextServer: WorkspaceContextServiceInterface,
 		@IConfigurationResolverService private readonly _configurationResolverService: IConfigurationResolverService
 	) {
 		super();
@@ -591,7 +591,7 @@ export class MainThreadTask extends Disposable implements MainThreadTaskShape {
 		});
 	}
 
-	private getWorkspace(value: UriComponents | string): string | IWorkspace | IWorkspaceFolder | null {
+	private getWorkspace(value: UriComponents | string): string | WorkspaceInterface | WorkspaceInterfaceFolder | null {
 		let workspace;
 		if (typeof value === 'string') {
 			workspace = value;
@@ -738,7 +738,7 @@ export class MainThreadTask extends Disposable implements MainThreadTaskShape {
 				return URI.from({ scheme: info.scheme, authority: info.authority, path });
 			},
 			context: this._extHostContext,
-			resolveVariables: (workspaceFolder: IWorkspaceFolder, toResolve: IResolveSet, target: ConfigurationTarget): Promise<IResolvedVariables | undefined> => {
+			resolveVariables: (workspaceFolder: WorkspaceInterfaceFolder, toResolve: IResolveSet, target: ConfigurationTarget): Promise<IResolvedVariables | undefined> => {
 				const vars: string[] = [];
 				toResolve.variables.forEach(item => vars.push(item));
 				return Promise.resolve(this._proxy.$resolveVariables(workspaceFolder.uri, { process: toResolve.process, variables: vars })).then(values => {

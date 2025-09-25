@@ -9,11 +9,11 @@ import { Disposable } from '../../../base/common/lifecycle.js';
 import { basename, joinPath } from '../../../base/common/resources.js';
 import { URI, UriDto } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { FileOperationResult, IFileService, toFileOperationResult } from '../../files/common/files.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { ILogService } from '../../log/common/log.js';
-import { IAnyWorkspaceIdentifier, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier } from '../../workspace/common/workspace.js';
 import { IStringDictionary } from '../../../base/common/collections.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { Promises } from '../../../base/common/async.js';
@@ -113,13 +113,13 @@ export interface IUserDataProfilesService {
 
 	readonly onDidResetWorkspaces: Event<void>;
 
-	createNamedProfile(name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile>;
-	createTransientProfile(workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile>;
-	createProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile>;
+	createNamedProfile(name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile>;
+	createTransientProfile(workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile>;
+	createProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile>;
 	updateProfile(profile: IUserDataProfile, options?: IUserDataProfileUpdateOptions,): Promise<IUserDataProfile>;
 	removeProfile(profile: IUserDataProfile): Promise<void>;
 
-	setProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, profile: IUserDataProfile): Promise<void>;
+	setProfileForWorkspace(workspaceIdentifier: AnyWorkspaceIdentifierInterface, profile: IUserDataProfile): Promise<void>;
 	resetWorkspaces(): Promise<void>;
 
 	cleanUp(): Promise<void>;
@@ -220,7 +220,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 	};
 
 	constructor(
-		@IEnvironmentService protected readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface protected readonly environmentService: EnvironmentServiceInterface,
 		@IFileService protected readonly fileService: IFileService,
 		@IUriIdentityService protected readonly uriIdentityService: IUriIdentityService,
 		@ILogService protected readonly logService: ILogService
@@ -287,7 +287,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		return { ...defaultProfile, extensionsResource: this.getDefaultProfileExtensionsLocation() ?? defaultProfile.extensionsResource, isDefault: true };
 	}
 
-	async createTransientProfile(workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile> {
+	async createTransientProfile(workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile> {
 		const namePrefix = `Temp`;
 		const nameRegEx = new RegExp(`${escapeRegExpCharacters(namePrefix)}\\s(\\d+)`);
 		let nameIndex = 0;
@@ -300,17 +300,17 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		return this.createProfile(hash(generateUuid()).toString(16), name, { transient: true }, workspaceIdentifier);
 	}
 
-	async createNamedProfile(name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile> {
+	async createNamedProfile(name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile> {
 		return this.createProfile(hash(generateUuid()).toString(16), name, options, workspaceIdentifier);
 	}
 
-	async createProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile> {
+	async createProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile> {
 		const profile = await this.doCreateProfile(id, name, options, workspaceIdentifier);
 
 		return profile;
 	}
 
-	private async doCreateProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile> {
+	private async doCreateProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: AnyWorkspaceIdentifierInterface): Promise<IUserDataProfile> {
 		if (!isString(name) || !name) {
 			throw new Error('Name of the profile is mandatory and must be of type `string`');
 		}
@@ -437,7 +437,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		}
 	}
 
-	async setProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, profileToSet: IUserDataProfile): Promise<void> {
+	async setProfileForWorkspace(workspaceIdentifier: AnyWorkspaceIdentifierInterface, profileToSet: IUserDataProfile): Promise<void> {
 		const profile = this.profiles.find(p => p.id === profileToSet.id);
 		if (!profile) {
 			throw new Error(`Profile '${profileToSet.name}' does not exist`);
@@ -456,7 +456,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		}
 	}
 
-	unsetWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, transient: boolean = false): void {
+	unsetWorkspace(workspaceIdentifier: AnyWorkspaceIdentifierInterface, transient: boolean = false): void {
 		const workspace = this.getWorkspace(workspaceIdentifier);
 		if (URI.isUri(workspace)) {
 			const currentlyAssociatedProfile = this.getProfileForWorkspace(workspaceIdentifier);
@@ -493,14 +493,14 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		await Promise.allSettled(unAssociatedTransientProfiles.map(p => this.removeProfile(p)));
 	}
 
-	getProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier): IUserDataProfile | undefined {
+	getProfileForWorkspace(workspaceIdentifier: AnyWorkspaceIdentifierInterface): IUserDataProfile | undefined {
 		const workspace = this.getWorkspace(workspaceIdentifier);
 		return URI.isUri(workspace)
 			? this.profiles.find(p => p.workspaces?.some(w => this.uriIdentityService.extUri.isEqual(w, workspace)))
 			: (this.profilesObject.emptyWindows.get(workspace) ?? this.transientProfilesObject.emptyWindows.get(workspace));
 	}
 
-	protected getWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier): URI | string {
+	protected getWorkspace(workspaceIdentifier: AnyWorkspaceIdentifierInterface): URI | string {
 		if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
 			return workspaceIdentifier.uri;
 		}

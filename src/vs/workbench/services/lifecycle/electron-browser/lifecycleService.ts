@@ -5,7 +5,7 @@
 
 import { handleVetos } from '../../../../platform/lifecycle/common/lifecycle.js';
 import { ShutdownReason, ILifecycleService, IWillShutdownEventJoiner, WillShutdownJoinerOrder } from '../common/lifecycle.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ipcRenderer } from '../../../../base/parts/sandbox/electron-browser/globals.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { AbstractLifecycleService } from '../common/lifecycleService.js';
@@ -22,7 +22,7 @@ export class NativeLifecycleService extends AbstractLifecycleService {
 
 	constructor(
 		@INativeHostService private readonly nativeHostService: INativeHostService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILogService logService: ILogService
 	) {
 		super(logService, storageService);

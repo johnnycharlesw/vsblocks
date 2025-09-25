@@ -138,7 +138,7 @@ flakySuite('RawSearchService', () => {
 	});
 
 	test('Collect batched results', async function () {
-		const uriPath = '/some/where';
+		const urPathInterface = '/some/where';
 		let i = 25;
 		const Engine = TestSearchEngine.bind(null, () => i-- ? rawMatch : null);
 		const service = new RawSearchService();
@@ -161,7 +161,7 @@ flakySuite('RawSearchService', () => {
 
 		const result = await collectResultsFromEvent(fileSearch(rawSearch, 10));
 		result.files.forEach(f => {
-			assert.strictEqual(f.path.replace(/\\/g, '/'), uriPath);
+			assert.strictEqual(f.path.replace(/\\/g, '/'), urPathInterface);
 		});
 		assert.strictEqual(result.files.length, 25, 'Result');
 	});

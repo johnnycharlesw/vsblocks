@@ -6,7 +6,7 @@
 import { Schemas } from '../../../../base/common/network.js';
 import { env } from '../../../../base/common/process.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { IConfigurationResolverService } from '../../../services/configurationResolver/common/configurationResolver.js';
 import { IHistoryService } from '../../../services/history/common/history.js';
 import { IProcessEnvironment, OperatingSystem, OS } from '../../../../base/common/platform.js';
@@ -52,7 +52,7 @@ export abstract class BaseTerminalProfileResolverService extends Disposable impl
 		private readonly _historyService: IHistoryService,
 		private readonly _logService: ITerminalLogService,
 		private readonly _terminalProfileService: ITerminalProfileService,
-		private readonly _workspaceContextService: IWorkspaceContextService,
+		private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 		private readonly _remoteAgentService: IRemoteAgentService
 	) {
 		super();
@@ -313,7 +313,7 @@ export abstract class BaseTerminalProfileResolverService extends Disposable impl
 		return profile;
 	}
 
-	private async _resolveVariables(value: string, env: IProcessEnvironment, lastActiveWorkspace: IWorkspaceFolder | undefined) {
+	private async _resolveVariables(value: string, env: IProcessEnvironment, lastActiveWorkspace: WorkspaceInterfaceFolder | undefined) {
 		try {
 			value = await this._configurationResolverService.resolveWithEnvironment(env, lastActiveWorkspace, value);
 		} catch (e) {
@@ -367,7 +367,7 @@ export class BrowserTerminalProfileResolverService extends BaseTerminalProfileRe
 		@ITerminalLogService logService: ITerminalLogService,
 		@ITerminalInstanceService terminalInstanceService: ITerminalInstanceService,
 		@ITerminalProfileService terminalProfileService: ITerminalProfileService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService
 	) {
 		super(

@@ -14,7 +14,7 @@ import { ProcessExplorerEditorInput } from './processExplorerEditorInput.js';
 import { Action2, MenuId, MenuRegistry, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { Categories } from '../../../../platform/action/common/actionCommonCategories.js';
 import { AUX_WINDOW_GROUP, IEditorService } from '../../../services/editor/common/editorService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IRectangle } from '../../../../platform/window/common/window.js';
 import { IAuxiliaryWindowService } from '../../../services/auxiliaryWindow/browser/auxiliaryWindowService.js';
 import { IEditorGroupsService } from '../../../services/editor/common/editorGroupsService.js';
@@ -107,7 +107,7 @@ class OpenProcessExplorer extends Action2 {
 		const editorService = accessor.get(IEditorService);
 		const editorGroupService = accessor.get(IEditorGroupsService);
 		const auxiliaryWindowService = accessor.get(IAuxiliaryWindowService);
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 
 		const pane = await editorService.openEditor({
 			resource: ProcessExplorerEditorInput.RESOURCE,
@@ -130,7 +130,7 @@ class OpenProcessExplorer extends Action2 {
 		}
 	}
 
-	private loadState(storageService: IStorageService): IProcessExplorerWindowState {
+	private loadState(storageService: StorageServiceInterface): IProcessExplorerWindowState {
 		const stateRaw = storageService.get(OpenProcessExplorer.STATE_KEY, StorageScope.APPLICATION);
 		if (!stateRaw) {
 			return OpenProcessExplorer.DEFAULT_STATE;
@@ -143,7 +143,7 @@ class OpenProcessExplorer extends Action2 {
 		}
 	}
 
-	private saveState(group: GroupIdentifier, storageService: IStorageService, editorGroupService: IEditorGroupsService, auxiliaryWindowService: IAuxiliaryWindowService): void {
+	private saveState(group: GroupIdentifier, storageService: StorageServiceInterface, editorGroupService: IEditorGroupsService, auxiliaryWindowService: IAuxiliaryWindowService): void {
 		const auxiliaryWindow = auxiliaryWindowService.getWindow(editorGroupService.getPart(group).windowId);
 		if (!auxiliaryWindow) {
 			return;

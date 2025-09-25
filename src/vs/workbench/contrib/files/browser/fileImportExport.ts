@@ -19,9 +19,9 @@ import { ResourceFileEdit } from '../../../../editor/browser/services/bulkEditSe
 import { ExplorerItem } from '../common/explorerModel.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IHostService } from '../../../services/host/browser/host.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { extractEditorsAndFilesDropData } from '../../../../platform/dnd/browser/dnd.js';
-import { IWorkspaceEditingService } from '../../../services/workspaces/common/workspaceEditing.js';
+import { WorkspaceInterfaceEditingService } from '../../../services/workspaces/common/workspaceEditing.js';
 import { isWeb } from '../../../../base/common/platform.js';
 import { getActiveWindow, isDragEvent, triggerDownload } from '../../../../base/browser/dom.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
@@ -34,7 +34,7 @@ import { canceled } from '../../../../base/common/errors.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { WebFileSystemAccess } from '../../../../platform/files/browser/webFileSystemAccess.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 
 //#region Browser File Upload (drag and drop, input element)
 
@@ -389,10 +389,10 @@ export class ExternalFileImport {
 	constructor(
 		@IFileService private readonly fileService: IFileService,
 		@IHostService private readonly hostService: IHostService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IDialogService private readonly dialogService: IDialogService,
-		@IWorkspaceEditingService private readonly workspaceEditingService: IWorkspaceEditingService,
+		@WorkspaceInterfaceEditingService private readonly workspaceEditingService: WorkspaceInterfaceEditingService,
 		@IExplorerService private readonly explorerService: IExplorerService,
 		@IEditorService private readonly editorService: IEditorService,
 		@IProgressService private readonly progressService: IProgressService,
@@ -599,7 +599,7 @@ export class FileDownload {
 		@IProgressService private readonly progressService: IProgressService,
 		@ILogService private readonly logService: ILogService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 	}
 

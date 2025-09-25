@@ -6,9 +6,9 @@
 import { deepStrictEqual, ok, strictEqual } from 'assert';
 import { DisposableStore } from '../../../../base/common/lifecycle.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
-import { InMemoryStorageService, IStorageService, IStorageTargetChangeEvent, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../common/storage.js';
+import { InMemoryStorageService, StorageServiceInterface, IStorageTargetChangeEvent, IStorageValueChangeEvent, StorageScope, StorageTarget } from '../../common/storage.js';
 
-export function createSuite<T extends IStorageService>(params: { setup: () => Promise<T>; teardown: (service: T) => Promise<void> }): void {
+export function createSuite<T extends StorageServiceInterface>(params: { setup: () => Promise<T>; teardown: (service: T) => Promise<void> }): void {
 
 	let storageService: T;
 

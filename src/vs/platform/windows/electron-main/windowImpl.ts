@@ -32,10 +32,10 @@ import { IApplicationStorageMainService, IStorageMainService } from '../../stora
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { ThemeIcon } from '../../../base/common/themables.js';
 import { IThemeMainService } from '../../theme/electron-main/themeMainService.js';
-import { getMenuBarVisibility, IFolderToOpen, INativeWindowConfiguration, IWindowSettings, IWorkspaceToOpen, MenuBarVisibility, hasNativeTitlebar, useNativeFullScreen, useWindowControlsOverlay, DEFAULT_CUSTOM_TITLEBAR_HEIGHT, TitlebarStyle, MenuSettings } from '../../window/common/window.js';
+import { getMenuBarVisibility, IFolderToOpen, INativeWindowConfiguration, IWindowSettings, WorkspaceInterfaceToOpen, MenuBarVisibility, hasNativeTitlebar, useNativeFullScreen, useWindowControlsOverlay, DEFAULT_CUSTOM_TITLEBAR_HEIGHT, TitlebarStyle, MenuSettings } from '../../window/common/window.js';
 import { defaultBrowserWindowOptions, getAllWindowsExcludingOffscreen, IWindowsMainService, OpenContext, WindowStateValidator } from './windows.js';
-import { ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, toWorkspaceIdentifier } from '../../workspace/common/workspace.js';
-import { IWorkspacesManagementMainService } from '../../workspaces/electron-main/workspacesManagementMainService.js';
+import { SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, toWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { WorkspaceInterfacesManagementMainService } from '../../workspaces/electron-main/workspacesManagementMainService.js';
 import { IWindowState, ICodeWindow, ILoadEvent, WindowMode, WindowError, LoadReason, defaultWindowState, IBaseWindow } from '../../window/electron-main/window.js';
 import { IPolicyService } from '../../policy/common/policy.js';
 import { IUserDataProfile } from '../../userDataProfile/common/userDataProfile.js';
@@ -576,7 +576,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 
 	get backupPath(): string | undefined { return this._config?.backupPath; }
 
-	get openedWorkspace(): IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined { return this._config?.workspace; }
+	get openedWorkspace(): WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined { return this._config?.workspace; }
 
 	get profile(): IUserDataProfile | undefined {
 		if (!this.config) {
@@ -637,7 +637,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 		@IStorageMainService private readonly storageMainService: IStorageMainService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IThemeMainService private readonly themeMainService: IThemeMainService,
-		@IWorkspacesManagementMainService private readonly workspacesManagementMainService: IWorkspacesManagementMainService,
+		@WorkspaceInterfacesManagementMainService private readonly workspacesManagementMainService: WorkspaceInterfacesManagementMainService,
 		@IBackupMainService private readonly backupMainService: IBackupMainService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@IDialogMainService private readonly dialogMainService: IDialogMainService,
@@ -998,7 +998,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 			if (reopen && this._config) {
 
 				// We have to reconstruct a openable from the current workspace
-				let uriToOpen: IWorkspaceToOpen | IFolderToOpen | undefined = undefined;
+				let uriToOpen: WorkspaceInterfaceToOpen | IFolderToOpen | undefined = undefined;
 				let forceEmpty = undefined;
 				if (isSingleFolderWorkspaceIdentifier(workspace)) {
 					uriToOpen = { folderUri: workspace.uri };
@@ -1031,7 +1031,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 		}
 	}
 
-	private onDidDeleteUntitledWorkspace(workspace: IWorkspaceIdentifier): void {
+	private onDidDeleteUntitledWorkspace(workspace: WorkspaceIdentifierInterface): void {
 
 		// Make sure to update our workspace config if we detect that it
 		// was deleted
@@ -1252,7 +1252,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 		this.load(configuration, { isReload: true, disableExtensions: cli?.['disable-extensions'] });
 	}
 
-	private async validateWorkspaceBeforeReload(configuration: INativeWindowConfiguration): Promise<IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | undefined> {
+	private async validateWorkspaceBeforeReload(configuration: INativeWindowConfiguration): Promise<WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | undefined> {
 
 		// Multi folder
 		if (isWorkspaceIdentifier(configuration.workspace)) {

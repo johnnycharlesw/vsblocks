@@ -10,7 +10,7 @@ import { ITelemetryService } from '../../../../platform/telemetry/common/telemet
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { CancellationToken } from '../../../../base/common/cancellation.js';
 import { IEditorGroup, IEditorGroupsService } from '../../../services/editor/common/editorGroupsService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { LRUCache, Touch } from '../../../../base/common/map.js';
 import { URI } from '../../../../base/common/uri.js';
 import { Emitter, Event } from '../../../../base/common/event.js';
@@ -83,7 +83,7 @@ export abstract class EditorPane extends Composite implements IEditorPane {
 		readonly group: IEditorGroup,
 		telemetryService: ITelemetryService,
 		themeService: IThemeService,
-		storageService: IStorageService
+		storageService: StorageServiceInterface
 	) {
 		super(id, telemetryService, themeService, storageService);
 	}

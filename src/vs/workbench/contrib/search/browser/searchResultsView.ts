@@ -15,7 +15,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { FileKind } from '../../../../platform/files/common/files.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { ISearchConfigurationProperties } from '../../../services/search/common/search.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IResourceLabel, ResourceLabels } from '../../../browser/labels.js';
 import { SearchView } from './searchView.js';
 import { isEqual } from '../../../../base/common/resources.js';
@@ -104,7 +104,7 @@ export class TextSearchResultRenderer extends Disposable implements ICompressibl
 
 	constructor(
 		private labels: ResourceLabels,
-		@IWorkspaceContextService protected contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected contextService: WorkspaceContextServiceInterface,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 	) {
@@ -178,7 +178,7 @@ export class FolderMatchRenderer extends Disposable implements ICompressibleTree
 	constructor(
 		private searchView: SearchView,
 		private labels: ResourceLabels,
-		@IWorkspaceContextService protected contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected contextService: WorkspaceContextServiceInterface,
 		@ILabelService private readonly labelService: ILabelService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
@@ -295,7 +295,7 @@ export class FileMatchRenderer extends Disposable implements ICompressibleTreeRe
 	constructor(
 		private searchView: SearchView,
 		private labels: ResourceLabels,
-		@IWorkspaceContextService protected contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
@@ -386,7 +386,7 @@ export class MatchRenderer extends Disposable implements ICompressibleTreeRender
 
 	constructor(
 		private searchView: SearchView,
-		@IWorkspaceContextService protected contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface protected contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,

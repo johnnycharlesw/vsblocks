@@ -9,16 +9,16 @@ import { Emitter, Event } from '../../../../base/common/event.js';
 import { parse, stringify } from '../../../../base/common/marshalling.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
-import { IStorageEntry, IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { IStorageEntry, StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IUserDataProfile } from '../../../../platform/userDataProfile/common/userDataProfile.js';
 import { AbstractSynchroniser, IAcceptResult, IMergeResult, IResourcePreview, ISyncResourcePreview } from '../../../../platform/userDataSync/common/abstractSynchronizer.js';
-import { IRemoteUserData, IResourceRefHandle, IUserDataSyncLocalStoreService, IUserDataSyncConfiguration, IUserDataSyncEnablementService, IUserDataSyncLogService, IUserDataSyncStoreService, IUserDataSynchroniser, IWorkspaceState, SyncResource, IUserDataSyncResourcePreview } from '../../../../platform/userDataSync/common/userDataSync.js';
+import { IRemoteUserData, IResourceRefHandle, IUserDataSyncLocalStoreService, IUserDataSyncConfiguration, IUserDataSyncEnablementService, IUserDataSyncLogService, IUserDataSyncStoreService, IUserDataSynchroniser, WorkspaceInterfaceState, SyncResource, IUserDataSyncResourcePreview } from '../../../../platform/userDataSync/common/userDataSync.js';
 import { EditSession, IEditSessionsStorageService } from './editSessions.js';
-import { IWorkspaceIdentityService } from '../../../services/workspaces/common/workspaceIdentityService.js';
+import { WorkspaceInterfaceIdentityService } from '../../../services/workspaces/common/workspaceIdentityService.js';
 
 
 class NullBackupStoreService implements IUserDataSyncLocalStoreService {
@@ -63,12 +63,12 @@ export class WorkspaceStateSynchroniser extends AbstractSynchroniser implements 
 		userDataSyncStoreService: IUserDataSyncStoreService,
 		logService: IUserDataSyncLogService,
 		@IFileService fileService: IFileService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@IWorkspaceIdentityService private readonly workspaceIdentityService: IWorkspaceIdentityService,
+		@WorkspaceInterfaceIdentityService private readonly workspaceIdentityService: WorkspaceInterfaceIdentityService,
 		@IEditSessionsStorageService private readonly editSessionsStorageService: IEditSessionsStorageService,
 	) {
 		const userDataSyncLocalStoreService = new NullBackupStoreService();
@@ -99,7 +99,7 @@ export class WorkspaceStateSynchroniser extends AbstractSynchroniser implements 
 			}
 		});
 
-		const content: IWorkspaceState = { folders, storage: contributedData, version: this.version };
+		const content: WorkspaceInterfaceState = { folders, storage: contributedData, version: this.version };
 		await this.editSessionsStorageService.write('workspaceState', stringify(content));
 		return null;
 	}
@@ -113,7 +113,7 @@ export class WorkspaceStateSynchroniser extends AbstractSynchroniser implements 
 			return null;
 		}
 
-		const remoteWorkspaceState: IWorkspaceState = parse(resource.content);
+		const remoteWorkspaceState: WorkspaceInterfaceState = parse(resource.content);
 		if (!remoteWorkspaceState) {
 			this.logService.info('Skipping initializing workspace state because remote workspace state does not exist.');
 			return null;

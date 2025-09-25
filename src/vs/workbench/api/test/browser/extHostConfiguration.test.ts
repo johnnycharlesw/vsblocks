@@ -11,7 +11,7 @@ import { MainThreadConfigurationShape, IConfigurationInitData } from '../../comm
 import { ConfigurationModel, ConfigurationModelParser } from '../../../../platform/configuration/common/configurationModels.js';
 import { TestRPCProtocol } from '../common/testRPCProtocol.js';
 import { mock } from '../../../../base/test/common/mock.js';
-import { IWorkspaceFolder, WorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder, WorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { ConfigurationTarget, IConfigurationModel, IConfigurationChange } from '../../../../platform/configuration/common/configuration.js';
 import { NullLogService } from '../../../../platform/log/common/log.js';
 import { IExtHostInitDataService } from '../../common/extHostInitDataService.js';
@@ -885,7 +885,7 @@ suite('ExtHostConfiguration', function () {
 		assert.deepStrictEqual(actual, []);
 	});
 
-	function aWorkspaceFolder(uri: URI, index: number, name: string = ''): IWorkspaceFolder {
+	function aWorkspaceFolder(uri: URI, index: number, name: string = ''): WorkspaceInterfaceFolder {
 		return new WorkspaceFolder({ uri, name, index });
 	}
 

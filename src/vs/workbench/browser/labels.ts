@@ -8,7 +8,7 @@ import { URI } from '../../base/common/uri.js';
 import { dirname, isEqual, basenameOrAuthority } from '../../base/common/resources.js';
 import { IconLabel, IIconLabelValueOptions, IIconLabelCreationOptions } from '../../base/browser/ui/iconLabel/iconLabel.js';
 import { ILanguageService } from '../../editor/common/languages/language.js';
-import { IWorkspaceContextService } from '../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../platform/workspace/common/workspace.js';
 import { IConfigurationService } from '../../platform/configuration/common/configuration.js';
 import { IModelService } from '../../editor/common/services/model.js';
 import { ITextFileService } from '../services/textfile/common/textfiles.js';
@@ -135,7 +135,7 @@ export class ResourceLabels extends Disposable {
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IModelService private readonly modelService: IModelService,
-		@IWorkspaceContextService private readonly workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceService: WorkspaceContextServiceInterface,
 		@ILanguageService private readonly languageService: ILanguageService,
 		@IDecorationsService private readonly decorationsService: IDecorationsService,
 		@IThemeService private readonly themeService: IThemeService,
@@ -277,7 +277,7 @@ export class ResourceLabel extends ResourceLabels {
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IModelService modelService: IModelService,
-		@IWorkspaceContextService workspaceService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceService: WorkspaceContextServiceInterface,
 		@ILanguageService languageService: ILanguageService,
 		@IDecorationsService decorationsService: IDecorationsService,
 		@IThemeService themeService: IThemeService,
@@ -320,7 +320,7 @@ class ResourceLabelWidget extends IconLabel {
 		@IDecorationsService private readonly decorationsService: IDecorationsService,
 		@ILabelService private readonly labelService: ILabelService,
 		@ITextFileService private readonly textFileService: ITextFileService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@INotebookDocumentService private readonly notebookDocumentService: INotebookDocumentService
 	) {
 		super(container, options);

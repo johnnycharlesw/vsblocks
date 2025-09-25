@@ -9,7 +9,7 @@ import { UriDto } from '../../../base/common/uri.js';
 import { IChannel } from '../../../base/parts/ipc/common/ipc.js';
 import { IStorageDatabase, IStorageItemsChangeEvent, IUpdateRequest } from '../../../base/parts/storage/common/storage.js';
 import { IUserDataProfile } from '../../userDataProfile/common/userDataProfile.js';
-import { ISerializedSingleFolderWorkspaceIdentifier, ISerializedWorkspaceIdentifier, IEmptyWorkspaceIdentifier, IAnyWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { ISerializedSingleFolderWorkspaceIdentifier, ISerializedWorkspaceIdentifier, EmptyWorkspaceIdentifierInterface, AnyWorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 export type Key = string;
 export type Value = string;
@@ -28,7 +28,7 @@ export interface IBaseSerializableStorageRequest {
 	 * Workspace to correlate storage. Can be undefined to
 	 * denote application or profile scope depending on profile.
 	 */
-	readonly workspace: ISerializedWorkspaceIdentifier | ISerializedSingleFolderWorkspaceIdentifier | IEmptyWorkspaceIdentifier | undefined;
+	readonly workspace: ISerializedWorkspaceIdentifier | ISerializedSingleFolderWorkspaceIdentifier | EmptyWorkspaceIdentifierInterface | undefined;
 
 	/**
 	 * Additional payload for the request to perform.
@@ -53,7 +53,7 @@ abstract class BaseStorageDatabaseClient extends Disposable implements IStorageD
 	constructor(
 		protected channel: IChannel,
 		protected profile: UriDto<IUserDataProfile> | undefined,
-		protected workspace: IAnyWorkspaceIdentifier | undefined
+		protected workspace: AnyWorkspaceIdentifierInterface | undefined
 	) {
 		super();
 	}
@@ -150,7 +150,7 @@ export class WorkspaceStorageDatabaseClient extends BaseStorageDatabaseClient im
 
 	readonly onDidChangeItemsExternal = Event.None; // unsupported for workspace storage because we only ever write from one window
 
-	constructor(channel: IChannel, workspace: IAnyWorkspaceIdentifier) {
+	constructor(channel: IChannel, workspace: AnyWorkspaceIdentifierInterface) {
 		super(channel, undefined, workspace);
 	}
 

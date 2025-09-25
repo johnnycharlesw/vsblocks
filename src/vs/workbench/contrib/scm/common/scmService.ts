@@ -8,13 +8,13 @@ import { Event, Emitter } from '../../../../base/common/event.js';
 import { ISCMService, ISCMProvider, ISCMInput, ISCMRepository, IInputValidator, ISCMInputChangeEvent, SCMInputChangeReason, InputValidationType, IInputValidation } from './scm.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IContextKey, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { HistoryNavigator2 } from '../../../../base/common/history.js';
 import { IMarkdownString } from '../../../../base/common/htmlContent.js';
 import { ResourceMap } from '../../../../base/common/map.js';
 import { URI } from '../../../../base/common/uri.js';
 import { Iterable } from '../../../../base/common/iterator.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { runOnChange } from '../../../../base/common/observable.js';
@@ -225,8 +225,8 @@ class SCMInputHistory {
 	readonly onWillSaveHistory = this._onWillSaveHistory.event;
 
 	constructor(
-		@IStorageService private storageService: IStorageService,
-		@IWorkspaceContextService private workspaceContextService: IWorkspaceContextService,
+		@StorageServiceInterface private storageService: StorageServiceInterface,
+		@WorkspaceContextServiceInterface private workspaceContextService: WorkspaceContextServiceInterface,
 	) {
 		this.histories = new Map();
 
@@ -366,9 +366,9 @@ export class SCMService implements ISCMService {
 
 	constructor(
 		@ILogService private readonly logService: ILogService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@IContextKeyService contextKeyService: IContextKeyService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService
 	) {
 		this.inputHistory = new SCMInputHistory(storageService, workspaceContextService);

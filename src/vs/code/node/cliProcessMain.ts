@@ -19,7 +19,7 @@ import { ConfigurationService } from '../../platform/configuration/common/config
 import { IDownloadService } from '../../platform/download/common/download.js';
 import { DownloadService } from '../../platform/download/common/downloadService.js';
 import { NativeParsedArgs } from '../../platform/environment/common/argv.js';
-import { INativeEnvironmentService } from '../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../platform/environment/common/environment.js';
 import { NativeEnvironmentService } from '../../platform/environment/node/environmentService.js';
 import { ExtensionGalleryServiceWithNoStorageService } from '../../platform/extensionManagement/common/extensionGalleryService.js';
 import { IAllowedExtensionsService, IExtensionGalleryService, InstallOptions } from '../../platform/extensionManagement/common/extensionManagement.js';
@@ -100,7 +100,7 @@ class CliMain extends Disposable {
 		return instantiationService.invokeFunction(async accessor => {
 			const logService = accessor.get(ILogService);
 			const fileService = accessor.get(IFileService);
-			const environmentService = accessor.get(INativeEnvironmentService);
+			const environmentService = accessor.get(NativeEnvironmentServiceInterface);
 			const userDataProfilesService = accessor.get(IUserDataProfilesService);
 
 			// Log info
@@ -129,7 +129,7 @@ class CliMain extends Disposable {
 
 		// Environment
 		const environmentService = new NativeEnvironmentService(this.argv, productService);
-		services.set(INativeEnvironmentService, environmentService);
+		services.set(NativeEnvironmentServiceInterface, environmentService);
 
 		// Init folders
 		await Promise.all([
@@ -294,7 +294,7 @@ class CliMain extends Disposable {
 		process.on('unhandledRejection', (reason: unknown) => onUnexpectedError(reason));
 	}
 
-	private async doRun(environmentService: INativeEnvironmentService, fileService: IFileService, userDataProfilesService: IUserDataProfilesService, instantiationService: IInstantiationService): Promise<void> {
+	private async doRun(environmentService: NativeEnvironmentServiceInterface, fileService: IFileService, userDataProfilesService: IUserDataProfilesService, instantiationService: IInstantiationService): Promise<void> {
 		let profile: IUserDataProfile | undefined = undefined;
 		if (environmentService.args.profile) {
 			profile = userDataProfilesService.profiles.find(p => p.name === environmentService.args.profile);

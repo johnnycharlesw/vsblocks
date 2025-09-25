@@ -33,7 +33,7 @@ import * as callh from '../../contrib/callHierarchy/common/callHierarchy.js';
 import * as search from '../../contrib/search/common/search.js';
 import * as typeh from '../../contrib/typeHierarchy/common/typeHierarchy.js';
 import { extHostNamedCustomer, IExtHostContext } from '../../services/extensions/common/extHostCustomers.js';
-import { ExtHostContext, ExtHostLanguageFeaturesShape, HoverWithId, ICallHierarchyItemDto, ICodeActionDto, ICodeActionProviderMetadataDto, IdentifiableInlineCompletion, IdentifiableInlineCompletions, IDocumentDropEditDto, IDocumentDropEditProviderMetadata, IDocumentFilterDto, IIndentationRuleDto, IInlayHintDto, ILanguageConfigurationDto, ILanguageWordDefinitionDto, ILinkDto, ILocationDto, ILocationLinkDto, IOnEnterRuleDto, IPasteEditDto, IPasteEditProviderMetadataDto, IRegExpDto, ISignatureHelpProviderMetadataDto, ISuggestDataDto, ISuggestDataDtoField, ISuggestResultDtoField, ITypeHierarchyItemDto, IWorkspaceSymbolDto, MainContext, MainThreadLanguageFeaturesShape } from '../common/extHost.protocol.js';
+import { ExtHostContext, ExtHostLanguageFeaturesShape, HoverWithId, ICallHierarchyItemDto, ICodeActionDto, ICodeActionProviderMetadataDto, IdentifiableInlineCompletion, IdentifiableInlineCompletions, IDocumentDropEditDto, IDocumentDropEditProviderMetadata, IDocumentFilterDto, IIndentationRuleDto, IInlayHintDto, ILanguageConfigurationDto, ILanguageWordDefinitionDto, ILinkDto, ILocationDto, ILocationLinkDto, IOnEnterRuleDto, IPasteEditDto, IPasteEditProviderMetadataDto, IRegExpDto, ISignatureHelpProviderMetadataDto, ISuggestDataDto, ISuggestDataDtoField, ISuggestResultDtoField, ITypeHierarchyItemDto, WorkspaceInterfaceSymbolDto, MainContext, MainThreadLanguageFeaturesShape } from '../common/extHost.protocol.js';
 import { InlineCompletionEndOfLifeReasonKind } from '../common/extHostTypes.js';
 import { IInstantiationService } from '../../../platform/instantiation/common/instantiation.js';
 import { DataChannelForwardingTelemetryService, forwardToChannelIf, isCopilotLikeExtension } from '../../contrib/editTelemetry/browser/telemetry/forwardingTelemetryService.js';
@@ -130,18 +130,18 @@ export class MainThreadLanguageFeatures extends Disposable implements MainThread
 		}
 	}
 
-	private static _reviveWorkspaceSymbolDto(data: IWorkspaceSymbolDto): search.IWorkspaceSymbol;
-	private static _reviveWorkspaceSymbolDto(data: IWorkspaceSymbolDto[]): search.IWorkspaceSymbol[];
+	private static _reviveWorkspaceSymbolDto(data: WorkspaceInterfaceSymbolDto): search.WorkspaceInterfaceSymbol;
+	private static _reviveWorkspaceSymbolDto(data: WorkspaceInterfaceSymbolDto[]): search.WorkspaceInterfaceSymbol[];
 	private static _reviveWorkspaceSymbolDto(data: undefined): undefined;
-	private static _reviveWorkspaceSymbolDto(data: IWorkspaceSymbolDto | IWorkspaceSymbolDto[] | undefined): search.IWorkspaceSymbol | search.IWorkspaceSymbol[] | undefined {
+	private static _reviveWorkspaceSymbolDto(data: WorkspaceInterfaceSymbolDto | WorkspaceInterfaceSymbolDto[] | undefined): search.WorkspaceInterfaceSymbol | search.WorkspaceInterfaceSymbol[] | undefined {
 		if (!data) {
 			return <undefined>data;
 		} else if (Array.isArray(data)) {
 			data.forEach(MainThreadLanguageFeatures._reviveWorkspaceSymbolDto);
-			return <search.IWorkspaceSymbol[]>data;
+			return <search.WorkspaceInterfaceSymbol[]>data;
 		} else {
 			data.location = MainThreadLanguageFeatures._reviveLocationDto(data.location);
-			return <search.IWorkspaceSymbol>data;
+			return <search.WorkspaceInterfaceSymbol>data;
 		}
 	}
 
@@ -488,8 +488,8 @@ export class MainThreadLanguageFeatures extends Disposable implements MainThread
 	$registerNavigateTypeSupport(handle: number, supportsResolve: boolean): void {
 		let lastResultId: number | undefined;
 
-		const provider: search.IWorkspaceSymbolProvider = {
-			provideWorkspaceSymbols: async (search: string, token: CancellationToken): Promise<search.IWorkspaceSymbol[]> => {
+		const provider: search.WorkspaceInterfaceSymbolProvider = {
+			provideWorkspaceSymbols: async (search: string, token: CancellationToken): Promise<search.WorkspaceInterfaceSymbol[]> => {
 				const result = await this._proxy.$provideWorkspaceSymbols(handle, search, token);
 				if (lastResultId !== undefined) {
 					this._proxy.$releaseWorkspaceSymbols(handle, lastResultId);
@@ -499,7 +499,7 @@ export class MainThreadLanguageFeatures extends Disposable implements MainThread
 			}
 		};
 		if (supportsResolve) {
-			provider.resolveWorkspaceSymbol = async (item: search.IWorkspaceSymbol, token: CancellationToken): Promise<search.IWorkspaceSymbol | undefined> => {
+			provider.resolveWorkspaceSymbol = async (item: search.WorkspaceInterfaceSymbol, token: CancellationToken): Promise<search.WorkspaceInterfaceSymbol | undefined> => {
 				const resolvedItem = await this._proxy.$resolveWorkspaceSymbol(handle, item, token);
 				return resolvedItem && MainThreadLanguageFeatures._reviveWorkspaceSymbolDto(resolvedItem);
 			};

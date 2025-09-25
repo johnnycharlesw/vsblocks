@@ -22,14 +22,14 @@ import { IFileService } from '../../../../platform/files/common/files.js';
 import { RunOnceScheduler } from '../../../../base/common/async.js';
 import { parse, getNodeType } from '../../../../base/common/json.js';
 import * as objects from '../../../../base/common/objects.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { Extensions as ConfigExtensions, IConfigurationRegistry, IConfigurationNode } from '../../../../platform/configuration/common/configurationRegistry.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { INavigatorWithKeyboard } from './navigatorKeyboard.js';
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { getKeyboardLayoutId, IKeyboardLayoutInfo, IKeyboardLayoutService, IKeyboardMapping, IMacLinuxKeyboardMapping, IWindowsKeyboardMapping } from '../../../../platform/keyboardLayout/common/keyboardLayout.js';
 
 export class BrowserKeyboardMapperFactoryBase extends Disposable {
@@ -76,7 +76,7 @@ export class BrowserKeyboardMapperFactoryBase extends Disposable {
 	protected constructor(
 		private readonly _configurationService: IConfigurationService,
 		// private _notificationService: INotificationService,
-		// private _storageService: IStorageService,
+		// private _storageService: StorageServiceInterface,
 		// private _commandService: ICommandService
 	) {
 		super();
@@ -450,7 +450,7 @@ export class BrowserKeyboardMapperFactoryBase extends Disposable {
 }
 
 export class BrowserKeyboardMapperFactory extends BrowserKeyboardMapperFactoryBase {
-	constructor(configurationService: IConfigurationService, notificationService: INotificationService, storageService: IStorageService, commandService: ICommandService) {
+	constructor(configurationService: IConfigurationService, notificationService: INotificationService, storageService: StorageServiceInterface, commandService: ICommandService) {
 		// super(notificationService, storageService, commandService);
 		super(configurationService);
 
@@ -529,10 +529,10 @@ export class BrowserKeyboardLayoutService extends Disposable implements IKeyboar
 	private _keyboardLayoutMode: string;
 
 	constructor(
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@IFileService fileService: IFileService,
 		@INotificationService notificationService: INotificationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ICommandService commandService: ICommandService,
 		@IConfigurationService private configurationService: IConfigurationService,
 	) {

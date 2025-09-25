@@ -10,7 +10,7 @@ import { IActivityService } from '../../services/activity/common/activity.js';
 import { IInstantiationService } from '../../../platform/instantiation/common/instantiation.js';
 import { DisposableStore, Disposable } from '../../../base/common/lifecycle.js';
 import { IColorTheme, IThemeService } from '../../../platform/theme/common/themeService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
 import { IExtensionService } from '../../services/extensions/common/extensions.js';
 import { CompositeBarActionViewItem, CompositeBarAction, IActivityHoverOptions, ICompositeBarActionViewItemOptions, ICompositeBarColors } from './compositeBarActions.js';
 import { Codicon } from '../../../base/common/codicons.js';
@@ -62,7 +62,7 @@ export class GlobalCompositeBar extends Disposable {
 		private readonly activityHoverOptions: IActivityHoverOptions,
 		@IConfigurationService configurationService: IConfigurationService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IExtensionService private readonly extensionService: IExtensionService,
 	) {
 		super();
@@ -676,7 +676,7 @@ export class SimpleAccountActivityActionViewItem extends AccountsActivityActionV
 		@IConfigurationService configurationService: IConfigurationService,
 		@IKeybindingService keybindingService: IKeybindingService,
 		@ISecretStorageService secretStorageService: ISecretStorageService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILogService logService: ILogService,
 		@IActivityService activityService: IActivityService,
 		@IInstantiationService instantiationService: IInstantiationService,
@@ -711,7 +711,7 @@ export class SimpleGlobalActivityActionViewItem extends GlobalActivityActionView
 		@IKeybindingService keybindingService: IKeybindingService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IActivityService activityService: IActivityService,
-		@IStorageService storageService: IStorageService
+		@StorageServiceInterface storageService: StorageServiceInterface
 	) {
 		super(() => simpleActivityContextMenuActions(storageService, false),
 			{
@@ -726,7 +726,7 @@ export class SimpleGlobalActivityActionViewItem extends GlobalActivityActionView
 	}
 }
 
-function simpleActivityContextMenuActions(storageService: IStorageService, isAccount: boolean): IAction[] {
+function simpleActivityContextMenuActions(storageService: StorageServiceInterface, isAccount: boolean): IAction[] {
 	const currentElementContextMenuActions: IAction[] = [];
 	if (isAccount) {
 		currentElementContextMenuActions.push(
@@ -741,10 +741,10 @@ function simpleActivityContextMenuActions(storageService: IStorageService, isAcc
 	];
 }
 
-export function isAccountsActionVisible(storageService: IStorageService): boolean {
+export function isAccountsActionVisible(storageService: StorageServiceInterface): boolean {
 	return storageService.getBoolean(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, StorageScope.PROFILE, true);
 }
 
-function setAccountsActionVisible(storageService: IStorageService, visible: boolean) {
+function setAccountsActionVisible(storageService: StorageServiceInterface, visible: boolean) {
 	storageService.store(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, visible, StorageScope.PROFILE, StorageTarget.USER);
 }

@@ -14,7 +14,7 @@ import { IDialogService } from '../../../../../platform/dialogs/common/dialogs.j
 import { ITextEditorOptions } from '../../../../../platform/editor/common/editor.js';
 import { ServicesAccessor } from '../../../../../platform/instantiation/common/instantiation.js';
 import { IOpenerService } from '../../../../../platform/opener/common/opener.js';
-import { IStorageService, StorageScope } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../../platform/storage/common/storage.js';
 import { IEditorIdentifier, IResourceMergeEditorInput } from '../../../../common/editor.js';
 import { MergeEditorInput, MergeEditorInputData } from '../mergeEditorInput.js';
 import { IMergeEditorInputModel } from '../mergeEditorInputModel.js';
@@ -577,7 +577,7 @@ export class ResetCloseWithConflictsChoice extends Action2 {
 		});
 	}
 	run(accessor: ServicesAccessor): void {
-		accessor.get(IStorageService).remove(StorageCloseWithConflicts, StorageScope.PROFILE);
+		accessor.get(StorageServiceInterface).remove(StorageCloseWithConflicts, StorageScope.PROFILE);
 	}
 }
 

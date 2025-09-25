@@ -27,7 +27,7 @@ import { IContextMenuService, IContextViewService } from '../../contextview/brow
 import { IInstantiationService } from '../../instantiation/common/instantiation.js';
 import { IKeybindingService } from '../../keybinding/common/keybinding.js';
 import { INotificationService } from '../../notification/common/notification.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { defaultSelectBoxStyles } from '../../theme/browser/defaultStyles.js';
 import { asCssVariable, selectBorder } from '../../theme/common/colorRegistry.js';
 import { isDark } from '../../theme/common/theme.js';
@@ -448,7 +448,7 @@ export class DropdownWithDefaultActionViewItem extends BaseActionViewItem {
 		@IContextMenuService protected _contextMenuService: IContextMenuService,
 		@IMenuService protected _menuService: IMenuService,
 		@IInstantiationService protected _instaService: IInstantiationService,
-		@IStorageService protected _storageService: IStorageService
+		@StorageServiceInterface protected _storageService: StorageServiceInterface
 	) {
 		super(null, submenuAction);
 		this._options = options;

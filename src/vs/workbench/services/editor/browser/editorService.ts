@@ -26,11 +26,11 @@ import { registerSingleton } from '../../../../platform/instantiation/common/ext
 import { isUndefined } from '../../../../base/common/types.js';
 import { EditorsObserver } from '../../../browser/parts/editor/editorsObserver.js';
 import { Promises, timeout } from '../../../../base/common/async.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { indexOfPath } from '../../../../base/common/extpath.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IEditorResolverService, ResolvedStatus } from '../common/editorResolverService.js';
-import { IWorkspaceTrustRequestService, WorkspaceTrustUriResponse } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustRequestService, WorkspaceTrustUriResponse } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IHostService } from '../../host/browser/host.js';
 import { findGroup } from '../common/editorGroupFinder.js';
 import { ITextEditorService } from '../../textfile/common/textEditorService.js';
@@ -73,10 +73,10 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@IFileService private readonly fileService: IFileService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@IEditorResolverService private readonly editorResolverService: IEditorResolverService,
-		@IWorkspaceTrustRequestService private readonly workspaceTrustRequestService: IWorkspaceTrustRequestService,
+		@WorkspaceInterfaceTrustRequestService private readonly workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
 		@IHostService private readonly hostService: IHostService,
 		@ITextEditorService private readonly textEditorService: ITextEditorService
 	) {

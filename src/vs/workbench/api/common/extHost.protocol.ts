@@ -72,7 +72,7 @@ import { ICellExecutionComplete, ICellExecutionStateUpdate } from '../../contrib
 import { ICellRange } from '../../contrib/notebook/common/notebookRange.js';
 import { ISCMHistoryOptions } from '../../contrib/scm/common/history.js';
 import { InputValidationType } from '../../contrib/scm/common/scm.js';
-import { IWorkspaceSymbol, NotebookPriorityInfo } from '../../contrib/search/common/search.js';
+import { WorkspaceInterfaceSymbol, NotebookPriorityInfo } from '../../contrib/search/common/search.js';
 import { IRawClosedNotebookFileMatch } from '../../contrib/search/common/searchNotebookHelpers.js';
 import { IKeywordRecognitionEvent, ISpeechProviderMetadata, ISpeechToTextEvent, ITextToSpeechEvent } from '../../contrib/speech/common/speechService.js';
 import { CoverageDetails, ExtensionRunTestsRequest, ICallProfileRunHandler, IFileCoverage, ISerializedTestResults, IStartControllerTests, ITestItem, ITestMessage, ITestRunProfile, ITestRunTask, ResolvedTestRunRequest, TestControllerCapability, TestMessageFollowupRequest, TestMessageFollowupResponse, TestResultState, TestsDiffOp } from '../../contrib/testing/common/testTypes.js';
@@ -98,7 +98,7 @@ import { IExtHostDocumentSaveDelegate } from './extHostDocumentData.js';
 import { TerminalShellExecutionCommandLineConfidence } from './extHostTypes.js';
 import * as tasks from './shared/tasks.js';
 
-export interface IWorkspaceData extends IStaticWorkspaceData {
+export interface WorkspaceInterfaceData extends IStaticWorkspaceData {
 	folders: { uri: UriComponents; name: string; index: number }[];
 }
 
@@ -305,7 +305,7 @@ export interface ITextDocumentShowOptions {
 }
 
 export interface MainThreadBulkEditsShape extends IDisposable {
-	$tryApplyWorkspaceEdit(workspaceEditDto: SerializableObjectWithBuffers<IWorkspaceEditDto>, undoRedoGroupId?: number, respectAutoSaveConfig?: boolean): Promise<boolean>;
+	$tryApplyWorkspaceEdit(workspaceEditDto: SerializableObjectWithBuffers<WorkspaceInterfaceEditDto>, undoRedoGroupId?: number, respectAutoSaveConfig?: boolean): Promise<boolean>;
 }
 
 export interface MainThreadTextEditorsShape extends IDisposable {
@@ -912,7 +912,7 @@ export enum WebviewEditorCapabilities {
 	SupportsHotExit,
 }
 
-export interface IWebviewPortMapping {
+export interface WebviewPortMappingInterface {
 	readonly webviewPort: number;
 	readonly extensionHostPort: number;
 }
@@ -922,7 +922,7 @@ export interface IWebviewContentOptions {
 	readonly enableForms?: boolean;
 	readonly enableCommandUris?: boolean | readonly string[];
 	readonly localResourceRoots?: readonly UriComponents[];
-	readonly portMapping?: readonly IWebviewPortMapping[];
+	readonly portMapping?: readonly WebviewPortMappingInterface[];
 }
 
 export interface IWebviewPanelOptions {
@@ -1955,8 +1955,8 @@ export interface ExtHostTreeViewsShape {
 }
 
 export interface ExtHostWorkspaceShape {
-	$initializeWorkspace(workspace: IWorkspaceData | null, trusted: boolean): void;
-	$acceptWorkspaceData(workspace: IWorkspaceData | null): void;
+	$initializeWorkspace(workspace: WorkspaceInterfaceData | null, trusted: boolean): void;
+	$acceptWorkspaceData(workspace: WorkspaceInterfaceData | null): void;
 	$handleTextSearchResult(result: search.IRawFileMatch2, requestId: number): void;
 	$onDidGrantWorkspaceTrust(): void;
 	$getEditSessionIdentifier(folder: UriComponents, token: CancellationToken): Promise<string | undefined>;
@@ -2077,7 +2077,7 @@ export interface SourceTargetPair {
 }
 
 export interface IWillRunFileOperationParticipation {
-	edit: IWorkspaceEditDto;
+	edit: WorkspaceInterfaceEditDto;
 	extensionNames: string[];
 }
 
@@ -2185,10 +2185,10 @@ export type IInlayHintsDto = CachedSession<{ hints: IInlayHintDto[] }>;
 export type ILocationDto = Dto<languages.Location>;
 export type ILocationLinkDto = Dto<languages.LocationLink>;
 
-export type IWorkspaceSymbolDto = CachedSessionItem<Dto<IWorkspaceSymbol>>;
-export type IWorkspaceSymbolsDto = CachedSession<{ symbols: IWorkspaceSymbolDto[] }>;
+export type WorkspaceInterfaceSymbolDto = CachedSessionItem<Dto<WorkspaceInterfaceSymbol>>;
+export type WorkspaceInterfaceSymbolsDto = CachedSession<{ symbols: WorkspaceInterfaceSymbolDto[] }>;
 
-export interface IWorkspaceEditEntryMetadataDto {
+export interface WorkspaceInterfaceEditEntryMetadataDto {
 	needsConfirmation: boolean;
 	label: string;
 	description?: string;
@@ -2217,17 +2217,17 @@ export type ICellEditOperationDto =
 		cells: NotebookCellDataDto[];
 	};
 
-export type IWorkspaceCellEditDto = Dto<Omit<notebookCommon.IWorkspaceNotebookCellEdit, 'cellEdit'>> & { cellEdit: ICellEditOperationDto };
+export type WorkspaceInterfaceCellEditDto = Dto<Omit<notebookCommon.WorkspaceInterfaceNotebookCellEdit, 'cellEdit'>> & { cellEdit: ICellEditOperationDto };
 
-export type IWorkspaceFileEditDto = Dto<
-	Omit<languages.IWorkspaceFileEdit, 'options'> & {
+export type WorkspaceInterfaceFileEditDto = Dto<
+	Omit<languages.WorkspaceInterfaceFileEdit, 'options'> & {
 		options?: Omit<languages.WorkspaceFileEditOptions, 'contents'> & { contents?: { type: 'base64'; value: string } | { type: 'dataTransferItem'; id: string } };
 	}>;
 
-export type IWorkspaceTextEditDto = Dto<languages.IWorkspaceTextEdit>;
+export type WorkspaceInterfaceTextEditDto = Dto<languages.WorkspaceInterfaceTextEdit>;
 
-export interface IWorkspaceEditDto {
-	edits: Array<IWorkspaceFileEditDto | IWorkspaceTextEditDto | IWorkspaceCellEditDto>;
+export interface WorkspaceInterfaceEditDto {
+	edits: Array<WorkspaceInterfaceFileEditDto | WorkspaceInterfaceTextEditDto | WorkspaceInterfaceCellEditDto>;
 }
 
 export type ICommandDto = { $ident?: string } & languages.Command;
@@ -2235,7 +2235,7 @@ export type ICommandDto = { $ident?: string } & languages.Command;
 export interface ICodeActionDto {
 	cacheId?: ChainedCacheId;
 	title: string;
-	edit?: IWorkspaceEditDto;
+	edit?: WorkspaceInterfaceEditDto;
 	diagnostics?: Dto<IMarkerData[]>;
 	command?: ICommandDto;
 	kind?: string;
@@ -2317,7 +2317,7 @@ export interface IPasteEditDto {
 	title: string;
 	kind: { value: string } | undefined;
 	insertText: string | { snippet: string };
-	additionalEdit?: IWorkspaceEditDto;
+	additionalEdit?: WorkspaceInterfaceEditDto;
 	yieldTo?: readonly string[];
 }
 
@@ -2333,7 +2333,7 @@ export interface IDocumentDropEditDto {
 	title: string;
 	kind: string | undefined;
 	insertText: string | { snippet: string };
-	additionalEdit?: IWorkspaceEditDto;
+	additionalEdit?: WorkspaceInterfaceEditDto;
 	yieldTo?: readonly string[];
 }
 
@@ -2355,20 +2355,20 @@ export interface ExtHostLanguageFeaturesShape {
 	$provideLinkedEditingRanges(handle: number, resource: UriComponents, position: IPosition, token: CancellationToken): Promise<ILinkedEditingRangesDto | undefined>;
 	$provideReferences(handle: number, resource: UriComponents, position: IPosition, context: languages.ReferenceContext, token: CancellationToken): Promise<ILocationDto[] | undefined>;
 	$provideCodeActions(handle: number, resource: UriComponents, rangeOrSelection: IRange | ISelection, context: languages.CodeActionContext, token: CancellationToken): Promise<ICodeActionListDto | undefined>;
-	$resolveCodeAction(handle: number, id: ChainedCacheId, token: CancellationToken): Promise<{ edit?: IWorkspaceEditDto; command?: ICommandDto }>;
+	$resolveCodeAction(handle: number, id: ChainedCacheId, token: CancellationToken): Promise<{ edit?: WorkspaceInterfaceEditDto; command?: ICommandDto }>;
 	$releaseCodeActions(handle: number, cacheId: number): void;
 	$prepareDocumentPaste(handle: number, uri: UriComponents, ranges: readonly IRange[], dataTransfer: DataTransferDTO, token: CancellationToken): Promise<DataTransferDTO | undefined>;
 	$providePasteEdits(handle: number, requestId: number, uri: UriComponents, ranges: IRange[], dataTransfer: DataTransferDTO, context: IDocumentPasteContextDto, token: CancellationToken): Promise<IPasteEditDto[] | undefined>;
-	$resolvePasteEdit(handle: number, id: ChainedCacheId, token: CancellationToken): Promise<{ insertText?: string; additionalEdit?: IWorkspaceEditDto }>;
+	$resolvePasteEdit(handle: number, id: ChainedCacheId, token: CancellationToken): Promise<{ insertText?: string; additionalEdit?: WorkspaceInterfaceEditDto }>;
 	$releasePasteEdits(handle: number, cacheId: number): void;
 	$provideDocumentFormattingEdits(handle: number, resource: UriComponents, options: languages.FormattingOptions, token: CancellationToken): Promise<languages.TextEdit[] | undefined>;
 	$provideDocumentRangeFormattingEdits(handle: number, resource: UriComponents, range: IRange, options: languages.FormattingOptions, token: CancellationToken): Promise<languages.TextEdit[] | undefined>;
 	$provideDocumentRangesFormattingEdits(handle: number, resource: UriComponents, range: IRange[], options: languages.FormattingOptions, token: CancellationToken): Promise<languages.TextEdit[] | undefined>;
 	$provideOnTypeFormattingEdits(handle: number, resource: UriComponents, position: IPosition, ch: string, options: languages.FormattingOptions, token: CancellationToken): Promise<languages.TextEdit[] | undefined>;
-	$provideWorkspaceSymbols(handle: number, search: string, token: CancellationToken): Promise<IWorkspaceSymbolsDto>;
-	$resolveWorkspaceSymbol(handle: number, symbol: IWorkspaceSymbolDto, token: CancellationToken): Promise<IWorkspaceSymbolDto | undefined>;
+	$provideWorkspaceSymbols(handle: number, search: string, token: CancellationToken): Promise<WorkspaceInterfaceSymbolsDto>;
+	$resolveWorkspaceSymbol(handle: number, symbol: WorkspaceInterfaceSymbolDto, token: CancellationToken): Promise<WorkspaceInterfaceSymbolDto | undefined>;
 	$releaseWorkspaceSymbols(handle: number, id: number): void;
-	$provideRenameEdits(handle: number, resource: UriComponents, position: IPosition, newName: string, token: CancellationToken): Promise<IWorkspaceEditDto & { rejectReason?: string } | undefined>;
+	$provideRenameEdits(handle: number, resource: UriComponents, position: IPosition, newName: string, token: CancellationToken): Promise<WorkspaceInterfaceEditDto & { rejectReason?: string } | undefined>;
 	$resolveRenameLocation(handle: number, resource: UriComponents, position: IPosition, token: CancellationToken): Promise<languages.RenameLocation | undefined>;
 	$supportsAutomaticNewSymbolNamesTriggerKind(handle: number): Promise<boolean | undefined>;
 	$provideNewSymbolNames(handle: number, resource: UriComponents, range: IRange, triggerKind: languages.NewSymbolNameTriggerKind, token: CancellationToken): Promise<languages.NewSymbolName[] | undefined>;

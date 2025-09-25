@@ -11,7 +11,7 @@ import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/tes
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
 import { TestDialogService } from '../../../../../platform/dialogs/test/common/testDialogService.js';
-import { ExtensionKind, IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { ExtensionKind, EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { ExtensionIdentifier, IExtension, IExtensionDescription } from '../../../../../platform/extensions/common/extensions.js';
 import { IFileService } from '../../../../../platform/files/common/files.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
@@ -29,8 +29,8 @@ import { NullTelemetryService } from '../../../../../platform/telemetry/common/t
 import { IUriIdentityService } from '../../../../../platform/uriIdentity/common/uriIdentity.js';
 import { UriIdentityService } from '../../../../../platform/uriIdentity/common/uriIdentityService.js';
 import { IUserDataProfilesService, UserDataProfilesService } from '../../../../../platform/userDataProfile/common/userDataProfile.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTrustEnablementService } from '../../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTrustEnablementService } from '../../../../../platform/workspace/common/workspaceTrust.js';
 import { IWorkbenchEnvironmentService } from '../../../environment/common/environmentService.js';
 import { IWebExtensionsScannerService, IWorkbenchExtensionEnablementService, IWorkbenchExtensionManagementService } from '../../../extensionManagement/common/extensionManagement.js';
 import { BrowserExtensionHostKindPicker } from '../../browser/extensionService.js';
@@ -145,7 +145,7 @@ suite('ExtensionService', () => {
 			@IFileService fileService: IFileService,
 			@IProductService productService: IProductService,
 			@IWorkbenchExtensionManagementService extensionManagementService: IWorkbenchExtensionManagementService,
-			@IWorkspaceContextService contextService: IWorkspaceContextService,
+			@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 			@IConfigurationService configurationService: IConfigurationService,
 			@IExtensionManifestPropertiesService extensionManifestPropertiesService: IExtensionManifestPropertiesService,
 			@ILogService logService: ILogService,
@@ -246,13 +246,13 @@ suite('ExtensionService', () => {
 			[IWebExtensionsScannerService, TestWebExtensionsScannerService],
 			[IExtensionManifestPropertiesService, ExtensionManifestPropertiesService],
 			[IConfigurationService, TestConfigurationService],
-			[IWorkspaceContextService, TestContextService],
+			[WorkspaceContextServiceInterface, TestContextService],
 			[IProductService, testProductService],
 			[IFileService, TestFileService],
 			[IWorkbenchExtensionEnablementService, TestWorkbenchExtensionEnablementService],
 			[ITelemetryService, NullTelemetryService],
-			[IEnvironmentService, TestEnvironmentService],
-			[IWorkspaceTrustEnablementService, WorkspaceTrustEnablementService],
+			[EnvironmentServiceInterface, TestEnvironmentService],
+			[WorkspaceInterfaceTrustEnablementService, WorkspaceTrustEnablementService],
 			[IUserDataProfilesService, UserDataProfilesService],
 			[IUserDataProfileService, TestUserDataProfileService],
 			[IUriIdentityService, UriIdentityService],

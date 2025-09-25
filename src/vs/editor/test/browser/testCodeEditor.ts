@@ -41,7 +41,7 @@ import { TestConfigurationService } from '../../../platform/configuration/test/c
 import { IContextKeyService, IContextKeyServiceTarget } from '../../../platform/contextkey/common/contextkey.js';
 import { IDialogService } from '../../../platform/dialogs/common/dialogs.js';
 import { TestDialogService } from '../../../platform/dialogs/test/common/testDialogService.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { SyncDescriptor } from '../../../platform/instantiation/common/descriptors.js';
 import { BrandedService, IInstantiationService, ServiceIdentifier, ServicesAccessor } from '../../../platform/instantiation/common/instantiation.js';
 import { ServiceCollection } from '../../../platform/instantiation/common/serviceCollection.js';
@@ -238,7 +238,7 @@ export function createCodeEditorServices(disposables: Pick<DisposableStore, 'add
 	define(ITelemetryService, NullTelemetryServiceShape);
 	define(ILoggerService, NullLoggerService);
 	define(IDataChannelService, NullDataChannelService);
-	define(IEnvironmentService, class extends mock<IEnvironmentService>() {
+	define(EnvironmentServiceInterface, class extends mock<EnvironmentServiceInterface>() {
 		declare readonly _serviceBrand: undefined;
 		override isBuilt: boolean = true;
 		override isExtensionDevelopment: boolean = false;

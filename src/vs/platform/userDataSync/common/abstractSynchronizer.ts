@@ -19,11 +19,11 @@ import { URI } from '../../../base/common/uri.js';
 import { IHeaders } from '../../../base/parts/request/common/request.js';
 import { localize } from '../../../nls.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { FileChangesEvent, FileOperationError, FileOperationResult, IFileContent, IFileService, toFileOperationResult } from '../../files/common/files.js';
 import { ILogService } from '../../log/common/log.js';
 import { getServiceMachineId } from '../../externalServices/common/serviceMachineId.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import {
@@ -158,8 +158,8 @@ export abstract class AbstractSynchroniser extends Disposable implements IUserDa
 		readonly syncResource: IUserDataSyncResource,
 		readonly collection: string | undefined,
 		@IFileService protected readonly fileService: IFileService,
-		@IEnvironmentService protected readonly environmentService: IEnvironmentService,
-		@IStorageService protected readonly storageService: IStorageService,
+		@EnvironmentServiceInterface protected readonly environmentService: EnvironmentServiceInterface,
+		@StorageServiceInterface protected readonly storageService: StorageServiceInterface,
 		@IUserDataSyncStoreService protected readonly userDataSyncStoreService: IUserDataSyncStoreService,
 		@IUserDataSyncLocalStoreService protected readonly userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IUserDataSyncEnablementService protected readonly userDataSyncEnablementService: IUserDataSyncEnablementService,
@@ -791,8 +791,8 @@ export abstract class AbstractFileSynchroniser extends AbstractSynchroniser {
 		syncResource: IUserDataSyncResource,
 		collection: string | undefined,
 		@IFileService fileService: IFileService,
-		@IEnvironmentService environmentService: IEnvironmentService,
-		@IStorageService storageService: IStorageService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUserDataSyncStoreService userDataSyncStoreService: IUserDataSyncStoreService,
 		@IUserDataSyncLocalStoreService userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IUserDataSyncEnablementService userDataSyncEnablementService: IUserDataSyncEnablementService,
@@ -859,8 +859,8 @@ export abstract class AbstractJsonFileSynchroniser extends AbstractFileSynchroni
 		syncResource: IUserDataSyncResource,
 		collection: string | undefined,
 		@IFileService fileService: IFileService,
-		@IEnvironmentService environmentService: IEnvironmentService,
-		@IStorageService storageService: IStorageService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUserDataSyncStoreService userDataSyncStoreService: IUserDataSyncStoreService,
 		@IUserDataSyncLocalStoreService userDataSyncLocalStoreService: IUserDataSyncLocalStoreService,
 		@IUserDataSyncEnablementService userDataSyncEnablementService: IUserDataSyncEnablementService,
@@ -897,10 +897,10 @@ export abstract class AbstractInitializer implements IUserDataSyncResourceInitia
 	constructor(
 		readonly resource: SyncResource,
 		@IUserDataProfilesService protected readonly userDataProfilesService: IUserDataProfilesService,
-		@IEnvironmentService protected readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface protected readonly environmentService: EnvironmentServiceInterface,
 		@ILogService protected readonly logService: ILogService,
 		@IFileService protected readonly fileService: IFileService,
-		@IStorageService protected readonly storageService: IStorageService,
+		@StorageServiceInterface protected readonly storageService: StorageServiceInterface,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 	) {
 		this.extUri = uriIdentityService.extUri;

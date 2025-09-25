@@ -5,7 +5,7 @@
 
 import { joinPath } from '../../base/common/resources.js';
 import { URI } from '../../base/common/uri.js';
-import { INativeEnvironmentService } from '../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../platform/environment/common/environment.js';
 import { IExtensionsProfileScannerService } from '../../platform/extensionManagement/common/extensionsProfileScannerService.js';
 import { AbstractExtensionsScannerService, IExtensionsScannerService, Translations } from '../../platform/extensionManagement/common/extensionsScannerService.js';
 import { IFileService } from '../../platform/files/common/files.js';
@@ -23,7 +23,7 @@ export class ExtensionsScannerService extends AbstractExtensionsScannerService i
 		@IExtensionsProfileScannerService extensionsProfileScannerService: IExtensionsProfileScannerService,
 		@IFileService fileService: IFileService,
 		@ILogService logService: ILogService,
-		@INativeEnvironmentService private readonly nativeEnvironmentService: INativeEnvironmentService,
+		@NativeEnvironmentServiceInterface private readonly nativeEnvironmentService: NativeEnvironmentServiceInterface,
 		@IProductService productService: IProductService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@IInstantiationService instantiationService: IInstantiationService,

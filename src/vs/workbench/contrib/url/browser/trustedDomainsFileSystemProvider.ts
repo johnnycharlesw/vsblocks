@@ -8,7 +8,7 @@ import { parse } from '../../../../base/common/json.js';
 import { IDisposable } from '../../../../base/common/lifecycle.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IFileDeleteOptions, IFileOverwriteOptions, FileSystemProviderCapabilities, FileType, IFileWriteOptions, IFileService, IStat, IWatchOptions, IFileSystemProviderWithFileReadWriteCapability } from '../../../../platform/files/common/files.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { VSBuffer } from '../../../../base/common/buffer.js';
 import { readTrustedDomains, TRUSTED_DOMAINS_CONTENT_STORAGE_KEY, TRUSTED_DOMAINS_STORAGE_KEY } from './trustedDomains.js';
@@ -85,7 +85,7 @@ export class TrustedDomainsFileSystemProvider implements IFileSystemProviderWith
 
 	constructor(
 		@IFileService private readonly fileService: IFileService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 	) {
 		this.fileService.registerProvider(TRUSTED_DOMAINS_SCHEMA, this);

@@ -27,7 +27,7 @@ import { CancellationToken, CancellationTokenSource } from '../../../../base/com
 import { UTF16be, UTF16le, UTF8, UTF8_with_bom } from './encoding.js';
 import { createTextBufferFactoryFromStream } from '../../../../editor/common/model/textModel.js';
 import { ILanguageDetectionService } from '../../languageDetection/common/languageDetectionWorkerService.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { extUri } from '../../../../base/common/resources.js';
 import { IAccessibilityService } from '../../../../platform/accessibility/common/accessibility.js';
 import { PLAINTEXT_LANGUAGE_ID } from '../../../../editor/common/languages/modesRegistry.js';
@@ -125,7 +125,7 @@ export class TextFileEditorModel extends BaseTextEditorModel implements ITextFil
 		@ILabelService private readonly labelService: ILabelService,
 		@ILanguageDetectionService languageDetectionService: ILanguageDetectionService,
 		@IAccessibilityService accessibilityService: IAccessibilityService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IExtensionService private readonly extensionService: IExtensionService,
 		@IProgressService private readonly progressService: IProgressService
 	) {

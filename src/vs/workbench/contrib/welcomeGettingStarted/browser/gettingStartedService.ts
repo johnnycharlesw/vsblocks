@@ -5,7 +5,7 @@
 
 import { createDecorator, IInstantiationService, ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
 import { Emitter, Event } from '../../../../base/common/event.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Memento } from '../../../common/memento.js';
 import { Action2, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
@@ -31,7 +31,7 @@ import { IViewsService } from '../../../services/views/common/viewsService.js';
 import { localize, localize2 } from '../../../../nls.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { checkGlobFileExists } from '../../../services/extensions/common/workspaceContains.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { CancellationTokenSource } from '../../../../base/common/cancellation.js';
 import { asWebviewUri } from '../../webview/common/webview.js';
 import { IWorkbenchLayoutService, Parts } from '../../../services/layout/browser/layoutService.js';
@@ -148,10 +148,10 @@ export class WalkthroughsService extends Disposable implements IWalkthroughsServ
 	private metadata: WalkthroughMetaDataType;
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@ICommandService private readonly commandService: ICommandService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IContextKeyService private readonly contextService: IContextKeyService,
 		@IUserDataSyncEnablementService private readonly userDataSyncEnablementService: IUserDataSyncEnablementService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
@@ -738,7 +738,7 @@ registerAction2(class extends Action2 {
 
 	run(accessor: ServicesAccessor) {
 		const gettingStartedService = accessor.get(IWalkthroughsService);
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 
 		storageService.store(
 			hiddenEntriesConfigurationKey,
@@ -752,7 +752,7 @@ registerAction2(class extends Action2 {
 			StorageScope.PROFILE,
 			StorageTarget.USER);
 
-		const memento = new Memento('gettingStartedService', accessor.get(IStorageService));
+		const memento = new Memento('gettingStartedService', accessor.get(StorageServiceInterface));
 		const record = memento.getMemento(StorageScope.PROFILE, StorageTarget.USER);
 		for (const key in record) {
 			if (Object.prototype.hasOwnProperty.call(record, key)) {

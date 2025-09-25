@@ -23,7 +23,7 @@ import { IRemoteAuthorityResolverService } from '../../../../platform/remote/com
 import { IHostService } from '../../../services/host/browser/host.js';
 import { PlatformName, PlatformToString, isWeb, platform } from '../../../../base/common/platform.js';
 import { truncate } from '../../../../base/common/strings.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { getRemoteName } from '../../../../platform/remote/common/remoteHosts.js';
 import { getVirtualWorkspaceLocation } from '../../../../platform/workspace/common/virtualWorkspace.js';
 import { getCodiconAriaLabel } from '../../../../base/common/iconLabels.js';
@@ -147,7 +147,7 @@ export class RemoteStatusIndicator extends Disposable implements IWorkbenchContr
 		@IRemoteAgentService private readonly remoteAgentService: IRemoteAgentService,
 		@IRemoteAuthorityResolverService private readonly remoteAuthorityResolverService: IRemoteAuthorityResolverService,
 		@IHostService private readonly hostService: IHostService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@ILogService private readonly logService: ILogService,
 		@IExtensionGalleryService private readonly extensionGalleryService: IExtensionGalleryService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,

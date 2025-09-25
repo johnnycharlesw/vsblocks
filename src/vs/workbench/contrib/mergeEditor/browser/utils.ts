@@ -9,7 +9,7 @@ import { DisposableStore, IDisposable } from '../../../../base/common/lifecycle.
 import { IObservable, autorunOpts } from '../../../../base/common/observable.js';
 import { CodeEditorWidget } from '../../../../editor/browser/widget/codeEditor/codeEditorWidget.js';
 import { IModelDeltaDecoration } from '../../../../editor/common/model.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 
 export function setStyle(
 	element: HTMLElement,
@@ -107,7 +107,7 @@ export class PersistentStore<T> {
 
 	constructor(
 		private readonly key: string,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) { }
 
 	public get(): Readonly<T> | undefined {

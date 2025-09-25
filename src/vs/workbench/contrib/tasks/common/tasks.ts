@@ -11,7 +11,7 @@ import * as Objects from '../../../../base/common/objects.js';
 import { UriComponents, URI } from '../../../../base/common/uri.js';
 
 import { ProblemMatcher } from './problemMatcher.js';
-import { IWorkspaceFolder, IWorkspace } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder, WorkspaceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { RawContextKey, ContextKeyExpression } from '../../../../platform/contextkey/common/contextkey.js';
 import { TaskDefinitionRegistry } from './taskDefinitionRegistry.js';
 import { IExtensionDescription } from '../../../../platform/extensions/common/extensions.js';
@@ -427,8 +427,8 @@ export namespace TaskSourceKind {
 }
 
 export interface ITaskSourceConfigElement {
-	workspaceFolder?: IWorkspaceFolder;
-	workspace?: IWorkspace;
+	workspaceFolder?: WorkspaceInterfaceFolder;
+	workspace?: WorkspaceInterface;
 	file: string;
 	index: number;
 	element: any;
@@ -439,7 +439,7 @@ interface IBaseTaskSource {
 	readonly label: string;
 }
 
-export interface IWorkspaceTaskSource extends IBaseTaskSource {
+export interface WorkspaceInterfaceTaskSource extends IBaseTaskSource {
 	readonly kind: 'workspace';
 	readonly config: ITaskSourceConfigElement;
 	readonly customizes?: KeyedTaskIdentifier;
@@ -449,7 +449,7 @@ export interface IExtensionTaskSource extends IBaseTaskSource {
 	readonly kind: 'extension';
 	readonly extension?: string;
 	readonly scope: TaskScope;
-	readonly workspaceFolder: IWorkspaceFolder | undefined;
+	readonly workspaceFolder: WorkspaceInterfaceFolder | undefined;
 }
 
 export interface IExtensionTaskSourceTransfer {
@@ -473,8 +473,8 @@ export interface WorkspaceFileTaskSource extends IBaseTaskSource {
 	readonly customizes?: KeyedTaskIdentifier;
 }
 
-export type TaskSource = IWorkspaceTaskSource | IExtensionTaskSource | IInMemoryTaskSource | IUserTaskSource | WorkspaceFileTaskSource;
-export type FileBasedTaskSource = IWorkspaceTaskSource | IUserTaskSource | WorkspaceFileTaskSource;
+export type TaskSource = WorkspaceInterfaceTaskSource | IExtensionTaskSource | IInMemoryTaskSource | IUserTaskSource | WorkspaceFileTaskSource;
+export type FileBasedTaskSource = WorkspaceInterfaceTaskSource | IUserTaskSource | WorkspaceFileTaskSource;
 export interface ITaskIdentifier {
 	type: string;
 	[name: string]: any;
@@ -652,7 +652,7 @@ export abstract class CommonTask {
 
 	protected abstract fromObject(object: any): Task;
 
-	public getWorkspaceFolder(): IWorkspaceFolder | undefined {
+	public getWorkspaceFolder(): WorkspaceInterfaceFolder | undefined {
 		return undefined;
 	}
 
@@ -825,7 +825,7 @@ export class CustomTask extends CommonTask {
 		return JSON.stringify(key);
 	}
 
-	public override getWorkspaceFolder(): IWorkspaceFolder | undefined {
+	public override getWorkspaceFolder(): WorkspaceInterfaceFolder | undefined {
 		return this._source.config.workspaceFolder;
 	}
 
@@ -883,7 +883,7 @@ export class ConfiguringTask extends CommonTask {
 		return (this._source.config.workspace && this._source.config.workspace.configuration) ? resources.basename(this._source.config.workspace.configuration) : undefined;
 	}
 
-	public override getWorkspaceFolder(): IWorkspaceFolder | undefined {
+	public override getWorkspaceFolder(): WorkspaceInterfaceFolder | undefined {
 		return this._source.config.workspaceFolder;
 	}
 
@@ -992,7 +992,7 @@ export class ContributedTask extends CommonTask {
 		return JSON.stringify(key);
 	}
 
-	public override getWorkspaceFolder(): IWorkspaceFolder | undefined {
+	public override getWorkspaceFolder(): WorkspaceInterfaceFolder | undefined {
 		return this._source.workspaceFolder;
 	}
 
@@ -1084,7 +1084,7 @@ export class TaskSorter {
 
 	private _order: Map<string, number> = new Map();
 
-	constructor(workspaceFolders: IWorkspaceFolder[]) {
+	constructor(workspaceFolders: WorkspaceInterfaceFolder[]) {
 		for (let i = 0; i < workspaceFolders.length; i++) {
 			this._order.set(workspaceFolders[i].uri.toString(), i);
 		}

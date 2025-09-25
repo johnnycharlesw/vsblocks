@@ -10,7 +10,7 @@ import { ResourceMap } from '../../../../base/common/map.js';
 import { IFileStat, IFileService, FileSystemProviderCapabilities } from '../../../../platform/files/common/files.js';
 import { rtrim, startsWithIgnoreCase, equalsIgnoreCase } from '../../../../base/common/strings.js';
 import { coalesce } from '../../../../base/common/arrays.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IDisposable, dispose } from '../../../../base/common/lifecycle.js';
 import { memoize } from '../../../../base/common/decorators.js';
 import { Emitter, Event } from '../../../../base/common/event.js';
@@ -30,7 +30,7 @@ export class ExplorerModel implements IDisposable {
 	private readonly _onDidChangeRoots = new Emitter<void>();
 
 	constructor(
-		private readonly contextService: IWorkspaceContextService,
+		private readonly contextService: WorkspaceContextServiceInterface,
 		private readonly uriIdentityService: IUriIdentityService,
 		fileService: IFileService,
 		configService: IConfigurationService,

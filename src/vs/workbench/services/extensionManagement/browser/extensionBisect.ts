@@ -5,7 +5,7 @@
 
 import { localize, localize2 } from '../../../../nls.js';
 import { IExtensionManagementService, IGlobalExtensionEnablementService, ILocalExtension } from '../../../../platform/extensionManagement/common/extensionManagement.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ExtensionType, IExtension, isResolverExtension } from '../../../../platform/extensions/common/extensions.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { INotificationService, IPromptChoice, NotificationPriority, Severity } from '../../../../platform/notification/common/notification.js';
@@ -75,7 +75,7 @@ class ExtensionBisectService implements IExtensionBisectService {
 
 	constructor(
 		@ILogService logService: ILogService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IWorkbenchEnvironmentService private readonly _envService: IWorkbenchEnvironmentService
 	) {
 		const raw = _storageService.get(ExtensionBisectService._storageKey, StorageScope.APPLICATION);

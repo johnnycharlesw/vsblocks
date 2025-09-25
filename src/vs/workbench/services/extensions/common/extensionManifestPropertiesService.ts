@@ -16,7 +16,7 @@ import { ExtensionUntrustedWorkspaceSupport } from '../../../../base/common/prod
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { WORKSPACE_TRUST_EXTENSION_SUPPORT } from '../../workspaces/common/workspaceTrust.js';
 import { isBoolean } from '../../../../base/common/types.js';
-import { IWorkspaceTrustEnablementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustEnablementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { isWeb } from '../../../../base/common/platform.js';
 
@@ -56,7 +56,7 @@ export class ExtensionManifestPropertiesService extends Disposable implements IE
 	constructor(
 		@IProductService private readonly productService: IProductService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceTrustEnablementService private readonly workspaceTrustEnablementService: IWorkspaceTrustEnablementService,
+		@WorkspaceInterfaceTrustEnablementService private readonly workspaceTrustEnablementService: WorkspaceInterfaceTrustEnablementService,
 		@ILogService private readonly logService: ILogService,
 	) {
 		super();

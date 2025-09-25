@@ -41,7 +41,7 @@ import { ProgressLocation } from '../../../../platform/progress/common/progress.
 import { Extensions, IQuickAccessRegistry } from '../../../../platform/quickinput/common/quickAccess.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
 import { EditorPaneDescriptor, IEditorPaneRegistry } from '../../../browser/editor.js';
@@ -54,7 +54,7 @@ import { DEFAULT_ACCOUNT_SIGN_IN_COMMAND } from '../../../services/accounts/comm
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { EnablementState, IExtensionManagementServerService, IPublisherInfo, IWorkbenchExtensionEnablementService, IWorkbenchExtensionManagementService } from '../../../services/extensionManagement/common/extensionManagement.js';
 import { IExtensionIgnoredRecommendationsService, IExtensionRecommendationsService } from '../../../services/extensionRecommendations/common/extensionRecommendations.js';
-import { IWorkspaceExtensionsConfigService } from '../../../services/extensionRecommendations/common/workspaceExtensionsConfig.js';
+import { WorkspaceInterfaceExtensionsConfigService } from '../../../services/extensionRecommendations/common/workspaceExtensionsConfig.js';
 import { IHostService } from '../../../services/host/browser/host.js';
 import { LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js';
 import { IPreferencesService } from '../../../services/preferences/common/preferences.js';
@@ -65,7 +65,7 @@ import { ILanguageModelToolsService } from '../../chat/common/languageModelTools
 import { CONTEXT_KEYBINDINGS_EDITOR } from '../../preferences/common/preferences.js';
 import { IWebview } from '../../webview/browser/webview.js';
 import { Query } from '../common/extensionQuery.js';
-import { AutoRestartConfigurationKey, AutoUpdateConfigurationKey, CONTEXT_EXTENSIONS_GALLERY_STATUS, CONTEXT_HAS_GALLERY, DefaultViewsContext, ExtensionEditorTab, ExtensionRuntimeActionType, EXTENSIONS_CATEGORY, extensionsFilterSubMenu, extensionsSearchActionsMenu, HasOutdatedExtensionsContext, IExtensionArg, IExtensionsViewPaneContainer, IExtensionsWorkbenchService, INSTALL_ACTIONS_GROUP, INSTALL_EXTENSION_FROM_VSIX_COMMAND_ID, IWorkspaceRecommendedExtensionsView, LIST_WORKSPACE_UNSUPPORTED_EXTENSIONS_COMMAND_ID, OUTDATED_EXTENSIONS_VIEW_ID, SELECT_INSTALL_VSIX_EXTENSION_COMMAND_ID, THEME_ACTIONS_GROUP, TOGGLE_IGNORE_EXTENSION_ACTION_ID, UPDATE_ACTIONS_GROUP, VIEWLET_ID, WORKSPACE_RECOMMENDATIONS_VIEW_ID } from '../common/extensions.js';
+import { AutoRestartConfigurationKey, AutoUpdateConfigurationKey, CONTEXT_EXTENSIONS_GALLERY_STATUS, CONTEXT_HAS_GALLERY, DefaultViewsContext, ExtensionEditorTab, ExtensionRuntimeActionType, EXTENSIONS_CATEGORY, extensionsFilterSubMenu, extensionsSearchActionsMenu, HasOutdatedExtensionsContext, IExtensionArg, IExtensionsViewPaneContainer, IExtensionsWorkbenchService, INSTALL_ACTIONS_GROUP, INSTALL_EXTENSION_FROM_VSIX_COMMAND_ID, WorkspaceInterfaceRecommendedExtensionsView, LIST_WORKSPACE_UNSUPPORTED_EXTENSIONS_COMMAND_ID, OUTDATED_EXTENSIONS_VIEW_ID, SELECT_INSTALL_VSIX_EXTENSION_COMMAND_ID, THEME_ACTIONS_GROUP, TOGGLE_IGNORE_EXTENSION_ACTION_ID, UPDATE_ACTIONS_GROUP, VIEWLET_ID, WORKSPACE_RECOMMENDATIONS_VIEW_ID } from '../common/extensions.js';
 import { ExtensionsConfigurationSchema, ExtensionsConfigurationSchemaId } from '../common/extensionsFileTemplate.js';
 import { ExtensionsInput } from '../common/extensionsInput.js';
 import { KeymapExtensions } from '../common/extensionsUtils.js';
@@ -1261,7 +1261,7 @@ class ExtensionsContributions extends Disposable implements IWorkbenchContributi
 				order: 1
 			},
 			run: async (accessor: ServicesAccessor) => {
-				const view = accessor.get(IViewsService).getActiveViewWithId(WORKSPACE_RECOMMENDATIONS_VIEW_ID) as IWorkspaceRecommendedExtensionsView;
+				const view = accessor.get(IViewsService).getActiveViewWithId(WORKSPACE_RECOMMENDATIONS_VIEW_ID) as WorkspaceInterfaceRecommendedExtensionsView;
 				return view.installWorkspaceRecommendations();
 			}
 		});
@@ -1788,7 +1788,7 @@ class ExtensionsContributions extends Disposable implements IWorkbenchContributi
 				when: ContextKeyExpr.and(WorkbenchStateContext.notEqualsTo('empty'), ContextKeyExpr.has('isBuiltinExtension').negate(), ContextKeyExpr.has('isExtensionWorkspaceRecommended').negate(), ContextKeyExpr.has('isUserIgnoredRecommendation').negate(), ContextKeyExpr.notEquals('extensionSource', 'resource')),
 				order: 2
 			},
-			run: (accessor: ServicesAccessor, id: string) => accessor.get(IWorkspaceExtensionsConfigService).toggleRecommendation(id)
+			run: (accessor: ServicesAccessor, id: string) => accessor.get(WorkspaceInterfaceExtensionsConfigService).toggleRecommendation(id)
 		});
 
 		this.registerExtensionAction({
@@ -1800,7 +1800,7 @@ class ExtensionsContributions extends Disposable implements IWorkbenchContributi
 				when: ContextKeyExpr.and(WorkbenchStateContext.notEqualsTo('empty'), ContextKeyExpr.has('isBuiltinExtension').negate(), ContextKeyExpr.has('isExtensionWorkspaceRecommended')),
 				order: 2
 			},
-			run: (accessor: ServicesAccessor, id: string) => accessor.get(IWorkspaceExtensionsConfigService).toggleRecommendation(id)
+			run: (accessor: ServicesAccessor, id: string) => accessor.get(WorkspaceInterfaceExtensionsConfigService).toggleRecommendation(id)
 		});
 
 		this.registerExtensionAction({
@@ -1813,7 +1813,7 @@ class ExtensionsContributions extends Disposable implements IWorkbenchContributi
 			},
 			async run(accessor: ServicesAccessor): Promise<any> {
 				const editorService = accessor.get(IEditorService);
-				const workspaceExtensionsConfigService = accessor.get(IWorkspaceExtensionsConfigService);
+				const workspaceExtensionsConfigService = accessor.get(WorkspaceInterfaceExtensionsConfigService);
 				if (!(editorService.activeEditor instanceof ExtensionsInput)) {
 					return;
 				}
@@ -1847,7 +1847,7 @@ class ExtensionsContributions extends Disposable implements IWorkbenchContributi
 			},
 			async run(accessor: ServicesAccessor): Promise<any> {
 				const editorService = accessor.get(IEditorService);
-				const workspaceExtensionsConfigService = accessor.get(IWorkspaceExtensionsConfigService);
+				const workspaceExtensionsConfigService = accessor.get(WorkspaceInterfaceExtensionsConfigService);
 				if (!(editorService.activeEditor instanceof ExtensionsInput)) {
 					return;
 				}
@@ -1958,7 +1958,7 @@ class ExtensionStorageCleaner implements IWorkbenchContribution {
 
 	constructor(
 		@IExtensionManagementService extensionManagementService: IExtensionManagementService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		ExtensionStorageService.removeOutdatedExtensionVersions(extensionManagementService, storageService);
 	}
@@ -1969,7 +1969,7 @@ class TrustedPublishersInitializer implements IWorkbenchContribution {
 		@IWorkbenchExtensionManagementService extensionManagementService: IWorkbenchExtensionManagementService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
 		@IProductService productService: IProductService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		const trustedPublishersInitStatusKey = 'trusted-publishers-init-migration';
 		if (!storageService.get(trustedPublishersInitStatusKey, StorageScope.APPLICATION)) {

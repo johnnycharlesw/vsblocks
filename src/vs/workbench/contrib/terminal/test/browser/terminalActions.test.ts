@@ -6,10 +6,10 @@
 import { deepStrictEqual } from 'assert';
 import { URI } from '../../../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
-import { IWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../../platform/workspace/common/workspace.js';
 import { WorkspaceFolderCwdPair, shrinkWorkspaceFolderCwdPairs } from '../../browser/terminalActions.js';
 
-function makeFakeFolder(name: string, uri: URI): IWorkspaceFolder {
+function makeFakeFolder(name: string, uri: URI): WorkspaceInterfaceFolder {
 	return {
 		name,
 		uri,
@@ -18,7 +18,7 @@ function makeFakeFolder(name: string, uri: URI): IWorkspaceFolder {
 	};
 }
 
-function makePair(folder: IWorkspaceFolder, cwd?: URI | IWorkspaceFolder, isAbsolute?: boolean): WorkspaceFolderCwdPair {
+function makePair(folder: WorkspaceInterfaceFolder, cwd?: URI | WorkspaceInterfaceFolder, isAbsolute?: boolean): WorkspaceFolderCwdPair {
 	return {
 		folder,
 		cwd: !cwd ? folder.uri : (cwd instanceof URI ? cwd : cwd.uri),

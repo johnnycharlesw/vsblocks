@@ -29,10 +29,10 @@ import { IFilesConfigurationService } from '../../filesConfiguration/common/file
 import { IResolvedTextEditorModel } from '../../../../editor/common/services/resolverService.js';
 import { BaseTextEditorModel } from '../../../common/editor/textEditorModel.js';
 import { ICodeEditorService } from '../../../../editor/browser/services/codeEditorService.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { IWorkingCopyFileService, IFileOperationUndoRedoInfo, ICreateFileOperation } from '../../workingCopy/common/workingCopyFileService.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService, WORKSPACE_EXTENSION } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WORKSPACE_EXTENSION } from '../../../../platform/workspace/common/workspace.js';
 import { UTF8, UTF8_with_bom, UTF16be, UTF16le, encodingExists, toEncodeReadable, toDecodeStream, IDecodeStreamResult, DecodeStreamError, DecodeStreamErrorKind } from '../common/encoding.js';
 import { consumeStream, ReadableStream } from '../../../../base/common/stream.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
@@ -67,7 +67,7 @@ export abstract class AbstractTextFileService extends Disposable implements ITex
 		@ITextResourceConfigurationService protected readonly textResourceConfigurationService: ITextResourceConfigurationService,
 		@IFilesConfigurationService protected readonly filesConfigurationService: IFilesConfigurationService,
 		@ICodeEditorService private readonly codeEditorService: ICodeEditorService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IWorkingCopyFileService private readonly workingCopyFileService: IWorkingCopyFileService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@ILanguageService private readonly languageService: ILanguageService,
@@ -770,7 +770,7 @@ export class EncodingOracle extends Disposable implements IResourceEncodings {
 	constructor(
 		@ITextResourceConfigurationService private textResourceConfigurationService: ITextResourceConfigurationService,
 		@IWorkbenchEnvironmentService private environmentService: IWorkbenchEnvironmentService,
-		@IWorkspaceContextService private contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private contextService: WorkspaceContextServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService
 	) {
 		super();

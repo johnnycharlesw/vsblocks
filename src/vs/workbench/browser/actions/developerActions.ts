@@ -21,7 +21,7 @@ import { RunOnceScheduler } from '../../../base/common/async.js';
 import { ILayoutService } from '../../../platform/layout/browser/layoutService.js';
 import { Registry } from '../../../platform/registry/common/platform.js';
 import { registerAction2, Action2, MenuRegistry } from '../../../platform/actions/common/actions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../platform/storage/common/storage.js';
 import { clamp } from '../../../base/common/numbers.js';
 import { KeyCode } from '../../../base/common/keyCodes.js';
 import { IConfigurationRegistry, Extensions as ConfigurationExtensions } from '../../../platform/configuration/common/configurationRegistry.js';
@@ -40,7 +40,7 @@ import { IUserDataProfileService } from '../../services/userDataProfile/common/u
 import { IEditorService } from '../../services/editor/common/editorService.js';
 import product from '../../../platform/product/common/product.js';
 import { CommandsRegistry } from '../../../platform/commands/common/commands.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { IProductService } from '../../../platform/product/common/productService.js';
 import { IDefaultAccountService } from '../../services/accounts/common/defaultAccount.js';
 import { IAuthenticationService } from '../../services/authentication/common/authentication.js';
@@ -409,7 +409,7 @@ class LogStorageAction extends Action2 {
 	}
 
 	run(accessor: ServicesAccessor): void {
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 		const dialogService = accessor.get(IDialogService);
 
 		storageService.log();
@@ -470,11 +470,11 @@ class RemoveLargeStorageEntriesAction extends Action2 {
 	}
 
 	async run(accessor: ServicesAccessor): Promise<void> {
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 		const quickInputService = accessor.get(IQuickInputService);
 		const userDataProfileService = accessor.get(IUserDataProfileService);
 		const dialogService = accessor.get(IDialogService);
-		const environmentService = accessor.get(IEnvironmentService);
+		const environmentService = accessor.get(EnvironmentServiceInterface);
 
 		interface IStorageItem extends IQuickPickItem {
 			readonly key: string;

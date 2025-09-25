@@ -8315,14 +8315,14 @@ declare namespace monaco.languages {
 		maxSize?: number;
 	}
 
-	export interface IWorkspaceFileEdit {
+	export interface WorkspaceInterfaceFileEdit {
 		oldResource?: Uri;
 		newResource?: Uri;
 		options?: WorkspaceFileEditOptions;
 		metadata?: WorkspaceEditMetadata;
 	}
 
-	export interface IWorkspaceTextEdit {
+	export interface WorkspaceInterfaceTextEdit {
 		resource: Uri;
 		textEdit: TextEdit & {
 			insertAsSnippet?: boolean;
@@ -8333,7 +8333,7 @@ declare namespace monaco.languages {
 	}
 
 	export interface WorkspaceEdit {
-		edits: Array<IWorkspaceTextEdit | IWorkspaceFileEdit | ICustomEdit>;
+		edits: Array<WorkspaceInterfaceTextEdit | WorkspaceInterfaceFileEdit | ICustomEdit>;
 	}
 
 	export interface ICustomEdit {

@@ -12,7 +12,7 @@ import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { ICodeWindow } from '../../window/electron-main/window.js';
 import { getAllWindowsExcludingOffscreen, IWindowsMainService } from '../../windows/electron-main/windows.js';
 import { isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier } from '../../workspace/common/workspace.js';
-import { IWorkspacesManagementMainService } from '../../workspaces/electron-main/workspacesManagementMainService.js';
+import { WorkspaceInterfacesManagementMainService } from '../../workspaces/electron-main/workspacesManagementMainService.js';
 import { assertReturnsDefined } from '../../../base/common/types.js';
 import { ILogService } from '../../log/common/log.js';
 import { UtilityProcess } from '../../utilityProcess/electron-main/utilityProcess.js';
@@ -37,7 +37,7 @@ export class DiagnosticsMainService implements IDiagnosticsMainService {
 
 	constructor(
 		@IWindowsMainService private readonly windowsMainService: IWindowsMainService,
-		@IWorkspacesManagementMainService private readonly workspacesManagementMainService: IWorkspacesManagementMainService,
+		@WorkspaceInterfacesManagementMainService private readonly workspacesManagementMainService: WorkspaceInterfacesManagementMainService,
 		@ILogService private readonly logService: ILogService
 	) { }
 

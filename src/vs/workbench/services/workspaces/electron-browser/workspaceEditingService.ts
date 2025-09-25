@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { localize } from '../../../../nls.js';
-import { IWorkspaceEditingService } from '../common/workspaceEditing.js';
+import { WorkspaceInterfaceEditingService } from '../common/workspaceEditing.js';
 import { URI } from '../../../../base/common/uri.js';
-import { hasWorkspaceFileExtension, isUntitledWorkspace, isWorkspaceIdentifier, IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { hasWorkspaceFileExtension, isUntitledWorkspace, isWorkspaceIdentifier, WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IJSONEditingService } from '../../configuration/common/jsonEditing.js';
-import { IWorkspacesService } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfacesService } from '../../../../platform/workspaces/common/workspaces.js';
 import { WorkspaceService } from '../../configuration/browser/configurationService.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
 import { IWorkingCopyBackupService } from '../../workingCopy/common/workingCopyBackup.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
@@ -29,7 +29,7 @@ import { INativeHostService } from '../../../../platform/native/common/native.js
 import { isMacintosh } from '../../../../base/common/platform.js';
 import { WorkingCopyBackupService } from '../../workingCopy/common/workingCopyBackupService.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IWorkbenchConfigurationService } from '../../configuration/common/configuration.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
 import { IUserDataProfileService } from '../../userDataProfile/common/userDataProfile.js';
@@ -39,17 +39,17 @@ export class NativeWorkspaceEditingService extends AbstractWorkspaceEditingServi
 
 	constructor(
 		@IJSONEditingService jsonEditingService: IJSONEditingService,
-		@IWorkspaceContextService contextService: WorkspaceService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceService,
 		@INativeHostService private nativeHostService: INativeHostService,
 		@IWorkbenchConfigurationService configurationService: IWorkbenchConfigurationService,
-		@IStorageService private storageService: IStorageService,
+		@StorageServiceInterface private storageService: StorageServiceInterface,
 		@IExtensionService private extensionService: IExtensionService,
 		@IWorkingCopyBackupService private workingCopyBackupService: IWorkingCopyBackupService,
 		@INotificationService notificationService: INotificationService,
 		@ICommandService commandService: ICommandService,
 		@IFileService fileService: IFileService,
 		@ITextFileService textFileService: ITextFileService,
-		@IWorkspacesService workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService workspacesService: WorkspaceInterfacesService,
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,
 		@IFileDialogService fileDialogService: IFileDialogService,
 		@IDialogService dialogService: IDialogService,
@@ -57,7 +57,7 @@ export class NativeWorkspaceEditingService extends AbstractWorkspaceEditingServi
 		@ILabelService private readonly labelService: ILabelService,
 		@IHostService hostService: IHostService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@IWorkspaceTrustManagementService workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IUserDataProfilesService userDataProfilesService: IUserDataProfilesService,
 		@IUserDataProfileService userDataProfileService: IUserDataProfileService,
 	) {
@@ -205,4 +205,4 @@ export class NativeWorkspaceEditingService extends AbstractWorkspaceEditingServi
 	}
 }
 
-registerSingleton(IWorkspaceEditingService, NativeWorkspaceEditingService, InstantiationType.Delayed);
+registerSingleton(WorkspaceInterfaceEditingService, NativeWorkspaceEditingService, InstantiationType.Delayed);

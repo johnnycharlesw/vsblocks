@@ -12,13 +12,13 @@ import { EditorInputCapabilities, GroupIdentifier, isResourceEditorInput, IUntyp
 import { SidebarPart } from './parts/sidebar/sidebarPart.js';
 import { PanelPart } from './parts/panel/panelPart.js';
 import { Position, Parts, PartOpensMaximizedOptions, IWorkbenchLayoutService, positionFromString, positionToString, partOpensMaximizedFromString, PanelAlignment, ActivityBarPosition, LayoutSettings, MULTI_WINDOW_PARTS, SINGLE_WINDOW_PARTS, ZenModeSettings, EditorTabsMode, EditorActionsLocation, shouldShowCustomTitleBar, isHorizontal, isMultiWindowPart } from '../services/layout/browser/layoutService.js';
-import { isTemporaryWorkspace, IWorkspaceContextService, WorkbenchState } from '../../platform/workspace/common/workspace.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
+import { isTemporaryWorkspace, WorkspaceContextServiceInterface, WorkbenchState } from '../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../platform/storage/common/storage.js';
 import { IConfigurationChangeEvent, IConfigurationService, isConfigured } from '../../platform/configuration/common/configuration.js';
 import { ITitleService } from '../services/title/browser/titleService.js';
 import { ServicesAccessor } from '../../platform/instantiation/common/instantiation.js';
 import { StartupKind, ILifecycleService } from '../services/lifecycle/common/lifecycle.js';
-import { getMenuBarVisibility, IPath, hasNativeTitlebar, hasCustomTitlebar, TitleBarSetting, CustomTitleBarVisibility, useWindowControlsOverlay, DEFAULT_EMPTY_WINDOW_SIZE, DEFAULT_WORKSPACE_WINDOW_SIZE, hasNativeMenu, MenuSettings } from '../../platform/window/common/window.js';
+import { getMenuBarVisibility, PathInterface, hasNativeTitlebar, hasCustomTitlebar, TitleBarSetting, CustomTitleBarVisibility, useWindowControlsOverlay, DEFAULT_EMPTY_WINDOW_SIZE, DEFAULT_WORKSPACE_WINDOW_SIZE, hasNativeMenu, MenuSettings } from '../../platform/window/common/window.js';
 import { IHostService } from '../services/host/browser/host.js';
 import { IBrowserWorkbenchEnvironmentService } from '../services/environment/browser/environmentService.js';
 import { IEditorService } from '../services/editor/common/editorService.js';
@@ -103,14 +103,14 @@ enum LayoutClasses {
 	WINDOW_BORDER = 'border'
 }
 
-interface IPathToOpen extends IPath {
+interface PathInterfaceToOpen extends PathInterface {
 	readonly viewColumn?: number;
 }
 
 interface IInitialEditorsState {
-	readonly filesToOpenOrCreate?: IPathToOpen[];
-	readonly filesToDiff?: IPathToOpen[];
-	readonly filesToMerge?: IPathToOpen[];
+	readonly filesToOpenOrCreate?: PathInterfaceToOpen[];
+	readonly filesToDiff?: PathInterfaceToOpen[];
+	readonly filesToMerge?: PathInterfaceToOpen[];
 
 	readonly layout?: EditorGroupLayout;
 }
@@ -275,7 +275,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 	private environmentService!: IBrowserWorkbenchEnvironmentService;
 	private extensionService!: IExtensionService;
 	private configurationService!: IConfigurationService;
-	private storageService!: IStorageService;
+	private storageService!: StorageServiceInterface;
 	private hostService!: IHostService;
 	private editorService!: IEditorService;
 	private mainPartEditorService!: IEditorService;
@@ -283,7 +283,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 	private paneCompositeService!: IPaneCompositePartService;
 	private titleService!: ITitleService;
 	private viewDescriptorService!: IViewDescriptorService;
-	private contextService!: IWorkspaceContextService;
+	private contextService!: WorkspaceContextServiceInterface;
 	private notificationService!: INotificationService;
 	private themeService!: IThemeService;
 	private statusBarService!: IStatusbarService;
@@ -309,8 +309,8 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		this.environmentService = accessor.get(IBrowserWorkbenchEnvironmentService);
 		this.configurationService = accessor.get(IConfigurationService);
 		this.hostService = accessor.get(IHostService);
-		this.contextService = accessor.get(IWorkspaceContextService);
-		this.storageService = accessor.get(IStorageService);
+		this.contextService = accessor.get(WorkspaceContextServiceInterface);
+		this.storageService = accessor.get(StorageServiceInterface);
 		this.themeService = accessor.get(IThemeService);
 		this.extensionService = accessor.get(IExtensionService);
 		this.logService = accessor.get(ILogService);
@@ -750,7 +750,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		this.updateWindowBorder(true);
 	}
 
-	private getDefaultLayoutViews(environmentService: IBrowserWorkbenchEnvironmentService, storageService: IStorageService): string[] | undefined {
+	private getDefaultLayoutViews(environmentService: IBrowserWorkbenchEnvironmentService, storageService: StorageServiceInterface): string[] | undefined {
 		const defaultLayout = environmentService.options?.defaultLayout;
 		if (!defaultLayout) {
 			return undefined;
@@ -768,7 +768,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		return undefined;
 	}
 
-	private shouldRestoreEditors(contextService: IWorkspaceContextService, initialEditorsState: IInitialEditorsState | undefined): boolean {
+	private shouldRestoreEditors(contextService: WorkspaceContextServiceInterface, initialEditorsState: IInitialEditorsState | undefined): boolean {
 
 		// Restore editors based on a set of rules:
 		// - never when running on temporary workspace
@@ -2786,9 +2786,9 @@ class LayoutStateModel extends Disposable {
 	};
 
 	constructor(
-		private readonly storageService: IStorageService,
+		private readonly storageService: StorageServiceInterface,
 		private readonly configurationService: IConfigurationService,
-		private readonly contextService: IWorkspaceContextService,
+		private readonly contextService: WorkspaceContextServiceInterface,
 	) {
 		super();
 

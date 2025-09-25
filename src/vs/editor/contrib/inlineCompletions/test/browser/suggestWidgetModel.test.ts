@@ -22,12 +22,12 @@ import { ServiceCollection } from '../../../../../platform/instantiation/common/
 import { IKeybindingService } from '../../../../../platform/keybinding/common/keybinding.js';
 import { MockKeybindingService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
 import { ILogService, NullLogService } from '../../../../../platform/log/common/log.js';
-import { InMemoryStorageService, IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { InMemoryStorageService, StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
 import assert from 'assert';
 import { ILabelService } from '../../../../../platform/label/common/label.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { LanguageFeaturesService } from '../../../../common/services/languageFeaturesService.js';
 import { ILanguageFeaturesService } from '../../../../common/services/languageFeatures.js';
 import { InlineCompletionsModel } from '../../browser/model/inlineCompletionsModel.js';
@@ -139,7 +139,7 @@ async function withAsyncTestCodeEditorAndInlineCompletionsModel(
 			const serviceCollection = new ServiceCollection(
 				[ITelemetryService, NullTelemetryService],
 				[ILogService, new NullLogService()],
-				[IStorageService, disposableStore.add(new InMemoryStorageService())],
+				[StorageServiceInterface, disposableStore.add(new InMemoryStorageService())],
 				[IKeybindingService, new MockKeybindingService()],
 				[IEditorWorkerService, new class extends mock<IEditorWorkerService>() {
 					override computeWordRanges() {
@@ -159,7 +159,7 @@ async function withAsyncTestCodeEditorAndInlineCompletionsModel(
 					}
 				}],
 				[ILabelService, new class extends mock<ILabelService>() { }],
-				[IWorkspaceContextService, new class extends mock<IWorkspaceContextService>() { }],
+				[WorkspaceContextServiceInterface, new class extends mock<WorkspaceContextServiceInterface>() { }],
 				[IAccessibilitySignalService, {
 					playSignal: async () => { },
 					isSoundEnabled(signal: unknown) { return false; },

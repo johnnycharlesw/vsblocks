@@ -3,12 +3,12 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { IWorkspaceEditingService } from '../common/workspaceEditing.js';
+import { WorkspaceInterfaceEditingService } from '../common/workspaceEditing.js';
 import { URI } from '../../../../base/common/uri.js';
 import { localize } from '../../../../nls.js';
-import { hasWorkspaceFileExtension, isSavedWorkspace, isUntitledWorkspace, isWorkspaceIdentifier, IWorkspaceContextService, IWorkspaceIdentifier, toWorkspaceIdentifier, WorkbenchState, WORKSPACE_EXTENSION, WORKSPACE_FILTER } from '../../../../platform/workspace/common/workspace.js';
+import { hasWorkspaceFileExtension, isSavedWorkspace, isUntitledWorkspace, isWorkspaceIdentifier, WorkspaceContextServiceInterface, WorkspaceIdentifierInterface, toWorkspaceIdentifier, WorkbenchState, WORKSPACE_EXTENSION, WORKSPACE_FILTER } from '../../../../platform/workspace/common/workspace.js';
 import { IJSONEditingService, JSONEditingError, JSONEditingErrorCode } from '../../configuration/common/jsonEditing.js';
-import { IWorkspaceFolderCreationData, IWorkspacesService, rewriteWorkspaceFileForNewLocation, IEnterWorkspaceResult, IStoredWorkspace } from '../../../../platform/workspaces/common/workspaces.js';
+import { WorkspaceInterfaceFolderCreationData, WorkspaceInterfacesService, rewriteWorkspaceFileForNewLocation, IEnterWorkspaceResult, IStoredWorkspace } from '../../../../platform/workspaces/common/workspaces.js';
 import { WorkspaceService } from '../../configuration/browser/configurationService.js';
 import { ConfigurationScope, IConfigurationRegistry, Extensions as ConfigurationExtensions, IConfigurationPropertySchema } from '../../../../platform/configuration/common/configurationRegistry.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
@@ -24,31 +24,31 @@ import { IHostService } from '../../host/browser/host.js';
 import { Schemas } from '../../../../base/common/network.js';
 import { SaveReason } from '../../../common/editor.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IWorkbenchConfigurationService } from '../../configuration/common/configuration.js';
 import { IUserDataProfilesService } from '../../../../platform/userDataProfile/common/userDataProfile.js';
 import { IUserDataProfileService } from '../../userDataProfile/common/userDataProfile.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 
-export abstract class AbstractWorkspaceEditingService extends Disposable implements IWorkspaceEditingService {
+export abstract class AbstractWorkspaceEditingService extends Disposable implements WorkspaceInterfaceEditingService {
 
 	declare readonly _serviceBrand: undefined;
 
 	constructor(
 		@IJSONEditingService private readonly jsonEditingService: IJSONEditingService,
-		@IWorkspaceContextService protected readonly contextService: WorkspaceService,
+		@WorkspaceContextServiceInterface protected readonly contextService: WorkspaceService,
 		@IWorkbenchConfigurationService protected readonly configurationService: IWorkbenchConfigurationService,
 		@INotificationService private readonly notificationService: INotificationService,
 		@ICommandService private readonly commandService: ICommandService,
 		@IFileService private readonly fileService: IFileService,
 		@ITextFileService private readonly textFileService: ITextFileService,
-		@IWorkspacesService protected readonly workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService protected readonly workspacesService: WorkspaceInterfacesService,
 		@IWorkbenchEnvironmentService protected readonly environmentService: IWorkbenchEnvironmentService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
 		@IDialogService protected readonly dialogService: IDialogService,
 		@IHostService protected readonly hostService: IHostService,
 		@IUriIdentityService protected readonly uriIdentityService: IUriIdentityService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IUserDataProfileService private readonly userDataProfileService: IUserDataProfileService,
 	) {
@@ -99,7 +99,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		return `workspace.${WORKSPACE_EXTENSION}`;
 	}
 
-	async updateFolders(index: number, deleteCount?: number, foldersToAddCandidates?: IWorkspaceFolderCreationData[], donotNotifyError?: boolean): Promise<void> {
+	async updateFolders(index: number, deleteCount?: number, foldersToAddCandidates?: WorkspaceInterfaceFolderCreationData[], donotNotifyError?: boolean): Promise<void> {
 		const folders = this.contextService.getWorkspace().folders;
 
 		let foldersToDelete: URI[] = [];
@@ -107,7 +107,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 			foldersToDelete = folders.slice(index, index + deleteCount).map(folder => folder.uri);
 		}
 
-		let foldersToAdd: IWorkspaceFolderCreationData[] = [];
+		let foldersToAdd: WorkspaceInterfaceFolderCreationData[] = [];
 		if (Array.isArray(foldersToAddCandidates)) {
 			foldersToAdd = foldersToAddCandidates.map(folderToAdd => ({ uri: removeTrailingPathSeparator(folderToAdd.uri), name: folderToAdd.name })); // Normalize
 		}
@@ -149,7 +149,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		}
 	}
 
-	private async doUpdateFolders(foldersToAdd: IWorkspaceFolderCreationData[], foldersToDelete: URI[], index?: number, donotNotifyError: boolean = false): Promise<void> {
+	private async doUpdateFolders(foldersToAdd: WorkspaceInterfaceFolderCreationData[], foldersToDelete: URI[], index?: number, donotNotifyError: boolean = false): Promise<void> {
 		try {
 			await this.contextService.updateFolders(foldersToAdd, foldersToDelete, index);
 		} catch (error) {
@@ -161,7 +161,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		}
 	}
 
-	addFolders(foldersToAddCandidates: IWorkspaceFolderCreationData[], donotNotifyError: boolean = false): Promise<void> {
+	addFolders(foldersToAddCandidates: WorkspaceInterfaceFolderCreationData[], donotNotifyError: boolean = false): Promise<void> {
 
 		// Normalize
 		const foldersToAdd = foldersToAddCandidates.map(folderToAdd => ({ uri: removeTrailingPathSeparator(folderToAdd.uri), name: folderToAdd.name }));
@@ -169,7 +169,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		return this.doAddFolders(foldersToAdd, undefined, donotNotifyError);
 	}
 
-	private async doAddFolders(foldersToAdd: IWorkspaceFolderCreationData[], index?: number, donotNotifyError: boolean = false): Promise<void> {
+	private async doAddFolders(foldersToAdd: WorkspaceInterfaceFolderCreationData[], index?: number, donotNotifyError: boolean = false): Promise<void> {
 		const state = this.contextService.getWorkbenchState();
 		const remoteAuthority = this.environmentService.remoteAuthority;
 		if (remoteAuthority) {
@@ -232,7 +232,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		return false;
 	}
 
-	async createAndEnterWorkspace(folders: IWorkspaceFolderCreationData[], path?: URI): Promise<void> {
+	async createAndEnterWorkspace(folders: WorkspaceInterfaceFolderCreationData[], path?: URI): Promise<void> {
 		if (path && !await this.isValidTargetWorkspacePath(path)) {
 			return;
 		}
@@ -281,7 +281,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		return true; // OK
 	}
 
-	protected async saveWorkspaceAs(workspace: IWorkspaceIdentifier, targetConfigPathURI: URI): Promise<void> {
+	protected async saveWorkspaceAs(workspace: WorkspaceIdentifierInterface, targetConfigPathURI: URI): Promise<void> {
 		const configPathURI = workspace.configPath;
 
 		const isNotUntitledWorkspace = !isUntitledWorkspace(targetConfigPathURI, this.environmentService);
@@ -306,7 +306,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		await this.trustWorkspaceConfiguration(targetConfigPathURI);
 	}
 
-	protected async saveWorkspace(workspace: IWorkspaceIdentifier): Promise<void> {
+	protected async saveWorkspace(workspace: WorkspaceIdentifierInterface): Promise<void> {
 		const configPathURI = workspace.configPath;
 
 		// First: try to save any existing model as it could be dirty
@@ -371,15 +371,15 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		return this.workspacesService.enterWorkspace(workspaceUri);
 	}
 
-	private migrateWorkspaceSettings(toWorkspace: IWorkspaceIdentifier): Promise<void> {
+	private migrateWorkspaceSettings(toWorkspace: WorkspaceIdentifierInterface): Promise<void> {
 		return this.doCopyWorkspaceSettings(toWorkspace, setting => setting.scope === ConfigurationScope.WINDOW);
 	}
 
-	copyWorkspaceSettings(toWorkspace: IWorkspaceIdentifier): Promise<void> {
+	copyWorkspaceSettings(toWorkspace: WorkspaceIdentifierInterface): Promise<void> {
 		return this.doCopyWorkspaceSettings(toWorkspace);
 	}
 
-	private doCopyWorkspaceSettings(toWorkspace: IWorkspaceIdentifier, filter?: (config: IConfigurationPropertySchema) => boolean): Promise<void> {
+	private doCopyWorkspaceSettings(toWorkspace: WorkspaceIdentifierInterface, filter?: (config: IConfigurationPropertySchema) => boolean): Promise<void> {
 		const configurationProperties = Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration).getConfigurationProperties();
 		const targetWorkspaceConfiguration: any = {};
 		for (const key of this.configurationService.keys().workspace) {
@@ -401,7 +401,7 @@ export abstract class AbstractWorkspaceEditingService extends Disposable impleme
 		}
 	}
 
-	protected getCurrentWorkspaceIdentifier(): IWorkspaceIdentifier | undefined {
+	protected getCurrentWorkspaceIdentifier(): WorkspaceIdentifierInterface | undefined {
 		const identifier = toWorkspaceIdentifier(this.contextService.getWorkspace());
 		if (isWorkspaceIdentifier(identifier)) {
 			return identifier;

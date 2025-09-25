@@ -52,7 +52,7 @@ import { renderAsPlaintext } from '../../../../base/browser/markdownRenderer.js'
 import { IHoverDelegate } from '../../../../base/browser/ui/hover/hoverDelegate.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { AriaRole } from '../../../../base/browser/ui/aria/aria.js';
 import { ILocalizedString } from '../../../../platform/action/common/action.js';
 import { IHoverService, WorkbenchHoverDelegate } from '../../../../platform/hover/browser/hover.js';
@@ -264,7 +264,7 @@ export class TimelinePane extends ViewPane {
 		@IContextMenuService contextMenuService: IContextMenuService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IEditorService protected editorService: IEditorService,
@@ -1267,7 +1267,7 @@ class TimelinePaneCommands extends Disposable {
 	constructor(
 		private readonly pane: TimelinePane,
 		@ITimelineService private readonly timelineService: ITimelineService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@IMenuService private readonly menuService: IMenuService,
 	) {
@@ -1368,7 +1368,7 @@ class TimelinePaneCommands extends Disposable {
 						excluded.add(source.id);
 					}
 
-					const storageService = accessor.get(IStorageService);
+					const storageService = accessor.get(StorageServiceInterface);
 					storageService.store('timeline.excludeSources', JSON.stringify([...excluded.keys()]), StorageScope.PROFILE, StorageTarget.USER);
 				}
 			}));

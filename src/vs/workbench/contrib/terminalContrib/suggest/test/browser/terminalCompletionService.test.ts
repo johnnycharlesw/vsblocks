@@ -603,7 +603,7 @@ suite('TerminalCompletionService', () => {
 			];
 
 			const resourceRequestConfig: TerminalResourceRequestConfig = {
-				cwd: URI.parse(`${uriPathPrefix}test`),
+				cwd: URI.parse(`${urPathInterfacePrefix}test`),
 				foldersRequested: true,
 				filesRequested: true,
 				pathSeparator

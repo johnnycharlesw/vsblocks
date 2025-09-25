@@ -8,7 +8,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { localize } from '../../../../nls.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
-import { IStorageEntry, IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { IStorageEntry, StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IUserDataProfile, ProfileResourceType } from '../../../../platform/userDataProfile/common/userDataProfile.js';
 import { IUserDataProfileStorageService } from '../../../../platform/userDataProfile/common/userDataProfileStorageService.js';
@@ -22,7 +22,7 @@ interface IGlobalState {
 
 export class GlobalStateResourceInitializer implements IProfileResourceInitializer {
 
-	constructor(@IStorageService private readonly storageService: IStorageService) {
+	constructor(@StorageServiceInterface private readonly storageService: StorageServiceInterface) {
 	}
 
 	async initialize(content: string): Promise<void> {
@@ -41,7 +41,7 @@ export class GlobalStateResourceInitializer implements IProfileResourceInitializ
 export class GlobalStateResource implements IProfileResource {
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IUserDataProfileStorageService private readonly userDataProfileStorageService: IUserDataProfileStorageService,
 		@ILogService private readonly logService: ILogService,
 	) {

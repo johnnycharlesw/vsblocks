@@ -4,17 +4,17 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { refineServiceDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IPath } from '../../../../platform/window/common/window.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { PathInterface } from '../../../../platform/window/common/window.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { URI } from '../../../../base/common/uri.js';
 
-export const IWorkbenchEnvironmentService = refineServiceDecorator<IEnvironmentService, IWorkbenchEnvironmentService>(IEnvironmentService);
+export const IWorkbenchEnvironmentService = refineServiceDecorator<EnvironmentServiceInterface, IWorkbenchEnvironmentService>(EnvironmentServiceInterface);
 
 /**
  * A workbench specific environment service that is only present in workbench
  * layer.
  */
-export interface IWorkbenchEnvironmentService extends IEnvironmentService {
+export interface IWorkbenchEnvironmentService extends EnvironmentServiceInterface {
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// NOTE: KEEP THIS INTERFACE AS SMALL AS POSSIBLE. AS SUCH:
@@ -44,9 +44,9 @@ export interface IWorkbenchEnvironmentService extends IEnvironmentService {
 	readonly profDurationMarkers?: string[];
 
 	// --- Editors to open
-	readonly filesToOpenOrCreate?: IPath[] | undefined;
-	readonly filesToDiff?: IPath[] | undefined;
-	readonly filesToMerge?: IPath[] | undefined;
+	readonly filesToOpenOrCreate?: PathInterface[] | undefined;
+	readonly filesToDiff?: PathInterface[] | undefined;
+	readonly filesToMerge?: PathInterface[] | undefined;
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// NOTE: KEEP THIS INTERFACE AS SMALL AS POSSIBLE. AS SUCH:

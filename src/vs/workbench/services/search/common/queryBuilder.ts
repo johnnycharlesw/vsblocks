@@ -19,9 +19,9 @@ import * as nls from '../../../../nls.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService, IWorkspaceFolderData, toWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolderData, toWorkspaceFolder, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IEditorGroupsService } from '../../editor/common/editorGroupsService.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { ExcludeGlobPattern, getExcludes, IAITextQuery, ICommonQueryProps, IFileQuery, IFolderQuery, IPatternInfo, ISearchConfiguration, ITextQuery, ITextSearchPreviewOptions, pathIncludedInQuery, QueryType } from './search.js';
 import { GlobPattern } from './searchExtTypes.js';
 
@@ -120,10 +120,10 @@ export class QueryBuilder {
 
 	constructor(
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IEditorGroupsService private readonly editorGroupsService: IEditorGroupsService,
 		@ILogService private readonly logService: ILogService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService
 	) {
 	}
@@ -214,7 +214,7 @@ export class QueryBuilder {
 		return newPattern;
 	}
 
-	file(folders: (IWorkspaceFolderData | URI)[], options: IFileQueryBuilderOptions = {}): IFileQuery {
+	file(folders: (WorkspaceInterfaceFolderData | URI)[], options: IFileQueryBuilderOptions = {}): IFileQuery {
 		const commonQuery = this.commonQuery(folders, options);
 		return {
 			...commonQuery,
@@ -247,7 +247,7 @@ export class QueryBuilder {
 			: { pattern: patternListToIExpression(...(Array.isArray(pattern) ? pattern : [pattern])) };
 	}
 
-	private commonQuery(folderResources: (IWorkspaceFolderData | URI)[] = [], options: ICommonQueryBuilderOptions = {}): ICommonQueryProps<uri> {
+	private commonQuery(folderResources: (WorkspaceInterfaceFolderData | URI)[] = [], options: ICommonQueryBuilderOptions = {}): ICommonQueryProps<uri> {
 
 		let excludePatterns: string | string[] | undefined = Array.isArray(options.excludePattern) ? options.excludePattern.map(p => p.pattern).flat() : options.excludePattern;
 		excludePatterns = excludePatterns?.length === 1 ? excludePatterns[0] : excludePatterns;
@@ -567,7 +567,7 @@ export class QueryBuilder {
 		};
 	}
 
-	private getFolderQueryForRoot(folder: (IWorkspaceFolderData | URI), options: ICommonQueryBuilderOptions, searchPathExcludes: ISearchPathsInfo, includeFolderName: boolean): IFolderQuery | null {
+	private getFolderQueryForRoot(folder: (WorkspaceInterfaceFolderData | URI), options: ICommonQueryBuilderOptions, searchPathExcludes: ISearchPathsInfo, includeFolderName: boolean): IFolderQuery | null {
 		let thisFolderExcludeSearchPathPattern: glob.IExpression | undefined;
 		const folderUri = URI.isUri(folder) ? folder : folder.uri;
 
@@ -698,7 +698,7 @@ function escapeGlobPattern(path: string): string {
 /**
  * Construct an include pattern from a list of folders uris to search in.
  */
-export function resolveResourcesForSearchIncludes(resources: URI[], contextService: IWorkspaceContextService): string[] {
+export function resolveResourcesForSearchIncludes(resources: URI[], contextService: WorkspaceContextServiceInterface): string[] {
 	resources = arrays.distinct(resources, resource => resource.toString());
 
 	const folderPaths: string[] = [];

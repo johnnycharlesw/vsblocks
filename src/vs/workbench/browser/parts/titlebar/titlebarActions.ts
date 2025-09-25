@@ -6,7 +6,7 @@
 import { ILocalizedString, localize, localize2 } from '../../../../nls.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { ServicesAccessor } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { LayoutSettings } from '../../../services/layout/browser/layoutService.js';
 import { Action2, MenuId, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { ContextKeyExpr, ContextKeyExpression, IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
@@ -230,7 +230,7 @@ registerAction2(class ToggleEditorActions extends Action2 {
 
 	run(accessor: ServicesAccessor, ...args: any[]): void {
 		const configService = accessor.get(IConfigurationService);
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 
 		const location = configService.getValue<string>(ToggleEditorActions.settingsID);
 		if (location === 'hidden') {

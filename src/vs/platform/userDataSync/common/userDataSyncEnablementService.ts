@@ -6,8 +6,8 @@
 import { Emitter, Event } from '../../../base/common/event.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 import { isWeb } from '../../../base/common/platform.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
-import { IApplicationStorageValueChangeEvent, IStorageService, StorageScope, StorageTarget } from '../../storage/common/storage.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
+import { IApplicationStorageValueChangeEvent, StorageServiceInterface, StorageScope, StorageTarget } from '../../storage/common/storage.js';
 import { ALL_SYNC_RESOURCES, getEnablementKey, IUserDataSyncEnablementService, IUserDataSyncStoreManagementService, SyncResource } from './userDataSync.js';
 
 const enablementKey = 'sync.enable';
@@ -23,8 +23,8 @@ export class UserDataSyncEnablementService extends Disposable implements IUserDa
 	readonly onDidChangeResourceEnablement: Event<[SyncResource, boolean]> = this._onDidChangeResourceEnablement.event;
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
-		@IEnvironmentService protected readonly environmentService: IEnvironmentService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
+		@EnvironmentServiceInterface protected readonly environmentService: EnvironmentServiceInterface,
 		@IUserDataSyncStoreManagementService private readonly userDataSyncStoreManagementService: IUserDataSyncStoreManagementService,
 	) {
 		super();

@@ -20,7 +20,7 @@ import { IQuickDiffService } from '../../contrib/scm/common/quickDiff.js';
 import { ISCMHistoryItem, ISCMHistoryItemChange, ISCMHistoryItemRef, ISCMHistoryItemRefsChangeEvent, ISCMHistoryOptions, ISCMHistoryProvider } from '../../contrib/scm/common/history.js';
 import { ResourceTree } from '../../../base/common/resourceTree.js';
 import { IUriIdentityService } from '../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService } from '../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../platform/workspace/common/workspace.js';
 import { basename } from '../../../base/common/resources.js';
 import { ILanguageService } from '../../../editor/common/languages/language.js';
 import { IModelService } from '../../../editor/common/services/model.js';
@@ -323,7 +323,7 @@ class MainThreadSCMProvider implements ISCMProvider {
 		private readonly _inputBoxTextModel: ITextModel,
 		private readonly _quickDiffService: IQuickDiffService,
 		private readonly _uriIdentService: IUriIdentityService,
-		private readonly _workspaceContextService: IWorkspaceContextService
+		private readonly _workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		if (_rootUri) {
 			const folder = this._workspaceContextService.getWorkspaceFolder(_rootUri);
@@ -565,7 +565,7 @@ export class MainThreadSCM implements MainThreadSCMShape {
 		@ITextModelService private readonly textModelService: ITextModelService,
 		@IQuickDiffService private readonly quickDiffService: IQuickDiffService,
 		@IUriIdentityService private readonly _uriIdentService: IUriIdentityService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		this._proxy = extHostContext.getProxy(ExtHostContext.ExtHostSCM);
 

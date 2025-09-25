@@ -13,7 +13,7 @@ import { trimTrailingWhitespace } from '../../../../../../editor/common/commands
 import { Position } from '../../../../../../editor/common/core/position.js';
 import { Range } from '../../../../../../editor/common/core/range.js';
 import { Selection } from '../../../../../../editor/common/core/selection.js';
-import { CodeActionProvider, CodeActionTriggerType, IWorkspaceTextEdit } from '../../../../../../editor/common/languages.js';
+import { CodeActionProvider, CodeActionTriggerType, WorkspaceInterfaceTextEdit } from '../../../../../../editor/common/languages.js';
 import { IReadonlyTextBuffer, ITextModel } from '../../../../../../editor/common/model.js';
 import { IEditorWorkerService } from '../../../../../../editor/common/services/editorWorker.js';
 import { ILanguageFeaturesService } from '../../../../../../editor/common/services/languageFeatures.js';
@@ -28,7 +28,7 @@ import { IInstantiationService, ServicesAccessor } from '../../../../../../platf
 import { ILogService } from '../../../../../../platform/log/common/log.js';
 import { IProgress, IProgressStep } from '../../../../../../platform/progress/common/progress.js';
 import { Registry } from '../../../../../../platform/registry/common/platform.js';
-import { IWorkspaceTrustManagementService } from '../../../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../../../platform/workspace/common/workspaceTrust.js';
 import { IWorkbenchContribution, IWorkbenchContributionsRegistry, Extensions as WorkbenchContributionsExtensions } from '../../../../../common/contributions.js';
 import { SaveReason } from '../../../../../common/editor.js';
 import { getNotebookEditorFromEditorPane } from '../../notebookBrowser.js';
@@ -345,7 +345,7 @@ class CodeActionOnSaveParticipant implements IStoredFileWorkingCopySaveParticipa
 	constructor(
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ILogService private readonly logService: ILogService,
-		@IWorkspaceTrustManagementService private readonly workspaceTrustManagementService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly workspaceTrustManagementService: WorkspaceInterfaceTrustManagementService,
 		@ITextModelService private readonly textModelService: ITextModelService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 	) {
@@ -536,7 +536,7 @@ export class CodeActionParticipantUtils {
 					let breakFlag = false;
 					if (!action.action.kind?.startsWith('notebook')) {
 						for (const edit of codeActionEdits ?? []) {
-							const workspaceTextEdit = edit as IWorkspaceTextEdit;
+							const workspaceTextEdit = edit as WorkspaceInterfaceTextEdit;
 							if (workspaceTextEdit.resource && isEqual(workspaceTextEdit.resource, model.uri)) {
 								continue;
 							} else {

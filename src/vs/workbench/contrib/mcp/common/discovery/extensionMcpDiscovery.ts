@@ -10,7 +10,7 @@ import { localize } from '../../../../../nls.js';
 import { ConfigurationTarget } from '../../../../../platform/configuration/common/configuration.js';
 import { ContextKeyExpr, IContextKeyService } from '../../../../../platform/contextkey/common/contextkey.js';
 import { IMcpCollectionContribution } from '../../../../../platform/extensions/common/extensions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { IExtensionService } from '../../../../services/extensions/common/extensions.js';
 import * as extensionsRegistry from '../../../../services/extensions/common/extensionsRegistry.js';
 import { mcpActivationEvent, mcpContributionPoint } from '../mcpConfiguration.js';
@@ -41,7 +41,7 @@ export class ExtensionMcpDiscovery extends Disposable implements IMcpDiscovery {
 
 	constructor(
 		@IMcpRegistry private readonly _mcpRegistry: IMcpRegistry,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IExtensionService private readonly _extensionService: IExtensionService,
 		@IContextKeyService private readonly _contextKeyService: IContextKeyService,
 	) {

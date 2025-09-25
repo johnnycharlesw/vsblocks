@@ -19,7 +19,7 @@ import { ParameterHintsModel } from '../../browser/parameterHintsModel.js';
 import { createTestCodeEditor } from '../../../../test/browser/testCodeEditor.js';
 import { createTextModel } from '../../../../test/common/testTextModel.js';
 import { ServiceCollection } from '../../../../../platform/instantiation/common/serviceCollection.js';
-import { InMemoryStorageService, IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { InMemoryStorageService, StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
 
@@ -61,7 +61,7 @@ suite('ParameterHintsModel', () => {
 		const editor = disposables.add(createTestCodeEditor(textModel, {
 			serviceCollection: new ServiceCollection(
 				[ITelemetryService, NullTelemetryService],
-				[IStorageService, disposables.add(new InMemoryStorageService())]
+				[StorageServiceInterface, disposables.add(new InMemoryStorageService())]
 			)
 		}));
 		return editor;

@@ -10,7 +10,7 @@ import { Disposable } from '../../../../base/common/lifecycle.js';
 import { isEmptyObject } from '../../../../base/common/types.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { ISecretStorageService } from '../../../../platform/secrets/common/secrets.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IResolvedValue } from '../../../services/configurationResolver/common/configurationResolverExpression.js';
 
 const MCP_ENCRYPTION_KEY_NAME = 'mcpEncryptionKey';
@@ -69,7 +69,7 @@ export class McpRegistryInputStorage extends Disposable {
 	constructor(
 		private readonly _scope: StorageScope,
 		_target: StorageTarget,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@ISecretStorageService private readonly _secretStorageService: ISecretStorageService,
 		@ILogService private readonly _logService: ILogService,
 	) {

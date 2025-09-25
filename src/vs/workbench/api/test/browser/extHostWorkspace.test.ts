@@ -9,9 +9,9 @@ import { basename } from '../../../../base/common/path.js';
 import { URI, UriComponents } from '../../../../base/common/uri.js';
 import { ExtensionIdentifier } from '../../../../platform/extensions/common/extensions.js';
 import { ILogService, NullLogService } from '../../../../platform/log/common/log.js';
-import { IWorkspaceFolderData } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolderData } from '../../../../platform/workspace/common/workspace.js';
 import { MainThreadWorkspace } from '../../browser/mainThreadWorkspace.js';
-import { IMainContext, IWorkspaceData, MainContext, ITextSearchComplete } from '../../common/extHost.protocol.js';
+import { IMainContext, WorkspaceInterfaceData, MainContext, ITextSearchComplete } from '../../common/extHost.protocol.js';
 import { RelativePattern } from '../../common/extHostTypes.js';
 import { ExtHostWorkspace } from '../../common/extHostWorkspace.js';
 import { mock } from '../../../../base/test/common/mock.js';
@@ -28,7 +28,7 @@ import { IURITransformerService } from '../../common/extHostUriTransformerServic
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 import { ExcludeSettingOptions } from '../../../services/search/common/searchExtTypes.js';
 
-function createExtHostWorkspace(mainContext: IMainContext, data: IWorkspaceData, logService: ILogService): ExtHostWorkspace {
+function createExtHostWorkspace(mainContext: IMainContext, data: WorkspaceInterfaceData, logService: ILogService): ExtHostWorkspace {
 	const result = new ExtHostWorkspace(
 		new ExtHostRpcService(mainContext),
 		new class extends mock<IExtHostInitDataService>() { override workspace = data; },
@@ -566,7 +566,7 @@ suite('ExtHostWorkspace', function () {
 		}
 	});
 
-	function aWorkspaceFolderData(uri: URI, index: number, name: string = ''): IWorkspaceFolderData {
+	function aWorkspaceFolderData(uri: URI, index: number, name: string = ''): WorkspaceInterfaceFolderData {
 		return {
 			uri,
 			index,

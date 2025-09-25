@@ -17,7 +17,7 @@ import { IEnvironmentMainService } from '../../environment/electron-main/environ
 import { IStateService } from '../../state/node/state.js';
 import { HotExitConfiguration, IFilesConfiguration } from '../../files/common/files.js';
 import { ILogService } from '../../log/common/log.js';
-import { IFolderBackupInfo, isFolderBackupInfo, IWorkspaceBackupInfo } from '../common/backup.js';
+import { IFolderBackupInfo, isFolderBackupInfo, WorkspaceInterfaceBackupInfo } from '../common/backup.js';
 import { isWorkspaceIdentifier } from '../../workspace/common/workspace.js';
 import { createEmptyWorkspaceIdentifier } from '../../workspaces/node/workspaces.js';
 
@@ -29,7 +29,7 @@ export class BackupMainService implements IBackupMainService {
 
 	protected backupHome: string;
 
-	private workspaces: IWorkspaceBackupInfo[] = [];
+	private workspaces: WorkspaceInterfaceBackupInfo[] = [];
 	private folders: IFolderBackupInfo[] = [];
 	private emptyWindows: IEmptyWindowBackupInfo[] = [];
 
@@ -66,7 +66,7 @@ export class BackupMainService implements IBackupMainService {
 		this.storeWorkspacesMetadata();
 	}
 
-	protected getWorkspaceBackups(): IWorkspaceBackupInfo[] {
+	protected getWorkspaceBackups(): WorkspaceInterfaceBackupInfo[] {
 		if (this.isHotExitOnExitAndWindowClose()) {
 			// Only non-folder windows are restored on main process launch when
 			// hot exit is configured as onExitAndWindowClose.
@@ -104,9 +104,9 @@ export class BackupMainService implements IBackupMainService {
 		return this.emptyWindows.slice(0); // return a copy
 	}
 
-	registerWorkspaceBackup(workspaceInfo: IWorkspaceBackupInfo): string;
-	registerWorkspaceBackup(workspaceInfo: IWorkspaceBackupInfo, migrateFrom: string): Promise<string>;
-	registerWorkspaceBackup(workspaceInfo: IWorkspaceBackupInfo, migrateFrom?: string): string | Promise<string> {
+	registerWorkspaceBackup(workspaceInfo: WorkspaceInterfaceBackupInfo): string;
+	registerWorkspaceBackup(workspaceInfo: WorkspaceInterfaceBackupInfo, migrateFrom: string): Promise<string>;
+	registerWorkspaceBackup(workspaceInfo: WorkspaceInterfaceBackupInfo, migrateFrom?: string): string | Promise<string> {
 		if (!this.workspaces.some(workspace => workspaceInfo.workspace.id === workspace.workspace.id)) {
 			this.workspaces.push(workspaceInfo);
 			this.storeWorkspacesMetadata();
@@ -156,13 +156,13 @@ export class BackupMainService implements IBackupMainService {
 		return join(this.backupHome, emptyWindowInfo.backupFolder);
 	}
 
-	private async validateWorkspaces(rootWorkspaces: IWorkspaceBackupInfo[]): Promise<IWorkspaceBackupInfo[]> {
+	private async validateWorkspaces(rootWorkspaces: WorkspaceInterfaceBackupInfo[]): Promise<WorkspaceInterfaceBackupInfo[]> {
 		if (!Array.isArray(rootWorkspaces)) {
 			return [];
 		}
 
 		const seenIds: Set<string> = new Set();
-		const result: IWorkspaceBackupInfo[] = [];
+		const result: WorkspaceInterfaceBackupInfo[] = [];
 
 		// Validate Workspaces
 		for (const workspaceInfo of rootWorkspaces) {
@@ -296,8 +296,8 @@ export class BackupMainService implements IBackupMainService {
 		return true;
 	}
 
-	async getDirtyWorkspaces(): Promise<Array<IWorkspaceBackupInfo | IFolderBackupInfo>> {
-		const dirtyWorkspaces: Array<IWorkspaceBackupInfo | IFolderBackupInfo> = [];
+	async getDirtyWorkspaces(): Promise<Array<WorkspaceInterfaceBackupInfo | IFolderBackupInfo>> {
+		const dirtyWorkspaces: Array<WorkspaceInterfaceBackupInfo | IFolderBackupInfo> = [];
 
 		// Workspaces with backups
 		for (const workspace of this.workspaces) {
@@ -316,7 +316,7 @@ export class BackupMainService implements IBackupMainService {
 		return dirtyWorkspaces;
 	}
 
-	private hasBackups(backupLocation: IWorkspaceBackupInfo | IEmptyWindowBackupInfo | IFolderBackupInfo): Promise<boolean> {
+	private hasBackups(backupLocation: WorkspaceInterfaceBackupInfo | IEmptyWindowBackupInfo | IFolderBackupInfo): Promise<boolean> {
 		let backupPath: string;
 
 		// Empty

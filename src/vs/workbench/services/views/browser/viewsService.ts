@@ -7,7 +7,7 @@ import { Disposable, IDisposable, toDisposable, DisposableStore, DisposableMap }
 import { IViewDescriptorService, ViewContainer, IViewDescriptor, IView, ViewContainerLocation, IViewPaneContainer } from '../../../common/views.js';
 import { FocusedViewContext, getVisbileViewContextKey } from '../../../common/contextkeys.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ContextKeyExpr, IContextKey, IContextKeyService, RawContextKey } from '../../../../platform/contextkey/common/contextkey.js';
 import { Event, Emitter } from '../../../../base/common/event.js';
 import { isString } from '../../../../base/common/types.js';
@@ -22,7 +22,7 @@ import { ITelemetryService } from '../../../../platform/telemetry/common/telemet
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { IContextMenuService } from '../../../../platform/contextview/browser/contextView.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { PaneCompositeDescriptor, PaneCompositeRegistry, Extensions as PaneCompositeExtensions, PaneComposite } from '../../../browser/panecomposite.js';
 import { IWorkbenchLayoutService, Parts } from '../../layout/browser/layoutService.js';
 import { URI } from '../../../../base/common/uri.js';
@@ -642,8 +642,8 @@ export class ViewsService extends Disposable implements IViewsService {
 		class PaneContainer extends PaneComposite {
 			constructor(
 				@ITelemetryService telemetryService: ITelemetryService,
-				@IWorkspaceContextService contextService: IWorkspaceContextService,
-				@IStorageService storageService: IStorageService,
+				@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
+				@StorageServiceInterface storageService: StorageServiceInterface,
 				@IInstantiationService instantiationService: IInstantiationService,
 				@IThemeService themeService: IThemeService,
 				@IContextMenuService contextMenuService: IContextMenuService,

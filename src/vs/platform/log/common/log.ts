@@ -15,7 +15,7 @@ import { Mutable, isNumber, isString } from '../../../base/common/types.js';
 import { URI } from '../../../base/common/uri.js';
 import { ILocalizedString } from '../../action/common/action.js';
 import { RawContextKey } from '../../contextkey/common/contextkey.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 
 export const ILogService = createDecorator<ILogService>('logService');
@@ -763,7 +763,7 @@ export class NullLoggerService extends AbstractLoggerService {
 	}
 }
 
-export function getLogLevel(environmentService: IEnvironmentService): LogLevel {
+export function getLogLevel(environmentService: EnvironmentServiceInterface): LogLevel {
 	if (environmentService.verbose) {
 		return LogLevel.Trace;
 	}

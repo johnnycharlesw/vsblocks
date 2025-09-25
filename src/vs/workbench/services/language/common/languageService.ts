@@ -10,7 +10,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { ILanguageExtensionPoint, ILanguageService } from '../../../../editor/common/languages/language.js';
 import { LanguageService } from '../../../../editor/common/services/languageService.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { FILES_ASSOCIATIONS_CONFIG, IFilesConfiguration } from '../../../../platform/files/common/files.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
 import { ExtensionMessageCollector, ExtensionsRegistry, IExtensionPoint, IExtensionPointUser } from '../../extensions/common/extensionsRegistry.js';
@@ -227,7 +227,7 @@ export class WorkbenchLanguageService extends LanguageService {
 	constructor(
 		@IExtensionService extensionService: IExtensionService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@ILogService private readonly logService: ILogService
 	) {
 		super(environmentService.verbose || environmentService.isExtensionDevelopment || !environmentService.isBuilt);

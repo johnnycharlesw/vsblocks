@@ -12,7 +12,7 @@ import { IConfigurationService } from '../../../../../../platform/configuration/
 import { ContextKeyExpr, IContextKeyService } from '../../../../../../platform/contextkey/common/contextkey.js';
 import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
 import { Registry } from '../../../../../../platform/registry/common/platform.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../../platform/storage/common/storage.js';
 import { IWorkbenchContribution, IWorkbenchContributionsRegistry, Extensions as WorkbenchExtensions } from '../../../../../common/contributions.js';
 import { Memento } from '../../../../../common/memento.js';
 import { NotebookSetting } from '../../../common/notebookCommon.js';
@@ -31,7 +31,7 @@ export class NotebookGettingStarted extends Disposable implements IWorkbenchCont
 
 	constructor(
 		@IEditorService _editorService: IEditorService,
-		@IStorageService _storageService: IStorageService,
+		@StorageServiceInterface _storageService: StorageServiceInterface,
 		@IContextKeyService _contextKeyService: IContextKeyService,
 		@ICommandService _commandService: ICommandService,
 		@IConfigurationService _configurationService: IConfigurationService,
@@ -88,7 +88,7 @@ registerAction2(class NotebookClearNotebookLayoutAction extends Action2 {
 		});
 	}
 	run(accessor: ServicesAccessor): void {
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 		const memento = new Memento('notebookGettingStarted', storageService);
 
 		const storedValue = memento.getMemento(StorageScope.PROFILE, StorageTarget.USER);

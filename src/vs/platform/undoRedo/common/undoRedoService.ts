@@ -12,7 +12,7 @@ import * as nls from '../../../nls.js';
 import { IDialogService } from '../../dialogs/common/dialogs.js';
 import { InstantiationType, registerSingleton } from '../../instantiation/common/extensions.js';
 import { INotificationService } from '../../notification/common/notification.js';
-import { IPastFutureElements, IResourceUndoRedoElement, IUndoRedoElement, IUndoRedoService, IWorkspaceUndoRedoElement, ResourceEditStackSnapshot, UndoRedoElementType, UndoRedoGroup, UndoRedoSource, UriComparisonKeyComputer } from './undoRedo.js';
+import { IPastFutureElements, IResourceUndoRedoElement, IUndoRedoElement, IUndoRedoService, WorkspaceInterfaceUndoRedoElement, ResourceEditStackSnapshot, UndoRedoElementType, UndoRedoGroup, UndoRedoSource, UriComparisonKeyComputer } from './undoRedo.js';
 
 const DEBUG = false;
 
@@ -129,7 +129,7 @@ class RemovedResources {
 class WorkspaceStackElement {
 	public readonly id = (++stackElementCounter);
 	public readonly type = UndoRedoElementType.Workspace;
-	public readonly actual: IWorkspaceUndoRedoElement;
+	public readonly actual: WorkspaceInterfaceUndoRedoElement;
 	public readonly label: string;
 	public readonly confirmBeforeUndo: boolean;
 
@@ -142,7 +142,7 @@ class WorkspaceStackElement {
 	public removedResources: RemovedResources | null;
 	public invalidatedResources: RemovedResources | null;
 
-	constructor(actual: IWorkspaceUndoRedoElement, resourceLabels: string[], strResources: string[], groupId: number, groupOrder: number, sourceId: number, sourceOrder: number) {
+	constructor(actual: WorkspaceInterfaceUndoRedoElement, resourceLabels: string[], strResources: string[], groupId: number, groupOrder: number, sourceId: number, sourceOrder: number) {
 		this.actual = actual;
 		this.label = actual.label;
 		this.confirmBeforeUndo = actual.confirmBeforeUndo || false;

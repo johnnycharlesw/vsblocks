@@ -14,7 +14,7 @@ import { ViewDescriptorService } from '../../browser/viewDescriptorService.js';
 import { assertReturnsDefined } from '../../../../../base/common/types.js';
 import { ContextKeyService } from '../../../../../platform/contextkey/browser/contextKeyService.js';
 import { IContextKeyService } from '../../../../../platform/contextkey/common/contextkey.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 import { generateUuid } from '../../../../../base/common/uuid.js';
 import { compare } from '../../../../../base/common/strings.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
@@ -321,7 +321,7 @@ suite('ViewDescriptorService', () => {
 		const panelViews = testObject.getViewContainerModel(panelContainer);
 		assert.deepStrictEqual(panelViews.allViewDescriptors.map(v => v.id), ['view3']);
 
-		const actual = JSON.parse(instantiationService.get(IStorageService).get('views.customizations', StorageScope.PROFILE)!);
+		const actual = JSON.parse(instantiationService.get(StorageServiceInterface).get('views.customizations', StorageScope.PROFILE)!);
 		assert.deepStrictEqual(actual, { viewContainerLocations: {}, viewLocations: {}, viewContainerBadgeEnablementStates: {} });
 
 		assert.deepStrictEqual(testObject.getViewContainerById(generatedPanel.id), null);
@@ -329,7 +329,7 @@ suite('ViewDescriptorService', () => {
 	});
 
 	test('initialize with custom locations', async function () {
-		const storageService = instantiationService.get(IStorageService);
+		const storageService = instantiationService.get(StorageServiceInterface);
 		const viewContainer1 = ViewContainersRegistry.registerViewContainer({ id: `${viewContainerIdPrefix}-${generateUuid()}`, title: nls.localize2('test', 'test'), ctorDescriptor: new SyncDescriptor(<any>{}) }, ViewContainerLocation.Sidebar);
 		const generateViewContainer1 = `workbench.views.service.${ViewContainerLocationToString(ViewContainerLocation.Sidebar)}.${generateUuid()}`;
 		const viewsCustomizations = {
@@ -431,7 +431,7 @@ suite('ViewDescriptorService', () => {
 				'view1': generateViewContainer1
 			}
 		};
-		instantiationService.get(IStorageService).store('views.customizations', JSON.stringify(viewsCustomizations), StorageScope.PROFILE, StorageTarget.USER);
+		instantiationService.get(StorageServiceInterface).store('views.customizations', JSON.stringify(viewsCustomizations), StorageScope.PROFILE, StorageTarget.USER);
 
 		const sidebarViews = testObject.getViewContainerModel(sidebarContainer);
 		assert.deepStrictEqual(sidebarViews.allViewDescriptors.map(v => v.id), ['view2', 'view3']);
@@ -445,7 +445,7 @@ suite('ViewDescriptorService', () => {
 	});
 
 	test('orphan views', async function () {
-		const storageService = instantiationService.get(IStorageService);
+		const storageService = instantiationService.get(StorageServiceInterface);
 		const viewsCustomizations = {
 			viewContainerLocations: {},
 			viewLocations: {
@@ -490,7 +490,7 @@ suite('ViewDescriptorService', () => {
 	});
 
 	test('orphan view containers', async function () {
-		const storageService = instantiationService.get(IStorageService);
+		const storageService = instantiationService.get(StorageServiceInterface);
 		const generatedViewContainerId = `workbench.views.service.${ViewContainerLocationToString(ViewContainerLocation.Sidebar)}.${generateUuid()}`;
 		const viewsCustomizations = {
 			viewContainerLocations: {
@@ -523,7 +523,7 @@ suite('ViewDescriptorService', () => {
 	});
 
 	test('custom locations take precedence when default view container of views change', async function () {
-		const storageService = instantiationService.get(IStorageService);
+		const storageService = instantiationService.get(StorageServiceInterface);
 		const viewContainer1 = ViewContainersRegistry.registerViewContainer({ id: `${viewContainerIdPrefix}-${generateUuid()}`, title: nls.localize2('test', 'test'), ctorDescriptor: new SyncDescriptor(<any>{}) }, ViewContainerLocation.Sidebar);
 		const generateViewContainer1 = `workbench.views.service.${ViewContainerLocationToString(ViewContainerLocation.Sidebar)}.${generateUuid()}`;
 		const viewsCustomizations = {
@@ -585,7 +585,7 @@ suite('ViewDescriptorService', () => {
 	});
 
 	test('view containers with not existing views are not removed from customizations', async function () {
-		const storageService = instantiationService.get(IStorageService);
+		const storageService = instantiationService.get(StorageServiceInterface);
 		const viewContainer1 = ViewContainersRegistry.registerViewContainer({ id: `${viewContainerIdPrefix}-${generateUuid()}`, title: nls.localize2('test', 'test'), ctorDescriptor: new SyncDescriptor(<any>{}) }, ViewContainerLocation.Sidebar);
 		const generateViewContainer1 = `workbench.views.service.${ViewContainerLocationToString(ViewContainerLocation.Sidebar)}.${generateUuid()}`;
 		const viewsCustomizations = {
@@ -622,7 +622,7 @@ suite('ViewDescriptorService', () => {
 	});
 
 	test('storage change also updates locations even if views do not exists and views are registered later', async function () {
-		const storageService = instantiationService.get(IStorageService);
+		const storageService = instantiationService.get(StorageServiceInterface);
 		const testObject = aViewDescriptorService();
 
 		const generateViewContainerId = `workbench.views.service.${ViewContainerLocationToString(ViewContainerLocation.AuxiliaryBar)}.${generateUuid()}`;
@@ -665,7 +665,7 @@ suite('ViewDescriptorService', () => {
 	});
 
 	test('storage change move views and retain visibility state', async function () {
-		const storageService = instantiationService.get(IStorageService);
+		const storageService = instantiationService.get(StorageServiceInterface);
 		const testObject = aViewDescriptorService();
 
 		const viewContainer = ViewContainersRegistry.registerViewContainer({ id: `${viewContainerIdPrefix}-${generateUuid()}`, title: nls.localize2('test', 'test'), ctorDescriptor: new SyncDescriptor(<any>{}) }, ViewContainerLocation.Sidebar);

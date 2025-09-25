@@ -9,27 +9,27 @@ import { isEqualOrParent, joinPath, relativePath } from '../../../../base/common
 import { URI } from '../../../../base/common/uri.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IWorkspaceStateFolder } from '../../../../platform/userDataSync/common/userDataSync.js';
+import { WorkspaceInterfaceStateFolder } from '../../../../platform/userDataSync/common/userDataSync.js';
 import { EditSessionIdentityMatch, IEditSessionIdentityService } from '../../../../platform/workspace/common/editSessions.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 
-export const IWorkspaceIdentityService = createDecorator<IWorkspaceIdentityService>('IWorkspaceIdentityService');
-export interface IWorkspaceIdentityService {
+export const WorkspaceInterfaceIdentityService = createDecorator<WorkspaceInterfaceIdentityService>('WorkspaceInterfaceIdentityService');
+export interface WorkspaceInterfaceIdentityService {
 	_serviceBrand: undefined;
-	matches(folders: IWorkspaceStateFolder[], cancellationToken: CancellationToken): Promise<((obj: any) => unknown) | false>;
-	getWorkspaceStateFolders(cancellationToken: CancellationToken): Promise<IWorkspaceStateFolder[]>;
+	matches(folders: WorkspaceInterfaceStateFolder[], cancellationToken: CancellationToken): Promise<((obj: any) => unknown) | false>;
+	getWorkspaceStateFolders(cancellationToken: CancellationToken): Promise<WorkspaceInterfaceStateFolder[]>;
 }
 
-export class WorkspaceIdentityService implements IWorkspaceIdentityService {
+export class WorkspaceIdentityService implements WorkspaceInterfaceIdentityService {
 	declare _serviceBrand: undefined;
 
 	constructor(
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
 		@IEditSessionIdentityService private readonly editSessionIdentityService: IEditSessionIdentityService
 	) { }
 
-	async getWorkspaceStateFolders(cancellationToken: CancellationToken): Promise<IWorkspaceStateFolder[]> {
-		const workspaceStateFolders: IWorkspaceStateFolder[] = [];
+	async getWorkspaceStateFolders(cancellationToken: CancellationToken): Promise<WorkspaceInterfaceStateFolder[]> {
+		const workspaceStateFolders: WorkspaceInterfaceStateFolder[] = [];
 
 		for (const workspaceFolder of this.workspaceContextService.getWorkspace().folders) {
 			const workspaceFolderIdentity = await this.editSessionIdentityService.getEditSessionIdentifier(workspaceFolder, cancellationToken);
@@ -40,7 +40,7 @@ export class WorkspaceIdentityService implements IWorkspaceIdentityService {
 		return workspaceStateFolders;
 	}
 
-	async matches(incomingWorkspaceFolders: IWorkspaceStateFolder[], cancellationToken: CancellationToken): Promise<((value: any) => unknown) | false> {
+	async matches(incomingWorkspaceFolders: WorkspaceInterfaceStateFolder[], cancellationToken: CancellationToken): Promise<((value: any) => unknown) | false> {
 		const incomingToCurrentWorkspaceFolderUris: { [key: string]: string } = {};
 
 		const incomingIdentitiesToIncomingWorkspaceFolders: { [key: string]: string } = {};
@@ -49,7 +49,7 @@ export class WorkspaceIdentityService implements IWorkspaceIdentityService {
 		}
 
 		// Precompute the identities of the current workspace folders
-		const currentWorkspaceFoldersToIdentities = new Map<IWorkspaceFolder, string>();
+		const currentWorkspaceFoldersToIdentities = new Map<WorkspaceInterfaceFolder, string>();
 		for (const workspaceFolder of this.workspaceContextService.getWorkspace().folders) {
 			const workspaceFolderIdentity = await this.editSessionIdentityService.getEditSessionIdentifier(workspaceFolder, cancellationToken);
 			if (!workspaceFolderIdentity) { continue; }
@@ -140,4 +140,4 @@ export class WorkspaceIdentityService implements IWorkspaceIdentityService {
 	}
 }
 
-registerSingleton(IWorkspaceIdentityService, WorkspaceIdentityService, InstantiationType.Delayed);
+registerSingleton(WorkspaceInterfaceIdentityService, WorkspaceIdentityService, InstantiationType.Delayed);

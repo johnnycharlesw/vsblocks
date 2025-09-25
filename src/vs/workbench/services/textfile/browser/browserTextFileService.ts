@@ -18,7 +18,7 @@ import { ILogService } from '../../../../platform/log/common/log.js';
 import { IElevatedFileService } from '../../files/common/elevatedFileService.js';
 import { IFilesConfigurationService } from '../../filesConfiguration/common/filesConfigurationService.js';
 import { ILifecycleService } from '../../lifecycle/common/lifecycle.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { IUntitledTextEditorModelManager, IUntitledTextEditorService } from '../../untitled/common/untitledTextEditorService.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IWorkingCopyFileService } from '../../workingCopy/common/workingCopyFileService.js';
@@ -38,7 +38,7 @@ export class BrowserTextFileService extends AbstractTextFileService {
 		@ITextResourceConfigurationService textResourceConfigurationService: ITextResourceConfigurationService,
 		@IFilesConfigurationService filesConfigurationService: IFilesConfigurationService,
 		@ICodeEditorService codeEditorService: ICodeEditorService,
-		@IPathService pathService: IPathService,
+		@PathInterfaceService pathService: PathInterfaceService,
 		@IWorkingCopyFileService workingCopyFileService: IWorkingCopyFileService,
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@ILanguageService languageService: ILanguageService,

@@ -23,7 +23,7 @@ import { ILogService } from '../../../../../platform/log/common/log.js';
 import { HotExitConfiguration } from '../../../../../platform/files/common/files.js';
 import { ShutdownReason, ILifecycleService } from '../../../lifecycle/common/lifecycle.js';
 import { IFileDialogService, ConfirmResult, IDialogService } from '../../../../../platform/dialogs/common/dialogs.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { INativeHostService } from '../../../../../platform/native/common/native.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
@@ -31,7 +31,7 @@ import { IConfigurationService } from '../../../../../platform/configuration/com
 import { createEditorPart, registerTestFileEditor, TestBeforeShutdownEvent, TestEnvironmentService, TestFilesConfigurationService, TestFileService, TestTextResourceConfigurationService, workbenchTeardown } from '../../../../test/browser/workbenchTestServices.js';
 import { MockContextKeyService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
 import { IContextKeyService } from '../../../../../platform/contextkey/common/contextkey.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { TestWorkspace, Workspace } from '../../../../../platform/workspace/test/common/testWorkspace.js';
 import { IProgressService } from '../../../../../platform/progress/common/progress.js';
 import { IWorkingCopyEditorService } from '../../common/workingCopyEditorService.js';
@@ -57,11 +57,11 @@ suite('WorkingCopyBackupTracker (native)', function () {
 			@ILifecycleService lifecycleService: ILifecycleService,
 			@IFileDialogService fileDialogService: IFileDialogService,
 			@IDialogService dialogService: IDialogService,
-			@IWorkspaceContextService contextService: IWorkspaceContextService,
+			@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 			@INativeHostService nativeHostService: INativeHostService,
 			@ILogService logService: ILogService,
 			@IEditorService editorService: IEditorService,
-			@IEnvironmentService environmentService: IEnvironmentService,
+			@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 			@IProgressService progressService: IProgressService,
 			@IWorkingCopyEditorService workingCopyEditorService: IWorkingCopyEditorService,
 			@IEditorGroupsService editorGroupService: IEditorGroupsService

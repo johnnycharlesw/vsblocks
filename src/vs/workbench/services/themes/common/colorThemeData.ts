@@ -21,7 +21,7 @@ import { TokenStyle, SemanticTokenRule, ProbeScope, getTokenClassificationRegist
 import { MatcherWithPriority, Matcher, createMatchers } from './textMateScopeMatcher.js';
 import { IExtensionResourceLoaderService } from '../../../../platform/extensionResourceLoader/common/extensionResourceLoader.js';
 import { CharCode } from '../../../../base/common/charCode.js';
-import { StorageScope, IStorageService, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageScope, StorageServiceInterface, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { ThemeConfiguration } from './themeConfiguration.js';
 import { ColorScheme, ThemeTypeSelector } from '../../../../platform/theme/common/theme.js';
 import { ColorId, FontStyle, MetadataConsts } from '../../../../editor/common/encodedTokenAttributes.js';
@@ -562,7 +562,7 @@ export class ColorThemeData implements IWorkbenchColorTheme {
 		this.customTokenScopeMatchers = undefined;
 	}
 
-	toStorage(storageService: IStorageService) {
+	toStorage(storageService: StorageServiceInterface) {
 		const colorMapData: { [key: string]: string } = {};
 		for (const key in this.colorMap) {
 			colorMapData[key] = Color.Format.CSS.formatHexA(this.colorMap[key], true);
@@ -628,7 +628,7 @@ export class ColorThemeData implements IWorkbenchColorTheme {
 		return themeData;
 	}
 
-	static fromStorageData(storageService: IStorageService): ColorThemeData | undefined {
+	static fromStorageData(storageService: StorageServiceInterface): ColorThemeData | undefined {
 		const input = storageService.get(ColorThemeData.STORAGE_KEY, StorageScope.PROFILE);
 		if (!input) {
 			return undefined;

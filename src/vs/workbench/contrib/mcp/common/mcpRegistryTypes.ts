@@ -10,7 +10,7 @@ import { ConfigurationTarget } from '../../../../platform/configuration/common/c
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogger, LogLevel } from '../../../../platform/log/common/log.js';
 import { StorageScope } from '../../../../platform/storage/common/storage.js';
-import { IWorkspaceFolderData } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolderData } from '../../../../platform/workspace/common/workspace.js';
 import { IResolvedValue } from '../../../services/configurationResolver/common/configurationResolverExpression.js';
 import { IMcpServerConnection, LazyCollectionState, McpCollectionDefinition, McpCollectionReference, McpConnectionState, McpDefinitionReference, McpServerDefinition, McpServerLaunch, McpStartServerInteraction } from './mcpTypes.js';
 import { MCP } from './modelContextProtocol.js';
@@ -85,7 +85,7 @@ export interface IMcpRegistry {
 	/** Resets any saved inputs for the input, or globally. */
 	clearSavedInputs(scope: StorageScope, inputId?: string): Promise<void>;
 	/** Edits a previously-saved input. */
-	editSavedInput(inputId: string, folderData: IWorkspaceFolderData | undefined, configSection: string, target: ConfigurationTarget): Promise<void>;
+	editSavedInput(inputId: string, folderData: WorkspaceInterfaceFolderData | undefined, configSection: string, target: ConfigurationTarget): Promise<void>;
 	/** Updates a saved input. */
 	setSavedInput(inputId: string, target: ConfigurationTarget, value: string): Promise<void>;
 	/** Gets saved inputs from storage. */

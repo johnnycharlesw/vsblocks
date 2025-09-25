@@ -40,7 +40,7 @@ import { TerminalCapability } from '../../../../platform/terminal/common/capabil
 import { ITerminalProfile, TerminalExitReason, TerminalIcon, TerminalLocation, TerminalSettingId } from '../../../../platform/terminal/common/terminal.js';
 import { createProfileSchemaEnums } from '../../../../platform/terminal/common/terminalProfiles.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { PICK_WORKSPACE_FOLDER_COMMAND_ID } from '../../../browser/actions/workspaceCommands.js';
 import { CLOSE_EDITOR_COMMAND_ID } from '../../../browser/parts/editor/editorCommands.js';
 import { IConfigurationResolverService } from '../../../services/configurationResolver/common/configurationResolver.js';
@@ -83,7 +83,7 @@ export const sharedWhenClause = (() => {
 })();
 
 export interface WorkspaceFolderCwdPair {
-	folder: IWorkspaceFolder;
+	folder: WorkspaceInterfaceFolder;
 	cwd: URI;
 	isAbsolute: boolean;
 	isOverridden: boolean;
@@ -91,7 +91,7 @@ export interface WorkspaceFolderCwdPair {
 
 export async function getCwdForSplit(
 	instance: ITerminalInstance,
-	folders: IWorkspaceFolder[] | undefined,
+	folders: WorkspaceInterfaceFolder[] | undefined,
 	commandService: ICommandService,
 	configService: ITerminalConfigurationService
 ): Promise<string | URI | undefined> {
@@ -1061,7 +1061,7 @@ export function registerTerminalActions() {
 		run: async (c, accessor, args) => {
 			const optionsOrProfile = isObject(args) ? args as ICreateTerminalOptions | ITerminalProfile : undefined;
 			const commandService = accessor.get(ICommandService);
-			const workspaceContextService = accessor.get(IWorkspaceContextService);
+			const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 			const options = convertOptionsOrProfileToOptions(optionsOrProfile);
 			const activeInstance = (await c.service.getInstanceHost(options?.location)).activeInstance;
 			if (!activeInstance) {
@@ -1216,7 +1216,7 @@ export function registerTerminalActions() {
 		},
 		run: async (c, accessor, args) => {
 			let eventOrOptions = isObject(args) ? args as MouseEvent | ICreateTerminalOptions : undefined;
-			const workspaceContextService = accessor.get(IWorkspaceContextService);
+			const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 			const commandService = accessor.get(ICommandService);
 			const editorGroupsService = accessor.get(IEditorGroupsService);
 			const folders = workspaceContextService.getWorkspace().folders;
@@ -1563,7 +1563,7 @@ export function refreshTerminalActions(detectedProfiles: ITerminalProfile[]): ID
 			profile?: ITerminalProfile
 		) {
 			const c = getTerminalServices(accessor);
-			const workspaceContextService = accessor.get(IWorkspaceContextService);
+			const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 			const commandService = accessor.get(ICommandService);
 
 			let event: MouseEvent | PointerEvent | KeyboardEvent | undefined;
@@ -1636,7 +1636,7 @@ function getResourceOrActiveInstance(c: ITerminalServicesCollection, resource: u
 async function pickTerminalCwd(accessor: ServicesAccessor, cancel?: CancellationToken): Promise<WorkspaceFolderCwdPair | undefined> {
 	const quickInputService = accessor.get(IQuickInputService);
 	const labelService = accessor.get(ILabelService);
-	const contextService = accessor.get(IWorkspaceContextService);
+	const contextService = accessor.get(WorkspaceContextServiceInterface);
 	const modelService = accessor.get(IModelService);
 	const languageService = accessor.get(ILanguageService);
 	const configurationService = accessor.get(IConfigurationService);
@@ -1679,7 +1679,7 @@ async function pickTerminalCwd(accessor: ServicesAccessor, cancel?: Cancellation
 	return pick?.pair;
 }
 
-async function resolveWorkspaceFolderCwd(folder: IWorkspaceFolder, configurationService: IConfigurationService, configurationResolverService: IConfigurationResolverService): Promise<WorkspaceFolderCwdPair> {
+async function resolveWorkspaceFolderCwd(folder: WorkspaceInterfaceFolder, configurationService: IConfigurationService, configurationResolverService: IConfigurationResolverService): Promise<WorkspaceFolderCwdPair> {
 	const cwdConfig = configurationService.getValue(TerminalSettingId.Cwd, { resource: folder.uri });
 	if (!isString(cwdConfig) || cwdConfig.length === 0) {
 		return { folder, cwd: folder.uri, isAbsolute: false, isOverridden: false };

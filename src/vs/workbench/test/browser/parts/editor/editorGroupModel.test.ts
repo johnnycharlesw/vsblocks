@@ -12,13 +12,13 @@ import { TestConfigurationService } from '../../../../../platform/configuration/
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { ILifecycleService } from '../../../../services/lifecycle/common/lifecycle.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { Registry } from '../../../../../platform/registry/common/platform.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
 import { DiffEditorInput } from '../../../../common/editor/diffEditorInput.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { DisposableStore, IDisposable, toDisposable } from '../../../../../base/common/lifecycle.js';
 import { TestContextService, TestStorageService } from '../../../common/workbenchTestServices.js';
 import { EditorInput } from '../../../../common/editor/editorInput.js';
@@ -40,9 +40,9 @@ suite('EditorGroupModel', () => {
 			testInstService = new TestInstantiationService();
 		}
 		const inst = testInstService;
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
 		inst.stub(ILifecycleService, disposables.add(new TestLifecycleService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		inst.stub(ITelemetryService, NullTelemetryService);
 
 		const config = new TestConfigurationService();
@@ -1077,9 +1077,9 @@ suite('EditorGroupModel', () => {
 
 	test('Multiple Editors - Pinned and Active (DEFAULT_OPEN_EDITOR_DIRECTION = Direction.LEFT)', function () {
 		const inst = new TestInstantiationService();
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
 		inst.stub(ILifecycleService, disposables.add(new TestLifecycleService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		inst.stub(ITelemetryService, NullTelemetryService);
 
 		const config = new TestConfigurationService();
@@ -1310,9 +1310,9 @@ suite('EditorGroupModel', () => {
 
 	test('Multiple Editors - closing picks next to the right', function () {
 		const inst = new TestInstantiationService();
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
 		inst.stub(ILifecycleService, disposables.add(new TestLifecycleService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		inst.stub(ITelemetryService, NullTelemetryService);
 
 		const config = new TestConfigurationService();
@@ -1689,8 +1689,8 @@ suite('EditorGroupModel', () => {
 	test('Single Group, Single Editor - persist', function () {
 		const inst = new TestInstantiationService();
 
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		const lifecycle = disposables.add(new TestLifecycleService());
 		inst.stub(ILifecycleService, lifecycle);
 		inst.stub(ITelemetryService, NullTelemetryService);
@@ -1724,8 +1724,8 @@ suite('EditorGroupModel', () => {
 	test('Multiple Groups, Multiple editors - persist', function () {
 		const inst = new TestInstantiationService();
 
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		const lifecycle = disposables.add(new TestLifecycleService());
 		inst.stub(ILifecycleService, lifecycle);
 		inst.stub(ITelemetryService, NullTelemetryService);
@@ -1795,8 +1795,8 @@ suite('EditorGroupModel', () => {
 	test('Single group, multiple editors - persist (some not persistable)', function () {
 		const inst = new TestInstantiationService();
 
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		const lifecycle = disposables.add(new TestLifecycleService());
 		inst.stub(ILifecycleService, lifecycle);
 		inst.stub(ITelemetryService, NullTelemetryService);
@@ -1840,8 +1840,8 @@ suite('EditorGroupModel', () => {
 	test('Single group, multiple editors - persist (some not persistable, sticky editors)', function () {
 		const inst = new TestInstantiationService();
 
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		const lifecycle = disposables.add(new TestLifecycleService());
 		inst.stub(ILifecycleService, lifecycle);
 		inst.stub(ITelemetryService, NullTelemetryService);
@@ -1876,8 +1876,8 @@ suite('EditorGroupModel', () => {
 	test('Multiple groups, multiple editors - persist (some not persistable, causes empty group)', function () {
 		const inst = new TestInstantiationService();
 
-		inst.stub(IStorageService, disposables.add(new TestStorageService()));
-		inst.stub(IWorkspaceContextService, new TestContextService());
+		inst.stub(StorageServiceInterface, disposables.add(new TestStorageService()));
+		inst.stub(WorkspaceContextServiceInterface, new TestContextService());
 		const lifecycle = disposables.add(new TestLifecycleService());
 		inst.stub(ILifecycleService, lifecycle);
 		inst.stub(ITelemetryService, NullTelemetryService);

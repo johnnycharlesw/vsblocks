@@ -7,7 +7,7 @@ import { IStringDictionary } from '../../../base/common/collections.js';
 import { ProcessItem } from '../../../base/common/processes.js';
 import { UriComponents } from '../../../base/common/uri.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
-import { IWorkspace } from '../../workspace/common/workspace.js';
+import { WorkspaceInterface } from '../../workspace/common/workspace.js';
 
 export const ID = 'diagnosticsService';
 export const IDiagnosticsService = createDecorator<IDiagnosticsService>(ID);
@@ -18,8 +18,8 @@ export interface IDiagnosticsService {
 	getPerformanceInfo(mainProcessInfo: IMainProcessDiagnostics, remoteInfo: (IRemoteDiagnosticInfo | IRemoteDiagnosticError)[]): Promise<PerformanceInfo>;
 	getSystemInfo(mainProcessInfo: IMainProcessDiagnostics, remoteInfo: (IRemoteDiagnosticInfo | IRemoteDiagnosticError)[]): Promise<SystemInfo>;
 	getDiagnostics(mainProcessInfo: IMainProcessDiagnostics, remoteInfo: (IRemoteDiagnosticInfo | IRemoteDiagnosticError)[]): Promise<string>;
-	getWorkspaceFileExtensions(workspace: IWorkspace): Promise<{ extensions: string[] }>;
-	reportWorkspaceStats(workspace: IWorkspaceInformation): Promise<void>;
+	getWorkspaceFileExtensions(workspace: WorkspaceInterface): Promise<{ extensions: string[] }>;
+	reportWorkspaceStats(workspace: WorkspaceInterfaceInformation): Promise<void>;
 }
 
 export interface IMachineInfo {
@@ -88,7 +88,7 @@ export interface PerformanceInfo {
 	workspaceInfo?: string;
 }
 
-export interface IWorkspaceInformation extends IWorkspace {
+export interface WorkspaceInterfaceInformation extends WorkspaceInterface {
 	telemetryId: string | undefined;
 	rendererSessionId: string;
 }
@@ -121,11 +121,11 @@ export class NullDiagnosticsService implements IDiagnosticsService {
 		return '';
 	}
 
-	async getWorkspaceFileExtensions(workspace: IWorkspace): Promise<{ extensions: string[] }> {
+	async getWorkspaceFileExtensions(workspace: WorkspaceInterface): Promise<{ extensions: string[] }> {
 		return { extensions: [] };
 	}
 
-	async reportWorkspaceStats(workspace: IWorkspaceInformation): Promise<void> { }
+	async reportWorkspaceStats(workspace: WorkspaceInterfaceInformation): Promise<void> { }
 
 }
 

@@ -55,7 +55,7 @@ import { KeybindingWeight } from '../../../../platform/keybinding/common/keybind
 import { WorkbenchAsyncDataTree } from '../../../../platform/list/browser/listService.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { editorForeground, resolveColorValue } from '../../../../platform/theme/common/colorRegistry.js';
 import { IThemeService } from '../../../../platform/theme/common/themeService.js';
 import { registerNavigableContainer } from '../../../browser/actions/widgetNavigationCommands.js';
@@ -126,7 +126,7 @@ export class Repl extends FilterViewPane implements IHistoryNavigationWidget {
 		options: IViewPaneOptions,
 		@IDebugService private readonly debugService: IDebugService,
 		@IInstantiationService instantiationService: IInstantiationService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IThemeService themeService: IThemeService,
 		@IModelService private readonly modelService: IModelService,
 		@IContextKeyService contextKeyService: IContextKeyService,

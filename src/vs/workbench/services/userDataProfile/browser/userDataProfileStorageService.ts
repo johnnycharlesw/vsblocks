@@ -8,7 +8,7 @@ import { IStorageDatabase } from '../../../../base/parts/storage/common/storage.
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { AbstractUserDataProfileStorageService, IProfileStorageChanges, IUserDataProfileStorageService } from '../../../../platform/userDataProfile/common/userDataProfileStorageService.js';
-import { IProfileStorageValueChangeEvent, isProfileUsingDefaultStorage, IStorageService, StorageScope } from '../../../../platform/storage/common/storage.js';
+import { IProfileStorageValueChangeEvent, isProfileUsingDefaultStorage, StorageServiceInterface, StorageScope } from '../../../../platform/storage/common/storage.js';
 import { IUserDataProfile } from '../../../../platform/userDataProfile/common/userDataProfile.js';
 import { IndexedDBStorageDatabase } from '../../storage/browser/storageService.js';
 import { IUserDataProfileService } from '../common/userDataProfile.js';
@@ -20,7 +20,7 @@ export class UserDataProfileStorageService extends AbstractUserDataProfileStorag
 	readonly onDidChange: Event<IProfileStorageChanges> = this._onDidChange.event;
 
 	constructor(
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IUserDataProfileService private readonly userDataProfileService: IUserDataProfileService,
 		@ILogService private readonly logService: ILogService,
 	) {

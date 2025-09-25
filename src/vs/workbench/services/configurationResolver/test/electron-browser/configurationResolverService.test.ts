@@ -8,7 +8,7 @@ import { stub } from 'sinon';
 import { Emitter, Event } from '../../../../../base/common/event.js';
 import { Disposable, IDisposable } from '../../../../../base/common/lifecycle.js';
 import { Schemas } from '../../../../../base/common/network.js';
-import { IPath, normalize } from '../../../../../base/common/path.js';
+import { PathInterface, normalize } from '../../../../../base/common/path.js';
 import * as platform from '../../../../../base/common/platform.js';
 import { isLinux, isMacintosh, isWindows } from '../../../../../base/common/platform.js';
 import { isObject } from '../../../../../base/common/types.js';
@@ -21,12 +21,12 @@ import { IConfigurationOverrides, IConfigurationService, IConfigurationValue } f
 import { TestConfigurationService } from '../../../../../platform/configuration/test/common/testConfigurationService.js';
 import { IExtensionDescription } from '../../../../../platform/extensions/common/extensions.js';
 import { IFormatterChangeEvent, ILabelService, ResourceLabelFormatter, Verbosity } from '../../../../../platform/label/common/label.js';
-import { IWorkspace, IWorkspaceFolder, IWorkspaceIdentifier, Workspace } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterface, WorkspaceInterfaceFolder, WorkspaceIdentifierInterface, Workspace } from '../../../../../platform/workspace/common/workspace.js';
 import { testWorkspace } from '../../../../../platform/workspace/test/common/testWorkspace.js';
 import { TestEditorService, TestQuickInputService } from '../../../../test/browser/workbenchTestServices.js';
 import { TestContextService, TestExtensionService, TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { IExtensionService } from '../../../extensions/common/extensions.js';
-import { IPathService } from '../../../path/common/pathService.js';
+import { PathInterfaceService } from '../../../path/common/pathService.js';
 import { BaseConfigurationResolverService } from '../../browser/baseConfigurationResolverService.js';
 import { IConfigurationResolverService } from '../../common/configurationResolver.js';
 import { ConfigurationResolverExpression } from '../../common/configurationResolverExpression.js';
@@ -68,7 +68,7 @@ suite('Configuration Resolver Service', () => {
 	let mockCommandService: MockCommandService;
 	let editorService: TestEditorServiceWithActiveEditor;
 	let containingWorkspace: Workspace;
-	let workspace: IWorkspaceFolder;
+	let workspace: WorkspaceInterfaceFolder;
 	let quickInputService: TestQuickInputService;
 	let labelService: MockLabelService;
 	let pathService: MockPathService;
@@ -784,7 +784,7 @@ class MockLabelService implements ILabelService {
 	getUriBasenameLabel(resource: URI): string {
 		throw new Error('Method not implemented.');
 	}
-	getWorkspaceLabel(workspace: URI | IWorkspaceIdentifier | IWorkspace, options?: { verbose: Verbosity }): string {
+	getWorkspaceLabel(workspace: URI | WorkspaceIdentifierInterface | WorkspaceInterface, options?: { verbose: Verbosity }): string {
 		throw new Error('Method not implemented.');
 	}
 	getHostLabel(scheme: string, authority?: string): string {
@@ -805,9 +805,9 @@ class MockLabelService implements ILabelService {
 	onDidChangeFormatters: Event<IFormatterChangeEvent> = new Emitter<IFormatterChangeEvent>().event;
 }
 
-class MockPathService implements IPathService {
+class MockPathService implements PathInterfaceService {
 	_serviceBrand: undefined;
-	get path(): Promise<IPath> {
+	get path(): Promise<PathInterface> {
 		throw new Error('Property not implemented');
 	}
 	defaultUriScheme: string = Schemas.file;

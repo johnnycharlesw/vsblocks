@@ -16,9 +16,9 @@ import { IModelService } from '../../../../editor/common/services/model.js';
 import { IWebWorkerClient } from '../../../../base/common/worker/webWorker.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { IDiagnosticsService } from '../../../../platform/diagnostics/common/diagnostics.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IEditorService } from '../../editor/common/editorService.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { LRUCache } from '../../../../base/common/map.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { canASAR } from '../../../../amdX.js';
@@ -57,11 +57,11 @@ export class LanguageDetectionService extends Disposable implements ILanguageDet
 		@ILanguageService languageService: ILanguageService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
 		@IDiagnosticsService private readonly _diagnosticsService: IDiagnosticsService,
-		@IWorkspaceContextService private readonly _workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _workspaceContextService: WorkspaceContextServiceInterface,
 		@IModelService modelService: IModelService,
 		@IEditorService private readonly _editorService: IEditorService,
 		@ITelemetryService telemetryService: ITelemetryService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILogService private readonly _logService: ILogService
 	) {
 		super();
@@ -152,7 +152,7 @@ export class LanguageDetectionService extends Disposable implements ILanguageDet
 	// TODO: explore using the history service or something similar to provide this list of opened editors
 	// so this service can support delayed instantiation. This may be tricky since it seems the IHistoryService
 	// only gives history for a workspace... where this takes advantage of history at a global level as well.
-	private initEditorOpenedListeners(storageService: IStorageService) {
+	private initEditorOpenedListeners(storageService: StorageServiceInterface) {
 		try {
 			const globalLangHistoryData = JSON.parse(storageService.get(LanguageDetectionService.globalOpenedLanguagesStorageKey, StorageScope.PROFILE, '[]'));
 			this.historicalGlobalOpenedLanguageIds.fromJSON(globalLangHistoryData);

@@ -19,7 +19,7 @@ import { mcpAccessConfig, McpAccessValue } from '../../../../../platform/mcp/com
 import { IProductService } from '../../../../../platform/product/common/productService.js';
 import { ISecretStorageService } from '../../../../../platform/secrets/common/secrets.js';
 import { TestSecretStorageService } from '../../../../../platform/secrets/test/common/testSecretStorageService.js';
-import { IStorageService, StorageScope } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../../platform/storage/common/storage.js';
 import { IConfigurationResolverService } from '../../../../services/configurationResolver/common/configurationResolver.js';
 import { ConfigurationResolverExpression } from '../../../../services/configurationResolver/common/configurationResolverExpression.js';
 import { IOutputService } from '../../../../services/output/common/output.js';
@@ -145,7 +145,7 @@ suite('Workbench - MCP - Registry', () => {
 		const services = new ServiceCollection(
 			[IConfigurationService, configurationService],
 			[IConfigurationResolverService, testConfigResolverService],
-			[IStorageService, testStorageService],
+			[StorageServiceInterface, testStorageService],
 			[ISecretStorageService, new TestSecretStorageService()],
 			[ILoggerService, store.add(new TestLoggerService())],
 			[ILogService, store.add(new NullLogService())],

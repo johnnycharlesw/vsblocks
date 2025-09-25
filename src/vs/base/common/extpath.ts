@@ -350,13 +350,13 @@ export function indexOfPath(path: string, candidate: string, ignoreCase?: boolea
 	return path.indexOf(candidate);
 }
 
-export interface IPathWithLineAndColumn {
+export interface PathInterfaceWithLineAndColumn {
 	path: string;
 	line?: number;
 	column?: number;
 }
 
-export function parseLineAndColumnAware(rawPath: string): IPathWithLineAndColumn {
+export function parseLineAndColumnAware(rawPath: string): PathInterfaceWithLineAndColumn {
 	const segments = rawPath.split(':'); // C:\file.txt:<line>:<column>
 
 	let path: string | undefined = undefined;

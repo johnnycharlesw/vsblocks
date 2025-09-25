@@ -9,7 +9,7 @@ import { VSBuffer } from '../../../../base/common/buffer.js';
 import { joinPath } from '../../../../base/common/resources.js';
 import { URI } from '../../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { AbstractExtensionsProfileScannerService, ProfileExtensionsEvent } from '../../common/extensionsProfileScannerService.js';
 import { ExtensionType, IExtension, IExtensionManifest, TargetPlatform } from '../../../extensions/common/extensions.js';
 import { FileService } from '../../../files/common/fileService.js';
@@ -43,7 +43,7 @@ suite('ExtensionsProfileScannerService', () => {
 		instantiationService.stub(IFileService, fileService);
 		instantiationService.stub(ITelemetryService, NullTelemetryService);
 		const uriIdentityService = instantiationService.stub(IUriIdentityService, disposables.add(new UriIdentityService(fileService)));
-		const environmentService = instantiationService.stub(IEnvironmentService, { userRoamingDataHome: ROOT, cacheHome: joinPath(ROOT, 'cache'), });
+		const environmentService = instantiationService.stub(EnvironmentServiceInterface, { userRoamingDataHome: ROOT, cacheHome: joinPath(ROOT, 'cache'), });
 		const userDataProfilesService = disposables.add(new UserDataProfilesService(environmentService, fileService, uriIdentityService, logService));
 		instantiationService.stub(IUserDataProfilesService, userDataProfilesService);
 	});

@@ -6,7 +6,7 @@
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { isStatusbarEntryLocation, IStatusbarEntryPriority, StatusbarAlignment } from '../../../services/statusbar/browser/statusbar.js';
 import { hide, show, isAncestorOfActiveElement } from '../../../../base/browser/dom.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { Emitter } from '../../../../base/common/event.js';
 
 export interface IStatusbarViewModelEntry {
@@ -37,7 +37,7 @@ export class StatusbarViewModel extends Disposable {
 
 	private hidden = new Set<string>();
 
-	constructor(private readonly storageService: IStorageService) {
+	constructor(private readonly storageService: StorageServiceInterface) {
 		super();
 
 		this.restoreState();

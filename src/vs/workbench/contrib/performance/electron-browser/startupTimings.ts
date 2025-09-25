@@ -17,7 +17,7 @@ import { ITimerService } from '../../../services/timer/browser/timerService.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { URI } from '../../../../base/common/uri.js';
 import { VSBuffer } from '../../../../base/common/buffer.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IPaneCompositePartService } from '../../../services/panecomposite/browser/panecomposite.js';
 import { StartupTimings } from '../browser/startupTimings.js';
 import { coalesce } from '../../../../base/common/arrays.js';
@@ -53,7 +53,7 @@ export class NativeStartupTimings extends StartupTimings implements IWorkbenchCo
 		@IUpdateService updateService: IUpdateService,
 		@INativeWorkbenchEnvironmentService private readonly _environmentService: INativeWorkbenchEnvironmentService,
 		@IProductService private readonly _productService: IProductService,
-		@IWorkspaceTrustManagementService workspaceTrustService: IWorkspaceTrustManagementService
+		@WorkspaceInterfaceTrustManagementService workspaceTrustService: WorkspaceInterfaceTrustManagementService
 	) {
 		super(editorService, paneCompositeService, lifecycleService, updateService, workspaceTrustService);
 

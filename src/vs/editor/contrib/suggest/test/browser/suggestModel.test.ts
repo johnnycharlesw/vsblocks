@@ -31,15 +31,15 @@ import { ServiceCollection } from '../../../../../platform/instantiation/common/
 import { IKeybindingService } from '../../../../../platform/keybinding/common/keybinding.js';
 import { MockKeybindingService } from '../../../../../platform/keybinding/test/common/mockKeybindingService.js';
 import { ILabelService } from '../../../../../platform/label/common/label.js';
-import { InMemoryStorageService, IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { InMemoryStorageService, StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../platform/telemetry/common/telemetry.js';
 import { NullTelemetryService } from '../../../../../platform/telemetry/common/telemetryUtils.js';
-import { IWorkspaceContextService } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../platform/workspace/common/workspace.js';
 import { LanguageFeaturesService } from '../../../../common/services/languageFeaturesService.js';
 import { ILanguageFeaturesService } from '../../../../common/services/languageFeatures.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { getSnippetSuggestSupport, setSnippetSuggestSupport } from '../../browser/suggest.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 
 
@@ -50,7 +50,7 @@ function createMockEditor(model: TextModel, languageFeaturesService: ILanguageFe
 		serviceCollection: new ServiceCollection(
 			[ILanguageFeaturesService, languageFeaturesService],
 			[ITelemetryService, NullTelemetryService],
-			[IStorageService, storeService],
+			[StorageServiceInterface, storeService],
 			[IKeybindingService, new MockKeybindingService()],
 			[ISuggestMemoryService, new class implements ISuggestMemoryService {
 				declare readonly _serviceBrand: undefined;
@@ -61,8 +61,8 @@ function createMockEditor(model: TextModel, languageFeaturesService: ILanguageFe
 				}
 			}],
 			[ILabelService, new class extends mock<ILabelService>() { }],
-			[IWorkspaceContextService, new class extends mock<IWorkspaceContextService>() { }],
-			[IEnvironmentService, new class extends mock<IEnvironmentService>() {
+			[WorkspaceContextServiceInterface, new class extends mock<WorkspaceContextServiceInterface>() { }],
+			[EnvironmentServiceInterface, new class extends mock<EnvironmentServiceInterface>() {
 				override isBuilt: boolean = true;
 				override isExtensionDevelopment: boolean = false;
 			}],

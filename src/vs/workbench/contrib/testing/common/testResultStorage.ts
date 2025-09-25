@@ -7,13 +7,13 @@ import { bufferToStream, newWriteableBufferStream, VSBuffer, VSBufferReadableStr
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { isDefined } from '../../../../base/common/types.js';
 import { URI } from '../../../../base/common/uri.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { StoredValue } from './storedValue.js';
 import { HydratedTestResult, ITestResult } from './testResult.js';
 import { ISerializedTestResults } from './testTypes.js';
@@ -53,7 +53,7 @@ export abstract class BaseTestResultStorage extends Disposable implements ITestR
 
 	constructor(
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILogService private readonly logService: ILogService,
 	) {
 		super();
@@ -215,11 +215,11 @@ export class TestResultStorage extends BaseTestResultStorage {
 
 	constructor(
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILogService logService: ILogService,
-		@IWorkspaceContextService workspaceContext: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContext: WorkspaceContextServiceInterface,
 		@IFileService private readonly fileService: IFileService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 	) {
 		super(uriIdentityService, storageService, logService);
 		this.directory = URI.joinPath(environmentService.workspaceStorageHome, workspaceContext.getWorkspace().id, 'testResults');

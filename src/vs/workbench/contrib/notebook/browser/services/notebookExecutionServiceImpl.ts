@@ -8,7 +8,7 @@ import { IDisposable, toDisposable } from '../../../../../base/common/lifecycle.
 import * as nls from '../../../../../nls.js';
 import { ICommandService } from '../../../../../platform/commands/common/commands.js';
 import { IContextKeyService } from '../../../../../platform/contextkey/common/contextkey.js';
-import { IWorkspaceTrustRequestService } from '../../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustRequestService } from '../../../../../platform/workspace/common/workspaceTrust.js';
 import { KernelPickerMRUStrategy } from '../viewParts/notebookKernelQuickPickStrategy.js';
 import { NotebookCellTextModel } from '../../common/model/notebookCellTextModel.js';
 import { CellKind, INotebookTextModel, NotebookCellExecutionState } from '../../common/notebookCommon.js';
@@ -26,7 +26,7 @@ export class NotebookExecutionService implements INotebookExecutionService, IDis
 		@ICommandService private readonly _commandService: ICommandService,
 		@INotebookKernelService private readonly _notebookKernelService: INotebookKernelService,
 		@INotebookKernelHistoryService private readonly _notebookKernelHistoryService: INotebookKernelHistoryService,
-		@IWorkspaceTrustRequestService private readonly _workspaceTrustRequestService: IWorkspaceTrustRequestService,
+		@WorkspaceInterfaceTrustRequestService private readonly _workspaceTrustRequestService: WorkspaceInterfaceTrustRequestService,
 		@INotebookLoggingService private readonly _logService: INotebookLoggingService,
 		@INotebookExecutionStateService private readonly _notebookExecutionStateService: INotebookExecutionStateService,
 	) {

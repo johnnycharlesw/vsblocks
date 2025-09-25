@@ -12,10 +12,10 @@ import { IActionViewItem } from '../../base/browser/ui/actionbar/actionbar.js';
 import { IAction, Separator } from '../../base/common/actions.js';
 import { MenuId, SubmenuItemAction } from '../../platform/actions/common/actions.js';
 import { IContextMenuService } from '../../platform/contextview/browser/contextView.js';
-import { IStorageService } from '../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../platform/telemetry/common/telemetry.js';
 import { IThemeService } from '../../platform/theme/common/themeService.js';
-import { IWorkspaceContextService } from '../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../platform/workspace/common/workspace.js';
 import { ViewPaneContainer, ViewsSubMenu } from './parts/views/viewPaneContainer.js';
 import { IPaneComposite } from '../common/panecomposite.js';
 import { IView } from '../common/views.js';
@@ -31,12 +31,12 @@ export abstract class PaneComposite extends Composite implements IPaneComposite 
 	constructor(
 		id: string,
 		@ITelemetryService telemetryService: ITelemetryService,
-		@IStorageService protected storageService: IStorageService,
+		@StorageServiceInterface protected storageService: StorageServiceInterface,
 		@IInstantiationService protected instantiationService: IInstantiationService,
 		@IThemeService themeService: IThemeService,
 		@IContextMenuService protected contextMenuService: IContextMenuService,
 		@IExtensionService protected extensionService: IExtensionService,
-		@IWorkspaceContextService protected contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface protected contextService: WorkspaceContextServiceInterface
 	) {
 		super(id, telemetryService, themeService, storageService);
 	}

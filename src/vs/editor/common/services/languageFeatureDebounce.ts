@@ -8,7 +8,7 @@ import { LRUCache } from '../../../base/common/map.js';
 import { clamp, MovingAverage, SlidingWindowAverage } from '../../../base/common/numbers.js';
 import { LanguageFeatureRegistry } from '../languageFeatureRegistry.js';
 import { ITextModel } from '../model.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { InstantiationType, registerSingleton } from '../../../platform/instantiation/common/extensions.js';
 import { createDecorator } from '../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../platform/log/common/log.js';
@@ -121,7 +121,7 @@ export class LanguageFeatureDebounceService implements ILanguageFeatureDebounceS
 
 	constructor(
 		@ILogService private readonly _logService: ILogService,
-		@IEnvironmentService envService: IEnvironmentService,
+		@EnvironmentServiceInterface envService: EnvironmentServiceInterface,
 	) {
 
 		this._isDev = envService.isExtensionDevelopment || !envService.isBuilt;

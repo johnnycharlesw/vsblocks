@@ -4,14 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { ITelemetryService, ITelemetryData, TelemetryLevel } from '../../../../platform/telemetry/common/telemetry.js';
-import { supportsTelemetry, NullTelemetryService, getPiiPathsFromEnvironment, isInternalTelemetry } from '../../../../platform/telemetry/common/telemetryUtils.js';
+import { supportsTelemetry, NullTelemetryService, getPiPathInterfacesFromEnvironment, isInternalTelemetry } from '../../../../platform/telemetry/common/telemetryUtils.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { INativeWorkbenchEnvironmentService } from '../../environment/electron-browser/environmentService.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { ISharedProcessService } from '../../../../platform/ipc/electron-browser/services.js';
 import { TelemetryAppenderClient } from '../../../../platform/telemetry/common/telemetryIpc.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { resolveWorkbenchCommonProperties } from '../common/workbenchCommonProperties.js';
 import { TelemetryService as BaseTelemetryService, ITelemetryServiceConfig } from '../../../../platform/telemetry/common/telemetryService.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
@@ -36,7 +36,7 @@ export class TelemetryService extends Disposable implements ITelemetryService {
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,
 		@IProductService productService: IProductService,
 		@ISharedProcessService sharedProcessService: ISharedProcessService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IConfigurationService configurationService: IConfigurationService
 	) {
 		super();
@@ -47,7 +47,7 @@ export class TelemetryService extends Disposable implements ITelemetryService {
 			const config: ITelemetryServiceConfig = {
 				appenders: [new TelemetryAppenderClient(channel)],
 				commonProperties: resolveWorkbenchCommonProperties(storageService, environmentService.os.release, environmentService.os.hostname, productService.commit, productService.version, environmentService.machineId, environmentService.sqmId, environmentService.devDeviceId, isInternal, process, productService.date, environmentService.remoteAuthority),
-				piiPaths: getPiiPathsFromEnvironment(environmentService),
+				piPathInterfaces: getPiPathInterfacesFromEnvironment(environmentService),
 				sendErrorTelemetry: true
 			};
 

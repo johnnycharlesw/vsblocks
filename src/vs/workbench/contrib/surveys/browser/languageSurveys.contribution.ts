@@ -9,7 +9,7 @@ import { ILanguageService } from '../../../../editor/common/languages/language.j
 import { IWorkbenchContributionsRegistry, IWorkbenchContribution, Extensions as WorkbenchExtensions } from '../../../common/contributions.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { ISurveyData } from '../../../../base/common/product.js';
 import { LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js';
@@ -26,7 +26,7 @@ class LanguageSurvey extends Disposable {
 
 	constructor(
 		data: ISurveyData,
-		storageService: IStorageService,
+		storageService: StorageServiceInterface,
 		notificationService: INotificationService,
 		telemetryService: ITelemetryService,
 		languageService: ILanguageService,
@@ -127,7 +127,7 @@ class LanguageSurvey extends Disposable {
 class LanguageSurveysContribution implements IWorkbenchContribution {
 
 	constructor(
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@INotificationService private readonly notificationService: INotificationService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
 		@ITextFileService private readonly textFileService: ITextFileService,

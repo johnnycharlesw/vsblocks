@@ -5,10 +5,10 @@
 
 import { isLinux } from '../../../../base/common/platform.js';
 import { parse } from '../../../../base/common/jsonc.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IWorkbenchContribution, IWorkbenchContributionsRegistry, Extensions as WorkbenchExtensions } from '../../../common/contributions.js';
 import { IJSONEditingService } from '../../../services/configuration/common/jsonEditing.js';
 import { LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js';
@@ -16,9 +16,9 @@ import { LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js'
 class EncryptionContribution implements IWorkbenchContribution {
 	constructor(
 		@IJSONEditingService private readonly jsonEditingService: IJSONEditingService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IFileService private readonly fileService: IFileService,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		this.migrateToGnomeLibsecret();
 	}

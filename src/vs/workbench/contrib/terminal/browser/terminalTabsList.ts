@@ -53,7 +53,7 @@ import { TerminalContextActionRunner } from './terminalContextMenu.js';
 import type { IHoverAction } from '../../../../base/browser/ui/hover/hover.js';
 import { HoverPosition } from '../../../../base/browser/ui/hover/hoverWidget.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
-import { IStorageService, StorageScope } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../platform/storage/common/storage.js';
 import { TerminalStorageKeys } from '../common/terminalStorageKeys.js';
 
 const $ = DOM.$;
@@ -84,7 +84,7 @@ export class TerminalTabList extends WorkbenchList<ITerminalInstance> {
 		@IInstantiationService instantiationService: IInstantiationService,
 		@IDecorationsService decorationsService: IDecorationsService,
 		@IThemeService private readonly _themeService: IThemeService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@ILifecycleService lifecycleService: ILifecycleService,
 		@IHoverService private readonly _hoverService: IHoverService,
 	) {
@@ -261,7 +261,7 @@ class TerminalTabsRenderer extends Disposable implements IListRenderer<ITerminal
 		@IHoverService private readonly _hoverService: IHoverService,
 		@IKeybindingService private readonly _keybindingService: IKeybindingService,
 		@IListService private readonly _listService: IListService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IThemeService private readonly _themeService: IThemeService,
 		@IContextViewService private readonly _contextViewService: IContextViewService,
 		@ICommandService private readonly _commandService: ICommandService,

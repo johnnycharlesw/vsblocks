@@ -24,7 +24,7 @@ import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { IUpdateService, StateType } from '../../update/common/update.js';
 import { INativeRunActionInWindowRequest, INativeRunKeybindingInWindowRequest, IWindowOpenable, hasNativeMenu } from '../../window/common/window.js';
 import { IWindowsCountChangedEvent, IWindowsMainService, OpenContext } from '../../windows/electron-main/windows.js';
-import { IWorkspacesHistoryMainService } from '../../workspaces/electron-main/workspacesHistoryMainService.js';
+import { WorkspaceInterfacesHistoryMainService } from '../../workspaces/electron-main/workspacesHistoryMainService.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 
 const telemetryFrom = 'menu';
@@ -72,7 +72,7 @@ export class Menubar extends Disposable {
 		@IWindowsMainService private readonly windowsMainService: IWindowsMainService,
 		@IEnvironmentMainService private readonly environmentMainService: IEnvironmentMainService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IWorkspacesHistoryMainService private readonly workspacesHistoryMainService: IWorkspacesHistoryMainService,
+		@WorkspaceInterfacesHistoryMainService private readonly workspacesHistoryMainService: WorkspaceInterfacesHistoryMainService,
 		@IStateService private readonly stateService: IStateService,
 		@ILifecycleMainService private readonly lifecycleMainService: ILifecycleMainService,
 		@ILogService private readonly logService: ILogService,

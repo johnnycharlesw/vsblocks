@@ -4,24 +4,24 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { URI } from '../../../base/common/uri.js';
-import { IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 export interface IBaseBackupInfo {
 	remoteAuthority?: string;
 }
 
-export interface IWorkspaceBackupInfo extends IBaseBackupInfo {
-	readonly workspace: IWorkspaceIdentifier;
+export interface WorkspaceInterfaceBackupInfo extends IBaseBackupInfo {
+	readonly workspace: WorkspaceIdentifierInterface;
 }
 
 export interface IFolderBackupInfo extends IBaseBackupInfo {
 	readonly folderUri: URI;
 }
 
-export function isFolderBackupInfo(curr: IWorkspaceBackupInfo | IFolderBackupInfo): curr is IFolderBackupInfo {
+export function isFolderBackupInfo(curr: WorkspaceInterfaceBackupInfo | IFolderBackupInfo): curr is IFolderBackupInfo {
 	return curr && curr.hasOwnProperty('folderUri');
 }
 
-export function isWorkspaceBackupInfo(curr: IWorkspaceBackupInfo | IFolderBackupInfo): curr is IWorkspaceBackupInfo {
+export function isWorkspaceBackupInfo(curr: WorkspaceInterfaceBackupInfo | IFolderBackupInfo): curr is WorkspaceInterfaceBackupInfo {
 	return curr && curr.hasOwnProperty('workspace');
 }

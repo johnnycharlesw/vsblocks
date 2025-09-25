@@ -10,8 +10,8 @@ import { URI as uri } from '../../../../../base/common/uri.js';
 import { IPosition, Position } from '../../../../../editor/common/core/position.js';
 import { ITextModel } from '../../../../../editor/common/model.js';
 import { NullLogService } from '../../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
-import { IWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
+import { WorkspaceInterfaceFolder } from '../../../../../platform/workspace/common/workspace.js';
 import { AbstractDebugAdapter } from '../../common/abstractDebugAdapter.js';
 import { AdapterEndEvent, IAdapterManager, IBreakpoint, IBreakpointData, IBreakpointUpdateData, IConfig, IConfigurationManager, IDataBreakpoint, IDataBreakpointInfoResponse, IDebugLocationReferenced, IDebugModel, IDebugService, IDebugSession, IDebugSessionOptions, IDebugger, IExceptionBreakpoint, IExceptionInfo, IFunctionBreakpoint, IInstructionBreakpoint, ILaunch, IMemoryRegion, INewReplElementData, IRawModelUpdate, IRawStoppedDetails, IReplElement, IStackFrame, IThread, IViewModel, LoadedSourceEvent, State } from '../../common/debug.js';
 import { DebugCompoundRoot } from '../../common/debugCompoundRoot.js';
@@ -279,7 +279,7 @@ export class MockSession implements IDebugSession {
 	configuration: IConfig = { type: 'mock', name: 'mock', request: 'launch' };
 	unresolvedConfiguration: IConfig = { type: 'mock', name: 'mock', request: 'launch' };
 	state = State.Stopped;
-	root!: IWorkspaceFolder;
+	root!: WorkspaceInterfaceFolder;
 	capabilities: DebugProtocol.Capabilities = {};
 
 	getId(): string {
@@ -691,7 +691,7 @@ export class MockDebugAdapter extends AbstractDebugAdapter {
 
 export class MockDebugStorage extends DebugStorage {
 
-	constructor(storageService: IStorageService) {
+	constructor(storageService: StorageServiceInterface) {
 		super(storageService, undefined as any, undefined as any, new NullLogService());
 	}
 }

@@ -10,7 +10,7 @@ import { IThemeService } from '../../../../../platform/theme/common/themeService
 import { EditorInput } from '../../../../common/editor/editorInput.js';
 import { FileEditorInput } from './fileEditorInput.js';
 import { BINARY_FILE_EDITOR_ID, BINARY_TEXT_FILE_MODE } from '../../common/files.js';
-import { IStorageService } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../platform/storage/common/storage.js';
 import { EditorResolution, IEditorOptions } from '../../../../../platform/editor/common/editor.js';
 import { IEditorResolverService, ResolvedStatus, ResolvedEditor } from '../../../../services/editor/common/editorResolverService.js';
 import { isEditorInputWithOptions } from '../../../../common/editor.js';
@@ -29,7 +29,7 @@ export class BinaryFileEditor extends BaseBinaryResourceEditor {
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IThemeService themeService: IThemeService,
 		@IEditorResolverService private readonly editorResolverService: IEditorResolverService,
-		@IStorageService storageService: IStorageService
+		@StorageServiceInterface storageService: StorageServiceInterface
 	) {
 		super(
 			BinaryFileEditor.ID,

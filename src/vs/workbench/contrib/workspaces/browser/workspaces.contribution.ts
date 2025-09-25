@@ -7,7 +7,7 @@ import { localize, localize2 } from '../../../../nls.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { Extensions as WorkbenchExtensions, IWorkbenchContributionsRegistry, IWorkbenchContribution } from '../../../common/contributions.js';
 import { LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js';
-import { hasWorkspaceFileExtension, IWorkspaceContextService, WorkbenchState, WORKSPACE_SUFFIX } from '../../../../platform/workspace/common/workspace.js';
+import { hasWorkspaceFileExtension, WorkspaceContextServiceInterface, WorkbenchState, WORKSPACE_SUFFIX } from '../../../../platform/workspace/common/workspace.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { INeverShowAgainOptions, INotificationService, NeverShowAgainScope, NotificationPriority, Severity } from '../../../../platform/notification/common/notification.js';
@@ -15,7 +15,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { isEqual, joinPath } from '../../../../base/common/resources.js';
 import { IHostService } from '../../../services/host/browser/host.js';
 import { IQuickInputService, IQuickPickItem } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService, StorageScope } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../platform/storage/common/storage.js';
 import { isVirtualWorkspace } from '../../../../platform/workspace/common/virtualWorkspace.js';
 import { Action2, MenuId, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { ServicesAccessor } from '../../../../editor/browser/editorExtensions.js';
@@ -30,12 +30,12 @@ import { TEXT_FILE_EDITOR_ID } from '../../files/common/files.js';
 export class WorkspacesFinderContribution extends Disposable implements IWorkbenchContribution {
 
 	constructor(
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@INotificationService private readonly notificationService: INotificationService,
 		@IFileService private readonly fileService: IFileService,
 		@IQuickInputService private readonly quickInputService: IQuickInputService,
 		@IHostService private readonly hostService: IHostService,
-		@IStorageService private readonly storageService: IStorageService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface
 	) {
 		super();
 
@@ -128,7 +128,7 @@ registerAction2(class extends Action2 {
 
 	async run(accessor: ServicesAccessor, uri: URI): Promise<void> {
 		const hostService = accessor.get(IHostService);
-		const contextService = accessor.get(IWorkspaceContextService);
+		const contextService = accessor.get(WorkspaceContextServiceInterface);
 		const notificationService = accessor.get(INotificationService);
 
 		if (contextService.getWorkbenchState() === WorkbenchState.WORKSPACE) {

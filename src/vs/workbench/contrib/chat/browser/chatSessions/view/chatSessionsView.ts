@@ -13,11 +13,11 @@ import { IInstantiationService } from '../../../../../../platform/instantiation/
 import { ILogService } from '../../../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../../../platform/product/common/productService.js';
 import { Registry } from '../../../../../../platform/registry/common/platform.js';
-import { IStorageService } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../../../platform/telemetry/common/telemetry.js';
 import { registerIcon } from '../../../../../../platform/theme/common/iconRegistry.js';
 import { IThemeService } from '../../../../../../platform/theme/common/themeService.js';
-import { IWorkspaceContextService } from '../../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../../../platform/workspace/common/workspace.js';
 import { ViewPaneContainer } from '../../../../../browser/parts/views/viewPaneContainer.js';
 import { IWorkbenchContribution } from '../../../../../common/contributions.js';
 import { ViewContainer, IViewContainersRegistry, Extensions, ViewContainerLocation, IViewsRegistry, IViewDescriptor, IViewDescriptorService } from '../../../../../common/views.js';
@@ -130,8 +130,8 @@ class ChatSessionsViewPaneContainer extends ViewPaneContainer {
 		@ITelemetryService telemetryService: ITelemetryService,
 		@IExtensionService extensionService: IExtensionService,
 		@IThemeService themeService: IThemeService,
-		@IStorageService storageService: IStorageService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
 		@IViewDescriptorService viewDescriptorService: IViewDescriptorService,
 		@ILogService logService: ILogService,
 		@IProductService private readonly productService: IProductService,

@@ -10,7 +10,7 @@ import * as resources from '../../../../base/common/resources.js';
 import * as Json from '../../../../base/common/json.js';
 import { ExtensionData, IThemeExtensionPoint, IWorkbenchProductIconTheme, ThemeSettingDefaults } from '../common/workbenchThemeService.js';
 import { getParseErrorMessage } from '../../../../base/common/jsonErrorMessages.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { isObject, isString } from '../../../../base/common/types.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IconDefinition, getIconRegistry, IconContribution, IconFontDefinition, IconFontSource, fontIdRegex, fontWeightRegex, fontStyleRegex, fontFormatRegex } from '../../../../platform/theme/common/iconRegistry.js';
@@ -104,7 +104,7 @@ export class ProductIconThemeData implements IWorkbenchProductIconTheme {
 		return themeData;
 	}
 
-	static fromStorageData(storageService: IStorageService): ProductIconThemeData | undefined {
+	static fromStorageData(storageService: StorageServiceInterface): ProductIconThemeData | undefined {
 		const input = storageService.get(ProductIconThemeData.STORAGE_KEY, StorageScope.PROFILE);
 		if (!input) {
 			return undefined;
@@ -154,7 +154,7 @@ export class ProductIconThemeData implements IWorkbenchProductIconTheme {
 		}
 	}
 
-	toStorage(storageService: IStorageService) {
+	toStorage(storageService: StorageServiceInterface) {
 		const iconDefinitions = [];
 		const iconFontDefinitions: { [id: string]: IconFontDefinition } = {};
 		for (const entry of this.iconThemeDocument.iconDefinitions.entries()) {

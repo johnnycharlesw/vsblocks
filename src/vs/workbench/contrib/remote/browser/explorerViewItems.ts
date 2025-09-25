@@ -9,12 +9,12 @@ import { ISelectOptionItem } from '../../../../base/browser/ui/selectBox/selectB
 import { IViewDescriptor } from '../../../common/views.js';
 import { isStringArray } from '../../../../base/common/types.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
-import { IStorageService, StorageScope } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../platform/storage/common/storage.js';
 import { ContextKeyExpr, IContextKey, IContextKeyService, RawContextKey } from '../../../../platform/contextkey/common/contextkey.js';
 import { Action2, MenuId, MenuRegistry, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { VIEWLET_ID } from './remoteExplorer.js';
 import { getVirtualWorkspaceLocation } from '../../../../platform/workspace/common/virtualWorkspace.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { Disposable, DisposableMap } from '../../../../base/common/lifecycle.js';
 
 interface IRemoteSelectItem extends ISelectOptionItem {
@@ -34,8 +34,8 @@ export class SwitchRemoteViewItem extends Disposable {
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@IRemoteExplorerService private remoteExplorerService: IRemoteExplorerService,
 		@IWorkbenchEnvironmentService private environmentService: IWorkbenchEnvironmentService,
-		@IStorageService private readonly storageService: IStorageService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface
 	) {
 		super();
 		this.selectedRemoteContext = SELECTED_REMOTE_IN_EXPLORER.bindTo(contextKeyService);

@@ -13,7 +13,7 @@ import { isMacintosh, isWindows } from '../../../../base/common/platform.js';
 import { QuickPickInput, IQuickInputService, IQuickPickItem } from '../../../../platform/quickinput/common/quickInput.js';
 import { Action2, registerAction2 } from '../../../../platform/actions/common/actions.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { IEditorService } from '../../../services/editor/common/editorService.js';
 import { VSBuffer } from '../../../../base/common/buffer.js';
@@ -113,7 +113,7 @@ registerAction2(class extends Action2 {
 		const keyboardLayoutService = accessor.get(IKeyboardLayoutService);
 		const quickInputService = accessor.get(IQuickInputService);
 		const configurationService = accessor.get(IConfigurationService);
-		const environmentService = accessor.get(IEnvironmentService);
+		const environmentService = accessor.get(EnvironmentServiceInterface);
 		const editorService = accessor.get(IEditorService);
 		const fileService = accessor.get(IFileService);
 

@@ -26,7 +26,7 @@ import { IDiagnosticsService } from '../../../platform/diagnostics/common/diagno
 import { DiagnosticsService } from '../../../platform/diagnostics/node/diagnosticsService.js';
 import { IDownloadService } from '../../../platform/download/common/download.js';
 import { DownloadService } from '../../../platform/download/common/downloadService.js';
-import { INativeEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { NativeEnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { GlobalExtensionEnablementService } from '../../../platform/extensionManagement/common/extensionEnablementService.js';
 import { ExtensionGalleryService } from '../../../platform/extensionManagement/common/extensionGalleryService.js';
 import { IAllowedExtensionsService, IExtensionGalleryService, IExtensionManagementService, IExtensionTipsService, IGlobalExtensionEnablementService } from '../../../platform/extensionManagement/common/extensionManagement.js';
@@ -49,7 +49,7 @@ import product from '../../../platform/product/common/product.js';
 import { IProductService } from '../../../platform/product/common/productService.js';
 import { IRequestService } from '../../../platform/request/common/request.js';
 import { ISharedProcessConfiguration } from '../../../platform/sharedProcess/node/sharedProcess.js';
-import { IStorageService } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../platform/storage/common/storage.js';
 import { resolveCommonProperties } from '../../../platform/telemetry/common/commonProperties.js';
 import { ICustomEndpointTelemetryService, ITelemetryService } from '../../../platform/telemetry/common/telemetry.js';
 import { TelemetryAppenderChannel } from '../../../platform/telemetry/common/telemetryIpc.js';
@@ -219,7 +219,7 @@ class SharedProcessMain extends Disposable implements IClientConnectionFilter {
 
 		// Environment
 		const environmentService = new NativeEnvironmentService(this.configuration.args, productService);
-		services.set(INativeEnvironmentService, environmentService);
+		services.set(NativeEnvironmentServiceInterface, environmentService);
 
 		// Logger
 		const loggerService = new LoggerChannelClient(undefined, this.configuration.logLevel, environmentService.logsHome, this.configuration.loggers.map(loggerResource => ({ ...loggerResource, resource: URI.revive(loggerResource.resource) })), mainProcessService.getChannel('logger'));
@@ -271,7 +271,7 @@ class SharedProcessMain extends Disposable implements IClientConnectionFilter {
 
 		// Storage (global access only)
 		const storageService = new RemoteStorageService(undefined, { defaultProfile: userDataProfilesService.defaultProfile, currentProfile: userDataProfilesService.defaultProfile }, mainProcessService, environmentService);
-		services.set(IStorageService, storageService);
+		services.set(StorageServiceInterface, storageService);
 		this._register(toDisposable(() => storageService.flush()));
 
 		// Initialize config & storage in parallel

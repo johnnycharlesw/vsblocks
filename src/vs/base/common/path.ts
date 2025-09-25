@@ -186,7 +186,7 @@ export interface ParsedPath {
 	name: string;
 }
 
-export interface IPath {
+export interface PathInterface {
 	normalize(path: string): string;
 	isAbsolute(path: string): boolean;
 	join(...paths: string[]): string;
@@ -200,11 +200,11 @@ export interface IPath {
 	toNamespacedPath(path: string): string;
 	sep: '\\' | '/';
 	delimiter: string;
-	win32: IPath | null;
-	posix: IPath | null;
+	win32: PathInterface | null;
+	posix: PathInterface | null;
 }
 
-export const win32: IPath = {
+export const win32: PathInterface = {
 	// path.resolve([from ...], to)
 	resolve(...pathSegments: string[]): string {
 		let resolvedDevice = '';
@@ -1147,7 +1147,7 @@ const posixCwd = (() => {
 	return () => process.cwd();
 })();
 
-export const posix: IPath = {
+export const posix: PathInterface = {
 	// path.resolve([from ...], to)
 	resolve(...pathSegments: string[]): string {
 		let resolvedPath = '';

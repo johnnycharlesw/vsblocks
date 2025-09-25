@@ -17,7 +17,7 @@ import { NullLogService } from '../../../../../platform/log/common/log.js';
 import { IMarker, MarkerSeverity } from '../../../../../platform/markers/common/markers.js';
 import { OutlineElement, OutlineGroup, OutlineModel, OutlineModelService } from '../../browser/outlineModel.js';
 import { mock } from '../../../../../base/test/common/mock.js';
-import { IEnvironmentService } from '../../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../../platform/environment/common/environment.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 
 suite('OutlineModel', function () {
@@ -35,7 +35,7 @@ suite('OutlineModel', function () {
 
 		const insta = createModelServices(disposables);
 		const modelService = insta.get(IModelService);
-		const envService = new class extends mock<IEnvironmentService>() {
+		const envService = new class extends mock<EnvironmentServiceInterface>() {
 			override isBuilt: boolean = true;
 			override isExtensionDevelopment: boolean = false;
 		};
@@ -71,7 +71,7 @@ suite('OutlineModel', function () {
 
 		const insta = createModelServices(disposables);
 		const modelService = insta.get(IModelService);
-		const envService = new class extends mock<IEnvironmentService>() {
+		const envService = new class extends mock<EnvironmentServiceInterface>() {
 			override isBuilt: boolean = true;
 			override isExtensionDevelopment: boolean = false;
 		};

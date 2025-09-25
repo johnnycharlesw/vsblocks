@@ -20,7 +20,7 @@ import { IIdentifiedSingleEditOperation, ITextModel, TrackedRangeStickiness } fr
 import { ModelDecorationOptions } from '../../../common/model/textModel.js';
 import { OvertypingCapturer } from '../../suggest/browser/suggestOvertypingCapturer.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { Choice, Marker, Placeholder, SnippetParser, Text, TextmateSnippet } from './snippetParser.js';
 import { ClipboardBasedVariableResolver, CommentBasedVariableResolver, CompositeSnippetVariableResolver, ModelBasedVariableResolver, RandomBasedVariableResolver, SelectionBasedVariableResolver, TimeBasedVariableResolver, WorkspaceBasedVariableResolver } from './snippetVariables.js';
 import { EditSources, TextModelEditSource } from '../../../common/textModelEditSource.js';
@@ -468,7 +468,7 @@ export class SnippetSession {
 		}
 		const model = editor.getModel();
 
-		const workspaceService = editor.invokeWithinContext(accessor => accessor.get(IWorkspaceContextService));
+		const workspaceService = editor.invokeWithinContext(accessor => accessor.get(WorkspaceContextServiceInterface));
 		const modelBasedVariableResolver = editor.invokeWithinContext(accessor => new ModelBasedVariableResolver(accessor.get(ILabelService), model));
 		const readClipboardText = () => clipboardText;
 
@@ -562,7 +562,7 @@ export class SnippetSession {
 			new SelectionBasedVariableResolver(model, editor.getSelection(), 0, overtypingCapturer),
 			new CommentBasedVariableResolver(model, editor.getSelection(), languageConfigurationService),
 			new TimeBasedVariableResolver,
-			new WorkspaceBasedVariableResolver(editor.invokeWithinContext(accessor => accessor.get(IWorkspaceContextService))),
+			new WorkspaceBasedVariableResolver(editor.invokeWithinContext(accessor => accessor.get(WorkspaceContextServiceInterface))),
 			new RandomBasedVariableResolver,
 		]);
 

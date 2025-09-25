@@ -25,7 +25,7 @@ import { McpGalleryManifestStatus } from '../../../../platform/mcp/common/mcpGal
 import { IGalleryMcpServer, IInstallableMcpServer, IGalleryMcpServerConfiguration, IQueryOptions } from '../../../../platform/mcp/common/mcpManagement.js';
 import { IMcpDevModeConfig, IMcpServerConfiguration } from '../../../../platform/mcp/common/mcpPlatformTypes.js';
 import { StorageScope } from '../../../../platform/storage/common/storage.js';
-import { IWorkspaceFolder, IWorkspaceFolderData } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder, WorkspaceInterfaceFolderData } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchLocalMcpServer, IWorkbencMcpServerInstallOptions } from '../../../services/mcp/common/mcpWorkbenchManagementService.js';
 import { ToolProgress } from '../../chat/common/languageModelToolsService.js';
 import { IMcpServerSamplingConfiguration } from './mcpConfiguration.js';
@@ -175,7 +175,7 @@ export namespace McpServerDefinition {
 
 export interface McpServerDefinitionVariableReplacement {
 	section?: string; // e.g. 'mcp'
-	folder?: IWorkspaceFolderData;
+	folder?: WorkspaceInterfaceFolderData;
 	target: ConfigurationTarget;
 }
 
@@ -634,7 +634,7 @@ export interface IMcpConfigPath {
 	remoteAuthority?: string;
 	uri: URI | undefined;
 	section?: string[];
-	workspaceFolder?: IWorkspaceFolder;
+	workspaceFolder?: WorkspaceInterfaceFolder;
 }
 
 export interface IMcpServerContainer extends IDisposable {

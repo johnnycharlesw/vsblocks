@@ -22,7 +22,7 @@ import { ConfigurationScope, Extensions as ConfigurationExtensions, IConfigurati
 import { workbenchConfigurationNodeBase } from '../../../common/configuration.js';
 import { ITrustedDomainService, TrustedDomainService } from './trustedDomainService.js';
 import { registerSingleton, InstantiationType } from '../../../../platform/instantiation/common/extensions.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 
 class OpenUrlAction extends Action2 {
 
@@ -40,7 +40,7 @@ class OpenUrlAction extends Action2 {
 	async run(accessor: ServicesAccessor): Promise<void> {
 		const quickInputService = accessor.get(IQuickInputService);
 		const urlService = accessor.get(IURLService);
-		const storageService = accessor.get(IStorageService);
+		const storageService = accessor.get(StorageServiceInterface);
 
 		const value = storageService.get(OpenUrlAction.STORAGE_KEY, StorageScope.WORKSPACE, '');
 

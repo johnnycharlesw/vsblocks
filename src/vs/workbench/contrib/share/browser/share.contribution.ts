@@ -21,7 +21,7 @@ import { KeybindingWeight } from '../../../../platform/keybinding/common/keybind
 import { Severity } from '../../../../platform/notification/common/notification.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { WorkspaceFolderCountContext } from '../../../common/contextkeys.js';
 import { Extensions, IWorkbenchContributionsRegistry } from '../../../common/contributions.js';
 import { ShareProviderCountContext, ShareService } from './shareService.js';
@@ -107,7 +107,7 @@ class ShareWorkbenchContribution extends Disposable {
 					const shareService = accessor.get(IShareService);
 					const activeEditor = accessor.get(IEditorService)?.activeEditor;
 					const resourceUri = (activeEditor && EditorResourceAccessor.getOriginalUri(activeEditor, { supportSideBySide: SideBySideEditor.PRIMARY }))
-						?? accessor.get(IWorkspaceContextService).getWorkspace().folders[0].uri;
+						?? accessor.get(WorkspaceContextServiceInterface).getWorkspace().folders[0].uri;
 					const clipboardService = accessor.get(IClipboardService);
 					const dialogService = accessor.get(IDialogService);
 					const urlService = accessor.get(IOpenerService);

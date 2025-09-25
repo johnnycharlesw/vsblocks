@@ -25,7 +25,7 @@ import { match } from 'minimatch';
 // available in native environments should not be allowed in browser
 const NATIVE_TYPES = [
 	'NativeParsedArgs',
-	'INativeEnvironmentService',
+	'NativeEnvironmentServiceInterface',
 	'AbstractNativeEnvironmentService',
 	'INativeWindowConfiguration',
 	'ICommonNativeHostService',

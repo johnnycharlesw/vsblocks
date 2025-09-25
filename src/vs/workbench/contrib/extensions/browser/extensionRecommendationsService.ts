@@ -10,7 +10,7 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 import { shuffle } from '../../../../base/common/arrays.js';
 import { Emitter, Event } from '../../../../base/common/event.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { LifecyclePhase, ILifecycleService } from '../../../services/lifecycle/common/lifecycle.js';
 import { ExeBasedRecommendations } from './exeBasedRecommendations.js';
 import { WorkspaceRecommendations } from './workspaceRecommendations.js';
@@ -55,7 +55,7 @@ export class ExtensionRecommendationsService extends Disposable implements IExte
 		@ILifecycleService private readonly lifecycleService: ILifecycleService,
 		@IExtensionGalleryService private readonly galleryService: IExtensionGalleryService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IExtensionManagementService private readonly extensionManagementService: IExtensionManagementService,
 		@IExtensionIgnoredRecommendationsService private readonly extensionRecommendationsManagementService: IExtensionIgnoredRecommendationsService,
 		@IExtensionRecommendationNotificationService private readonly extensionRecommendationNotificationService: IExtensionRecommendationNotificationService,

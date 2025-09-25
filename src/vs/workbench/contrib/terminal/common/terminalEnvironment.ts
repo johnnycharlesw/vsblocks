@@ -9,7 +9,7 @@
 
 import * as path from '../../../../base/common/path.js';
 import { URI } from '../../../../base/common/uri.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { IConfigurationResolverService } from '../../../services/configurationResolver/common/configurationResolver.js';
 import { sanitizeProcessEnvironment } from '../../../../base/common/processes.js';
 import { IShellLaunchConfig, ITerminalBackend, ITerminalEnvironment, TerminalShellType, WindowsShellType } from '../../../../platform/terminal/common/terminal.js';
@@ -233,7 +233,7 @@ async function _resolveCwd(cwd: string, variableResolver: VariableResolver | und
 
 export type VariableResolver = (str: string) => Promise<string>;
 
-export function createVariableResolver(lastActiveWorkspace: IWorkspaceFolder | undefined, env: IProcessEnvironment, configurationResolverService: IConfigurationResolverService | undefined): VariableResolver | undefined {
+export function createVariableResolver(lastActiveWorkspace: WorkspaceInterfaceFolder | undefined, env: IProcessEnvironment, configurationResolverService: IConfigurationResolverService | undefined): VariableResolver | undefined {
 	if (!configurationResolverService) {
 		return undefined;
 	}
@@ -379,7 +379,7 @@ export async function preparePathForShell(resource: string | URI, executable: st
 	return escapeNonWindowsPath(originalPath, shellType);
 }
 
-export function getWorkspaceForTerminal(cwd: URI | string | undefined, workspaceContextService: IWorkspaceContextService, historyService: IHistoryService): IWorkspaceFolder | undefined {
+export function getWorkspaceForTerminal(cwd: URI | string | undefined, workspaceContextService: WorkspaceContextServiceInterface, historyService: IHistoryService): WorkspaceInterfaceFolder | undefined {
 	const cwdUri = typeof cwd === 'string' ? URI.parse(cwd) : cwd;
 	let workspaceFolder = cwdUri ? workspaceContextService.getWorkspaceFolder(cwdUri) ?? undefined : undefined;
 	if (!workspaceFolder) {

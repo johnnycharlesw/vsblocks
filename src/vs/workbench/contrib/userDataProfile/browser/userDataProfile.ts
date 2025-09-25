@@ -17,8 +17,8 @@ import { IQuickInputService, IQuickPickItem } from '../../../../platform/quickin
 import { INotificationService } from '../../../../platform/notification/common/notification.js';
 import { URI } from '../../../../base/common/uri.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
-import { IWorkspaceTagsService } from '../../tags/common/workspaceTags.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceTagsService } from '../../tags/common/workspaceTags.js';
 import { Categories } from '../../../../platform/action/common/actionCommonCategories.js';
 import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
@@ -49,8 +49,8 @@ export class UserDataProfilesWorkbenchContribution extends Disposable implements
 		@IUserDataProfilesService private readonly userDataProfilesService: IUserDataProfilesService,
 		@IUserDataProfileManagementService private readonly userDataProfileManagementService: IUserDataProfileManagementService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService,
-		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
-		@IWorkspaceTagsService private readonly workspaceTagsService: IWorkspaceTagsService,
+		@WorkspaceContextServiceInterface private readonly workspaceContextService: WorkspaceContextServiceInterface,
+		@WorkspaceInterfaceTagsService private readonly workspaceTagsService: WorkspaceInterfaceTagsService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IEditorGroupsService private readonly editorGroupsService: IEditorGroupsService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,

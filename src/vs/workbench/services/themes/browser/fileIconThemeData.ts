@@ -10,7 +10,7 @@ import * as resources from '../../../../base/common/resources.js';
 import * as Json from '../../../../base/common/json.js';
 import { ExtensionData, IThemeExtensionPoint, IWorkbenchFileIconTheme } from '../common/workbenchThemeService.js';
 import { getParseErrorMessage } from '../../../../base/common/jsonErrorMessages.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IExtensionResourceLoaderService } from '../../../../platform/extensionResourceLoader/common/extensionResourceLoader.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
 import { fontColorRegex, fontSizeRegex } from '../../../../platform/theme/common/iconRegistry.js';
@@ -100,7 +100,7 @@ export class FileIconThemeData implements IWorkbenchFileIconTheme {
 	}
 
 
-	static fromStorageData(storageService: IStorageService): FileIconThemeData | undefined {
+	static fromStorageData(storageService: StorageServiceInterface): FileIconThemeData | undefined {
 		const input = storageService.get(FileIconThemeData.STORAGE_KEY, StorageScope.PROFILE);
 		if (!input) {
 			return undefined;
@@ -135,7 +135,7 @@ export class FileIconThemeData implements IWorkbenchFileIconTheme {
 		}
 	}
 
-	toStorage(storageService: IStorageService) {
+	toStorage(storageService: StorageServiceInterface) {
 		const data = JSON.stringify({
 			id: this.id,
 			label: this.label,

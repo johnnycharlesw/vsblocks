@@ -11,7 +11,7 @@ import { IWorkingCopyService } from '../common/workingCopyService.js';
 import { IWorkingCopy, IWorkingCopyIdentifier, WorkingCopyCapabilities } from '../common/workingCopy.js';
 import { ILifecycleService, ShutdownReason } from '../../lifecycle/common/lifecycle.js';
 import { ConfirmResult, IFileDialogService, IDialogService, getFileNamesMessage } from '../../../../platform/dialogs/common/dialogs.js';
-import { WorkbenchState, IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkbenchState, WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { isMacintosh } from '../../../../base/common/platform.js';
 import { HotExitConfiguration } from '../../../../platform/files/common/files.js';
 import { INativeHostService } from '../../../../platform/native/common/native.js';
@@ -19,7 +19,7 @@ import { WorkingCopyBackupTracker } from '../common/workingCopyBackupTracker.js'
 import { ILogService } from '../../../../platform/log/common/log.js';
 import { IEditorService } from '../../editor/common/editorService.js';
 import { SaveReason } from '../../../common/editor.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { CancellationToken, CancellationTokenSource } from '../../../../base/common/cancellation.js';
 import { IProgressService, ProgressLocation } from '../../../../platform/progress/common/progress.js';
 import { Promises, raceCancellation } from '../../../../base/common/async.js';
@@ -37,10 +37,10 @@ export class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker imp
 		@ILifecycleService lifecycleService: ILifecycleService,
 		@IFileDialogService private readonly fileDialogService: IFileDialogService,
 		@IDialogService private readonly dialogService: IDialogService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@INativeHostService private readonly nativeHostService: INativeHostService,
 		@ILogService logService: ILogService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IProgressService private readonly progressService: IProgressService,
 		@IWorkingCopyEditorService workingCopyEditorService: IWorkingCopyEditorService,
 		@IEditorService editorService: IEditorService,

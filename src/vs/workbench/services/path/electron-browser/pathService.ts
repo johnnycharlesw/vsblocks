@@ -6,18 +6,18 @@
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IRemoteAgentService } from '../../remote/common/remoteAgentService.js';
 import { INativeWorkbenchEnvironmentService } from '../../environment/electron-browser/environmentService.js';
-import { IPathService, AbstractPathService } from '../common/pathService.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { PathInterfaceService, AbstractPathService } from '../common/pathService.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 
 export class NativePathService extends AbstractPathService {
 
 	constructor(
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService,
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface
 	) {
 		super(environmentService.userHome, remoteAgentService, environmentService, contextService);
 	}
 }
 
-registerSingleton(IPathService, NativePathService, InstantiationType.Delayed);
+registerSingleton(PathInterfaceService, NativePathService, InstantiationType.Delayed);

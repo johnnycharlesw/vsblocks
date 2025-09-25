@@ -20,7 +20,7 @@ import { ITerminalProfileResolverService } from '../../../../terminal/common/ter
 import { RunInTerminalTool, type IRunInTerminalInputParams } from '../../browser/tools/runInTerminalTool.js';
 import { ShellIntegrationQuality } from '../../browser/toolTerminalCreator.js';
 import { terminalChatAgentToolsConfiguration, TerminalChatAgentToolsSettingId } from '../../common/terminalChatAgentToolsConfiguration.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../../../platform/storage/common/storage.js';
 import { TerminalToolConfirmationStorageKeys } from '../../../../chat/browser/chatContentParts/toolInvocationParts/chatTerminalToolConfirmationSubPart.js';
 import { count } from '../../../../../../base/common/strings.js';
 
@@ -40,7 +40,7 @@ suite('RunInTerminalTool', () => {
 
 	let instantiationService: TestInstantiationService;
 	let configurationService: TestConfigurationService;
-	let storageService: IStorageService;
+	let storageService: StorageServiceInterface;
 	let terminalServiceDisposeEmitter: Emitter<ITerminalInstance>;
 	let chatServiceDisposeEmitter: Emitter<{ sessionId: string; reason: 'cleared' }>;
 
@@ -70,7 +70,7 @@ suite('RunInTerminalTool', () => {
 			getDefaultShell: async () => 'pwsh'
 		});
 
-		storageService = instantiationService.get(IStorageService);
+		storageService = instantiationService.get(StorageServiceInterface);
 		storageService.store(TerminalToolConfirmationStorageKeys.TerminalAutoApproveWarningAccepted, true, StorageScope.APPLICATION, StorageTarget.USER);
 
 		runInTerminalTool = store.add(instantiationService.createInstance(TestRunInTerminalTool));

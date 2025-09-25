@@ -14,9 +14,9 @@ import { IInstantiationService } from '../../../../platform/instantiation/common
 import { IOpenerService, OpenOptions } from '../../../../platform/opener/common/opener.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService } from '../../../../platform/workspace/common/workspaceTrust.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { ITrustedDomainService } from './trustedDomainService.js';
 import { isURLDomainTrusted } from '../common/trustedDomains.js';
@@ -27,7 +27,7 @@ export class OpenerValidatorContributions implements IWorkbenchContribution {
 
 	constructor(
 		@IOpenerService private readonly _openerService: IOpenerService,
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 		@IDialogService private readonly _dialogService: IDialogService,
 		@IProductService private readonly _productService: IProductService,
 		@IQuickInputService private readonly _quickInputService: IQuickInputService,
@@ -36,7 +36,7 @@ export class OpenerValidatorContributions implements IWorkbenchContribution {
 		@ITelemetryService private readonly _telemetryService: ITelemetryService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 		@IConfigurationService private readonly _configurationService: IConfigurationService,
-		@IWorkspaceTrustManagementService private readonly _workspaceTrustService: IWorkspaceTrustManagementService,
+		@WorkspaceInterfaceTrustManagementService private readonly _workspaceTrustService: WorkspaceInterfaceTrustManagementService,
 		@ITrustedDomainService private readonly _trustedDomainService: ITrustedDomainService,
 	) {
 		this._openerService.registerValidator({ shouldOpen: (uri, options) => this.validateLink(uri, options) });

@@ -36,7 +36,7 @@ import { IWorkbenchConfigurationService } from '../../../services/configuration/
 import { IRemoteAgentEnvironment } from '../../../../platform/remote/common/remoteAgentEnvironment.js';
 import { Action } from '../../../../base/common/actions.js';
 import { IPreferencesService } from '../../../services/preferences/common/preferences.js';
-import { IStorageService, StorageScope } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../platform/storage/common/storage.js';
 
 export const VIEWLET_ID = 'workbench.view.remote';
 
@@ -211,7 +211,7 @@ export class AutomaticPortForwarding extends Disposable implements IWorkbenchCon
 		@ITunnelService private readonly tunnelService: ITunnelService,
 		@IHostService private readonly hostService: IHostService,
 		@ILogService private readonly logService: ILogService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@IPreferencesService private readonly preferencesService: IPreferencesService,
 	) {
 		super();

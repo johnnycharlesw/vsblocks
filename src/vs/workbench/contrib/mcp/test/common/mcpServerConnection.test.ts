@@ -13,7 +13,7 @@ import { ServiceCollection } from '../../../../../platform/instantiation/common/
 import { TestInstantiationService } from '../../../../../platform/instantiation/test/common/instantiationServiceMock.js';
 import { ILogger, ILoggerService, LogLevel, NullLogger } from '../../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../../platform/product/common/productService.js';
-import { IStorageService, StorageScope } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../../platform/storage/common/storage.js';
 import { IOutputService } from '../../../../services/output/common/output.js';
 import { TestLoggerService, TestProductService, TestStorageService } from '../../../../test/common/workbenchTestServices.js';
 import { IMcpHostDelegate, IMcpMessageTransport } from '../../common/mcpRegistryTypes.js';
@@ -75,7 +75,7 @@ suite('Workbench - MCP - ServerConnection', () => {
 		const services = new ServiceCollection(
 			[ILoggerService, store.add(new TestLoggerService())],
 			[IOutputService, upcast({ showChannel: () => { } })],
-			[IStorageService, store.add(new TestStorageService())],
+			[StorageServiceInterface, store.add(new TestStorageService())],
 			[IProductService, TestProductService],
 		);
 

@@ -6,7 +6,7 @@
 import { INativeWorkbenchEnvironmentService } from '../../environment/electron-browser/environmentService.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { ICommandService } from '../../../../platform/commands/common/commands.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IEditorService } from '../../editor/common/editorService.js';
 import { IQuickInputService } from '../../../../platform/quickinput/common/quickInput.js';
 import { IConfigurationResolverService } from '../common/configurationResolver.js';
@@ -14,9 +14,9 @@ import { InstantiationType, registerSingleton } from '../../../../platform/insta
 import { BaseConfigurationResolverService } from '../browser/baseConfigurationResolverService.js';
 import { ILabelService } from '../../../../platform/label/common/label.js';
 import { IShellEnvironmentService } from '../../environment/electron-browser/shellEnvironmentService.js';
-import { IPathService } from '../../path/common/pathService.js';
+import { PathInterfaceService } from '../../path/common/pathService.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 
 export class ConfigurationResolverService extends BaseConfigurationResolverService {
 
@@ -25,13 +25,13 @@ export class ConfigurationResolverService extends BaseConfigurationResolverServi
 		@INativeWorkbenchEnvironmentService environmentService: INativeWorkbenchEnvironmentService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@ICommandService commandService: ICommandService,
-		@IWorkspaceContextService workspaceContextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface workspaceContextService: WorkspaceContextServiceInterface,
 		@IQuickInputService quickInputService: IQuickInputService,
 		@ILabelService labelService: ILabelService,
 		@IShellEnvironmentService shellEnvironmentService: IShellEnvironmentService,
-		@IPathService pathService: IPathService,
+		@PathInterfaceService pathService: PathInterfaceService,
 		@IExtensionService extensionService: IExtensionService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 	) {
 		super({
 			getAppRoot: (): string | undefined => {

@@ -23,7 +23,7 @@ import { IRemoteAgentService } from '../services/remote/common/remoteAgentServic
 import { IFileService } from '../../platform/files/common/files.js';
 import { FileService } from '../../platform/files/common/fileService.js';
 import { Schemas, connectionTokenCookieName } from '../../base/common/network.js';
-import { IAnyWorkspaceIdentifier, IWorkspaceContextService, UNKNOWN_EMPTY_WINDOW_WORKSPACE, isTemporaryWorkspace, isWorkspaceIdentifier } from '../../platform/workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface, WorkspaceContextServiceInterface, UNKNOWN_EMPTY_WINDOW_WORKSPACE, isTemporaryWorkspace, isWorkspaceIdentifier } from '../../platform/workspace/common/workspace.js';
 import { IWorkbenchConfigurationService } from '../services/configuration/common/configuration.js';
 import { onUnexpectedError } from '../../base/common/errors.js';
 import { setFullscreen } from '../../base/browser/browser.js';
@@ -32,9 +32,9 @@ import { WorkspaceService } from '../services/configuration/browser/configuratio
 import { ConfigurationCache } from '../services/configuration/common/configurationCache.js';
 import { ISignService } from '../../platform/sign/common/sign.js';
 import { SignService } from '../../platform/sign/browser/signService.js';
-import { IWorkbenchConstructionOptions, IWorkbench, IWorkspace, ITunnel } from './web.api.js';
+import { IWorkbenchConstructionOptions, IWorkbench, WorkspaceInterface, ITunnel } from './web.api.js';
 import { BrowserStorageService } from '../services/storage/browser/storageService.js';
-import { IStorageService } from '../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../platform/storage/common/storage.js';
 import { toLocalISOString } from '../../base/common/date.js';
 import { isWorkspaceToOpen, isFolderToOpen } from '../../platform/window/common/window.js';
 import { getSingleFolderWorkspaceIdentifier, getWorkspaceIdentifier } from '../services/workspaces/browser/workspaces.js';
@@ -58,7 +58,7 @@ import { UriIdentityService } from '../../platform/uriIdentity/common/uriIdentit
 import { BrowserWindow } from './window.js';
 import { ITimerService } from '../services/timer/browser/timerService.js';
 import { WorkspaceTrustEnablementService, WorkspaceTrustManagementService } from '../services/workspaces/common/workspaceTrust.js';
-import { IWorkspaceTrustEnablementService, IWorkspaceTrustManagementService } from '../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustEnablementService, WorkspaceInterfaceTrustManagementService } from '../../platform/workspace/common/workspaceTrust.js';
 import { HTMLFileSystemProvider } from '../../platform/files/browser/htmlFileSystemProvider.js';
 import { IOpenerService } from '../../platform/opener/common/opener.js';
 import { mixin, safeStringify } from '../../base/common/objects.js';
@@ -350,7 +350,7 @@ export class BrowserMain extends Disposable {
 			this.createWorkspaceService(workspace, environmentService, userDataProfileService, userDataProfilesService, fileService, remoteAgentService, uriIdentityService, logService).then(service => {
 
 				// Workspace
-				serviceCollection.set(IWorkspaceContextService, service);
+				serviceCollection.set(WorkspaceContextServiceInterface, service);
 
 				// Configuration
 				serviceCollection.set(IWorkbenchConfigurationService, service);
@@ -361,7 +361,7 @@ export class BrowserMain extends Disposable {
 			this.createStorageService(workspace, logService, userDataProfileService).then(service => {
 
 				// Storage
-				serviceCollection.set(IStorageService, service);
+				serviceCollection.set(StorageServiceInterface, service);
 
 				return service;
 			})
@@ -379,10 +379,10 @@ export class BrowserMain extends Disposable {
 
 		// Workspace Trust Service
 		const workspaceTrustEnablementService = new WorkspaceTrustEnablementService(configurationService, environmentService);
-		serviceCollection.set(IWorkspaceTrustEnablementService, workspaceTrustEnablementService);
+		serviceCollection.set(WorkspaceInterfaceTrustEnablementService, workspaceTrustEnablementService);
 
 		const workspaceTrustManagementService = new WorkspaceTrustManagementService(configurationService, remoteAuthorityResolverService, storageService, uriIdentityService, environmentService, configurationService, workspaceTrustEnablementService, fileService);
-		serviceCollection.set(IWorkspaceTrustManagementService, workspaceTrustManagementService);
+		serviceCollection.set(WorkspaceInterfaceTrustManagementService, workspaceTrustManagementService);
 
 		// Update workspace trust so that configuration is updated accordingly
 		configurationService.updateWorkspaceTrust(workspaceTrustManagementService.isWorkspaceTrusted());
@@ -510,7 +510,7 @@ export class BrowserMain extends Disposable {
 			async run(accessor: ServicesAccessor): Promise<void> {
 				const dialogService = accessor.get(IDialogService);
 				const hostService = accessor.get(IHostService);
-				const storageService = accessor.get(IStorageService);
+				const storageService = accessor.get(StorageServiceInterface);
 				const logService = accessor.get(ILogService);
 				const result = await dialogService.confirm({
 					message: localize('reset user data message', "Would you like to reset your data (settings, keybindings, extensions, snippets and UI State) and reload?")
@@ -533,7 +533,7 @@ export class BrowserMain extends Disposable {
 		}));
 	}
 
-	private async createStorageService(workspace: IAnyWorkspaceIdentifier, logService: ILogService, userDataProfileService: IUserDataProfileService): Promise<IStorageService> {
+	private async createStorageService(workspace: AnyWorkspaceIdentifierInterface, logService: ILogService, userDataProfileService: IUserDataProfileService): Promise<StorageServiceInterface> {
 		const storageService = new BrowserStorageService(workspace, userDataProfileService, logService);
 
 		try {
@@ -551,7 +551,7 @@ export class BrowserMain extends Disposable {
 		}
 	}
 
-	private async createWorkspaceService(workspace: IAnyWorkspaceIdentifier, environmentService: IBrowserWorkbenchEnvironmentService, userDataProfileService: IUserDataProfileService, userDataProfilesService: IUserDataProfilesService, fileService: FileService, remoteAgentService: IRemoteAgentService, uriIdentityService: IUriIdentityService, logService: ILogService): Promise<WorkspaceService> {
+	private async createWorkspaceService(workspace: AnyWorkspaceIdentifierInterface, environmentService: IBrowserWorkbenchEnvironmentService, userDataProfileService: IUserDataProfileService, userDataProfilesService: IUserDataProfilesService, fileService: FileService, remoteAgentService: IRemoteAgentService, uriIdentityService: IUriIdentityService, logService: ILogService): Promise<WorkspaceService> {
 
 		// Temporary workspaces do not exist on startup because they are
 		// just in memory. As such, detect this case and eagerly create
@@ -581,7 +581,7 @@ export class BrowserMain extends Disposable {
 		}
 	}
 
-	private async getCurrentProfile(workspace: IAnyWorkspaceIdentifier, userDataProfilesService: BrowserUserDataProfilesService, environmentService: BrowserWorkbenchEnvironmentService): Promise<IUserDataProfile> {
+	private async getCurrentProfile(workspace: AnyWorkspaceIdentifierInterface, userDataProfilesService: BrowserUserDataProfilesService, environmentService: BrowserWorkbenchEnvironmentService): Promise<IUserDataProfile> {
 		const profileName = environmentService.options?.profile?.name ?? environmentService.profile;
 		if (profileName) {
 			const profile = userDataProfilesService.profiles.find(p => p.name === profileName);
@@ -593,8 +593,8 @@ export class BrowserMain extends Disposable {
 		return userDataProfilesService.getProfileForWorkspace(workspace) ?? userDataProfilesService.defaultProfile;
 	}
 
-	private resolveWorkspace(): IAnyWorkspaceIdentifier {
-		let workspace: IWorkspace | undefined = undefined;
+	private resolveWorkspace(): AnyWorkspaceIdentifierInterface {
+		let workspace: WorkspaceInterface | undefined = undefined;
 		if (this.configuration.workspaceProvider) {
 			workspace = this.configuration.workspaceProvider.workspace;
 		}

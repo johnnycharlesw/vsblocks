@@ -16,7 +16,7 @@ import { IEditorService } from '../../../services/editor/common/editorService.js
 import { InstantiationService, Trace } from '../../../../platform/instantiation/common/instantiationService.js';
 import { EventProfiling } from '../../../../base/common/event.js';
 import { InputLatencyContrib } from './inputLatencyContrib.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { GCBasedDisposableTracker, setDisposableTracker } from '../../../../base/common/lifecycle.js';
 
 // -- startup performance view
@@ -145,7 +145,7 @@ Registry.as<IWorkbenchContributionsRegistry>(Extensions.Workbench).registerWorkb
 
 class DisposableTracking {
 	static readonly Id = 'perf.disposableTracking';
-	constructor(@IEnvironmentService envService: IEnvironmentService) {
+	constructor(@EnvironmentServiceInterface envService: EnvironmentServiceInterface) {
 		if (!envService.isBuilt && !envService.extensionTestsLocationURI) {
 			setDisposableTracker(new GCBasedDisposableTracker());
 		}

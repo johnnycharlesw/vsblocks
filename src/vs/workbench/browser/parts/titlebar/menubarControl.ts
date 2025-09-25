@@ -15,12 +15,12 @@ import { isMacintosh, isWeb, isIOS, isNative } from '../../../../base/common/pla
 import { IConfigurationService, IConfigurationChangeEvent } from '../../../../platform/configuration/common/configuration.js';
 import { Event, Emitter } from '../../../../base/common/event.js';
 import { Disposable, DisposableStore } from '../../../../base/common/lifecycle.js';
-import { IRecentlyOpened, isRecentFolder, IRecent, isRecentWorkspace, IWorkspacesService } from '../../../../platform/workspaces/common/workspaces.js';
+import { IRecentlyOpened, isRecentFolder, IRecent, isRecentWorkspace, WorkspaceInterfacesService } from '../../../../platform/workspaces/common/workspaces.js';
 import { RunOnceScheduler } from '../../../../base/common/async.js';
 import { URI } from '../../../../base/common/uri.js';
 import { ILabelService, Verbosity } from '../../../../platform/label/common/label.js';
 import { IUpdateService, StateType } from '../../../../platform/update/common/update.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { INotificationService, Severity } from '../../../../platform/notification/common/notification.js';
 import { IPreferencesService } from '../../../services/preferences/common/preferences.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
@@ -153,13 +153,13 @@ export abstract class MenubarControl extends Disposable {
 
 	constructor(
 		protected readonly menuService: IMenuService,
-		protected readonly workspacesService: IWorkspacesService,
+		protected readonly workspacesService: WorkspaceInterfacesService,
 		protected readonly contextKeyService: IContextKeyService,
 		protected readonly keybindingService: IKeybindingService,
 		protected readonly configurationService: IConfigurationService,
 		protected readonly labelService: ILabelService,
 		protected readonly updateService: IUpdateService,
-		protected readonly storageService: IStorageService,
+		protected readonly storageService: StorageServiceInterface,
 		protected readonly notificationService: INotificationService,
 		protected readonly preferencesService: IPreferencesService,
 		protected readonly environmentService: IWorkbenchEnvironmentService,
@@ -416,13 +416,13 @@ export class CustomMenubarControl extends MenubarControl {
 
 	constructor(
 		@IMenuService menuService: IMenuService,
-		@IWorkspacesService workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService workspacesService: WorkspaceInterfacesService,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IKeybindingService keybindingService: IKeybindingService,
 		@IConfigurationService configurationService: IConfigurationService,
 		@ILabelService labelService: ILabelService,
 		@IUpdateService updateService: IUpdateService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@INotificationService notificationService: INotificationService,
 		@IPreferencesService preferencesService: IPreferencesService,
 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,

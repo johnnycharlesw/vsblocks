@@ -7,16 +7,16 @@ import { URI } from '../../../base/common/uri.js';
 import { Emitter, Event } from '../../../base/common/event.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 import { IStorage } from '../../../base/parts/storage/common/storage.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IFileService } from '../../files/common/files.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 import { ILifecycleMainService, LifecycleMainPhase, ShutdownReason } from '../../lifecycle/electron-main/lifecycleMainService.js';
 import { ILogService } from '../../log/common/log.js';
-import { AbstractStorageService, isProfileUsingDefaultStorage, IStorageService, StorageScope, StorageTarget } from '../common/storage.js';
+import { AbstractStorageService, isProfileUsingDefaultStorage, StorageServiceInterface, StorageScope, StorageTarget } from '../common/storage.js';
 import { ApplicationStorageMain, ProfileStorageMain, InMemoryStorageMain, IStorageMain, IStorageMainOptions, WorkspaceStorageMain, IStorageChangeEvent } from './storageMain.js';
 import { IUserDataProfile, IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
 import { IUserDataProfilesMainService } from '../../userDataProfile/electron-main/userDataProfile.js';
-import { IAnyWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { AnyWorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 import { IUriIdentityService } from '../../uriIdentity/common/uriIdentity.js';
 import { Schemas } from '../../../base/common/network.js';
 
@@ -62,7 +62,7 @@ export interface IStorageMainService {
 	 * Note: DO NOT use this for reading/writing from the main process!
 	 *       This is currently not supported.
 	 */
-	workspaceStorage(workspace: IAnyWorkspaceIdentifier): IStorageMain;
+	workspaceStorage(workspace: AnyWorkspaceIdentifierInterface): IStorageMain;
 
 	/**
 	 * Checks if the provided path is currently in use for a storage database.
@@ -83,7 +83,7 @@ export class StorageMainService extends Disposable implements IStorageMainServic
 
 	constructor(
 		@ILogService private readonly logService: ILogService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IUserDataProfilesMainService private readonly userDataProfilesService: IUserDataProfilesMainService,
 		@ILifecycleMainService private readonly lifecycleMainService: ILifecycleMainService,
 		@IFileService private readonly fileService: IFileService,
@@ -234,7 +234,7 @@ export class StorageMainService extends Disposable implements IStorageMainServic
 
 	private readonly mapWorkspaceToStorage = new Map<string /* workspace ID */, IStorageMain>();
 
-	workspaceStorage(workspace: IAnyWorkspaceIdentifier): IStorageMain {
+	workspaceStorage(workspace: AnyWorkspaceIdentifierInterface): IStorageMain {
 		let workspaceStorage = this.mapWorkspaceToStorage.get(workspace.id);
 		if (!workspaceStorage) {
 			this.logService.trace(`StorageMainService: creating workspace storage (${workspace.id})`);
@@ -252,7 +252,7 @@ export class StorageMainService extends Disposable implements IStorageMainServic
 		return workspaceStorage;
 	}
 
-	private createWorkspaceStorage(workspace: IAnyWorkspaceIdentifier): IStorageMain {
+	private createWorkspaceStorage(workspace: AnyWorkspaceIdentifierInterface): IStorageMain {
 		if (this.shutdownReason === ShutdownReason.KILL) {
 
 			// Workaround for native crashes that we see when
@@ -292,10 +292,10 @@ export class StorageMainService extends Disposable implements IStorageMainServic
 export const IApplicationStorageMainService = createDecorator<IStorageMainService>('applicationStorageMainService');
 
 /**
- * A specialized `IStorageService` interface that only allows
+ * A specialized `StorageServiceInterface` interface that only allows
  * access to the `StorageScope.APPLICATION` scope.
  */
-export interface IApplicationStorageMainService extends IStorageService {
+export interface IApplicationStorageMainService extends StorageServiceInterface {
 
 	/**
 	 * Important: unlike other storage services in the renderer, the

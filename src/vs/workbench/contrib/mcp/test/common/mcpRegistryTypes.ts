@@ -10,7 +10,7 @@ import { ConfigurationTarget } from '../../../../../platform/configuration/commo
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { LogLevel, NullLogger } from '../../../../../platform/log/common/log.js';
 import { StorageScope } from '../../../../../platform/storage/common/storage.js';
-import { IWorkspaceFolderData } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolderData } from '../../../../../platform/workspace/common/workspace.js';
 import { IResolvedValue } from '../../../../services/configurationResolver/common/configurationResolverExpression.js';
 import { IMcpHostDelegate, IMcpMessageTransport, IMcpRegistry, IMcpResolveConnectionOptions } from '../../common/mcpRegistryTypes.js';
 import { McpServerConnection } from '../../common/mcpServerConnection.js';
@@ -213,7 +213,7 @@ export class TestMcpRegistry implements IMcpRegistry {
 	clearSavedInputs(scope: StorageScope, inputId?: string): Promise<void> {
 		throw new Error('Method not implemented.');
 	}
-	editSavedInput(inputId: string, folderData: IWorkspaceFolderData | undefined, configSection: string, target: ConfigurationTarget): Promise<void> {
+	editSavedInput(inputId: string, folderData: WorkspaceInterfaceFolderData | undefined, configSection: string, target: ConfigurationTarget): Promise<void> {
 		throw new Error('Method not implemented.');
 	}
 	setSavedInput(inputId: string, target: ConfigurationTarget, value: string): Promise<void> {

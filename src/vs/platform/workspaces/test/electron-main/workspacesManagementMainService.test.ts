@@ -15,7 +15,7 @@ import { URI } from '../../../../base/common/uri.js';
 import * as pfs from '../../../../base/node/pfs.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 import { flakySuite, getRandomTestPath } from '../../../../base/test/node/testUtils.js';
-import { IWorkspaceBackupInfo, IFolderBackupInfo } from '../../../backup/common/backup.js';
+import { WorkspaceInterfaceBackupInfo, IFolderBackupInfo } from '../../../backup/common/backup.js';
 import { IBackupMainService } from '../../../backup/electron-main/backup.js';
 import { IEmptyWindowBackupInfo } from '../../../backup/node/backup.js';
 import { INativeOpenDialogOptions } from '../../../dialogs/common/dialogs.js';
@@ -29,8 +29,8 @@ import { IProductService } from '../../../product/common/productService.js';
 import { SaveStrategy, StateService } from '../../../state/node/stateService.js';
 import { UriIdentityService } from '../../../uriIdentity/common/uriIdentityService.js';
 import { UserDataProfilesMainService } from '../../../userDataProfile/electron-main/userDataProfile.js';
-import { IRawFileWorkspaceFolder, IRawUriWorkspaceFolder, WORKSPACE_EXTENSION } from '../../../workspace/common/workspace.js';
-import { IStoredWorkspace, IStoredWorkspaceFolder, IWorkspaceFolderCreationData, rewriteWorkspaceFileForNewLocation } from '../../common/workspaces.js';
+import { IRawFileWorkspaceFolder, IRawUrWorkspaceInterfaceFolder, WORKSPACE_EXTENSION } from '../../../workspace/common/workspace.js';
+import { IStoredWorkspace, IStoredWorkspaceFolder, WorkspaceInterfaceFolderCreationData, rewriteWorkspaceFileForNewLocation } from '../../common/workspaces.js';
 import { WorkspacesManagementMainService } from '../../electron-main/workspacesManagementMainService.js';
 
 flakySuite('WorkspacesManagementMainService', () => {
@@ -54,16 +54,16 @@ flakySuite('WorkspacesManagementMainService', () => {
 
 		isHotExitEnabled(): boolean { throw new Error('Method not implemented.'); }
 		getEmptyWindowBackups(): IEmptyWindowBackupInfo[] { throw new Error('Method not implemented.'); }
-		registerWorkspaceBackup(workspaceInfo: IWorkspaceBackupInfo): string;
-		registerWorkspaceBackup(workspaceInfo: IWorkspaceBackupInfo, migrateFrom: string): Promise<string>;
+		registerWorkspaceBackup(workspaceInfo: WorkspaceInterfaceBackupInfo): string;
+		registerWorkspaceBackup(workspaceInfo: WorkspaceInterfaceBackupInfo, migrateFrom: string): Promise<string>;
 		registerWorkspaceBackup(workspaceInfo: unknown, migrateFrom?: unknown): string | Promise<string> { throw new Error('Method not implemented.'); }
 		registerFolderBackup(folder: IFolderBackupInfo): string { throw new Error('Method not implemented.'); }
 		registerEmptyWindowBackup(empty: IEmptyWindowBackupInfo): string { throw new Error('Method not implemented.'); }
-		async getDirtyWorkspaces(): Promise<(IWorkspaceBackupInfo | IFolderBackupInfo)[]> { return []; }
+		async getDirtyWorkspaces(): Promise<(WorkspaceInterfaceBackupInfo | IFolderBackupInfo)[]> { return []; }
 	}
 
 	function createUntitledWorkspace(folders: string[], names?: string[]) {
-		return service.createUntitledWorkspace(folders.map((folder, index) => ({ uri: URI.file(folder), name: names ? names[index] : undefined } as IWorkspaceFolderCreationData)));
+		return service.createUntitledWorkspace(folders.map((folder, index) => ({ uri: URI.file(folder), name: names ? names[index] : undefined } as WorkspaceInterfaceFolderCreationData)));
 	}
 
 	function createWorkspace(workspaceConfigPath: string, folders: (string | URI)[], names?: string[]): void {
@@ -176,8 +176,8 @@ flakySuite('WorkspacesManagementMainService', () => {
 
 		const ws = (JSON.parse(fs.readFileSync(workspace.configPath.fsPath).toString()) as IStoredWorkspace);
 		assert.strictEqual(ws.folders.length, 2);
-		assert.strictEqual((<IRawUriWorkspaceFolder>ws.folders[0]).uri, folder1URI.toString(true));
-		assert.strictEqual((<IRawUriWorkspaceFolder>ws.folders[1]).uri, folder2URI.toString(true));
+		assert.strictEqual((<IRawUrWorkspaceInterfaceFolder>ws.folders[0]).uri, folder1URI.toString(true));
+		assert.strictEqual((<IRawUrWorkspaceInterfaceFolder>ws.folders[1]).uri, folder2URI.toString(true));
 		assert.ok(!(<IRawFileWorkspaceFolder>ws.folders[0]).name);
 		assert.ok(!(<IRawFileWorkspaceFolder>ws.folders[1]).name);
 		assert.strictEqual(ws.remoteAuthority, 'server');
@@ -278,9 +278,9 @@ flakySuite('WorkspacesManagementMainService', () => {
 		newContent = rewriteWorkspaceFileForNewLocation(newContent, origConfigPath, false, workspaceConfigPath, extUriBiasedIgnorePathCase);
 		ws = (JSON.parse(newContent) as IStoredWorkspace);
 		assert.strictEqual(ws.folders.length, 3);
-		assert.strictEqual((<IRawUriWorkspaceFolder>ws.folders[0]).uri, URI.file(folder1).toString(true));
-		assert.strictEqual((<IRawUriWorkspaceFolder>ws.folders[1]).uri, URI.file(tmpInsideDir).toString(true));
-		assert.strictEqual((<IRawUriWorkspaceFolder>ws.folders[2]).uri, URI.file(path.join(tmpInsideDir, 'somefolder')).toString(true));
+		assert.strictEqual((<IRawUrWorkspaceInterfaceFolder>ws.folders[0]).uri, URI.file(folder1).toString(true));
+		assert.strictEqual((<IRawUrWorkspaceInterfaceFolder>ws.folders[1]).uri, URI.file(tmpInsideDir).toString(true));
+		assert.strictEqual((<IRawUrWorkspaceInterfaceFolder>ws.folders[2]).uri, URI.file(path.join(tmpInsideDir, 'somefolder')).toString(true));
 
 		fs.unlinkSync(firstConfigPath);
 	});

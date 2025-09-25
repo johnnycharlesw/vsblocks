@@ -22,7 +22,7 @@ import { isEqual } from '../../../../../base/common/resources.js';
 import { Event } from '../../../../../base/common/event.js';
 import { Schemas } from '../../../../../base/common/network.js';
 import { createTextBufferFactory } from '../../../../../editor/common/model/textModel.js';
-import { IPathService } from '../../../../services/path/common/pathService.js';
+import { PathInterfaceService } from '../../../../services/path/common/pathService.js';
 import { ITextResourceConfigurationService } from '../../../../../editor/common/services/textResourceConfiguration.js';
 import { IMarkdownString } from '../../../../../base/common/htmlContent.js';
 import { ICustomEditorLabelService } from '../../../../services/editor/common/customEditorLabelService.js';
@@ -98,7 +98,7 @@ export class FileEditorInput extends AbstractTextResourceEditorInput implements 
 		@IFileService fileService: IFileService,
 		@IFilesConfigurationService filesConfigurationService: IFilesConfigurationService,
 		@IEditorService editorService: IEditorService,
-		@IPathService private readonly pathService: IPathService,
+		@PathInterfaceService private readonly pathService: PathInterfaceService,
 		@ITextResourceConfigurationService textResourceConfigurationService: ITextResourceConfigurationService,
 		@ICustomEditorLabelService customEditorLabelService: ICustomEditorLabelService
 	) {

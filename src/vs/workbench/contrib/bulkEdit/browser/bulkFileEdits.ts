@@ -9,7 +9,7 @@ import { IFileService, FileSystemProviderCapabilities, IFileContent, IFileStatWi
 import { IProgress } from '../../../../platform/progress/common/progress.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { IWorkingCopyFileService, IFileOperationUndoRedoInfo, IMoveOperation, ICopyOperation, IDeleteOperation, ICreateOperation, ICreateFileOperation } from '../../../services/workingCopy/common/workingCopyFileService.js';
-import { IWorkspaceUndoRedoElement, UndoRedoElementType, IUndoRedoService, UndoRedoGroup, UndoRedoSource } from '../../../../platform/undoRedo/common/undoRedo.js';
+import { WorkspaceInterfaceUndoRedoElement, UndoRedoElementType, IUndoRedoService, UndoRedoGroup, UndoRedoSource } from '../../../../platform/undoRedo/common/undoRedo.js';
 import { URI } from '../../../../base/common/uri.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
@@ -288,7 +288,7 @@ class DeleteOperation implements IFileOperation {
 	}
 }
 
-class FileUndoRedoElement implements IWorkspaceUndoRedoElement {
+class FileUndoRedoElement implements WorkspaceInterfaceUndoRedoElement {
 
 	readonly type = UndoRedoElementType.Workspace;
 

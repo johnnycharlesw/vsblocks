@@ -11,7 +11,7 @@ import { autorunIterableDelta, ISettableObservable, observableValue } from '../.
 import { WellDefinedPrefixTree } from '../../../../base/common/prefixTree.js';
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { StoredValue } from './storedValue.js';
 import { TestId } from './testId.js';
 import { TestingContextKeys } from './testingContextKeys.js';
@@ -98,7 +98,7 @@ export class TestingContinuousRunService extends Disposable implements ITestingC
 
 	constructor(
 		@ITestService private readonly testService: ITestService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@ITestProfileService private readonly testProfileService: ITestProfileService,
 	) {

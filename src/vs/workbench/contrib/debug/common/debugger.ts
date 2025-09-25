@@ -6,7 +6,7 @@
 import * as nls from '../../../../nls.js';
 import { isObject } from '../../../../base/common/types.js';
 import { IJSONSchema, IJSONSchemaMap, IJSONSchemaSnippet } from '../../../../base/common/jsonSchema.js';
-import { IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { IConfig, IDebuggerContribution, IDebugAdapter, IDebugger, IDebugSession, IAdapterManager, IDebugService, debuggerDisabledMessage, IDebuggerMetadata, DebugConfigurationProviderTriggerKind } from './debug.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { IConfigurationResolverService } from '../../../services/configurationResolver/common/configurationResolver.js';
@@ -116,7 +116,7 @@ export class Debugger implements IDebugger, IDebuggerMetadata {
 		throw new Error(nls.localize('cannot.find.da', "Cannot find debug adapter for type '{0}'.", this.type));
 	}
 
-	async substituteVariables(folder: IWorkspaceFolder | undefined, config: IConfig): Promise<IConfig> {
+	async substituteVariables(folder: WorkspaceInterfaceFolder | undefined, config: IConfig): Promise<IConfig> {
 		const substitutedConfig = await this.adapterManager.substituteVariables(this.type, folder, config);
 		return await this.configurationResolverService.resolveWithInteractionReplace(folder, substitutedConfig, 'launch', this.variables, substitutedConfig.__configurationTarget);
 	}

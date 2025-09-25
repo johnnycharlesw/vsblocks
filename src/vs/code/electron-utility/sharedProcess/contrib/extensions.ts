@@ -9,7 +9,7 @@ import { ExtensionStorageService, IExtensionStorageService } from '../../../../p
 import { migrateUnsupportedExtensions } from '../../../../platform/extensionManagement/common/unsupportedExtensionsMigration.js';
 import { INativeServerExtensionManagementService } from '../../../../platform/extensionManagement/node/extensionManagementService.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 
 export class ExtensionsContributions extends Disposable {
 	constructor(
@@ -17,7 +17,7 @@ export class ExtensionsContributions extends Disposable {
 		@IExtensionGalleryService extensionGalleryService: IExtensionGalleryService,
 		@IExtensionStorageService extensionStorageService: IExtensionStorageService,
 		@IGlobalExtensionEnablementService extensionEnablementService: IGlobalExtensionEnablementService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@ILogService logService: ILogService,
 	) {
 		super();

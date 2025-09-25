@@ -17,7 +17,7 @@ import { SnippetParser, Variable, VariableResolver } from '../../browser/snippet
 import { ClipboardBasedVariableResolver, CompositeSnippetVariableResolver, ModelBasedVariableResolver, SelectionBasedVariableResolver, TimeBasedVariableResolver, WorkspaceBasedVariableResolver } from '../../browser/snippetVariables.js';
 import { createTextModel } from '../../../../test/common/testTextModel.js';
 import { ILabelService } from '../../../../../platform/label/common/label.js';
-import { IWorkspace, IWorkspaceContextService, toWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterface, WorkspaceContextServiceInterface, toWorkspaceFolder } from '../../../../../platform/workspace/common/workspace.js';
 import { Workspace } from '../../../../../platform/workspace/test/common/testWorkspace.js';
 import { toWorkspaceFolders } from '../../../../../platform/workspaces/common/workspaces.js';
 
@@ -357,8 +357,8 @@ suite('Snippet Variables Resolver', function () {
 
 	test('Add workspace name and folder variables for snippets #68261', function () {
 
-		let workspace: IWorkspace;
-		const workspaceService = new class implements IWorkspaceContextService {
+		let workspace: WorkspaceInterface;
+		const workspaceService = new class implements WorkspaceContextServiceInterface {
 			declare readonly _serviceBrand: undefined;
 			_throw = () => { throw new Error(); };
 			onDidChangeWorkbenchState = this._throw;
@@ -366,7 +366,7 @@ suite('Snippet Variables Resolver', function () {
 			onWillChangeWorkspaceFolders = this._throw;
 			onDidChangeWorkspaceFolders = this._throw;
 			getCompleteWorkspace = this._throw;
-			getWorkspace(): IWorkspace { return workspace; }
+			getWorkspace(): WorkspaceInterface { return workspace; }
 			getWorkbenchState = this._throw;
 			getWorkspaceFolder = this._throw;
 			isCurrentWorkspace = this._throw;

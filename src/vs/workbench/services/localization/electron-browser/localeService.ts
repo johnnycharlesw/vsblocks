@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Language, LANGUAGE_DEFAULT } from '../../../../base/common/platform.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { INotificationService, Severity } from '../../../../platform/notification/common/notification.js';
 import { IJSONEditingService } from '../../configuration/common/jsonEditing.js';
 import { IActiveLanguagePackService, ILocaleService } from '../common/locale.js';
@@ -38,7 +38,7 @@ class NativeLocaleService implements ILocaleService {
 
 	constructor(
 		@IJSONEditingService private readonly jsonEditingService: IJSONEditingService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@INotificationService private readonly notificationService: INotificationService,
 		@ILanguagePackService private readonly languagePackService: ILanguagePackService,
 		@IPaneCompositePartService private readonly paneCompositePartService: IPaneCompositePartService,

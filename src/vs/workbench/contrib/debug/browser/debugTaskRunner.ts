@@ -16,8 +16,8 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
 import { IMarkerService, MarkerSeverity } from '../../../../platform/markers/common/markers.js';
 import { IProgressService, ProgressLocation } from '../../../../platform/progress/common/progress.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
-import { IWorkspace, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { WorkspaceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { DEBUG_CONFIGURE_COMMAND_ID, DEBUG_CONFIGURE_LABEL } from './debugCommands.js';
 import { IDebugConfiguration } from '../common/debug.js';
 import { Markers } from '../../markers/common/markers.js';
@@ -51,7 +51,7 @@ export class DebugTaskRunner implements IDisposable {
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IViewsService private readonly viewsService: IViewsService,
 		@IDialogService private readonly dialogService: IDialogService,
-		@IStorageService private readonly storageService: IStorageService,
+		@StorageServiceInterface private readonly storageService: StorageServiceInterface,
 		@ICommandService private readonly commandService: ICommandService,
 		@IProgressService private readonly progressService: IProgressService,
 	) { }
@@ -66,7 +66,7 @@ export class DebugTaskRunner implements IDisposable {
 	}
 
 	async runTaskAndCheckErrors(
-		root: IWorkspaceFolder | IWorkspace | undefined,
+		root: WorkspaceInterfaceFolder | WorkspaceInterface | undefined,
 		taskId: string | ITaskIdentifier | undefined,
 	): Promise<TaskRunResult> {
 		try {
@@ -191,7 +191,7 @@ export class DebugTaskRunner implements IDisposable {
 		}
 	}
 
-	async runTask(root: IWorkspace | IWorkspaceFolder | undefined, taskId: string | ITaskIdentifier | undefined, token = this.globalCancellation.token): Promise<IRunnerTaskSummary | null> {
+	async runTask(root: WorkspaceInterface | WorkspaceInterfaceFolder | undefined, taskId: string | ITaskIdentifier | undefined, token = this.globalCancellation.token): Promise<IRunnerTaskSummary | null> {
 		if (!taskId) {
 			return Promise.resolve(null);
 		}

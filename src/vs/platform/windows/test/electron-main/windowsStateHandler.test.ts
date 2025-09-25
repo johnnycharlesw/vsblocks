@@ -10,7 +10,7 @@ import { URI } from '../../../../base/common/uri.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
 import { IWindowState as IWindowUIState, WindowMode } from '../../../window/electron-main/window.js';
 import { getWindowsStateStoreData, IWindowsState, IWindowState, restoreWindowsState } from '../../electron-main/windowsStateHandler.js';
-import { IWorkspaceIdentifier } from '../../../workspace/common/workspace.js';
+import { WorkspaceIdentifierInterface } from '../../../workspace/common/workspace.js';
 
 suite('Windows State Storing', () => {
 
@@ -24,7 +24,7 @@ suite('Windows State Storing', () => {
 		};
 	}
 
-	function toWorkspace(uri: URI): IWorkspaceIdentifier {
+	function toWorkspace(uri: URI): WorkspaceIdentifierInterface {
 		return {
 			id: '1234',
 			configPath: uri
@@ -34,7 +34,7 @@ suite('Windows State Storing', () => {
 		assert.strictEqual(u1 && u1.toString(), u2 && u2.toString(), message);
 	}
 
-	function assertEqualWorkspace(w1: IWorkspaceIdentifier | undefined, w2: IWorkspaceIdentifier | undefined, message?: string): void {
+	function assertEqualWorkspace(w1: WorkspaceIdentifierInterface | undefined, w2: WorkspaceIdentifierInterface | undefined, message?: string): void {
 		if (!w1 || !w2) {
 			assert.strictEqual(w1, w2, message);
 			return;
@@ -123,7 +123,7 @@ suite('Windows State Storing', () => {
 			"lastActiveWindow": {
 				"workspaceIdentifier": {
 					"id": "53b714b46ef1a2d4346568b4f591028c",
-					"configURIPath": "file:///home/user/workspaces/testing/custom.code-workspace"
+					"configURPathInterface": "file:///home/user/workspaces/testing/custom.code-workspace"
 				},
 				"backupPath": "/home/user/.config/code-oss-dev/Backups/53b714b46ef1a2d4346568b4f591028c",
 				"uiState": {

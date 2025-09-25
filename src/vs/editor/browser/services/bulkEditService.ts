@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { ICodeEditor } from '../editorBrowser.js';
-import { TextEdit, WorkspaceEdit, WorkspaceEditMetadata, IWorkspaceFileEdit, WorkspaceFileEditOptions, IWorkspaceTextEdit } from '../../common/languages.js';
+import { TextEdit, WorkspaceEdit, WorkspaceEditMetadata, WorkspaceInterfaceFileEdit, WorkspaceFileEditOptions, WorkspaceInterfaceTextEdit } from '../../common/languages.js';
 import { createDecorator } from '../../../platform/instantiation/common/instantiation.js';
 import { IProgress, IProgressStep } from '../../../platform/progress/common/progress.js';
 import { IDisposable } from '../../../base/common/lifecycle.js';
@@ -14,7 +14,7 @@ import { UndoRedoSource } from '../../../platform/undoRedo/common/undoRedo.js';
 import { CancellationToken } from '../../../base/common/cancellation.js';
 import { TextModelEditSource } from '../../common/textModelEditSource.js';
 
-export const IBulkEditService = createDecorator<IBulkEditService>('IWorkspaceEditService');
+export const IBulkEditService = createDecorator<IBulkEditService>('WorkspaceInterfaceEditService');
 
 export class ResourceEdit {
 
@@ -35,18 +35,18 @@ export class ResourceEdit {
 	}
 }
 
-export class ResourceTextEdit extends ResourceEdit implements IWorkspaceTextEdit {
+export class ResourceTextEdit extends ResourceEdit implements WorkspaceInterfaceTextEdit {
 
-	static is(candidate: any): candidate is IWorkspaceTextEdit {
+	static is(candidate: any): candidate is WorkspaceInterfaceTextEdit {
 		if (candidate instanceof ResourceTextEdit) {
 			return true;
 		}
 		return isObject(candidate)
-			&& URI.isUri((<IWorkspaceTextEdit>candidate).resource)
-			&& isObject((<IWorkspaceTextEdit>candidate).textEdit);
+			&& URI.isUri((<WorkspaceInterfaceTextEdit>candidate).resource)
+			&& isObject((<WorkspaceInterfaceTextEdit>candidate).textEdit);
 	}
 
-	static lift(edit: IWorkspaceTextEdit): ResourceTextEdit {
+	static lift(edit: WorkspaceInterfaceTextEdit): ResourceTextEdit {
 		if (edit instanceof ResourceTextEdit) {
 			return edit;
 		} else {
@@ -64,18 +64,18 @@ export class ResourceTextEdit extends ResourceEdit implements IWorkspaceTextEdit
 	}
 }
 
-export class ResourceFileEdit extends ResourceEdit implements IWorkspaceFileEdit {
+export class ResourceFileEdit extends ResourceEdit implements WorkspaceInterfaceFileEdit {
 
-	static is(candidate: any): candidate is IWorkspaceFileEdit {
+	static is(candidate: any): candidate is WorkspaceInterfaceFileEdit {
 		if (candidate instanceof ResourceFileEdit) {
 			return true;
 		} else {
 			return isObject(candidate)
-				&& (Boolean((<IWorkspaceFileEdit>candidate).newResource) || Boolean((<IWorkspaceFileEdit>candidate).oldResource));
+				&& (Boolean((<WorkspaceInterfaceFileEdit>candidate).newResource) || Boolean((<WorkspaceInterfaceFileEdit>candidate).oldResource));
 		}
 	}
 
-	static lift(edit: IWorkspaceFileEdit): ResourceFileEdit {
+	static lift(edit: WorkspaceInterfaceFileEdit): ResourceFileEdit {
 		if (edit instanceof ResourceFileEdit) {
 			return edit;
 		} else {

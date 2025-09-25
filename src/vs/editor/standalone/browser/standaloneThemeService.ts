@@ -13,7 +13,7 @@ import { FontStyle, TokenMetadata } from '../../common/encodedTokenAttributes.js
 import { ITokenThemeRule, TokenTheme, generateTokensCSSForColorMap } from '../../common/languages/supports/tokenization.js';
 import { BuiltinTheme, IStandaloneTheme, IStandaloneThemeData, IStandaloneThemeService } from '../common/standaloneTheme.js';
 import { hc_black, hc_light, vs, vs_dark } from '../common/themes.js';
-import { IEnvironmentService } from '../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../platform/environment/common/environment.js';
 import { Registry } from '../../../platform/registry/common/platform.js';
 import { asCssVariableName, ColorIdentifier, Extensions, IColorRegistry } from '../../../platform/theme/common/colorRegistry.js';
 import { Extensions as ThemingExtensions, ICssStyleCollector, IFileIconTheme, IProductIconTheme, IThemingRegistry, ITokenStyle } from '../../../platform/theme/common/themeService.js';
@@ -222,7 +222,7 @@ export class StandaloneThemeService extends Disposable implements IStandaloneThe
 	private readonly _onProductIconThemeChange = this._register(new Emitter<IProductIconTheme>());
 	public readonly onDidProductIconThemeChange = this._onProductIconThemeChange.event;
 
-	private readonly _environment: IEnvironmentService = Object.create(null);
+	private readonly _environment: EnvironmentServiceInterface = Object.create(null);
 	private readonly _knownThemes: Map<string, StandaloneTheme>;
 	private _autoDetectHighContrast: boolean;
 	private _codiconCSS: string;

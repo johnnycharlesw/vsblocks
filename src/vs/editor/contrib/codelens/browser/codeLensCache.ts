@@ -11,7 +11,7 @@ import { CodeLens, CodeLensList, CodeLensProvider } from '../../../common/langua
 import { CodeLensModel } from './codelens.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IStorageService, StorageScope, StorageTarget, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
 import { mainWindow } from '../../../../base/browser/window.js';
 import { runWhenWindowIdle } from '../../../../base/browser/dom.js';
 
@@ -49,7 +49,7 @@ export class CodeLensCache implements ICodeLensCache {
 
 	private readonly _cache = new LRUCache<string, CacheItem>(20, 0.75);
 
-	constructor(@IStorageService storageService: IStorageService) {
+	constructor(@StorageServiceInterface storageService: StorageServiceInterface) {
 
 		// remove old data
 		const oldkey = 'codelens/cache';

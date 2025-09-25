@@ -6,7 +6,7 @@
 import { Event } from '../../../base/common/event.js';
 import { URI, UriComponents } from '../../../base/common/uri.js';
 import { illegalState } from '../../../base/common/errors.js';
-import { ExtHostDocumentSaveParticipantShape, IWorkspaceEditDto, MainThreadBulkEditsShape } from './extHost.protocol.js';
+import { ExtHostDocumentSaveParticipantShape, WorkspaceInterfaceEditDto, MainThreadBulkEditsShape } from './extHost.protocol.js';
 import { TextEdit } from './extHostTypes.js';
 import { Range, TextDocumentSaveReason, EndOfLine } from './extHostTypeConverters.js';
 import { ExtHostDocuments } from './extHostDocuments.js';
@@ -142,7 +142,7 @@ export class ExtHostDocumentSaveParticipant implements ExtHostDocumentSavePartic
 			});
 
 		}).then(values => {
-			const dto: IWorkspaceEditDto = { edits: [] };
+			const dto: WorkspaceInterfaceEditDto = { edits: [] };
 			for (const value of values) {
 				if (Array.isArray(value) && (<vscode.TextEdit[]>value).every(e => e instanceof TextEdit)) {
 					for (const { newText, newEol, range } of value) {

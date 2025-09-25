@@ -5,7 +5,7 @@
 
 import * as perf from '../../../../base/common/performance.js';
 import { createDecorator } from '../../../../platform/instantiation/common/instantiation.js';
-import { IWorkspaceContextService, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkbenchState } from '../../../../platform/workspace/common/workspace.js';
 import { IExtensionService } from '../../extensions/common/extensions.js';
 import { IUpdateService } from '../../../../platform/update/common/update.js';
 import { ILifecycleService, LifecyclePhase } from '../../lifecycle/common/lifecycle.js';
@@ -532,7 +532,7 @@ export abstract class AbstractTimerService implements ITimerService {
 
 	constructor(
 		@ILifecycleService private readonly _lifecycleService: ILifecycleService,
-		@IWorkspaceContextService private readonly _contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _contextService: WorkspaceContextServiceInterface,
 		@IExtensionService private readonly _extensionService: IExtensionService,
 		@IUpdateService private readonly _updateService: IUpdateService,
 		@IPaneCompositePartService private readonly _paneCompositeService: IPaneCompositePartService,

@@ -8,7 +8,7 @@ import { IConfigurationService } from '../../../../platform/configuration/common
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { ILogService, ILoggerService } from '../../../../platform/log/common/log.js';
 import { IProductService } from '../../../../platform/product/common/productService.js';
-import { IStorageService } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface } from '../../../../platform/storage/common/storage.js';
 import { OneDataSystemWebAppender } from '../../../../platform/telemetry/browser/1dsAppender.js';
 import { ClassifiedEvent, IGDPRProperty, OmitMetadata, StrictPropertyCheck } from '../../../../platform/telemetry/common/gdprTypings.js';
 import { ITelemetryData, ITelemetryService, TelemetryLevel, TELEMETRY_SETTING_ID } from '../../../../platform/telemetry/common/telemetry.js';
@@ -38,7 +38,7 @@ export class TelemetryService extends Disposable implements ITelemetryService {
 		@ILogService logService: ILogService,
 		@ILoggerService loggerService: ILoggerService,
 		@IConfigurationService configurationService: IConfigurationService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IProductService productService: IProductService,
 		@IRemoteAgentService remoteAgentService: IRemoteAgentService
 	) {
@@ -64,7 +64,7 @@ export class TelemetryService extends Disposable implements ITelemetryService {
 		logService: ILogService,
 		loggerService: ILoggerService,
 		configurationService: IConfigurationService,
-		storageService: IStorageService,
+		storageService: StorageServiceInterface,
 		productService: IProductService,
 		remoteAgentService: IRemoteAgentService
 	) {

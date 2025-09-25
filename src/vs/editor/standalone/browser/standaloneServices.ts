@@ -46,13 +46,13 @@ import { ILabelService, ResourceLabelFormatter, IFormatterChangeEvent, Verbosity
 import { INotification, INotificationHandle, INotificationService, IPromptChoice, IPromptOptions, NoOpNotification, IStatusMessageOptions, INotificationSource, INotificationSourceFilter, NotificationsFilter, IStatusHandle } from '../../../platform/notification/common/notification.js';
 import { IProgressRunner, IEditorProgressService, IProgressService, IProgress, IProgressCompositeOptions, IProgressDialogOptions, IProgressNotificationOptions, IProgressOptions, IProgressStep, IProgressWindowOptions } from '../../../platform/progress/common/progress.js';
 import { ITelemetryService, TelemetryLevel } from '../../../platform/telemetry/common/telemetry.js';
-import { ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier, IWorkspace, IWorkspaceContextService, IWorkspaceFolder, IWorkspaceFoldersChangeEvent, IWorkspaceFoldersWillChangeEvent, WorkbenchState, WorkspaceFolder, STANDALONE_EDITOR_WORKSPACE_ID } from '../../../platform/workspace/common/workspace.js';
+import { SingleFolderWorkspaceIdentifierInterface, WorkspaceIdentifierInterface, WorkspaceInterface, WorkspaceContextServiceInterface, WorkspaceInterfaceFolder, WorkspaceInterfaceFoldersChangeEvent, WorkspaceInterfaceFoldersWillChangeEvent, WorkbenchState, WorkspaceFolder, STANDALONE_EDITOR_WORKSPACE_ID } from '../../../platform/workspace/common/workspace.js';
 import { ILayoutService } from '../../../platform/layout/browser/layoutService.js';
 import { StandaloneServicesNLS } from '../../common/standaloneStrings.js';
 import { basename } from '../../../base/common/resources.js';
 import { ICodeEditorService } from '../../browser/services/codeEditorService.js';
 import { ConsoleLogger, ILoggerService, ILogService, NullLoggerService } from '../../../platform/log/common/log.js';
-import { IWorkspaceTrustManagementService, IWorkspaceTrustTransitionParticipant, IWorkspaceTrustUriInfo } from '../../../platform/workspace/common/workspaceTrust.js';
+import { WorkspaceInterfaceTrustManagementService, WorkspaceInterfaceTrustTransitionParticipant, WorkspaceInterfaceTrustUriInfo } from '../../../platform/workspace/common/workspaceTrust.js';
 import { EditorOption } from '../../common/config/editorOptions.js';
 import { ICodeEditor, IDiffEditor } from '../../browser/editorBrowser.js';
 import { IContextMenuService, IContextViewDelegate, IContextViewService, IOpenContextView } from '../../../platform/contextview/browser/contextView.js';
@@ -85,7 +85,7 @@ import { IMarkerService } from '../../../platform/markers/common/markers.js';
 import { MarkerService } from '../../../platform/markers/common/markerService.js';
 import { IOpenerService } from '../../../platform/opener/common/opener.js';
 import { IQuickInputService } from '../../../platform/quickinput/common/quickInput.js';
-import { IStorageService, InMemoryStorageService } from '../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, InMemoryStorageService } from '../../../platform/storage/common/storage.js';
 import { DefaultConfiguration } from '../../../platform/configuration/common/configurations.js';
 import { WorkspaceEdit } from '../../common/languages.js';
 import { AccessibilitySignal, AccessibilityModality, IAccessibilitySignalService, Sound } from '../../../platform/accessibilitySignal/browser/accessibilitySignalService.js';
@@ -94,7 +94,7 @@ import { ILanguageConfigurationService } from '../../common/languages/languageCo
 import { LogService } from '../../../platform/log/common/logService.js';
 import { getEditorFeatures } from '../../common/editorFeatures.js';
 import { onUnexpectedError } from '../../../base/common/errors.js';
-import { ExtensionKind, IEnvironmentService, IExtensionHostDebugParams } from '../../../platform/environment/common/environment.js';
+import { ExtensionKind, EnvironmentServiceInterface, ExtensionHostDebugParamsInterface } from '../../../platform/environment/common/environment.js';
 import { mainWindow } from '../../../base/browser/window.js';
 import { ResourceMap } from '../../../base/common/map.js';
 import { IWebWorkerDescriptor } from '../../../base/browser/webWorkerFactory.js';
@@ -211,7 +211,7 @@ class StandaloneProgressService implements IProgressService {
 	}
 }
 
-class StandaloneEnvironmentService implements IEnvironmentService {
+class StandaloneEnvironmentService implements EnvironmentServiceInterface {
 
 	declare readonly _serviceBrand: undefined;
 
@@ -227,7 +227,7 @@ class StandaloneEnvironmentService implements IEnvironmentService {
 	readonly sync: 'on' | 'off' | undefined = undefined;
 	readonly continueOn?: string | undefined = undefined;
 	readonly editSessionId?: string | undefined = undefined;
-	readonly debugExtensionHost: IExtensionHostDebugParams = { port: null, break: false };
+	readonly debugExtensionHost: ExtensionHostDebugParamsInterface = { port: null, break: false };
 	readonly isExtensionDevelopment: boolean = false;
 	readonly disableExtensions: boolean | string[] = false;
 	readonly disableExperiments: boolean = false;
@@ -806,7 +806,7 @@ class StandaloneTelemetryService implements ITelemetryService {
 	publicLogError2() { }
 }
 
-class StandaloneWorkspaceContextService implements IWorkspaceContextService {
+class StandaloneWorkspaceContextService implements WorkspaceContextServiceInterface {
 
 	public _serviceBrand: undefined;
 
@@ -815,27 +815,27 @@ class StandaloneWorkspaceContextService implements IWorkspaceContextService {
 	private readonly _onDidChangeWorkspaceName = new Emitter<void>();
 	public readonly onDidChangeWorkspaceName: Event<void> = this._onDidChangeWorkspaceName.event;
 
-	private readonly _onWillChangeWorkspaceFolders = new Emitter<IWorkspaceFoldersWillChangeEvent>();
-	public readonly onWillChangeWorkspaceFolders: Event<IWorkspaceFoldersWillChangeEvent> = this._onWillChangeWorkspaceFolders.event;
+	private readonly _onWillChangeWorkspaceFolders = new Emitter<WorkspaceInterfaceFoldersWillChangeEvent>();
+	public readonly onWillChangeWorkspaceFolders: Event<WorkspaceInterfaceFoldersWillChangeEvent> = this._onWillChangeWorkspaceFolders.event;
 
-	private readonly _onDidChangeWorkspaceFolders = new Emitter<IWorkspaceFoldersChangeEvent>();
-	public readonly onDidChangeWorkspaceFolders: Event<IWorkspaceFoldersChangeEvent> = this._onDidChangeWorkspaceFolders.event;
+	private readonly _onDidChangeWorkspaceFolders = new Emitter<WorkspaceInterfaceFoldersChangeEvent>();
+	public readonly onDidChangeWorkspaceFolders: Event<WorkspaceInterfaceFoldersChangeEvent> = this._onDidChangeWorkspaceFolders.event;
 
 	private readonly _onDidChangeWorkbenchState = new Emitter<WorkbenchState>();
 	public readonly onDidChangeWorkbenchState: Event<WorkbenchState> = this._onDidChangeWorkbenchState.event;
 
-	private readonly workspace: IWorkspace;
+	private readonly workspace: WorkspaceInterface;
 
 	constructor() {
 		const resource = URI.from({ scheme: StandaloneWorkspaceContextService.SCHEME, authority: 'model', path: '/' });
 		this.workspace = { id: STANDALONE_EDITOR_WORKSPACE_ID, folders: [new WorkspaceFolder({ uri: resource, name: '', index: 0 })] };
 	}
 
-	getCompleteWorkspace(): Promise<IWorkspace> {
+	getCompleteWorkspace(): Promise<WorkspaceInterface> {
 		return Promise.resolve(this.getWorkspace());
 	}
 
-	public getWorkspace(): IWorkspace {
+	public getWorkspace(): WorkspaceInterface {
 		return this.workspace;
 	}
 
@@ -849,7 +849,7 @@ class StandaloneWorkspaceContextService implements IWorkspaceContextService {
 		return WorkbenchState.EMPTY;
 	}
 
-	public getWorkspaceFolder(resource: URI): IWorkspaceFolder | null {
+	public getWorkspaceFolder(resource: URI): WorkspaceInterfaceFolder | null {
 		return resource && resource.scheme === StandaloneWorkspaceContextService.SCHEME ? this.workspace.folders[0] : null;
 	}
 
@@ -857,7 +857,7 @@ class StandaloneWorkspaceContextService implements IWorkspaceContextService {
 		return resource && resource.scheme === StandaloneWorkspaceContextService.SCHEME;
 	}
 
-	public isCurrentWorkspace(workspaceIdOrFolder: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | URI): boolean {
+	public isCurrentWorkspace(workspaceIdOrFolder: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | URI): boolean {
 		return true;
 	}
 }
@@ -958,7 +958,7 @@ class StandaloneUriLabelService implements ILabelService {
 		return basename(resource);
 	}
 
-	public getWorkspaceLabel(workspace: IWorkspaceIdentifier | ISingleFolderWorkspaceIdentifier | URI | IWorkspace, options?: { verbose: Verbosity }): string {
+	public getWorkspaceLabel(workspace: WorkspaceIdentifierInterface | SingleFolderWorkspaceIdentifierInterface | URI | WorkspaceInterface, options?: { verbose: Verbosity }): string {
 		return '';
 	}
 
@@ -1004,7 +1004,7 @@ class StandaloneContextViewService extends ContextViewService {
 	}
 }
 
-class StandaloneWorkspaceTrustManagementService implements IWorkspaceTrustManagementService {
+class StandaloneWorkspaceTrustManagementService implements WorkspaceInterfaceTrustManagementService {
 	_serviceBrand: undefined;
 
 	private _neverEmitter = new Emitter<never>();
@@ -1032,7 +1032,7 @@ class StandaloneWorkspaceTrustManagementService implements IWorkspaceTrustManage
 	async setWorkspaceTrust(trusted: boolean): Promise<void> {
 		// noop
 	}
-	getUriTrustInfo(uri: URI): Promise<IWorkspaceTrustUriInfo> {
+	getUriTrustInfo(uri: URI): Promise<WorkspaceInterfaceTrustUriInfo> {
 		throw new Error('Method not supported.');
 	}
 	async setUrisTrust(uri: URI[], trusted: boolean): Promise<void> {
@@ -1044,7 +1044,7 @@ class StandaloneWorkspaceTrustManagementService implements IWorkspaceTrustManage
 	async setTrustedUris(uris: URI[]): Promise<void> {
 		// noop
 	}
-	addWorkspaceTrustTransitionParticipant(participant: IWorkspaceTrustTransitionParticipant): IDisposable {
+	addWorkspaceTrustTransitionParticipant(participant: WorkspaceInterfaceTrustTransitionParticipant): IDisposable {
 		throw new Error('Method not supported.');
 	}
 }
@@ -1136,11 +1136,11 @@ registerSingleton(ILogService, StandaloneLogService, InstantiationType.Eager);
 registerSingleton(IConfigurationService, StandaloneConfigurationService, InstantiationType.Eager);
 registerSingleton(ITextResourceConfigurationService, StandaloneResourceConfigurationService, InstantiationType.Eager);
 registerSingleton(ITextResourcePropertiesService, StandaloneResourcePropertiesService, InstantiationType.Eager);
-registerSingleton(IWorkspaceContextService, StandaloneWorkspaceContextService, InstantiationType.Eager);
+registerSingleton(WorkspaceContextServiceInterface, StandaloneWorkspaceContextService, InstantiationType.Eager);
 registerSingleton(ILabelService, StandaloneUriLabelService, InstantiationType.Eager);
 registerSingleton(ITelemetryService, StandaloneTelemetryService, InstantiationType.Eager);
 registerSingleton(IDialogService, StandaloneDialogService, InstantiationType.Eager);
-registerSingleton(IEnvironmentService, StandaloneEnvironmentService, InstantiationType.Eager);
+registerSingleton(EnvironmentServiceInterface, StandaloneEnvironmentService, InstantiationType.Eager);
 registerSingleton(INotificationService, StandaloneNotificationService, InstantiationType.Eager);
 registerSingleton(IMarkerService, MarkerService, InstantiationType.Eager);
 registerSingleton(ILanguageService, StandaloneLanguageService, InstantiationType.Eager);
@@ -1150,10 +1150,10 @@ registerSingleton(IMarkerDecorationsService, MarkerDecorationsService, Instantia
 registerSingleton(IContextKeyService, ContextKeyService, InstantiationType.Eager);
 registerSingleton(IProgressService, StandaloneProgressService, InstantiationType.Eager);
 registerSingleton(IEditorProgressService, StandaloneEditorProgressService, InstantiationType.Eager);
-registerSingleton(IStorageService, InMemoryStorageService, InstantiationType.Eager);
+registerSingleton(StorageServiceInterface, InMemoryStorageService, InstantiationType.Eager);
 registerSingleton(IEditorWorkerService, StandaloneEditorWorkerService, InstantiationType.Eager);
 registerSingleton(IBulkEditService, StandaloneBulkEditService, InstantiationType.Eager);
-registerSingleton(IWorkspaceTrustManagementService, StandaloneWorkspaceTrustManagementService, InstantiationType.Eager);
+registerSingleton(WorkspaceInterfaceTrustManagementService, StandaloneWorkspaceTrustManagementService, InstantiationType.Eager);
 registerSingleton(ITextModelService, StandaloneTextModelService, InstantiationType.Eager);
 registerSingleton(IAccessibilityService, AccessibilityService, InstantiationType.Eager);
 registerSingleton(IListService, ListService, InstantiationType.Eager);

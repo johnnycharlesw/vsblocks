@@ -19,7 +19,7 @@ import * as semver from '../../../base/common/semver/semver.js';
 import Severity from '../../../base/common/severity.js';
 import { URI } from '../../../base/common/uri.js';
 import { localize } from '../../../nls.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { IProductVersion, Metadata } from './extensionManagement.js';
 import { areSameExtensions, computeTargetPlatform, getExtensionId, getGalleryExtensionId } from './extensionManagementUtil.js';
 import { ExtensionType, ExtensionIdentifier, IExtensionManifest, TargetPlatform, IExtensionIdentifier, IRelaxedExtensionManifest, UNDEFINED_PUBLISHER, IExtensionDescription, BUILTIN_MANIFEST_CACHE_FILE, USER_MANIFEST_CACHE_FILE, ExtensionIdentifierMap, parseEnabledApiProposalNames } from '../../extensions/common/extensions.js';
@@ -168,7 +168,7 @@ export abstract class AbstractExtensionsScannerService extends Disposable implem
 		@IExtensionsProfileScannerService protected readonly extensionsProfileScannerService: IExtensionsProfileScannerService,
 		@IFileService protected readonly fileService: IFileService,
 		@ILogService protected readonly logService: ILogService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IProductService private readonly productService: IProductService,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
@@ -569,7 +569,7 @@ class ExtensionsScanner extends Disposable {
 		@IUriIdentityService protected readonly uriIdentityService: IUriIdentityService,
 		@IFileService protected readonly fileService: IFileService,
 		@IProductService productService: IProductService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@ILogService protected readonly logService: ILogService
 	) {
 		super();
@@ -928,7 +928,7 @@ class CachedExtensionsScanner extends ExtensionsScanner {
 		@IUriIdentityService uriIdentityService: IUriIdentityService,
 		@IFileService fileService: IFileService,
 		@IProductService productService: IProductService,
-		@IEnvironmentService environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface environmentService: EnvironmentServiceInterface,
 		@ILogService logService: ILogService
 	) {
 		super(extensionsProfileScannerService, uriIdentityService, fileService, productService, environmentService, logService);
@@ -1051,7 +1051,7 @@ export class NativeExtensionsScannerService extends AbstractExtensionsScannerSer
 		extensionsProfileScannerService: IExtensionsProfileScannerService,
 		fileService: IFileService,
 		logService: ILogService,
-		environmentService: IEnvironmentService,
+		environmentService: EnvironmentServiceInterface,
 		productService: IProductService,
 		uriIdentityService: IUriIdentityService,
 		instantiationService: IInstantiationService,

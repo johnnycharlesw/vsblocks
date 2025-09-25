@@ -14,11 +14,11 @@ import { IFilesConfiguration, AutoSaveConfiguration, HotExitConfiguration, FILES
 import { equals } from '../../../../base/common/objects.js';
 import { URI } from '../../../../base/common/uri.js';
 import { isWeb } from '../../../../base/common/platform.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ResourceGlobMatcher } from '../../../common/resources.js';
 import { GlobalIdleValue } from '../../../../base/common/async.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { LRUCache, ResourceMap } from '../../../../base/common/map.js';
 import { IMarkdownString } from '../../../../base/common/htmlContent.js';
 import { EditorInput } from '../../../common/editor/editorInput.js';
@@ -163,8 +163,8 @@ export class FilesConfigurationService extends Disposable implements IFilesConfi
 	constructor(
 		@IContextKeyService contextKeyService: IContextKeyService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IUriIdentityService private readonly uriIdentityService: IUriIdentityService,
 		@IFileService private readonly fileService: IFileService,
 		@IMarkerService private readonly markerService: IMarkerService,

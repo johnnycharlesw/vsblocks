@@ -12,11 +12,11 @@ import { Position } from '../../../../editor/common/core/position.js';
 import { ILanguageService } from '../../../../editor/common/languages/language.js';
 import { setSnippetSuggestSupport } from '../../../../editor/contrib/suggest/browser/suggest.js';
 import { localize } from '../../../../nls.js';
-import { IEnvironmentService } from '../../../../platform/environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../../platform/environment/common/environment.js';
 import { FileChangeType, IFileService } from '../../../../platform/files/common/files.js';
 import { ILifecycleService, LifecyclePhase } from '../../../services/lifecycle/common/lifecycle.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
-import { IWorkspace, IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterface, WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ISnippetGetOptions, ISnippetsService } from './snippets.js';
 import { Snippet, SnippetFile, SnippetSource } from './snippetsFile.js';
 import { ExtensionsRegistry, IExtensionPointUser } from '../../../services/extensions/common/extensionsRegistry.js';
@@ -24,7 +24,7 @@ import { languagesExtPoint } from '../../../services/language/common/languageSer
 import { SnippetCompletionProvider } from './snippetCompletionProvider.js';
 import { IExtensionResourceLoaderService } from '../../../../platform/extensionResourceLoader/common/extensionResourceLoader.js';
 import { ResourceMap } from '../../../../base/common/map.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { isStringArray } from '../../../../base/common/types.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { ITextFileService } from '../../../services/textfile/common/textfiles.js';
@@ -136,7 +136,7 @@ class SnippetEnablement {
 	private readonly _ignored: Set<string>;
 
 	constructor(
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 	) {
 
 		const raw = _storageService.get(SnippetEnablement._key, StorageScope.PROFILE, '');
@@ -174,7 +174,7 @@ class SnippetUsageTimestamps {
 	private readonly _usages: Map<string, number>;
 
 	constructor(
-		@IStorageService private readonly _storageService: IStorageService,
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface,
 	) {
 
 		const raw = _storageService.get(SnippetUsageTimestamps._key, StorageScope.PROFILE, '');
@@ -214,9 +214,9 @@ export class SnippetsService implements ISnippetsService {
 	private readonly _usageTimestamps: SnippetUsageTimestamps;
 
 	constructor(
-		@IEnvironmentService private readonly _environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly _environmentService: EnvironmentServiceInterface,
 		@IUserDataProfileService private readonly _userDataProfileService: IUserDataProfileService,
-		@IWorkspaceContextService private readonly _contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _contextService: WorkspaceContextServiceInterface,
 		@ILanguageService private readonly _languageService: ILanguageService,
 		@ILogService private readonly _logService: ILogService,
 		@IFileService private readonly _fileService: IFileService,
@@ -426,7 +426,7 @@ export class SnippetsService implements ISnippetsService {
 		updateWorkspaceSnippets();
 	}
 
-	private async _initWorkspaceFolderSnippets(workspace: IWorkspace, bucket: DisposableStore): Promise<any> {
+	private async _initWorkspaceFolderSnippets(workspace: WorkspaceInterface, bucket: DisposableStore): Promise<any> {
 		const promises = workspace.folders.map(async folder => {
 			const snippetFolder = folder.toResource('.vscode');
 			const value = await this._fileService.exists(snippetFolder);

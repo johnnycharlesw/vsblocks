@@ -7,7 +7,7 @@ import assert from 'assert';
 import { VSBuffer } from '../../../../base/common/buffer.js';
 import { dirname, joinPath } from '../../../../base/common/resources.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../base/test/common/utils.js';
-import { IEnvironmentService } from '../../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../../environment/common/environment.js';
 import { IFileService } from '../../../files/common/files.js';
 import { IUserDataProfilesService } from '../../../userDataProfile/common/userDataProfile.js';
 import { IUserDataSyncEnablementService, IUserDataSyncService, SyncResource, SyncStatus } from '../../common/userDataSync.js';
@@ -129,7 +129,7 @@ suite('UserDataSyncService', () => {
 		const testClient = disposableStore.add(new UserDataSyncClient(target));
 		await testClient.setUp();
 		const fileService = testClient.instantiationService.get(IFileService);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = testClient.instantiationService.get(IUserDataProfilesService);
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
 		await fileService.writeFile(userDataProfilesService.defaultProfile.keybindingsResource, VSBuffer.fromString(JSON.stringify([{ 'command': 'abcd', 'key': 'cmd+c' }])));
@@ -171,7 +171,7 @@ suite('UserDataSyncService', () => {
 		const testClient = disposableStore.add(new UserDataSyncClient(target));
 		await testClient.setUp();
 		const fileService = testClient.instantiationService.get(IFileService);
-		const environmentService = testClient.instantiationService.get(IEnvironmentService);
+		const environmentService = testClient.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = testClient.instantiationService.get(IUserDataProfilesService);
 		await userDataProfilesService.createNamedProfile('1');
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
@@ -235,7 +235,7 @@ suite('UserDataSyncService', () => {
 
 		// Do changes in the client
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = client.instantiationService.get(IUserDataProfilesService);
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
 		await fileService.writeFile(userDataProfilesService.defaultProfile.keybindingsResource, VSBuffer.fromString(JSON.stringify([{ 'command': 'abcd', 'key': 'cmd+c' }])));
@@ -274,7 +274,7 @@ suite('UserDataSyncService', () => {
 
 		// Do changes in the client
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = client.instantiationService.get(IUserDataProfilesService);
 		await userDataProfilesService.createNamedProfile('1');
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
@@ -317,7 +317,7 @@ suite('UserDataSyncService', () => {
 
 		// Do changes in the client
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = client.instantiationService.get(IUserDataProfilesService);
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
 		await fileService.writeFile(userDataProfilesService.defaultProfile.keybindingsResource, VSBuffer.fromString(JSON.stringify([{ 'command': 'abcd', 'key': 'cmd+c' }])));
@@ -358,7 +358,7 @@ suite('UserDataSyncService', () => {
 
 		// Do changes in first client and sync
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = client.instantiationService.get(IUserDataProfilesService);
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
 		await fileService.writeFile(userDataProfilesService.defaultProfile.keybindingsResource, VSBuffer.fromString(JSON.stringify([{ 'command': 'abcd', 'key': 'cmd+c' }])));
@@ -404,7 +404,7 @@ suite('UserDataSyncService', () => {
 
 		// Do changes in first client and sync
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = client.instantiationService.get(IUserDataProfilesService);
 		await userDataProfilesService.createNamedProfile('1');
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
@@ -652,7 +652,7 @@ suite('UserDataSyncService', () => {
 
 		// Do changes in the client
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = client.instantiationService.get(IUserDataProfilesService);
 		await userDataProfilesService.createNamedProfile('1', { useDefaultFlags: { settings: true } });
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));
@@ -699,7 +699,7 @@ suite('UserDataSyncService', () => {
 
 		// Do changes in first client and sync
 		const fileService = client.instantiationService.get(IFileService);
-		const environmentService = client.instantiationService.get(IEnvironmentService);
+		const environmentService = client.instantiationService.get(EnvironmentServiceInterface);
 		const userDataProfilesService = client.instantiationService.get(IUserDataProfilesService);
 		await userDataProfilesService.createNamedProfile('1', { useDefaultFlags: { keybindings: true } });
 		await fileService.writeFile(userDataProfilesService.defaultProfile.settingsResource, VSBuffer.fromString(JSON.stringify({ 'editor.fontSize': 14 })));

@@ -41,7 +41,7 @@ import { IQuickInputService, IQuickPickItem, IQuickPickSeparator } from '../../.
 import { StorageScope } from '../../../../platform/storage/common/storage.js';
 import { defaultCheckboxStyles } from '../../../../platform/theme/browser/defaultStyles.js';
 import { spinningLoading } from '../../../../platform/theme/common/iconRegistry.js';
-import { IWorkspaceContextService, IWorkspaceFolder } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface, WorkspaceInterfaceFolder } from '../../../../platform/workspace/common/workspace.js';
 import { PICK_WORKSPACE_FOLDER_COMMAND_ID } from '../../../browser/actions/workspaceCommands.js';
 import { ActiveEditorContext, RemoteNameContext, ResourceContextKey, WorkbenchStateContext, WorkspaceFolderCountContext } from '../../../common/contextkeys.js';
 import { IWorkbenchContribution } from '../../../common/contributions.js';
@@ -709,7 +709,7 @@ export class AddConfigurationAction extends Action2 {
 
 	async run(accessor: ServicesAccessor, configUri?: string): Promise<void> {
 		const instantiationService = accessor.get(IInstantiationService);
-		const workspaceService = accessor.get(IWorkspaceContextService);
+		const workspaceService = accessor.get(WorkspaceContextServiceInterface);
 		const target = configUri ? workspaceService.getWorkspaceFolder(URI.parse(configUri)) : undefined;
 		return instantiationService.createInstance(McpAddConfigurationCommand, target ?? undefined).run();
 	}
@@ -742,7 +742,7 @@ export class EditStoredInput extends Action2 {
 	}
 
 	run(accessor: ServicesAccessor, inputId: string, uri: URI | undefined, configSection: string, target: ConfigurationTarget): void {
-		const workspaceFolder = uri && accessor.get(IWorkspaceContextService).getWorkspaceFolder(uri);
+		const workspaceFolder = uri && accessor.get(WorkspaceContextServiceInterface).getWorkspaceFolder(uri);
 		accessor.get(IMcpRegistry).editSavedInput(inputId, workspaceFolder || undefined, configSection, target);
 	}
 }
@@ -983,11 +983,11 @@ export class OpenWorkspaceFolderMcpResourceCommand extends Action2 {
 	}
 
 	async run(accessor: ServicesAccessor) {
-		const workspaceContextService = accessor.get(IWorkspaceContextService);
+		const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 		const commandService = accessor.get(ICommandService);
 		const editorService = accessor.get(IEditorService);
 		const workspaceFolders = workspaceContextService.getWorkspace().folders;
-		const workspaceFolder = workspaceFolders.length === 1 ? workspaceFolders[0] : await commandService.executeCommand<IWorkspaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
+		const workspaceFolder = workspaceFolders.length === 1 ? workspaceFolders[0] : await commandService.executeCommand<WorkspaceInterfaceFolder>(PICK_WORKSPACE_FOLDER_COMMAND_ID);
 		if (workspaceFolder) {
 			await editorService.openEditor({ resource: workspaceFolder.toResource(WORKSPACE_STANDALONE_CONFIGURATIONS[MCP_CONFIGURATION_KEY]) });
 		}
@@ -1006,7 +1006,7 @@ export class OpenWorkspaceMcpResourceCommand extends Action2 {
 	}
 
 	async run(accessor: ServicesAccessor) {
-		const workspaceContextService = accessor.get(IWorkspaceContextService);
+		const workspaceContextService = accessor.get(WorkspaceContextServiceInterface);
 		const editorService = accessor.get(IEditorService);
 		const workspaceConfiguration = workspaceContextService.getWorkspace().configuration;
 		if (workspaceConfiguration) {

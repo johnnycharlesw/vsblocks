@@ -11,10 +11,10 @@ import { ExtensionHostDebugBroadcastChannel, ExtensionHostDebugChannelClient } f
 import { IFileService } from '../../../../platform/files/common/files.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { ILogService } from '../../../../platform/log/common/log.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { isFolderToOpen, isWorkspaceToOpen } from '../../../../platform/window/common/window.js';
-import { IWorkspaceContextService, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, toWorkspaceIdentifier, hasWorkspaceFileExtension } from '../../../../platform/workspace/common/workspace.js';
-import { IWorkspace, IWorkspaceProvider } from '../../../browser/web.api.js';
+import { WorkspaceContextServiceInterface, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, toWorkspaceIdentifier, hasWorkspaceFileExtension } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceInterface, WorkspaceInterfaceProvider } from '../../../browser/web.api.js';
 import { IBrowserWorkbenchEnvironmentService } from '../../../services/environment/browser/environmentService.js';
 import { IHostService } from '../../../services/host/browser/host.js';
 import { IRemoteAgentService } from '../../../services/remote/common/remoteAgentService.js';
@@ -23,9 +23,9 @@ class BrowserExtensionHostDebugService extends ExtensionHostDebugChannelClient i
 
 	private static readonly LAST_EXTENSION_DEVELOPMENT_WORKSPACE_KEY = 'debug.lastExtensionDevelopmentWorkspace';
 
-	private workspaceProvider: IWorkspaceProvider;
+	private workspaceProvider: WorkspaceInterfaceProvider;
 
-	private readonly storageService: IStorageService;
+	private readonly storageService: StorageServiceInterface;
 	private readonly fileService: IFileService;
 
 	constructor(
@@ -33,8 +33,8 @@ class BrowserExtensionHostDebugService extends ExtensionHostDebugChannelClient i
 		@IBrowserWorkbenchEnvironmentService environmentService: IBrowserWorkbenchEnvironmentService,
 		@ILogService logService: ILogService,
 		@IHostService hostService: IHostService,
-		@IWorkspaceContextService contextService: IWorkspaceContextService,
-		@IStorageService storageService: IStorageService,
+		@WorkspaceContextServiceInterface contextService: WorkspaceContextServiceInterface,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IFileService fileService: IFileService
 	) {
 		const connection = remoteAgentService.getConnection();
@@ -112,7 +112,7 @@ class BrowserExtensionHostDebugService extends ExtensionHostDebugChannelClient i
 		}
 
 		// Find out which workspace to open debug window on
-		let debugWorkspace: IWorkspace = undefined;
+		let debugWorkspace: WorkspaceInterface = undefined;
 		const folderUriArg = this.findArgument('folder-uri', args);
 		if (folderUriArg) {
 			debugWorkspace = { folderUri: URI.parse(folderUriArg) };

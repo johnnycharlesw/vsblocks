@@ -32,7 +32,7 @@ import { Registry } from '../../../../platform/registry/common/platform.js';
 import { IRemoteAuthorityResolverService, RemoteAuthorityResolverError, RemoteAuthorityResolverErrorCode, ResolverResult, getRemoteAuthorityPrefix } from '../../../../platform/remote/common/remoteAuthorityResolver.js';
 import { IRemoteExtensionsScannerService } from '../../../../platform/remote/common/remoteExtensionsScanner.js';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
-import { IWorkspaceContextService } from '../../../../platform/workspace/common/workspace.js';
+import { WorkspaceContextServiceInterface } from '../../../../platform/workspace/common/workspace.js';
 import { IWorkbenchEnvironmentService } from '../../environment/common/environmentService.js';
 import { IExtensionFeaturesRegistry, Extensions as ExtensionFeaturesExtensions, IExtensionFeatureMarkdownRenderer, IRenderedData, } from '../../extensionManagement/common/extensionFeatures.js';
 import { IWorkbenchExtensionEnablementService, IWorkbenchExtensionManagementService } from '../../extensionManagement/common/extensionManagement.js';
@@ -50,7 +50,7 @@ import { ExtensionsProposedApi } from './extensionsProposedApi.js';
 import { ExtensionMessageCollector, ExtensionPoint, ExtensionsRegistry, IExtensionPoint, IExtensionPointUser } from './extensionsRegistry.js';
 import { LazyCreateExtensionHostManager } from './lazyCreateExtensionHostManager.js';
 import { ResponsiveState } from './rpcProtocol.js';
-import { IExtensionActivationHost as IWorkspaceContainsActivationHost, checkActivateWorkspaceContainsExtension, checkGlobFileExists } from './workspaceContains.js';
+import { IExtensionActivationHost as WorkspaceInterfaceContainsActivationHost, checkActivateWorkspaceContainsExtension, checkGlobFileExists } from './workspaceContains.js';
 import { ILifecycleService, WillShutdownJoinerOrder } from '../../lifecycle/common/lifecycle.js';
 import { IExtensionHostExitInfo, IRemoteAgentService } from '../../remote/common/remoteAgentService.js';
 
@@ -110,7 +110,7 @@ export abstract class AbstractExtensionService extends Disposable implements IEx
 		@IFileService protected readonly _fileService: IFileService,
 		@IProductService protected readonly _productService: IProductService,
 		@IWorkbenchExtensionManagementService protected readonly _extensionManagementService: IWorkbenchExtensionManagementService,
-		@IWorkspaceContextService private readonly _contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly _contextService: WorkspaceContextServiceInterface,
 		@IConfigurationService protected readonly _configurationService: IConfigurationService,
 		@IExtensionManifestPropertiesService private readonly _extensionManifestPropertiesService: IExtensionManifestPropertiesService,
 		@ILogService protected readonly _logService: ILogService,
@@ -433,7 +433,7 @@ export abstract class AbstractExtensionService extends Disposable implements IEx
 		} else if (hasWorkspaceContains) {
 			const workspace = await this._contextService.getCompleteWorkspace();
 			const forceUsingSearch = !!this._environmentService.remoteAuthority;
-			const host: IWorkspaceContainsActivationHost = {
+			const host: WorkspaceInterfaceContainsActivationHost = {
 				logService: this._logService,
 				folders: workspace.folders.map(folder => folder.uri),
 				forceUsingSearch: forceUsingSearch,

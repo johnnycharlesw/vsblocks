@@ -3,14 +3,14 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { IStorageService, StorageScope } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope } from '../../../../platform/storage/common/storage.js';
 import { resolveCommonProperties } from '../../../../platform/telemetry/common/commonProperties.js';
 import { ICommonProperties, firstSessionDateStorageKey, lastSessionDateStorageKey } from '../../../../platform/telemetry/common/telemetry.js';
 import { cleanRemoteAuthority } from '../../../../platform/telemetry/common/telemetryUtils.js';
 import { INodeProcess } from '../../../../base/common/platform.js';
 
 export function resolveWorkbenchCommonProperties(
-	storageService: IStorageService,
+	storageService: StorageServiceInterface,
 	release: string,
 	hostname: string,
 	commit: string | undefined,

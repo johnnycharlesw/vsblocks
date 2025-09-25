@@ -22,7 +22,7 @@ import { IHoverService } from '../../../../../platform/hover/browser/hover.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
 import { ServiceCollection } from '../../../../../platform/instantiation/common/serviceCollection.js';
 import { INotificationService } from '../../../../../platform/notification/common/notification.js';
-import { IStorageService, InMemoryStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, InMemoryStorageService, StorageScope, StorageTarget } from '../../../../../platform/storage/common/storage.js';
 
 class TestFindController extends CommonFindController {
 
@@ -34,7 +34,7 @@ class TestFindController extends CommonFindController {
 	constructor(
 		editor: ICodeEditor,
 		@IContextKeyService contextKeyService: IContextKeyService,
-		@IStorageService storageService: IStorageService,
+		@StorageServiceInterface storageService: StorageServiceInterface,
 		@IClipboardService clipboardService: IClipboardService,
 		@INotificationService notificationService: INotificationService,
 		@IHoverService hoverService: IHoverService
@@ -73,7 +73,7 @@ suite('FindController', () => {
 
 	let clipboardState = '';
 	const serviceCollection = new ServiceCollection();
-	serviceCollection.set(IStorageService, new InMemoryStorageService());
+	serviceCollection.set(StorageServiceInterface, new InMemoryStorageService());
 
 	if (platform.isMacintosh) {
 		serviceCollection.set(IClipboardService, <any>{
@@ -492,7 +492,7 @@ suite('FindController query options persistence', () => {
 	storageService.store('editor.isRegex', false, StorageScope.WORKSPACE, StorageTarget.USER);
 	storageService.store('editor.matchCase', false, StorageScope.WORKSPACE, StorageTarget.USER);
 	storageService.store('editor.wholeWord', false, StorageScope.WORKSPACE, StorageTarget.USER);
-	serviceCollection.set(IStorageService, storageService);
+	serviceCollection.set(StorageServiceInterface, storageService);
 
 	test('matchCase', async () => {
 		await withAsyncTestCodeEditor([

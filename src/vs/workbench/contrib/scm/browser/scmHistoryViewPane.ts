@@ -55,7 +55,7 @@ import { observableConfigValue } from '../../../../platform/observable/common/pl
 import { compare } from '../../../../base/common/strings.js';
 import { IClipboardService } from '../../../../platform/clipboard/common/clipboardService.js';
 import { getDefaultHoverDelegate } from '../../../../base/browser/ui/hover/hoverDelegateFactory.js';
-import { IStorageService, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, StorageScope, StorageTarget } from '../../../../platform/storage/common/storage.js';
 import { IExtensionService } from '../../../services/extensions/common/extensions.js';
 import { groupBy as groupBy2 } from '../../../../base/common/collections.js';
 import { getActionBarActions, getFlatContextMenuActions } from '../../../../platform/actions/browser/menuEntryActionViewItem.js';
@@ -1069,7 +1069,7 @@ class SCMHistoryViewModel extends Disposable {
 		@IExtensionService private readonly _extensionService: IExtensionService,
 		@ISCMService private readonly _scmService: ISCMService,
 		@ISCMViewService private readonly _scmViewService: ISCMViewService,
-		@IStorageService private readonly _storageService: IStorageService
+		@StorageServiceInterface private readonly _storageService: StorageServiceInterface
 	) {
 		super();
 

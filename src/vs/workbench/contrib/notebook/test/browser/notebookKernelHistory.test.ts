@@ -18,7 +18,7 @@ import { NotebookTextModel } from '../../common/model/notebookTextModel.js';
 import { PLAINTEXT_LANGUAGE_ID } from '../../../../../editor/common/languages/modesRegistry.js';
 import { IMenu, IMenuService } from '../../../../../platform/actions/common/actions.js';
 import { NotebookKernelHistoryService } from '../../browser/services/notebookKernelHistoryServiceImpl.js';
-import { IApplicationStorageValueChangeEvent, IProfileStorageValueChangeEvent, IStorageService, IStorageValueChangeEvent, IWillSaveStateEvent, IWorkspaceStorageValueChangeEvent, StorageScope } from '../../../../../platform/storage/common/storage.js';
+import { IApplicationStorageValueChangeEvent, IProfileStorageValueChangeEvent, StorageServiceInterface, IStorageValueChangeEvent, IWillSaveStateEvent, WorkspaceInterfaceStorageValueChangeEvent, StorageScope } from '../../../../../platform/storage/common/storage.js';
 import { INotebookLoggingService } from '../../common/notebookLoggingService.js';
 import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/test/common/utils.js';
 import { CancellationToken } from '../../../../../base/common/cancellation.js';
@@ -72,9 +72,9 @@ suite('NotebookKernelHistoryService', () => {
 		disposables.add(kernelService.registerKernel(k1));
 		disposables.add(kernelService.registerKernel(k2));
 
-		instantiationService.stub(IStorageService, new class extends mock<IStorageService>() {
+		instantiationService.stub(StorageServiceInterface, new class extends mock<StorageServiceInterface>() {
 			override onWillSaveState: Event<IWillSaveStateEvent> = Event.None;
-			override onDidChangeValue(scope: StorageScope.WORKSPACE, key: string | undefined, disposable: DisposableStore): Event<IWorkspaceStorageValueChangeEvent>;
+			override onDidChangeValue(scope: StorageScope.WORKSPACE, key: string | undefined, disposable: DisposableStore): Event<WorkspaceInterfaceStorageValueChangeEvent>;
 			override onDidChangeValue(scope: StorageScope.PROFILE, key: string | undefined, disposable: DisposableStore): Event<IProfileStorageValueChangeEvent>;
 			override onDidChangeValue(scope: StorageScope.APPLICATION, key: string | undefined, disposable: DisposableStore): Event<IApplicationStorageValueChangeEvent>;
 			override onDidChangeValue(scope: StorageScope, key: string | undefined, disposable: DisposableStore): Event<IStorageValueChangeEvent> {
@@ -127,9 +127,9 @@ suite('NotebookKernelHistoryService', () => {
 		disposables.add(kernelService.registerKernel(k2));
 		disposables.add(kernelService.registerKernel(k3));
 
-		instantiationService.stub(IStorageService, new class extends mock<IStorageService>() {
+		instantiationService.stub(StorageServiceInterface, new class extends mock<StorageServiceInterface>() {
 			override onWillSaveState: Event<IWillSaveStateEvent> = Event.None;
-			override onDidChangeValue(scope: StorageScope.WORKSPACE, key: string | undefined, disposable: DisposableStore): Event<IWorkspaceStorageValueChangeEvent>;
+			override onDidChangeValue(scope: StorageScope.WORKSPACE, key: string | undefined, disposable: DisposableStore): Event<WorkspaceInterfaceStorageValueChangeEvent>;
 			override onDidChangeValue(scope: StorageScope.PROFILE, key: string | undefined, disposable: DisposableStore): Event<IProfileStorageValueChangeEvent>;
 			override onDidChangeValue(scope: StorageScope.APPLICATION, key: string | undefined, disposable: DisposableStore): Event<IApplicationStorageValueChangeEvent>;
 			override onDidChangeValue(scope: StorageScope, key: string | undefined, disposable: DisposableStore): Event<IStorageValueChangeEvent> {

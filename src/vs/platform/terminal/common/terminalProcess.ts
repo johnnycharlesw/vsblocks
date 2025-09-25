@@ -23,7 +23,7 @@ export interface ICompleteTerminalConfiguration {
 
 export type ITerminalEnvironmentVariableCollections = [string, ISerializableEnvironmentVariableCollection][];
 
-export interface IWorkspaceFolderData {
+export interface WorkspaceInterfaceFolderData {
 	uri: UriComponents;
 	name: string;
 	index: number;

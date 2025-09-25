@@ -26,14 +26,14 @@ import { ILabelService } from '../../platform/label/common/label.js';
 import { extractSelection, withSelection } from '../../platform/opener/common/opener.js';
 import { Registry } from '../../platform/registry/common/platform.js';
 import { IWindowOpenable } from '../../platform/window/common/window.js';
-import { IWorkspaceContextService, hasWorkspaceFileExtension, isTemporaryWorkspace } from '../../platform/workspace/common/workspace.js';
-import { IWorkspaceFolderCreationData, IWorkspacesService } from '../../platform/workspaces/common/workspaces.js';
+import { WorkspaceContextServiceInterface, hasWorkspaceFileExtension, isTemporaryWorkspace } from '../../platform/workspace/common/workspace.js';
+import { WorkspaceInterfaceFolderCreationData, WorkspaceInterfacesService } from '../../platform/workspaces/common/workspaces.js';
 import { EditorResourceAccessor, GroupIdentifier, IEditorIdentifier, isEditorIdentifier, isResourceDiffEditorInput, isResourceMergeEditorInput, isResourceSideBySideEditorInput } from '../common/editor.js';
 import { IEditorGroup } from '../services/editor/common/editorGroupsService.js';
 import { IEditorService } from '../services/editor/common/editorService.js';
 import { IHostService } from '../services/host/browser/host.js';
 import { ITextFileService } from '../services/textfile/common/textfiles.js';
-import { IWorkspaceEditingService } from '../services/workspaces/common/workspaceEditing.js';
+import { WorkspaceInterfaceEditingService } from '../services/workspaces/common/workspaceEditing.js';
 import { IEditorOptions } from '../../platform/editor/common/editor.js';
 import { mainWindow } from '../../base/browser/window.js';
 import { BroadcastDataChannel } from '../../base/browser/broadcast.js';
@@ -88,11 +88,11 @@ export class ResourcesDropHandler {
 	constructor(
 		private readonly options: IResourcesDropHandlerOptions,
 		@IFileService private readonly fileService: IFileService,
-		@IWorkspacesService private readonly workspacesService: IWorkspacesService,
+		@WorkspaceInterfacesService private readonly workspacesService: WorkspaceInterfacesService,
 		@IEditorService private readonly editorService: IEditorService,
-		@IWorkspaceEditingService private readonly workspaceEditingService: IWorkspaceEditingService,
+		@WorkspaceInterfaceEditingService private readonly workspaceEditingService: WorkspaceInterfaceEditingService,
 		@IHostService private readonly hostService: IHostService,
-		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
+		@WorkspaceContextServiceInterface private readonly contextService: WorkspaceContextServiceInterface,
 		@IInstantiationService private readonly instantiationService: IInstantiationService
 	) {
 	}
@@ -141,7 +141,7 @@ export class ResourcesDropHandler {
 
 	private async handleWorkspaceDrop(resources: URI[]): Promise<boolean> {
 		const toOpen: IWindowOpenable[] = [];
-		const folderURIs: IWorkspaceFolderCreationData[] = [];
+		const folderURIs: WorkspaceInterfaceFolderCreationData[] = [];
 
 		await Promise.all(resources.map(async resource => {
 

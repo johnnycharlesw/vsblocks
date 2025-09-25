@@ -15,11 +15,11 @@ import { IStateService } from '../../state/node/state.js';
 import { INativeWindowConfiguration, IWindowSettings } from '../../window/common/window.js';
 import { IWindowsMainService } from './windows.js';
 import { defaultWindowState, ICodeWindow, IWindowState as IWindowUIState, WindowMode } from '../../window/electron-main/window.js';
-import { isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, IWorkspaceIdentifier } from '../../workspace/common/workspace.js';
+import { isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, WorkspaceIdentifierInterface } from '../../workspace/common/workspace.js';
 
 export interface IWindowState {
 	readonly windowId?: number;
-	workspace?: IWorkspaceIdentifier;
+	workspace?: WorkspaceIdentifierInterface;
 	folderUri?: URI;
 	backupPath?: string;
 	remoteAuthority?: string;
@@ -43,7 +43,7 @@ interface ISerializedWindowsState {
 }
 
 interface ISerializedWindowState {
-	readonly workspaceIdentifier?: { id: string; configURIPath: string };
+	readonly workspaceIdentifier?: { id: string; configURPathInterface: string };
 	readonly folder?: string;
 	readonly backupPath?: string;
 	readonly remoteAuthority?: string;
@@ -462,7 +462,7 @@ function restoreWindowState(windowState: ISerializedWindowState): IWindowState {
 	}
 
 	if (windowState.workspaceIdentifier) {
-		result.workspace = { id: windowState.workspaceIdentifier.id, configPath: URI.parse(windowState.workspaceIdentifier.configURIPath) };
+		result.workspace = { id: windowState.workspaceIdentifier.id, configPath: URI.parse(windowState.workspaceIdentifier.configURPathInterface) };
 	}
 
 	return result;
@@ -478,7 +478,7 @@ export function getWindowsStateStoreData(windowsState: IWindowsState): IWindowsS
 
 function serializeWindowState(windowState: IWindowState): ISerializedWindowState {
 	return {
-		workspaceIdentifier: windowState.workspace && { id: windowState.workspace.id, configURIPath: windowState.workspace.configPath.toString() },
+		workspaceIdentifier: windowState.workspace && { id: windowState.workspace.id, configURPathInterface: windowState.workspace.configPath.toString() },
 		folder: windowState.folderUri && windowState.folderUri.toString(),
 		backupPath: windowState.backupPath,
 		remoteAuthority: windowState.remoteAuthority,

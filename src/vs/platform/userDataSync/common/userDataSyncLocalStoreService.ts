@@ -10,7 +10,7 @@ import { Disposable } from '../../../base/common/lifecycle.js';
 import { joinPath } from '../../../base/common/resources.js';
 import { URI } from '../../../base/common/uri.js';
 import { IConfigurationService } from '../../configuration/common/configuration.js';
-import { IEnvironmentService } from '../../environment/common/environment.js';
+import { EnvironmentServiceInterface } from '../../environment/common/environment.js';
 import { FileOperationResult, IFileService, IFileStat, toFileOperationResult } from '../../files/common/files.js';
 import { IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
 import { ALL_SYNC_RESOURCES, IResourceRefHandle, IUserDataSyncLocalStoreService, IUserDataSyncLogService, SyncResource } from './userDataSync.js';
@@ -20,7 +20,7 @@ export class UserDataSyncLocalStoreService extends Disposable implements IUserDa
 	_serviceBrand: any;
 
 	constructor(
-		@IEnvironmentService private readonly environmentService: IEnvironmentService,
+		@EnvironmentServiceInterface private readonly environmentService: EnvironmentServiceInterface,
 		@IFileService private readonly fileService: IFileService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@IUserDataSyncLogService private readonly logService: IUserDataSyncLogService,

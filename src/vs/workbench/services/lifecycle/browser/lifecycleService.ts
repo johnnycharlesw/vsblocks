@@ -10,7 +10,7 @@ import { localize } from '../../../../nls.js';
 import { InstantiationType, registerSingleton } from '../../../../platform/instantiation/common/extensions.js';
 import { IDisposable } from '../../../../base/common/lifecycle.js';
 import { addDisposableListener, EventType } from '../../../../base/browser/dom.js';
-import { IStorageService, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
+import { StorageServiceInterface, WillSaveStateReason } from '../../../../platform/storage/common/storage.js';
 import { CancellationToken } from '../../../../base/common/cancellation.js';
 import { mainWindow } from '../../../../base/browser/window.js';
 
@@ -25,7 +25,7 @@ export class BrowserLifecycleService extends AbstractLifecycleService {
 
 	constructor(
 		@ILogService logService: ILogService,
-		@IStorageService storageService: IStorageService
+		@StorageServiceInterface storageService: StorageServiceInterface
 	) {
 		super(logService, storageService);
 

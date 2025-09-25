@@ -13,7 +13,7 @@ import { ConfigurationModel, ConfigurationModelParser, ConfigurationParseOptions
 import { WorkspaceConfigurationModelParser, StandaloneConfigurationModelParser } from '../common/configurationModels.js';
 import { TASKS_CONFIGURATION_KEY, FOLDER_SETTINGS_NAME, LAUNCH_CONFIGURATION_KEY, IConfigurationCache, ConfigurationKey, REMOTE_MACHINE_SCOPES, FOLDER_SCOPES, WORKSPACE_SCOPES, APPLY_ALL_PROFILES_SETTING, APPLICATION_SCOPES, MCP_CONFIGURATION_KEY } from '../common/configuration.js';
 import { IStoredWorkspaceFolder } from '../../../../platform/workspaces/common/workspaces.js';
-import { WorkbenchState, IWorkspaceFolder, IWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
+import { WorkbenchState, WorkspaceInterfaceFolder, WorkspaceIdentifierInterface } from '../../../../platform/workspace/common/workspace.js';
 import { ConfigurationScope, Extensions, IConfigurationRegistry, OVERRIDE_PROPERTY_REGEX } from '../../../../platform/configuration/common/configurationRegistry.js';
 import { equals } from '../../../../base/common/objects.js';
 import { IRemoteAgentService } from '../../remote/common/remoteAgentService.js';
@@ -637,7 +637,7 @@ export class WorkspaceConfiguration extends Disposable {
 	private readonly _cachedConfiguration: CachedWorkspaceConfiguration;
 	private _workspaceConfiguration: CachedWorkspaceConfiguration | FileServiceBasedWorkspaceConfiguration;
 	private readonly _workspaceConfigurationDisposables = this._register(new DisposableStore());
-	private _workspaceIdentifier: IWorkspaceIdentifier | null = null;
+	private _workspaceIdentifier: WorkspaceIdentifierInterface | null = null;
 	private _isWorkspaceTrusted: boolean = false;
 
 	private readonly _onDidUpdateConfiguration = this._register(new Emitter<boolean>());
@@ -656,7 +656,7 @@ export class WorkspaceConfiguration extends Disposable {
 		this._workspaceConfiguration = this._cachedConfiguration = new CachedWorkspaceConfiguration(configurationCache, logService);
 	}
 
-	async initialize(workspaceIdentifier: IWorkspaceIdentifier, workspaceTrusted: boolean): Promise<void> {
+	async initialize(workspaceIdentifier: WorkspaceIdentifierInterface, workspaceTrusted: boolean): Promise<void> {
 		this._workspaceIdentifier = workspaceIdentifier;
 		this._isWorkspaceTrusted = workspaceTrusted;
 		if (!this._initialized) {
@@ -710,7 +710,7 @@ export class WorkspaceConfiguration extends Disposable {
 		return this._workspaceConfiguration.getRestrictedSettings();
 	}
 
-	private async waitAndInitialize(workspaceIdentifier: IWorkspaceIdentifier): Promise<void> {
+	private async waitAndInitialize(workspaceIdentifier: WorkspaceIdentifierInterface): Promise<void> {
 		await whenProviderRegistered(workspaceIdentifier.configPath, this.fileService);
 		if (!(this._workspaceConfiguration instanceof FileServiceBasedWorkspaceConfiguration)) {
 			const fileServiceBasedWorkspaceConfiguration = this._register(new FileServiceBasedWorkspaceConfiguration(this.fileService, this.uriIdentityService, this.logService));
@@ -751,7 +751,7 @@ class FileServiceBasedWorkspaceConfiguration extends Disposable {
 
 	workspaceConfigurationModelParser: WorkspaceConfigurationModelParser;
 	workspaceSettings: ConfigurationModel;
-	private _workspaceIdentifier: IWorkspaceIdentifier | null = null;
+	private _workspaceIdentifier: WorkspaceIdentifierInterface | null = null;
 	private workspaceConfigWatcher: IDisposable;
 	private readonly reloadConfigurationScheduler: RunOnceScheduler;
 
@@ -776,16 +776,16 @@ class FileServiceBasedWorkspaceConfiguration extends Disposable {
 		this.workspaceConfigWatcher = this._register(this.watchWorkspaceConfigurationFile());
 	}
 
-	get workspaceIdentifier(): IWorkspaceIdentifier | null {
+	get workspaceIdentifier(): WorkspaceIdentifierInterface | null {
 		return this._workspaceIdentifier;
 	}
 
-	async resolveContent(workspaceIdentifier: IWorkspaceIdentifier): Promise<string> {
+	async resolveContent(workspaceIdentifier: WorkspaceIdentifierInterface): Promise<string> {
 		const content = await this.fileService.readFile(workspaceIdentifier.configPath, { atomic: true });
 		return content.value.toString();
 	}
 
-	async load(workspaceIdentifier: IWorkspaceIdentifier, configurationParseOptions: ConfigurationParseOptions): Promise<void> {
+	async load(workspaceIdentifier: WorkspaceIdentifierInterface, configurationParseOptions: ConfigurationParseOptions): Promise<void> {
 		if (!this._workspaceIdentifier || this._workspaceIdentifier.id !== workspaceIdentifier.id) {
 			this._workspaceIdentifier = workspaceIdentifier;
 			this.workspaceConfigurationModelParser = new WorkspaceConfigurationModelParser(this._workspaceIdentifier.id, this.logService);
@@ -856,7 +856,7 @@ class CachedWorkspaceConfiguration {
 		this.workspaceSettings = ConfigurationModel.createEmptyModel(logService);
 	}
 
-	async load(workspaceIdentifier: IWorkspaceIdentifier, configurationParseOptions: ConfigurationParseOptions): Promise<void> {
+	async load(workspaceIdentifier: WorkspaceIdentifierInterface, configurationParseOptions: ConfigurationParseOptions): Promise<void> {
 		try {
 			const key = this.getKey(workspaceIdentifier);
 			const contents = await this.configurationCache.read(key);
@@ -870,7 +870,7 @@ class CachedWorkspaceConfiguration {
 		}
 	}
 
-	get workspaceIdentifier(): IWorkspaceIdentifier | null {
+	get workspaceIdentifier(): WorkspaceIdentifierInterface | null {
 		return null;
 	}
 
@@ -904,7 +904,7 @@ class CachedWorkspaceConfiguration {
 		this.workspaceSettings = this.workspaceConfigurationModelParser.settingsModel.merge(this.workspaceConfigurationModelParser.launchModel, this.workspaceConfigurationModelParser.tasksModel);
 	}
 
-	async updateWorkspace(workspaceIdentifier: IWorkspaceIdentifier, content: string | undefined): Promise<void> {
+	async updateWorkspace(workspaceIdentifier: WorkspaceIdentifierInterface, content: string | undefined): Promise<void> {
 		try {
 			const key = this.getKey(workspaceIdentifier);
 			if (content) {
@@ -916,7 +916,7 @@ class CachedWorkspaceConfiguration {
 		}
 	}
 
-	private getKey(workspaceIdentifier: IWorkspaceIdentifier): ConfigurationKey {
+	private getKey(workspaceIdentifier: WorkspaceIdentifierInterface): ConfigurationKey {
 		return {
 			type: 'workspaces',
 			key: workspaceIdentifier.id
@@ -1018,7 +1018,7 @@ export class FolderConfiguration extends Disposable {
 
 	constructor(
 		useCache: boolean,
-		readonly workspaceFolder: IWorkspaceFolder,
+		readonly workspaceFolder: WorkspaceInterfaceFolder,
 		configFolderRelativePath: string,
 		private readonly workbenchState: WorkbenchState,
 		private workspaceTrusted: boolean,
