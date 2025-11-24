@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Copyright (c) Microsoft Corporation, John Charles Woods. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
@@ -25,7 +25,7 @@ import { Promises as FSPromises } from '../../base/node/pfs.js';
 import { ProxyChannel } from '../../base/parts/ipc/common/ipc.js';
 import { Client as NodeIPCClient } from '../../base/parts/ipc/common/ipc.net.js';
 import { connect as nodeIPCConnect, serve as nodeIPCServe, Server as NodeIPCServer, XDG_RUNTIME_DIR } from '../../base/parts/ipc/node/ipc.net.js';
-import { CodeApplication } from './app.js';
+import { BlocksApplication } from './app.js';
 import { localize } from '../../nls.js';
 import { IConfigurationService } from '../../platform/configuration/common/configuration.js';
 import { ConfigurationService } from '../../platform/configuration/common/configurationService.js';
@@ -82,7 +82,7 @@ import { ThemeMainService } from '../../platform/theme/electron-main/themeMainSe
  * try to communicate with an existing instance to prevent that 2 VSBlocks instances
  * are running at the same time.
  */
-class CodeMain {
+class BlocksMain {
 
 	main(): void {
 		try {
@@ -143,7 +143,7 @@ class CodeMain {
 					evt.join('instanceLockfile', promises.unlink(environmentMainService.mainLockfile).catch(() => { /* ignored */ }));
 				});
 
-				return instantiationService.createInstance(CodeApplication, mainProcessNodeIpcServer, instanceEnvironment).startup();
+				return instantiationService.createInstance(BlocksApplication, mainProcessNodeIpcServer, instanceEnvironment).startup();
 			});
 		} catch (error) {
 			instantiationService.invokeFunction(this.quit, error);
@@ -631,5 +631,5 @@ class CodeMain {
 }
 
 // Main Startup
-const code = new CodeMain();
+const code = new BlocksMain();
 code.main();

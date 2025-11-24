@@ -127,7 +127,7 @@ import ErrorTelemetry from '../../platform/telemetry/electron-main/errorTelemetr
  * The main VSBlocks application. There will only ever be one instance,
  * even if the user starts many instances (e.g. from the command line).
  */
-export class CodeApplication extends Disposable {
+export class BlocksApplication extends Disposable {
 
 	private static readonly SECURITY_PROTOCOL_HANDLING_CONFIRMATION_SETTING_KEY = {
 		[Schemas.file]: 'security.promptForLocalFileProtocolHandling' as const,
@@ -770,7 +770,7 @@ export class CodeApplication extends Disposable {
 			return false;
 		}
 
-		const askForConfirmation = this.configurationService.getValue<unknown>(CodeApplication.SECURITY_PROTOCOL_HANDLING_CONFIRMATION_SETTING_KEY[openableUri.scheme]);
+		const askForConfirmation = this.configurationService.getValue<unknown>(BlocksApplication.SECURITY_PROTOCOL_HANDLING_CONFIRMATION_SETTING_KEY[openableUri.scheme]);
 		if (askForConfirmation === false) {
 			return false; // not blocked via settings
 		}
