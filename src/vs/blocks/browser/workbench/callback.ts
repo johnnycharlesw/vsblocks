@@ -1,3 +1,5 @@
+
+
 function decode(value) {
 	return value === null ? null : decodeURIComponent(value);
 }

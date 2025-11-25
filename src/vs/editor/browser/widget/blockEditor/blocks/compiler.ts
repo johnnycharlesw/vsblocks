@@ -1,5 +1,5 @@
 import { VSBlock } from './blocks/blockEditorBlock.js';
-class Compiler {
+export class Compiler {
 	proglang: string;
 	proglang_specifics: any;
 
