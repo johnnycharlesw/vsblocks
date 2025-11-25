@@ -54,7 +54,7 @@ if (args['sandbox'] &&
 }
 
 // Set userData path before app 'ready' event
-const userDataPath = getUserDataPath(args, product.nameShort ?? 'code-oss-dev');
+const userDataPath = getUserDataPath(args, product.nameShort ?? 'vsblocks');
 if (process.platform === 'win32') {
 	const userDataUNCHost = getUNCHost(userDataPath);
 	if (userDataUNCHost) {
@@ -208,7 +208,7 @@ async function startup(codeCachePath: string | undefined, nlsConfig: INLSConfigu
 	await bootstrapESM();
 
 	// Load Main
-	await import('./vs/code/electron-main/main.js');
+	await import('./vs/blocks/electron-main/main.js');
 	perf.mark('code/didRunMainBundle');
 }
 
@@ -578,7 +578,7 @@ function parseCLIArgs(): NativeParsedArgs {
 function registerListeners(): void {
 
 	/**
-	 * macOS: when someone drops a file to the not-yet running VSCode, the open-file event fires even before
+	 * macOS: when someone drops a file to the not-yet running VSBlocks, the open-file event fires even before
 	 * the app-ready event. We listen very early for open-file and remember this upon startup as path to open.
 	 */
 	const macOpenFiles: string[] = [];

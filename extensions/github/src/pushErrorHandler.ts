@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { TextDecoder } from 'util';
-import { commands, env, ProgressLocation, Uri, window, workspace, QuickPickOptions, FileType, l10n, Disposable, TextDocumentContentProvider } from 'vscode';
+import { commands, env, ProgressLocation, Uri, window, workspace, QuickPickOptions, FileType, l10n, Disposable, TextDocumentContentProvider } from 'vsblocks';
 import { getOctokit } from './auth.js';
 import { GitErrorCodes, PushErrorHandler, Remote, Repository } from './typings/git.js';
 import * as path from 'path';

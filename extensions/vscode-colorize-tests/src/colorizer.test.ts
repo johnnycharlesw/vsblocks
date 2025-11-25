@@ -7,7 +7,7 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import 'mocha';
 import { join, normalize } from 'path';
-import { commands, Uri, workspace, ConfigurationTarget } from 'vscode';
+import { commands, Uri, workspace, ConfigurationTarget } from 'vsblocks';
 
 async function assertUnchangedTokens(fixturesPath: string, resultsPath: string, treeSitterResultsPath: string, fixture: string, done: any) {
 	const testFixurePath = join(fixturesPath, fixture);

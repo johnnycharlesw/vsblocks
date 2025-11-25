@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import VsCodeTelemetryReporter from '@vscode/extension-telemetry';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import * as tas from 'vscode-tas-client';
 
 export interface IExperimentationTelemetryReporter extends tas.IExperimentationTelemetry, vscode.Disposable {

@@ -73,7 +73,7 @@ export interface IJSONSchema {
 	$dynamicRef?: string;
 	$dynamicAnchor?: string;
 
-	// VSCode extensions
+	// VSBlocks extensions
 
 	defaultSnippets?: IJSONSchemaSnippet[];
 	errorMessage?: string;

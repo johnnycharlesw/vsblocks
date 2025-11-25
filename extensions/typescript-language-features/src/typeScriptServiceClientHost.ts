@@ -8,7 +8,7 @@
  * https://github.com/microsoft/TypeScript-Sublime-Plugin/blob/master/TypeScript%20Indent.tmPreferences
  * ------------------------------------------------------------------------------------------ */
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { CommandManager } from './commands/commandManager';
 import { ServiceConfigurationProvider } from './configuration/configuration';
 import { DiagnosticLanguage, LanguageDescription } from './configuration/languageDescription';

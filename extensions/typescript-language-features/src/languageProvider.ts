@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { basename, extname } from 'path';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { CommandManager } from './commands/commandManager';
 import { DocumentSelector } from './configuration/documentSelector';
 import * as fileSchemes from './configuration/fileSchemes';

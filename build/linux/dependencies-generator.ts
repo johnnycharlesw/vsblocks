@@ -7,7 +7,7 @@
 
 import { spawnSync } from 'child_process';
 import path from 'path';
-import { getChromiumSysroot, getVSCodeSysroot } from './debian/install-sysroot';
+import { getChromiumSysroot, getVSBlocksSysroot } from './debian/install-sysroot';
 import { generatePackageDeps as generatePackageDepsDebian } from './debian/calculate-deps';
 import { generatePackageDeps as generatePackageDepsRpm } from './rpm/calculate-deps';
 import { referenceGeneratedDepsByArch as debianGeneratedDeps } from './debian/dep-lists';
@@ -71,7 +71,7 @@ export async function getDependencies(packageType: 'deb' | 'rpm', buildDir: stri
 	let dependencies: Set<string>[];
 	if (packageType === 'deb') {
 		const chromiumSysroot = await getChromiumSysroot(arch as DebianArchString);
-		const vscodeSysroot = await getVSCodeSysroot(arch as DebianArchString);
+		const vscodeSysroot = await getVSBlocksSysroot(arch as DebianArchString);
 		dependencies = generatePackageDepsDebian(files, arch as DebianArchString, chromiumSysroot, vscodeSysroot);
 	} else {
 		dependencies = generatePackageDepsRpm(files);

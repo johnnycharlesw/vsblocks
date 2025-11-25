@@ -54,7 +54,7 @@ extends:
         enabled: true
         configFile: $(Build.SourcesDirectory)/build/azure-pipelines/config/tsaoptions.json
       binskim:
-        analyzeTargetGlob: '+:file|$(Agent.BuildDirectory)/VSCode-*/**/*.exe;+:file|$(Agent.BuildDirectory)/VSCode-*/**/*.node;+:file|$(Agent.BuildDirectory)/VSCode-*/**/*.dll;-:file|$(Build.SourcesDirectory)/.build/**/system-setup/VSCodeSetup*.exe;-:file|$(Build.SourcesDirectory)/.build/**/user-setup/VSCodeUserSetup*.exe'
+        analyzeTargetGlob: '+:file|$(Agent.BuildDirectory)/VSBlocks-*/**/*.exe;+:file|$(Agent.BuildDirectory)/VSBlocks-*/**/*.node;+:file|$(Agent.BuildDirectory)/VSBlocks-*/**/*.dll;-:file|$(Build.SourcesDirectory)/.build/**/system-setup/VSBlocksSetup*.exe;-:file|$(Build.SourcesDirectory)/.build/**/user-setup/VSBlocksUserSetup*.exe'
       codeql:
         runSourceLanguagesInSourceAnalysis: true
         compiled:

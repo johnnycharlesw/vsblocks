@@ -3293,7 +3293,7 @@ declare namespace monaco.editor {
 		lineNumbersMinChars?: number;
 		/**
 		 * Enable the rendering of the glyph margin.
-		 * Defaults to true in vscode and to false in monaco-editor.
+		 * Defaults to true invsblocks and to false in monaco-editor.
 		 */
 		glyphMargin?: boolean;
 		/**
@@ -3506,7 +3506,7 @@ declare namespace monaco.editor {
 		wordWrapColumn?: number;
 		/**
 		 * Control indentation of wrapped lines. Can be: 'none', 'same', 'indent' or 'deepIndent'.
-		 * Defaults to 'same' in vscode and to 'none' in monaco-editor.
+		 * Defaults to 'same' invsblocks and to 'none' in monaco-editor.
 		 */
 		wrappingIndent?: 'none' | 'same' | 'indent' | 'deepIndent';
 		/**
@@ -4754,7 +4754,7 @@ declare namespace monaco.editor {
 		/**
 		 * Unicode characters that are common in allowed locales are not being highlighted.
 		 */
-		allowedLocales?: Record<string | '_os' | '_vscode', true>;
+		allowedLocales?: Record<string | '_os' | 'vsblocks', true>;
 	}
 
 	export interface IInlineSuggestOptions {

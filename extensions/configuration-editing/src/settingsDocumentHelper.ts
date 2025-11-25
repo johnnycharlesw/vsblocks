@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { getLocation, Location, parse } from 'jsonc-parser';
 import { provideInstalledExtensionProposals } from './extensionsProposals';
 
@@ -299,7 +299,7 @@ export class SettingsDocument {
 
 			/**
 			 *  Skip if suggestions are for first language override range
-			 *  Since VSCode registers language overrides to the schema, JSON language server does suggestions for first language override.
+			 *  Since VSBlocks registers language overrides to the schema, JSON language server does suggestions for first language override.
 			 */
 			if (languageOverrideRange && !languageOverrideRange.isEqual(languageOverridesRanges[0])) {
 				const languages = await vscode.languages.getLanguages();

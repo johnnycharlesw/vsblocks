@@ -18,7 +18,7 @@ import {
 	Uri,
 	workspace,
 	WorkspaceEdit,
-} from 'vscode';
+} from 'vsblocks';
 import { memoizeLast } from './memoize';
 import { getTestMessageMetadata } from './metadata';
 

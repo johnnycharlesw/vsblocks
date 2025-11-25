@@ -5,7 +5,7 @@
 
 /* Based on @sergeche's work in his emmet plugin */
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import evaluate, { extract } from '@emmetio/math-expression';
 
 export function evaluateMathExpression(): Thenable<boolean> {

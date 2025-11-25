@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { LanguageClient, LanguageClientOptions } from 'vscode-languageclient/browser';
 import { MdLanguageClient, startClient } from './client/client';
 import { activateShared } from './extension.shared';

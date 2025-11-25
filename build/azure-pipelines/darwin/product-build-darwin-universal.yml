@@ -69,15 +69,15 @@ steps:
 
   - script: |
       set -e
-      unzip $(Pipeline.Workspace)/unsigned_vscode_client_darwin_x64_archive/VSCode-darwin-x64.zip -d $(agent.builddirectory)/VSCode-darwin-x64 &
-      unzip $(Pipeline.Workspace)/unsigned_vscode_client_darwin_arm64_archive/VSCode-darwin-arm64.zip -d $(agent.builddirectory)/VSCode-darwin-arm64 &
+      unzip $(Pipeline.Workspace)/unsigned_vscode_client_darwin_x64_archive/VSBlocks-darwin-x64.zip -d $(agent.builddirectory)/VSBlocks-darwin-x64 &
+      unzip $(Pipeline.Workspace)/unsigned_vscode_client_darwin_arm64_archive/VSBlocks-darwin-arm64.zip -d $(agent.builddirectory)/VSBlocks-darwin-arm64 &
       wait
       DEBUG=* node build/darwin/create-universal-app.js $(agent.builddirectory)
     displayName: Create Universal App
 
   - script: |
       set -e
-      APP_ROOT="$(Agent.BuildDirectory)/VSCode-darwin-$(VSCODE_ARCH)"
+      APP_ROOT="$(Agent.BuildDirectory)/VSBlocks-darwin-$(VSCODE_ARCH)"
       APP_NAME="`ls $APP_ROOT | head -n 1`"
       APP_PATH="$APP_ROOT/$APP_NAME" node build/darwin/verify-macho.js universal
     displayName: Verify arch of Mach-O objects
@@ -97,7 +97,7 @@ steps:
   - script: |
       set -e
       mkdir -p $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive
-      pushd $(agent.builddirectory)/VSCode-darwin-$(VSCODE_ARCH) && zip -r -X -y $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSCode-darwin-$(VSCODE_ARCH).zip * && popd
+      pushd $(agent.builddirectory)/VSBlocks-darwin-$(VSCODE_ARCH) && zip -r -X -y $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSBlocks-darwin-$(VSCODE_ARCH).zip * && popd
     displayName: Archive build
 
   - task: UseDotNet@2
@@ -116,22 +116,22 @@ steps:
       Pattern: noop
     displayName: 'Install ESRP Tooling'
 
-  - script: node build/azure-pipelines/common/sign $(Agent.RootDirectory)/_tasks/EsrpCodeSigning_*/*/net6.0/esrpcli.dll sign-darwin $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive VSCode-darwin-$(VSCODE_ARCH).zip
+  - script: node build/azure-pipelines/common/sign $(Agent.RootDirectory)/_tasks/EsrpCodeSigning_*/*/net6.0/esrpcli.dll sign-darwin $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive VSBlocks-darwin-$(VSCODE_ARCH).zip
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
     displayName: ✍️ Codesign
 
-  - script: node build/azure-pipelines/common/sign $(Agent.RootDirectory)/_tasks/EsrpCodeSigning_*/*/net6.0/esrpcli.dll notarize-darwin $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive VSCode-darwin-$(VSCODE_ARCH).zip
+  - script: node build/azure-pipelines/common/sign $(Agent.RootDirectory)/_tasks/EsrpCodeSigning_*/*/net6.0/esrpcli.dll notarize-darwin $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive VSBlocks-darwin-$(VSCODE_ARCH).zip
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
     displayName: ✍️ Notarize
 
-  - script: unzip $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSCode-darwin-$(VSCODE_ARCH).zip -d $(Build.ArtifactStagingDirectory)/VSCode-darwin-$(VSCODE_ARCH)
+  - script: unzip $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSBlocks-darwin-$(VSCODE_ARCH).zip -d $(Build.ArtifactStagingDirectory)/VSBlocks-darwin-$(VSCODE_ARCH)
     displayName: Extract signed app
 
   - script: |
       set -e
-      APP_ROOT="$(Build.ArtifactStagingDirectory)/VSCode-darwin-$(VSCODE_ARCH)"
+      APP_ROOT="$(Build.ArtifactStagingDirectory)/VSBlocks-darwin-$(VSCODE_ARCH)"
       APP_NAME="`ls $APP_ROOT | head -n 1`"
       APP_PATH="$APP_ROOT/$APP_NAME"
       codesign -dv --deep --verbose=4 "$APP_PATH"
@@ -139,15 +139,15 @@ steps:
     displayName: Verify signature
     condition: and(succeeded(), ne(variables['VSCODE_ARCH'], 'arm64'))
 
-  - script: mv $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSCode-darwin-x64.zip $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSCode-darwin.zip
+  - script: mv $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSBlocks-darwin-x64.zip $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSBlocks-darwin.zip
     displayName: Rename x64 build to its legacy name
     condition: and(succeeded(), eq(variables['VSCODE_ARCH'], 'x64'))
 
   - template: ../common/publish-artifact.yml@self
     parameters:
-      targetPath: $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSCode-darwin-universal.zip
+      targetPath: $(Pipeline.Workspace)/unsigned_vscode_client_darwin_$(VSCODE_ARCH)_archive/VSBlocks-darwin-universal.zip
       artifactName: vscode_client_darwin_$(VSCODE_ARCH)_archive
       displayName: Publish client archive
-      sbomBuildDropPath: $(Build.ArtifactStagingDirectory)/VSCode-darwin-$(VSCODE_ARCH)
+      sbomBuildDropPath: $(Build.ArtifactStagingDirectory)/VSBlocks-darwin-$(VSCODE_ARCH)
       sbomPackageName: "VSBlocks macOS $(VSCODE_ARCH)"
       sbomPackageVersion: $(Build.SourceVersion)

@@ -10,7 +10,7 @@ import {
 	Diagnostic, StatusBarAlignment, TextEditor, TextDocument, FormattingOptions, CancellationToken, FoldingRange,
 	ProviderResult, TextEdit, Range, Position, Disposable, CompletionItem, CompletionList, CompletionContext, Hover, MarkdownString, FoldingContext, DocumentSymbol, SymbolInformation, l10n,
 	RelativePattern
-} from 'vscode';
+} from 'vsblocks';
 import {
 	LanguageClientOptions, RequestType, NotificationType, FormattingOptions as LSPFormattingOptions, DocumentDiagnosticReportKind,
 	Diagnostic as LSPDiagnostic,
@@ -23,7 +23,7 @@ import { hash } from './utils/hash';
 import { createDocumentSymbolsLimitItem, createLanguageStatusItem, createLimitStatusItem } from './languageStatus';
 import { getLanguageParticipants, LanguageParticipants } from './languageParticipants';
 
-namespace VSCodeContentRequest {
+namespace VSBlocksContentRequest {
 	export const type: RequestType<string, string, any> = new RequestType('vscode/content');
 }
 
@@ -369,13 +369,13 @@ async function startClientWithParticipants(_context: ExtensionContext, languageP
 	const schemaDocuments: { [uri: string]: boolean } = {};
 
 	// handle content request
-	client.onRequest(VSCodeContentRequest.type, async (uriPath: string) => {
+	client.onRequest(VSBlocksContentRequest.type, async (uriPath: string) => {
 		const uri = Uri.parse(uriPath);
 		const uriString = uri.toString(true);
 		if (uri.scheme === 'untitled') {
 			throw new ResponseError(3, l10n.t('Unable to load {0}', uriString));
 		}
-		if (uri.scheme === 'vscode') {
+		if (uri.scheme === 'vsblocks') {
 			try {
 				runtime.logOutputChannel.info('read schema from vscode: ' + uriString);
 				ensureFilesystemWatcherInstalled(uri);

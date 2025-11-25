@@ -918,7 +918,7 @@ class RenameAdapter {
 
 class NewSymbolNamesAdapter {
 
-	private static languageTriggerKindToVSCodeTriggerKind: Record<languages.NewSymbolNameTriggerKind, vscode.NewSymbolNameTriggerKind> = {
+	private static languageTriggerKindToVSBlocksTriggerKind: Record<languages.NewSymbolNameTriggerKind, vscode.NewSymbolNameTriggerKind> = {
 		[languages.NewSymbolNameTriggerKind.Invoke]: NewSymbolNameTriggerKind.Invoke,
 		[languages.NewSymbolNameTriggerKind.Automatic]: NewSymbolNameTriggerKind.Automatic,
 	};
@@ -939,7 +939,7 @@ class NewSymbolNamesAdapter {
 		const pos = typeConvert.Range.to(range);
 
 		try {
-			const kind = NewSymbolNamesAdapter.languageTriggerKindToVSCodeTriggerKind[triggerKind];
+			const kind = NewSymbolNamesAdapter.languageTriggerKindToVSBlocksTriggerKind[triggerKind];
 			const value = await this._provider.provideNewSymbolNames(doc, pos, kind, token);
 			if (!value) {
 				return undefined;
@@ -1358,7 +1358,7 @@ class InlineCompletionAdapter {
 			);
 	}
 
-	private readonly languageTriggerKindToVSCodeTriggerKind: Record<languages.InlineCompletionTriggerKind, InlineCompletionTriggerKind> = {
+	private readonly languageTriggerKindToVSBlocksTriggerKind: Record<languages.InlineCompletionTriggerKind, InlineCompletionTriggerKind> = {
 		[languages.InlineCompletionTriggerKind.Automatic]: InlineCompletionTriggerKind.Automatic,
 		[languages.InlineCompletionTriggerKind.Explicit]: InlineCompletionTriggerKind.Invoke,
 	};
@@ -1375,7 +1375,7 @@ class InlineCompletionAdapter {
 						text: context.selectedSuggestionInfo.text
 					}
 					: undefined,
-			triggerKind: this.languageTriggerKindToVSCodeTriggerKind[context.triggerKind],
+			triggerKind: this.languageTriggerKindToVSBlocksTriggerKind[context.triggerKind],
 			requestUuid: context.requestUuid,
 			requestIssuedDateTime: context.requestIssuedDateTime,
 			earliestShownDateTime: context.earliestShownDateTime,

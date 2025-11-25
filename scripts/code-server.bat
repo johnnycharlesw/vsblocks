@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-title VSCode Server
+title VSBlocks Server
 
 set ROOT_DIR=%~dp0..
 

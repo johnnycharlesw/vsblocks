@@ -47,7 +47,7 @@ export const enum ShellIntegrationOscPs {
 	 * Sequences pioneered by VSBlocks. The number is derived from the least significant digit of
 	 * "VSC" when encoded in hex ("VSC" = 0x56, 0x53, 0x43).
 	 */
-	VSCode = 633,
+	VSBlocks = 633,
 	/**
 	 * Sequences pioneered by iTerm.
 	 */
@@ -102,7 +102,7 @@ const enum FinalTermOscPt {
  * Code or when there are no other alternatives (eg. {@link CommandLine `633 ; E`}). These sequences
  * support mix-and-matching.
  */
-const enum VSCodeOscPt {
+const enum VSBlocksOscPt {
 	/**
 	 * The start of the prompt, this is expected to always appear at the start of a line.
 	 *
@@ -361,7 +361,7 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 	activate(xterm: Terminal) {
 		this._terminal = xterm;
 		this.capabilities.add(TerminalCapability.PartialCommandDetection, this._register(new PartialCommandDetectionCapability(this._terminal, this._onDidExecuteText)));
-		this._register(xterm.parser.registerOscHandler(ShellIntegrationOscPs.VSCode, data => this._handleVSCodeSequence(data)));
+		this._register(xterm.parser.registerOscHandler(ShellIntegrationOscPs.VSBlocks, data => this._handleVSBlocksSequence(data)));
 		this._register(xterm.parser.registerOscHandler(ShellIntegrationOscPs.ITerm, data => this._doHandleITermSequence(data)));
 		this._commonProtocolDisposables.push(
 			xterm.parser.registerOscHandler(ShellIntegrationOscPs.FinalTerm, data => this._handleFinalTermSequence(data))
@@ -423,15 +423,15 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 		return false;
 	}
 
-	private _handleVSCodeSequence(data: string): boolean {
-		const didHandle = this._doHandleVSCodeSequence(data);
+	private _handleVSBlocksSequence(data: string): boolean {
+		const didHandle = this._doHandleVSBlocksSequence(data);
 		if (!this._hasUpdatedTelemetry && didHandle) {
 			this._telemetryService?.publicLog2<{}, { owner: 'meganrogge'; comment: 'Indicates shell integration was activated' }>('terminal/shellIntegrationActivationSucceeded');
 			this._hasUpdatedTelemetry = true;
 			this._clearActivationTimeout();
 		}
-		if (this._status !== ShellIntegrationStatus.VSCode) {
-			this._status = ShellIntegrationStatus.VSCode;
+		if (this._status !== ShellIntegrationStatus.VSBlocks) {
+			this._status = ShellIntegrationStatus.VSBlocks;
 			this._onDidChangeStatus.fire(this._status);
 		}
 		return didHandle;
@@ -457,7 +457,7 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 		}
 	}
 
-	private _doHandleVSCodeSequence(data: string): boolean {
+	private _doHandleVSBlocksSequence(data: string): boolean {
 		if (!this._terminal) {
 			return false;
 		}
@@ -469,22 +469,22 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 		// Cast to strict checked index access
 		const args: (string | undefined)[] = argsIndex === -1 ? [] : data.substring(argsIndex + 1).split(';');
 		switch (command) {
-			case VSCodeOscPt.PromptStart:
+			case VSBlocksOscPt.PromptStart:
 				this._createOrGetCommandDetection(this._terminal).handlePromptStart();
 				return true;
-			case VSCodeOscPt.CommandStart:
+			case VSBlocksOscPt.CommandStart:
 				this._createOrGetCommandDetection(this._terminal).handleCommandStart();
 				return true;
-			case VSCodeOscPt.CommandExecuted:
+			case VSBlocksOscPt.CommandExecuted:
 				this._createOrGetCommandDetection(this._terminal).handleCommandExecuted();
 				return true;
-			case VSCodeOscPt.CommandFinished: {
+			case VSBlocksOscPt.CommandFinished: {
 				const arg0 = args[0];
 				const exitCode = arg0 !== undefined ? parseInt(arg0) : undefined;
 				this._createOrGetCommandDetection(this._terminal).handleCommandFinished(exitCode);
 				return true;
 			}
-			case VSCodeOscPt.CommandLine: {
+			case VSBlocksOscPt.CommandLine: {
 				const arg0 = args[0];
 				const arg1 = args[1];
 				let commandLine: string;
@@ -496,15 +496,15 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 				this._createOrGetCommandDetection(this._terminal).setCommandLine(commandLine, arg1 === this._nonce);
 				return true;
 			}
-			case VSCodeOscPt.ContinuationStart: {
+			case VSBlocksOscPt.ContinuationStart: {
 				this._createOrGetCommandDetection(this._terminal).handleContinuationStart();
 				return true;
 			}
-			case VSCodeOscPt.ContinuationEnd: {
+			case VSBlocksOscPt.ContinuationEnd: {
 				this._createOrGetCommandDetection(this._terminal).handleContinuationEnd();
 				return true;
 			}
-			case VSCodeOscPt.EnvJson: {
+			case VSBlocksOscPt.EnvJson: {
 				const arg0 = args[0];
 				const arg1 = args[1];
 				if (arg0 !== undefined) {
@@ -517,11 +517,11 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 				}
 				return true;
 			}
-			case VSCodeOscPt.EnvSingleStart: {
+			case VSBlocksOscPt.EnvSingleStart: {
 				this._createOrGetShellEnvDetection().startEnvironmentSingleVar(args[0] === '1', args[1] === this._nonce);
 				return true;
 			}
-			case VSCodeOscPt.EnvSingleDelete: {
+			case VSBlocksOscPt.EnvSingleDelete: {
 				const arg0 = args[0];
 
 				const arg1 = args[1];
@@ -532,7 +532,7 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 				}
 				return true;
 			}
-			case VSCodeOscPt.EnvSingleEntry: {
+			case VSBlocksOscPt.EnvSingleEntry: {
 				const arg0 = args[0];
 				const arg1 = args[1];
 				const arg2 = args[2];
@@ -542,19 +542,19 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 				}
 				return true;
 			}
-			case VSCodeOscPt.EnvSingleEnd: {
+			case VSBlocksOscPt.EnvSingleEnd: {
 				this._createOrGetShellEnvDetection().endEnvironmentSingleVar(args[0] === this._nonce);
 				return true;
 			}
-			case VSCodeOscPt.RightPromptStart: {
+			case VSBlocksOscPt.RightPromptStart: {
 				this._createOrGetCommandDetection(this._terminal).handleRightPromptStart();
 				return true;
 			}
-			case VSCodeOscPt.RightPromptEnd: {
+			case VSBlocksOscPt.RightPromptEnd: {
 				this._createOrGetCommandDetection(this._terminal).handleRightPromptEnd();
 				return true;
 			}
-			case VSCodeOscPt.Property: {
+			case VSBlocksOscPt.Property: {
 				const arg0 = args[0];
 				const deserialized = arg0 !== undefined ? deserializeMessage(arg0) : '';
 				const { key, value } = parseKeyValueAssignment(deserialized);
@@ -595,7 +595,7 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 					}
 				}
 			}
-			case VSCodeOscPt.SetMark: {
+			case VSBlocksOscPt.SetMark: {
 				this._createOrGetBufferMarkDetection(this._terminal).addMark(parseMarkSequence(args));
 				return true;
 			}
@@ -643,7 +643,7 @@ export class ShellIntegrationAddon extends Disposable implements IShellIntegrati
 			}
 			default: {
 				// Checking for known `<key>=<value>` pairs.
-				// Note that unlike `VSCodeOscPt.Property`, iTerm2 does not interpret backslash or hex-escape sequences.
+				// Note that unlike `VSBlocksOscPt.Property`, iTerm2 does not interpret backslash or hex-escape sequences.
 				// See: https://github.com/gnachman/iTerm2/blob/bb0882332cec5196e4de4a4225978d746e935279/sources/VT100Terminal.m#L2089-L2105
 				const { key, value } = parseKeyValueAssignment(command);
 

@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { extensions } from 'vscode';
+import { extensions } from 'vsblocks';
 import { API as GitBaseAPI, GitBaseExtension } from './typings/git-base';
 
 export class GitBaseApi {

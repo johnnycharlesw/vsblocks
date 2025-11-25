@@ -169,7 +169,7 @@ export function listProcesses(rootPid: number): Promise<ProcessItem> {
 			});
 		} else {	// OS X & Linux
 			function calculateLinuxCpuUsage() {
-				// Flatten rootItem to get a list of all VSCode processes
+				// Flatten rootItem to get a list of all VSBlocks processes
 				let processes = [rootItem];
 				const pids: number[] = [];
 				while (processes.length) {

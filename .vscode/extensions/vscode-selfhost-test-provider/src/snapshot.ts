@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { promises as fs } from 'fs';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 
 export const snapshotComment = '\n\n// Snapshot file: ';
 

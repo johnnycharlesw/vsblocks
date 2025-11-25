@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import * as arrays from './util/arrays';
 import { Disposable } from './util/dispose';
 
@@ -117,7 +117,7 @@ export interface MarkdownContributionProvider {
 	dispose(): void;
 }
 
-class VSCodeExtensionMarkdownContributionProvider extends Disposable implements MarkdownContributionProvider {
+class VSBlocksExtensionMarkdownContributionProvider extends Disposable implements MarkdownContributionProvider {
 
 	private _contributions?: MarkdownContributions;
 
@@ -156,5 +156,5 @@ class VSCodeExtensionMarkdownContributionProvider extends Disposable implements 
 }
 
 export function getMarkdownExtensionContributions(context: vscode.ExtensionContext): MarkdownContributionProvider {
-	return new VSCodeExtensionMarkdownContributionProvider(context);
+	return new VSBlocksExtensionMarkdownContributionProvider(context);
 }

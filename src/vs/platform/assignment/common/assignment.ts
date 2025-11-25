@@ -7,7 +7,7 @@ import { Event } from '../../../base/common/event.js';
 import * as platform from '../../../base/common/platform.js';
 import type { IExperimentationFilterProvider } from 'tas-client-umd';
 
-export const ASSIGNMENT_STORAGE_KEY = 'VSCode.ABExp.FeatureData';
+export const ASSIGNMENT_STORAGE_KEY = 'VSBlocks.ABExp.FeatureData';
 export const ASSIGNMENT_REFETCH_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 export interface IAssignmentService {
@@ -24,18 +24,18 @@ export enum TargetPopulation {
 }
 
 /*
-Based upon the official VSCode currently existing filters in the
-ExP backend for the VSCode cluster.
+Based upon the official VSBlocks currently existing filters in the
+ExP backend for the VSBlocks cluster.
 https://experimentation.visualstudio.com/Analysis%20and%20Experimentation/_git/AnE.ExP.TAS.TachyonHost.Configuration?path=%2FConfigurations%2Fvscode%2Fvscode.json&version=GBmaster
 "X-MSEdge-Market": "detection.market",
 "X-FD-Corpnet": "detection.corpnet",
-"X-VSCode-AppVersion": "appversion",
-"X-VSCode-Build": "build",
+"X-VSBlocks-AppVersion": "appversion",
+"X-VSBlocks-Build": "build",
 "X-MSEdge-ClientId": "clientid",
-"X-VSCode-ExtensionName": "extensionname",
-"X-VSCode-ExtensionVersion": "extensionversion",
-"X-VSCode-TargetPopulation": "targetpopulation",
-"X-VSCode-Language": "language"
+"X-VSBlocks-ExtensionName": "extensionname",
+"X-VSBlocks-ExtensionVersion": "extensionversion",
+"X-VSBlocks-TargetPopulation": "targetpopulation",
+"X-VSBlocks-Language": "language"
 */
 export enum Filters {
 	/**
@@ -51,12 +51,12 @@ export enum Filters {
 	/**
 	 * Version of the application which uses experimentation service.
 	 */
-	ApplicationVersion = 'X-VSCode-AppVersion',
+	ApplicationVersion = 'X-VSBlocks-AppVersion',
 
 	/**
 	 * Insiders vs Stable.
 	 */
-	Build = 'X-VSCode-Build',
+	Build = 'X-VSBlocks-Build',
 
 	/**
 	 * Client Id which is used as primary unit for the experimentation.
@@ -66,23 +66,23 @@ export enum Filters {
 	/**
 	 * Extension header.
 	 */
-	ExtensionName = 'X-VSCode-ExtensionName',
+	ExtensionName = 'X-VSBlocks-ExtensionName',
 
 	/**
 	 * The version of the extension.
 	 */
-	ExtensionVersion = 'X-VSCode-ExtensionVersion',
+	ExtensionVersion = 'X-VSBlocks-ExtensionVersion',
 
 	/**
 	 * The language in use by VSBlocks
 	 */
-	Language = 'X-VSCode-Language',
+	Language = 'X-VSBlocks-Language',
 
 	/**
 	 * The target population.
 	 * This is used to separate internal, early preview, GA, etc.
 	 */
-	TargetPopulation = 'X-VSCode-TargetPopulation',
+	TargetPopulation = 'X-VSBlocks-TargetPopulation',
 }
 
 export class AssignmentFilterProvider implements IExperimentationFilterProvider {
@@ -96,7 +96,7 @@ export class AssignmentFilterProvider implements IExperimentationFilterProvider 
 	/**
 	 * Returns a version string that can be parsed by the TAS client.
 	 * The tas client cannot handle suffixes lke "-insider"
-	 * Ref: https://github.com/microsoft/tas-client/blob/30340d5e1da37c2789049fcf45928b954680606f/vscode-tas-client/src/vscode-tas-client/VSCodeFilterProvider.ts#L35
+	 * Ref: https://github.com/microsoft/tas-client/blob/30340d5e1da37c2789049fcf45928b954680606f/vscode-tas-client/src/vscode-tas-client/VSBlocksFilterProvider.ts#L35
 	 *
 	 * @param version Version string to be trimmed.
 	*/

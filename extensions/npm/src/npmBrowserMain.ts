@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as httpRequest from 'request-light';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { addJSONProviders } from './features/jsonContributions';
 
 export async function activate(context: vscode.ExtensionContext): Promise<void> {

@@ -7,7 +7,7 @@ import {
 	TaskDefinition, Task, TaskGroup, WorkspaceFolder, RelativePattern, ShellExecution, Uri, workspace,
 	TaskProvider, TextDocument, tasks, TaskScope, QuickPickItem, window, Position, ExtensionContext, env,
 	ShellQuotedString, ShellQuoting, commands, Location, CancellationTokenSource, l10n
-} from 'vscode';
+} from 'vsblocks';
 import * as path from 'path';
 import * as fs from 'fs';
 import minimatch from 'minimatch';
@@ -77,7 +77,7 @@ export class NpmTaskProvider implements TaskProvider {
 			} else {
 				task = await createScriptRunnerTask(this.context, kind.script, _task.scope, packageJsonUri);
 			}
-			// VSCode requires that task.definition must not change between resolutions
+			// VSBlocks requires that task.definition must not change between resolutions
 			// We need to restore task.definition to its original value
 			task.definition = kind;
 			return task;

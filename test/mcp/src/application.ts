@@ -165,7 +165,7 @@ if (!opts.web) {
 	}
 
 	if (!fs.existsSync(electronPath || '')) {
-		fail(`Cannot find VSCode at ${electronPath}. Please run VSCode once first (scripts/code.sh, scripts\\code.bat) and try again.`);
+		fail(`Cannot find VSBlocks at ${electronPath}. Please run VSBlocks once first (scripts/code.sh, scripts\\code.bat) and try again.`);
 	}
 
 	quality = parseQuality();
@@ -264,7 +264,7 @@ async function ensureStableCode(): Promise<void> {
 			// VSBlocks.app/Contents/MacOS/Electron
 			stableCodePath = path.dirname(path.dirname(path.dirname(stableCodeExecutable)));
 		} else {
-			// VSCode/Code.exe (Windows) | VSCode/code (Linux)
+			// VSBlocks/Code.exe (Windows) | VSBlocks/code (Linux)
 			stableCodePath = path.dirname(stableCodeExecutable);
 		}
 
@@ -272,7 +272,7 @@ async function ensureStableCode(): Promise<void> {
 	}
 
 	if (!fs.existsSync(stableCodePath)) {
-		throw new Error(`Cannot find Stable VSCode at ${stableCodePath}.`);
+		throw new Error(`Cannot find Stable VSBlocks at ${stableCodePath}.`);
 	}
 
 	logger.log(`Using stable build ${stableCodePath} for migration tests`);
@@ -295,7 +295,7 @@ export async function getApplication() {
 	const testCodePath = getDevElectronPath();
 	const electronPath = testCodePath;
 	if (!fs.existsSync(electronPath || '')) {
-		throw new Error(`Cannot find VSCode at ${electronPath}. Please run VSCode once first (scripts/code.sh, scripts\\code.bat) and try again.`);
+		throw new Error(`Cannot find VSBlocks at ${electronPath}. Please run VSBlocks once first (scripts/code.sh, scripts\\code.bat) and try again.`);
 	}
 	process.env.VSCODE_REPOSITORY = rootPath;
 	process.env.VSCODE_DEV = '1';

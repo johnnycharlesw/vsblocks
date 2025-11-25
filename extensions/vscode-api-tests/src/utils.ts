@@ -6,7 +6,7 @@
 import * as assert from 'assert';
 import { EOL } from 'os';
 import * as crypto from 'crypto';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { TestFS } from './memfs';
 
 export function rndName() {
@@ -88,7 +88,7 @@ export function withVerboseLogs(runnable: () => Promise<any>): () => Promise<voi
 }
 
 export function assertNoRpc() {
-	assertNoRpcFromEntry([vscode, 'vscode']);
+	assertNoRpcFromEntry([vscode, 'vsblocks']);
 }
 
 export function assertNoRpcFromEntry(entry: [obj: any, name: string]) {

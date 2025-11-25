@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { CancellationError } from 'vscode';
+import { CancellationError } from 'vsblocks';
 
 export function deepClone<T>(obj: T): T {
 	if (!obj || typeof obj !== 'object') {

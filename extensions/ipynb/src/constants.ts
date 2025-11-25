@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import type { DocumentSelector } from 'vscode';
+import type { DocumentSelector } from 'vsblocks';
 
 export const defaultNotebookFormat = { major: 4, minor: 5 };
 export const ATTACHMENT_CLEANUP_COMMANDID = 'ipynb.cleanInvalidImageAttachment';

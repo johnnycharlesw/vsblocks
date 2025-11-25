@@ -28,7 +28,7 @@ const fs = require('fs');
 const glob = require('glob');
 const { compileBuildWithManglingTask } = require('./gulpfile.compile');
 const { cleanExtensionsBuildTask, compileNonNativeExtensionsBuildTask, compileNativeExtensionsBuildTask, compileExtensionMediaBuildTask } = require('./gulpfile.extensions');
-const { vscodeWebResourceIncludes, createVSCodeWebFileContentMapper } = require('./gulpfile.vscode.web');
+const { vscodeWebResourceIncludes, createVSBlocksWebFileContentMapper } = require('./gulpfile.vscode.web');
 const cp = require('child_process');
 const log = require('fancy-log');
 const buildfile = require('./buildfile');
@@ -443,7 +443,7 @@ function tweakProductForServerWeb(product) {
 						...bootstrapEntryPoints
 					],
 					resources: type === 'reh' ? serverResources : serverWithWebResources,
-					fileContentMapper: createVSCodeWebFileContentMapper('.build/extensions', type === 'reh-web' ? tweakProductForServerWeb(product) : product)
+					fileContentMapper: createVSBlocksWebFileContentMapper('.build/extensions', type === 'reh-web' ? tweakProductForServerWeb(product) : product)
 				}
 			}
 		)

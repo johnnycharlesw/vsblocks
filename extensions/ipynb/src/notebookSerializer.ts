@@ -5,7 +5,7 @@
 
 import type * as nbformat from '@jupyterlab/nbformat';
 import detectIndent from 'detect-indent';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { getPreferredLanguage, jupyterNotebookModelToNotebookData } from './deserializers';
 import * as fnv from '@enonic/fnv-plus';
 import { serializeNotebookToString } from './serializers';

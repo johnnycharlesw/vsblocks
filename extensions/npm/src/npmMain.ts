@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as httpRequest from 'request-light';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { addJSONProviders } from './features/jsonContributions';
 import { runSelectedScript, selectAndRunScriptFromFolder } from './commands';
 import { NpmScriptsTreeDataProvider } from './npmView';

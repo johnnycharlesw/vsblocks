@@ -3,8 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { Disposable, ExtensionContext, NotebookCellKind, NotebookDocument, NotebookDocumentChangeEvent, NotebookEdit, workspace, WorkspaceEdit, type NotebookCell, type NotebookDocumentWillSaveEvent } from 'vscode';
-import { getCellMetadata, getVSCodeCellLanguageId, removeVSCodeCellLanguageId, setVSCodeCellLanguageId, sortObjectPropertiesRecursively, getNotebookMetadata } from './serializers';
+import { Disposable, ExtensionContext, NotebookCellKind, NotebookDocument, NotebookDocumentChangeEvent, NotebookEdit, workspace, WorkspaceEdit, type NotebookCell, type NotebookDocumentWillSaveEvent } from 'vsblocks';
+import { getCellMetadata, getVSBlocksCellLanguageId, removeVSBlocksCellLanguageId, setVSBlocksCellLanguageId, sortObjectPropertiesRecursively, getNotebookMetadata } from './serializers';
 import { CellMetadata } from './common';
 import type * as nbformat from '@jupyterlab/nbformat';
 import { generateUuid } from './helper';
@@ -143,7 +143,7 @@ function onDidChangeNotebookCells(e: NotebookDocumentChangeEventEx) {
 			return;
 		}
 		const currentMetadata = e.metadata ? getCellMetadata({ metadata: e.metadata }) : getCellMetadata({ cell: e.cell });
-		const languageIdInMetadata = getVSCodeCellLanguageId(currentMetadata);
+		const languageIdInMetadata = getVSBlocksCellLanguageId(currentMetadata);
 		const metadata: CellMetadata = JSON.parse(JSON.stringify(currentMetadata));
 		metadata.metadata = metadata.metadata || {};
 		let metadataUpdated = false;
@@ -175,13 +175,13 @@ function onDidChangeNotebookCells(e: NotebookDocumentChangeEventEx) {
 		}
 
 		if (e.document?.languageId && e.document?.languageId !== preferredCellLanguage && e.document?.languageId !== languageIdInMetadata) {
-			setVSCodeCellLanguageId(metadata, e.document.languageId);
+			setVSBlocksCellLanguageId(metadata, e.document.languageId);
 			metadataUpdated = true;
 		} else if (e.document?.languageId && e.document.languageId === preferredCellLanguage && languageIdInMetadata) {
-			removeVSCodeCellLanguageId(metadata);
+			removeVSBlocksCellLanguageId(metadata);
 			metadataUpdated = true;
 		} else if (e.document?.languageId && e.document.languageId === preferredCellLanguage && e.document.languageId === languageIdInMetadata) {
-			removeVSCodeCellLanguageId(metadata);
+			removeVSBlocksCellLanguageId(metadata);
 			metadataUpdated = true;
 		}
 

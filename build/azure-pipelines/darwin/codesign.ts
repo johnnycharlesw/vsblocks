@@ -12,7 +12,7 @@ async function main() {
 	const pipelineWorkspace = e('PIPELINE_WORKSPACE');
 
 	const folder = `${pipelineWorkspace}/vscode_client_darwin_${arch}_archive`;
-	const glob = `VSCode-darwin-${arch}.zip`;
+	const glob = `VSBlocks-darwin-${arch}.zip`;
 
 	// Codesign
 	printBanner('Codesign');

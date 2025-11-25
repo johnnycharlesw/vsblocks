@@ -984,7 +984,7 @@ export const enum ShellIntegrationStatus {
 	/** Final term shell integration sequences have been encountered. */
 	FinalTerm,
 	/** VSBlocks shell integration sequences have been encountered. Supercedes FinalTerm. */
-	VSCode
+	VSBlocks
 }
 
 

@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { TypeScriptServiceConfiguration } from './configuration/configuration';
 import { API } from './tsServer/api';
 import type * as Proto from './tsServer/protocol/protocol';

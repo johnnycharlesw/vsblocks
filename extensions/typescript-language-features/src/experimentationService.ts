@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import * as tas from 'vscode-tas-client';
 
 import { IExperimentationTelemetryReporter } from './experimentTelemetryReporter';
@@ -24,7 +24,7 @@ export class ExperimentationService {
 	public async getTreatmentVariable<K extends keyof ExperimentTypes>(name: K, defaultValue: ExperimentTypes[K]): Promise<ExperimentTypes[K]> {
 		const experimentationService = await this._experimentationServicePromise;
 		try {
-			const treatmentVariable = experimentationService.getTreatmentVariableAsync('vscode', name, /*checkCache*/ true) as Promise<ExperimentTypes[K]>;
+			const treatmentVariable = experimentationService.getTreatmentVariableAsync('vsblocks', name, /*checkCache*/ true) as Promise<ExperimentTypes[K]>;
 			return treatmentVariable;
 		} catch {
 			return defaultValue;
@@ -39,7 +39,7 @@ export async function createTasExperimentationService(
 	globalState: vscode.Memento): Promise<tas.IExperimentationService> {
 	let targetPopulation: tas.TargetPopulation;
 	switch (vscode.env.uriScheme) {
-		case 'vscode':
+		case 'vsblocks':
 			targetPopulation = tas.TargetPopulation.Public;
 			break;
 		case 'vscode-insiders':

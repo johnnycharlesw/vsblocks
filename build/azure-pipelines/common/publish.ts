@@ -435,9 +435,9 @@ class ESRPReleaseService {
 				description: 'VSBlocks'
 			},
 			accessPermissionsInfo: {
-				mainPublisher: 'VSCode',
+				mainPublisher: 'VSBlocks',
 				channelDownloadEntityDetails: {
-					AllDownloadEntities: ['VSCode']
+					AllDownloadEntities: ['VSBlocks']
 				}
 			},
 			routingInfo: {

@@ -169,7 +169,7 @@ export interface IMcpGalleryService {
 	readonly _serviceBrand: undefined;
 	isEnabled(): boolean;
 	query(options?: IQueryOptions, token?: CancellationToken): Promise<IPager<IGalleryMcpServer>>;
-	getMcpServersFromVSCodeGallery(servers: string[]): Promise<IGalleryMcpServer[]>;
+	getMcpServersFromVSBlocksGallery(servers: string[]): Promise<IGalleryMcpServer[]>;
 	getMcpServersFromGallery(urls: string[]): Promise<IGalleryMcpServer[]>;
 	getMcpServer(url: string): Promise<IGalleryMcpServer | undefined>;
 	getMcpServerByName(name: string): Promise<IGalleryMcpServer | undefined>;

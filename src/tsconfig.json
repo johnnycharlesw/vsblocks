@@ -29,9 +29,9 @@
 		"./*.ts",
 		"./typings",
 		"./vs/**/*.ts",
-		"./vscode-dts/vscode.proposed.*.d.ts",
-		"./vscode-dts/vscode.d.ts"
-	],
+		"vsblocks-dts/vscode.proposed.*.d.ts",
+		"vsblocks-dts/vscode.d.ts"
+, "vsblocks-dts/vsblocks.proposed.quickPickSortByLabel.d.ts", "vsblocks-dts/vsblocks.proposed.canonicalUriProvider.d.ts", "vsblocks-dts/vsblocks.proposed.authSession.d.ts", "vsblocks-dts/vsblocks.proposed.authProviderSpecific.d.ts", "vsblocks-dts/vsblocks.proposed.authLearnMore.d.ts", "vsblocks-dts/vsblocks.proposed.authIssuers.d.ts", "vsblocks-dts/vsblocks.proposed.authenticationChallenges.d.ts", "vsblocks-dts/vsblocks.proposed.aiTextSearchProvider.d.ts", "vsblocks-dts/vsblocks.proposed.tunnels.d.ts", "vsblocks-dts/vsblocks.proposed.valueSelectionInQuickPick.d.ts", "vsblocks-dts/vsblocks.proposed.aiSettingsSearch.d.ts"	],
 	"exclude": [
 		"vs/workbench/contrib/webview/browser/pre/service-worker.js"
 	]

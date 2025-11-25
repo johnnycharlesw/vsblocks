@@ -5,7 +5,7 @@
 
 import type MarkdownIt = require('markdown-it');
 import type Token = require('markdown-it/lib/token');
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { ILogger } from './logging';
 import { MarkdownContributionProvider } from './markdownExtensions';
 import { MarkdownPreviewConfiguration } from './preview/previewConfig';
