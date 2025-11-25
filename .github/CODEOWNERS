@@ -1,5 +1,5 @@
 # GitHub actions required reviewers
-.github/workflows/monaco-editor.yml @hediet @alexdima @lszomoru @joaomoreno
+.github/workflows/vsblockengine.yml @hediet @alexdima @lszomoru @joaomoreno
 .github/workflows/no-package-lock-changes.yml @lszomoru @joaomoreno @TylerLeonhardt @rzhao271
 .github/workflows/no-yarn-lock-changes.yml @lszomoru @joaomoreno @TylerLeonhardt @rzhao271
 .github/workflows/pr-darwin-test.yml @lszomoru @joaomoreno @TylerLeonhardt @rzhao271

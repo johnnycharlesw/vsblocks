@@ -8,7 +8,7 @@ import { EditorWorker, IWorkerContext } from './common/services/editorWebWorker.
 import { EditorWorkerHost } from './common/services/editorWorkerHost.js';
 
 /**
- * Used by `monaco-editor` to hook up web worker rpc.
+ * Used by `vsblockengine` to hook up web worker rpc.
  * @skipMangle
  * @internal
  */

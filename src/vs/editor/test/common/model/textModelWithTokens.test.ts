@@ -544,7 +544,7 @@ suite('TextModelWithTokens regression tests', () => {
 
 	ensureNoDisposablesAreLeakedInTestSuite();
 
-	test('microsoft/monaco-editor#122: Unhandled Exception: TypeError: Unable to get property \'replace\' of undefined or null reference', () => {
+	test('microsoft/vsblockengine#122: Unhandled Exception: TypeError: Unable to get property \'replace\' of undefined or null reference', () => {
 		function assertViewLineTokens(model: TextModel, lineNumber: number, forceTokenization: boolean, expected: TestLineToken[]): void {
 			if (forceTokenization) {
 				model.tokenization.forceTokenization(lineNumber);
@@ -619,7 +619,7 @@ suite('TextModelWithTokens regression tests', () => {
 	});
 
 
-	test('microsoft/monaco-editor#133: Error: Cannot read property \'modeId\' of undefined', () => {
+	test('microsoft/vsblockengine#133: Error: Cannot read property \'modeId\' of undefined', () => {
 
 		const disposables = new DisposableStore();
 		const model = createTextModelWithBrackets(

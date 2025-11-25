@@ -25,14 +25,14 @@
 	height: 100%;
 }
 
-.monaco-editor .type-hierarchy .tree {
-	background-color: var(--vscode-peekViewResult-background);
-	color: var(--vscode-peekViewResult-fileForeground);
+.vsblockengine .type-hierarchy .tree {
+	background-color: var(--vsblocks-peekViewResult-background);
+	color: var(--vsblocks-peekViewResult-fileForeground);
 }
 
-.monaco-editor .type-hierarchy .tree .monaco-list:focus .monaco-list-rows > .monaco-list-row.selected:not(.highlighted) {
-	background-color: var(--vscode-peekViewResult-selectionBackground);
-	color: var(--vscode-peekViewResult-selectionForeground) !important;
+.vsblockengine .type-hierarchy .tree .monaco-list:focus .monaco-list-rows > .monaco-list-row.selected:not(.highlighted) {
+	background-color: var(--vsblocks-peekViewResult-selectionBackground);
+	color: var(--vsblocks-peekViewResult-selectionForeground) !important;
 }
 
 .monaco-workbench .type-hierarchy .tree .typehierarchy-element {
@@ -46,17 +46,17 @@
 	padding-left: 4px;
 }
 
-.monaco-editor .type-hierarchy .type-decoration {
-	background-color: var(--vscode-peekViewEditor-matchHighlightBackground);
-	border: 2px solid var(--vscode-peekViewEditor-matchHighlightBorder);
+.vsblockengine .type-hierarchy .type-decoration {
+	background-color: var(--vsblocks-peekViewEditor-matchHighlightBackground);
+	border: 2px solid var(--vsblocks-peekViewEditor-matchHighlightBorder);
 	box-sizing: border-box;
 }
 
-.monaco-editor .type-hierarchy .editor .monaco-editor .monaco-editor-background,
-.monaco-editor .type-hierarchy .editor .monaco-editor .inputarea.ime-input {
-	background-color: var(--vscode-peekViewEditor-background);
+.vsblockengine .type-hierarchy .editor .vsblockengine .vsblockengine-background,
+.vsblockengine .type-hierarchy .editor .vsblockengine .inputarea.ime-input {
+	background-color: var(--vsblocks-peekViewEditor-background);
 }
 
-.monaco-editor .type-hierarchy .editor .monaco-editor .margin {
-	background-color: var(--vscode-peekViewEditorGutter-background);
+.vsblockengine .type-hierarchy .editor .vsblockengine .margin {
+	background-color: var(--vsblocks-peekViewEditorGutter-background);
 }

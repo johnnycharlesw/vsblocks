@@ -83,20 +83,20 @@ export function setupSimpleEditorSelectionStyling(editorContainerSelector: strin
 			// Override inactive selection bg
 			const inputBackgroundColor = theme.getColor(inputBackground);
 			if (inputBackgroundColor) {
-				collector.addRule(`${editorContainerSelector} .monaco-editor-background { background-color: ${inputBackgroundColor}; } `);
-				collector.addRule(`${editorContainerSelector} .monaco-editor .selected-text { background-color: ${inputBackgroundColor.transparent(0.4)}; }`);
+				collector.addRule(`${editorContainerSelector} .vsblockengine-background { background-color: ${inputBackgroundColor}; } `);
+				collector.addRule(`${editorContainerSelector} .vsblockengine .selected-text { background-color: ${inputBackgroundColor.transparent(0.4)}; }`);
 			}
 
 			// Override selected fg
 			const inputForegroundColor = theme.getColor(inputForeground);
 			if (inputForegroundColor) {
-				collector.addRule(`${editorContainerSelector} .monaco-editor .view-line span.inline-selected-text { color: ${inputForegroundColor}; }`);
+				collector.addRule(`${editorContainerSelector} .vsblockengine .view-line span.inline-selected-text { color: ${inputForegroundColor}; }`);
 			}
 
-			collector.addRule(`${editorContainerSelector} .monaco-editor .focused .selected-text { background-color: ${selectionBackgroundColor}; }`);
+			collector.addRule(`${editorContainerSelector} .vsblockengine .focused .selected-text { background-color: ${selectionBackgroundColor}; }`);
 		} else {
 			// Use editor selection color if theme has not set a selection background color
-			collector.addRule(`${editorContainerSelector} .monaco-editor .focused .selected-text { background-color: ${theme.getColor(editorSelectionBackground)}; }`);
+			collector.addRule(`${editorContainerSelector} .vsblockengine .focused .selected-text { background-color: ${theme.getColor(editorSelectionBackground)}; }`);
 		}
 	});
 

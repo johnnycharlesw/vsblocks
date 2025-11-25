@@ -10,7 +10,7 @@ module.exports = {
 	mode: 'production',
 	entry: {
 		'core': './core.js',
-		'editorWebWorkerMain': '../../out-monaco-editor-core/esm/vs/editor/common/services/editorWebWorkerMain.js',
+		'editorWebWorkerMain': '../../out-vsblockengine-core/esm/vs/editor/common/services/editorWebWorkerMain.js',
 	},
 	output: {
 		globalObject: 'self',
@@ -39,7 +39,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			'monaco-editor-core': path.resolve(__dirname, '../../out-monaco-editor-core/esm/vs/editor/editor.main.js'),
+			'vsblockengine-core': path.resolve(__dirname, '../../out-vsblockengine-core/esm/vs/editor/editor.main.js'),
 		}
 	},
 	stats: {

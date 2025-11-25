@@ -354,7 +354,7 @@ class View extends Disposable {
 		super();
 
 		this.domNode = this._element;
-		this.domNode.className = 'monaco-component diff-review monaco-editor-background';
+		this.domNode.className = 'monaco-component diff-review vsblockengine-background';
 
 		const actionBarContainer = document.createElement('div');
 		actionBarContainer.className = 'diff-review-actions';

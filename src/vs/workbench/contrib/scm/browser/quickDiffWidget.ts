@@ -515,17 +515,17 @@ export class QuickDiffEditorController extends Disposable implements IEditorCont
 			this.gutterActionDisposables.add(this.editor.onMouseDown(e => this.onEditorMouseDown(e)));
 			this.gutterActionDisposables.add(this.editor.onMouseUp(e => this.onEditorMouseUp(e)));
 			this.stylesheet.textContent = `
-				.monaco-editor .dirty-diff-glyph {
+				.vsblockengine .dirty-diff-glyph {
 					cursor: pointer;
 				}
 
-				.monaco-editor .margin-view-overlays .dirty-diff-glyph:hover::before {
+				.vsblockengine .margin-view-overlays .dirty-diff-glyph:hover::before {
 					height: 100%;
 					width: 6px;
 					left: -6px;
 				}
 
-				.monaco-editor .margin-view-overlays .dirty-diff-deleted:hover::after {
+				.vsblockengine .margin-view-overlays .dirty-diff-deleted:hover::after {
 					bottom: 0;
 					border-top-width: 0;
 					border-bottom-width: 0;

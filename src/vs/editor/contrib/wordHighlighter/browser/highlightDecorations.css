@@ -3,38 +3,38 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .focused .selectionHighlight {
-	background-color: var(--vscode-editor-selectionHighlightBackground);
+.vsblockengine .focused .selectionHighlight {
+	background-color: var(--vsblocks-editor-selectionHighlightBackground);
 	box-sizing: border-box;
-	border: 1px solid var(--vscode-editor-selectionHighlightBorder);
+	border: 1px solid var(--vsblocks-editor-selectionHighlightBorder);
 }
-.monaco-editor.hc-black .focused .selectionHighlight, .monaco-editor.hc-light .focused .selectionHighlight {
+.vsblockengine.hc-black .focused .selectionHighlight, .vsblockengine.hc-light .focused .selectionHighlight {
 	border-style: dotted;
 }
 
-.monaco-editor .wordHighlight {
-	background-color: var(--vscode-editor-wordHighlightBackground);
+.vsblockengine .wordHighlight {
+	background-color: var(--vsblocks-editor-wordHighlightBackground);
 	box-sizing: border-box;
-	border: 1px solid var(--vscode-editor-wordHighlightBorder);
+	border: 1px solid var(--vsblocks-editor-wordHighlightBorder);
 }
-.monaco-editor.hc-black .wordHighlight, .monaco-editor.hc-light .wordHighlight {
+.vsblockengine.hc-black .wordHighlight, .vsblockengine.hc-light .wordHighlight {
 	border-style: dotted;
 }
 
-.monaco-editor .wordHighlightStrong {
-	background-color: var(--vscode-editor-wordHighlightStrongBackground);
+.vsblockengine .wordHighlightStrong {
+	background-color: var(--vsblocks-editor-wordHighlightStrongBackground);
 	box-sizing: border-box;
-	border: 1px solid var(--vscode-editor-wordHighlightStrongBorder);
+	border: 1px solid var(--vsblocks-editor-wordHighlightStrongBorder);
 }
-.monaco-editor.hc-black .wordHighlightStrong, .monaco-editor.hc-light .wordHighlightStrong {
+.vsblockengine.hc-black .wordHighlightStrong, .vsblockengine.hc-light .wordHighlightStrong {
 	border-style: dotted;
 }
 
-.monaco-editor .wordHighlightText {
-	background-color: var(--vscode-editor-wordHighlightTextBackground);
+.vsblockengine .wordHighlightText {
+	background-color: var(--vsblocks-editor-wordHighlightTextBackground);
 	box-sizing: border-box;
-	border: 1px solid var(--vscode-editor-wordHighlightTextBorder);
+	border: 1px solid var(--vsblocks-editor-wordHighlightTextBorder);
 }
-.monaco-editor.hc-black .wordHighlightText, .monaco-editor.hc-light .wordHighlightText {
+.vsblockengine.hc-black .wordHighlightText, .vsblockengine.hc-light .wordHighlightText {
 	border-style: dotted;
 }

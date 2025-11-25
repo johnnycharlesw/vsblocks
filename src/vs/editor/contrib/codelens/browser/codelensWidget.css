@@ -3,22 +3,22 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .codelens-decoration {
+.vsblockengine .codelens-decoration {
 	overflow: hidden;
 	display: inline-flex !important; /* !important to override inline display:block style */
 	align-items: center;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	color: var(--vscode-editorCodeLens-foreground);
-	line-height: var(--vscode-editorCodeLens-lineHeight);
-	font-size: var(--vscode-editorCodeLens-fontSize);
-	padding-right: calc(var(--vscode-editorCodeLens-fontSize)*0.5);
-	font-feature-settings: var(--vscode-editorCodeLens-fontFeatureSettings);
-	font-family: var(--vscode-editorCodeLens-fontFamily), var(--vscode-editorCodeLens-fontFamilyDefault);
+	color: var(--vsblocks-editorCodeLens-foreground);
+	line-height: var(--vsblocks-editorCodeLens-lineHeight);
+	font-size: var(--vsblocks-editorCodeLens-fontSize);
+	padding-right: calc(var(--vsblocks-editorCodeLens-fontSize)*0.5);
+	font-feature-settings: var(--vsblocks-editorCodeLens-fontFeatureSettings);
+	font-family: var(--vsblocks-editorCodeLens-fontFamily), var(--vsblocks-editorCodeLens-fontFamilyDefault);
 }
 
-.monaco-editor .codelens-decoration > span,
-.monaco-editor .codelens-decoration > a {
+.vsblockengine .codelens-decoration > span,
+.vsblockengine .codelens-decoration > a {
 	user-select: none;
 	-webkit-user-select: none;
 	white-space: nowrap;
@@ -27,29 +27,29 @@
 	align-items: center;
 }
 
-.monaco-editor .codelens-decoration > a {
+.vsblockengine .codelens-decoration > a {
 	text-decoration: none;
 }
 
-.monaco-editor .codelens-decoration > a:hover {
+.vsblockengine .codelens-decoration > a:hover {
 	cursor: pointer;
-	color: var(--vscode-editorLink-activeForeground) !important;
+	color: var(--vsblocks-editorLink-activeForeground) !important;
 }
 
-.monaco-editor .codelens-decoration > a:hover .codicon {
-	color: var(--vscode-editorLink-activeForeground) !important;
+.vsblockengine .codelens-decoration > a:hover .codicon {
+	color: var(--vsblocks-editorLink-activeForeground) !important;
 }
 
-.monaco-editor .codelens-decoration .codicon[class*='codicon-'] {
+.vsblockengine .codelens-decoration .codicon[class*='codicon-'] {
 	vertical-align: middle;
 	color: currentColor !important;
-	color: var(--vscode-editorCodeLens-foreground);
-	line-height: var(--vscode-editorCodeLens-lineHeight);
-	font-size: var(--vscode-editorCodeLens-fontSize);
+	color: var(--vsblocks-editorCodeLens-foreground);
+	line-height: var(--vsblocks-editorCodeLens-lineHeight);
+	font-size: var(--vsblocks-editorCodeLens-fontSize);
 }
 
 
-.monaco-editor .codelens-decoration > a:hover .codicon::before {
+.vsblockengine .codelens-decoration > a:hover .codicon::before {
 	cursor: pointer;
 }
 
@@ -58,6 +58,6 @@
 	100% { opacity: 1;}
 }
 
-.monaco-editor .codelens-decoration.fadein {
+.vsblockengine .codelens-decoration.fadein {
 	animation: fadein 0.1s linear;
 }

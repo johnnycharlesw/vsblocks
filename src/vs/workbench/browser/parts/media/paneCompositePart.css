@@ -8,7 +8,7 @@
 	content: '';
 	width: 1px;
 	height: 16px;
-	background-color: var(--vscode-disabledForeground);
+	background-color: var(--vsblocks-disabledForeground);
 	margin-right: 8px;
 	margin-left: 4px;
 }
@@ -37,15 +37,15 @@
 .monaco-workbench .pane-composite-part > .header-or-footer {
 	padding-left: 4px;
 	padding-right: 4px;
-	background-color: var(--vscode-activityBarTop-background);
+	background-color: var(--vsblocks-activityBarTop-background);
 }
 
 .monaco-workbench .pane-composite-part:not(.empty) > .header {
-	border-bottom: 1px solid var(--vscode-sideBarActivityBarTop-border);
+	border-bottom: 1px solid var(--vsblocks-sideBarActivityBarTop-border);
 }
 
 .monaco-workbench .pane-composite-part:not(.empty) > .footer {
-	border-top: 1px solid var(--vscode-sideBarActivityBarTop-border);
+	border-top: 1px solid var(--vsblocks-sideBarActivityBarTop-border);
 }
 
 .monaco-workbench .pane-composite-part > .title > .composite-bar-container,
@@ -291,7 +291,7 @@
 
 .monaco-workbench .pane-composite-part > .title > .composite-bar-container >.composite-bar > .monaco-action-bar .action-item.icon.checked,
 .monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container >.composite-bar > .monaco-action-bar .action-item.icon.checked {
-	background-color: var(--vscode-activityBarTop-activeBackground);
+	background-color: var(--vsblocks-activityBarTop-activeBackground);
 }
 
 .monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked .active-item-indicator:before,
@@ -315,7 +315,7 @@
 
 .monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:focus .active-item-indicator:before,
 .monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:focus .active-item-indicator:before {
-	border-top-color: var(--vscode-focusBorder) !important;
+	border-top-color: var(--vsblocks-focusBorder) !important;
 	border-top-width: 2px;
 }
 
@@ -323,12 +323,12 @@
 .monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:hover .action-label,
 .monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item.checked .action-label,
 .monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:hover .action-label {
-	outline: var(--vscode-contrastActiveBorder, unset) solid 1px !important;
+	outline: var(--vsblocks-contrastActiveBorder, unset) solid 1px !important;
 }
 
 .monaco-workbench .pane-composite-part > .title > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:not(.checked):hover .action-label,
 .monaco-workbench .pane-composite-part > .header-or-footer > .composite-bar-container > .composite-bar > .monaco-action-bar .action-item:not(.checked):hover .action-label {
-	outline: var(--vscode-contrastActiveBorder, unset) dashed 1px !important;
+	outline: var(--vsblocks-contrastActiveBorder, unset) dashed 1px !important;
 }
 
 /** Empty Pane Message **/

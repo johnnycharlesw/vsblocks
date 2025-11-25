@@ -149,7 +149,7 @@ class Arrow {
 	private _updateStyle(): void {
 		domStylesheetsJs.removeCSSRulesContainingSelector(this._ruleName);
 		domStylesheetsJs.createCSSRule(
-			`.monaco-editor ${this._ruleName}`,
+			`.vsblockengine ${this._ruleName}`,
 			`border-style: solid; border-color: transparent; border-bottom-color: ${this._color}; border-width: ${this._height}px; bottom: -${this._height}px !important; margin-left: -${this._height}px; `
 		);
 	}

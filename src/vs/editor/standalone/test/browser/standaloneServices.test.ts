@@ -27,7 +27,7 @@ suite('StandaloneKeybindingService', () => {
 		}
 	}
 
-	test('issue microsoft/monaco-editor#167', () => {
+	test('issue microsoft/vsblockengine#167', () => {
 
 		const disposables = new DisposableStore();
 		const serviceCollection = new ServiceCollection();

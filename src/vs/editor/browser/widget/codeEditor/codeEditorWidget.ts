@@ -2471,27 +2471,27 @@ function getDotDotDotSVGData(color: Color) {
 registerThemingParticipant((theme, collector) => {
 	const errorForeground = theme.getColor(editorErrorForeground);
 	if (errorForeground) {
-		collector.addRule(`.monaco-editor .${ClassName.EditorErrorDecoration} { background: url("data:image/svg+xml,${getSquigglySVGData(errorForeground)}") repeat-x bottom left; }`);
-		collector.addRule(`:root { --monaco-editor-error-decoration: url("data:image/svg+xml,${getSquigglySVGData(errorForeground)}"); }`);
+		collector.addRule(`.vsblockengine .${ClassName.EditorErrorDecoration} { background: url("data:image/svg+xml,${getSquigglySVGData(errorForeground)}") repeat-x bottom left; }`);
+		collector.addRule(`:root { --vsblockengine-error-decoration: url("data:image/svg+xml,${getSquigglySVGData(errorForeground)}"); }`);
 	}
 	const warningForeground = theme.getColor(editorWarningForeground);
 	if (warningForeground) {
-		collector.addRule(`.monaco-editor .${ClassName.EditorWarningDecoration} { background: url("data:image/svg+xml,${getSquigglySVGData(warningForeground)}") repeat-x bottom left; }`);
-		collector.addRule(`:root { --monaco-editor-warning-decoration: url("data:image/svg+xml,${getSquigglySVGData(warningForeground)}"); }`);
+		collector.addRule(`.vsblockengine .${ClassName.EditorWarningDecoration} { background: url("data:image/svg+xml,${getSquigglySVGData(warningForeground)}") repeat-x bottom left; }`);
+		collector.addRule(`:root { --vsblockengine-warning-decoration: url("data:image/svg+xml,${getSquigglySVGData(warningForeground)}"); }`);
 	}
 	const infoForeground = theme.getColor(editorInfoForeground);
 	if (infoForeground) {
-		collector.addRule(`.monaco-editor .${ClassName.EditorInfoDecoration} { background: url("data:image/svg+xml,${getSquigglySVGData(infoForeground)}") repeat-x bottom left; }`);
-		collector.addRule(`:root { --monaco-editor-info-decoration: url("data:image/svg+xml,${getSquigglySVGData(infoForeground)}"); }`);
+		collector.addRule(`.vsblockengine .${ClassName.EditorInfoDecoration} { background: url("data:image/svg+xml,${getSquigglySVGData(infoForeground)}") repeat-x bottom left; }`);
+		collector.addRule(`:root { --vsblockengine-info-decoration: url("data:image/svg+xml,${getSquigglySVGData(infoForeground)}"); }`);
 	}
 	const hintForeground = theme.getColor(editorHintForeground);
 	if (hintForeground) {
-		collector.addRule(`.monaco-editor .${ClassName.EditorHintDecoration} { background: url("data:image/svg+xml,${getDotDotDotSVGData(hintForeground)}") no-repeat bottom left; }`);
-		collector.addRule(`:root { --monaco-editor-hint-decoration: url("data:image/svg+xml,${getDotDotDotSVGData(hintForeground)}"); }`);
+		collector.addRule(`.vsblockengine .${ClassName.EditorHintDecoration} { background: url("data:image/svg+xml,${getDotDotDotSVGData(hintForeground)}") no-repeat bottom left; }`);
+		collector.addRule(`:root { --vsblockengine-hint-decoration: url("data:image/svg+xml,${getDotDotDotSVGData(hintForeground)}"); }`);
 	}
 	const unnecessaryForeground = theme.getColor(editorUnnecessaryCodeOpacity);
 	if (unnecessaryForeground) {
-		collector.addRule(`.monaco-editor.showUnused .${ClassName.EditorUnnecessaryInlineDecoration} { opacity: ${unnecessaryForeground.rgba.a}; }`);
-		collector.addRule(`:root { --monaco-editor-unnecessary-decoration-opacity: ${unnecessaryForeground.rgba.a}; }`);
+		collector.addRule(`.vsblockengine.showUnused .${ClassName.EditorUnnecessaryInlineDecoration} { opacity: ${unnecessaryForeground.rgba.a}; }`);
+		collector.addRule(`:root { --vsblockengine-unnecessary-decoration-opacity: ${unnecessaryForeground.rgba.a}; }`);
 	}
 });

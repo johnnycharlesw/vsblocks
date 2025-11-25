@@ -470,7 +470,7 @@ suite('viewLineRenderer.renderLine', () => {
 		}));
 	});
 
-	test('issue microsoft/monaco-editor#280: Improved source code rendering for RTL languages', () => {
+	test('issue microsoft/vsblockengine#280: Improved source code rendering for RTL languages', () => {
 		const lineText = 'var קודמות = \"מיותר קודמות צ\'ט של, אם לשון העברית שינויים ויש, אם\";';
 		const lineParts = createViewLineTokens([
 			createPart(3, 6),

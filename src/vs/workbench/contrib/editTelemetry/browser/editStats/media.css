@@ -17,7 +17,7 @@
 	div.header {
 		display: flex;
 		align-items: center;
-		color: var(--vscode-descriptionForeground);
+		color: var(--vsblocks-descriptionForeground);
 		margin-bottom: 4px;
 		font-size: 12px;
 		font-weight: 600;
@@ -25,7 +25,7 @@
 
 	div.description {
 		font-size: 11px;
-		color: var(--vscode-descriptionForeground);
+		color: var(--vsblocks-descriptionForeground);
 	}
 
 	.monaco-button {
@@ -66,7 +66,7 @@
 	}
 
 	.settings .setting.disabled .setting-label {
-		color: var(--vscode-disabledForeground);
+		color: var(--vsblocks-disabledForeground);
 	}
 
 
@@ -88,7 +88,7 @@
 		.detail-item,
 		.detail-item a {
 			margin-left: auto;
-			color: var(--vscode-descriptionForeground);
+			color: var(--vsblocks-descriptionForeground);
 		}
 	}
 }

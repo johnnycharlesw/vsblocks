@@ -976,7 +976,7 @@
 		"--widget-color",
 		"--text-link-decoration",
 		"--vscode-action-item-auto-timeout",
-		"--monaco-editor-warning-decoration",
+		"--vsblockengine-warning-decoration",
 		"--animation-opacity",
 		"--chat-setup-dialog-glow-angle"
 	]

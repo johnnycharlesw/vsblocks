@@ -7,15 +7,15 @@ import { References } from './peek';
 import { Commands } from './workbench';
 import { Code } from './code';
 
-const RENAME_BOX = '.monaco-editor .monaco-editor.rename-box';
+const RENAME_BOX = '.vsblockengine .vsblockengine.rename-box';
 const RENAME_INPUT = `${RENAME_BOX} .rename-input`;
-const EDITOR = (filename: string) => `.monaco-editor[data-uri$="${filename}"]`;
+const EDITOR = (filename: string) => `.vsblockengine[data-uri$="${filename}"]`;
 const VIEW_LINES = (filename: string) => `${EDITOR(filename)} .view-lines`;
 const LINE_NUMBERS = (filename: string) => `${EDITOR(filename)} .margin .margin-view-overlays .line-numbers`;
 
 export class Editor {
 
-	private static readonly FOLDING_EXPANDED = '.monaco-editor .margin .margin-view-overlays>:nth-child(${INDEX}) .folding';
+	private static readonly FOLDING_EXPANDED = '.vsblockengine .margin .margin-view-overlays>:nth-child(${INDEX}) .folding';
 	private static readonly FOLDING_COLLAPSED = `${Editor.FOLDING_EXPANDED}.collapsed`;
 
 	constructor(private code: Code, private commands: Commands) { }

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 .chat-confirmation-widget {
-	border: 1px solid var(--vscode-chat-requestBorder);
+	border: 1px solid var(--vsblocks-chat-requestBorder);
 	border-radius: 4px;
 	padding: 3px;
 	display: flex;
@@ -25,8 +25,8 @@
 
 .chat-confirmation-widget + .chat-tool-approval-message  {
 	margin: -12px 6px 16px;
-	color: var(--vscode-descriptionForeground);
-	font-size: var(--vscode-chat-font-size-body-s);
+	color: var(--vsblocks-descriptionForeground);
+	font-size: var(--vsblocks-chat-font-size-body-s);
 }
 
 .chat-confirmation-widget .chat-confirmation-widget-title  {
@@ -80,10 +80,10 @@
 	margin: 0 !important;
 }
 .chat-confirmation-widget .chat-confirmation-widget-title .codicon-check {
-	color: var(--vscode-debugIcon-startForeground) !important;
+	color: var(--vsblocks-debugIcon-startForeground) !important;
 }
 .chat-confirmation-widget .chat-confirmation-widget-title .codicon-error {
-	color: var(--vscode-errorForeground) !important;
+	color: var(--vsblocks-errorForeground) !important;
 }
 
 .chat-confirmation-widget .chat-confirmation-widget-title .chat-confirmation-widget-expando {
@@ -93,11 +93,11 @@
 
 .chat-confirmation-widget .chat-confirmation-widget-title.monaco-button {
 	&:hover {
-		background: var(--vscode-toolbar-hoverBackground);
+		background: var(--vsblocks-toolbar-hoverBackground);
 	}
 
 	&:active {
-		background: var(--vscode-toolbar-activeBackground);
+		background: var(--vsblocks-toolbar-activeBackground);
 	}
 
 	.monaco-button-mdlabel {
@@ -171,7 +171,7 @@
 	margin-top: -4px;
 
 	a {
-		color: var(--vscode-textLink-foreground);
+		color: var(--vsblocks-textLink-foreground);
 		text-decoration: underline;
 		display: block;
 		cursor: pointer;
@@ -204,12 +204,12 @@
 
 .chat-confirmation-widget2 {
 	margin-bottom: 8px;
-	border: 1px solid var(--vscode-chat-requestBorder);
+	border: 1px solid var(--vsblocks-chat-requestBorder);
 	border-radius: 4px;
 }
 
 .chat-confirmation-widget2 .chat-confirmation-widget-title {
-	border-bottom: 1px solid var(--vscode-chat-requestBorder);
+	border-bottom: 1px solid var(--vsblocks-chat-requestBorder);
 	padding: 5px 9px;
 	display: flex;
 	justify-content: space-between;
@@ -239,8 +239,8 @@
 }
 
 .chat-confirmation-widget2 .chat-confirmation-widget-message:not(:has(.chat-confirmation-message-terminal)) {
-	background: var(--vscode-chat-requestBackground);
-	border-bottom: 1px solid var(--vscode-chat-requestBorder);
+	background: var(--vsblocks-chat-requestBackground);
+	border-bottom: 1px solid var(--vsblocks-chat-requestBorder);
 	padding: 6px 9px 0 9px;
 
 	p {
@@ -250,7 +250,7 @@
 }
 
 .chat-confirmation-widget2 .chat-confirmation-message-terminal .chat-confirmation-message-terminal-editor {
-	border-bottom: 1px solid var(--vscode-chat-requestBorder);
+	border-bottom: 1px solid var(--vsblocks-chat-requestBorder);
 }
 .chat-confirmation-widget2 .chat-confirmation-message-terminal .chat-confirmation-message-terminal-editor .interactive-result-code-block {
 	border: none !important;
@@ -269,7 +269,7 @@
 .chat-confirmation-widget2 .chat-confirmation-widget-buttons {
 	display: flex;
 	padding: 5px 9px;
-	font-size: var(--vscode-chat-font-size-body-m);
+	font-size: var(--vsblocks-chat-font-size-body-m);
 
 	.chat-buttons {
 		display: flex;

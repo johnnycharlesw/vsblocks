@@ -492,7 +492,7 @@ export const allowedMarkdownHtmlAttributes = Object.freeze<Array<string | domSan
 		shouldKeep: (element, data) => {
 			if (element.tagName === 'SPAN') {
 				if (data.attrName === 'style') {
-					return /^(color\:(#[0-9a-fA-F]+|var\(--vscode(-[a-zA-Z0-9]+)+\));)?(background-color\:(#[0-9a-fA-F]+|var\(--vscode(-[a-zA-Z0-9]+)+\));)?(border-radius:[0-9]+px;)?$/.test(data.attrValue);
+					return /^(color\:(#[0-9a-fA-F]+|var\(--vsblocks(-[a-zA-Z0-9]+)+\));)?(background-color\:(#[0-9a-fA-F]+|var\(--vsblocks(-[a-zA-Z0-9]+)+\));)?(border-radius:[0-9]+px;)?$/.test(data.attrValue);
 				}
 			}
 			return false;

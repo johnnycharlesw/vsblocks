@@ -188,7 +188,7 @@ export class ChatViewPane extends ViewPane implements IViewWelcomeDelegate {
 
 		const scopedInstantiationService = this._register(this.instantiationService.createChild(new ServiceCollection([IContextKeyService, this.scopedContextKeyService])));
 		const locationBasedColors = this.getLocationBasedColors();
-		const editorOverflowNode = this.layoutService.getContainer(getWindow(parent)).appendChild($('.chat-editor-overflow.monaco-editor'));
+		const editorOverflowNode = this.layoutService.getContainer(getWindow(parent)).appendChild($('.chat-editor-overflow.vsblockengine'));
 		this._register({ dispose: () => editorOverflowNode.remove() });
 
 		this._widget = this._register(scopedInstantiationService.createInstance(

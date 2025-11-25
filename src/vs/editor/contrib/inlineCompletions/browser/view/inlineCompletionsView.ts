@@ -83,9 +83,9 @@ export class InlineCompletionsView extends Disposable {
 		this._register(createStyleSheetFromObservable(derived(reader => {
 			const fontFamily = this._fontFamily.read(reader);
 			return `
-.monaco-editor .ghost-text-decoration,
-.monaco-editor .ghost-text-decoration-preview,
-.monaco-editor .ghost-text {
+.vsblockengine .ghost-text-decoration,
+.vsblockengine .ghost-text-decoration-preview,
+.vsblockengine .ghost-text {
 	font-family: ${fontFamily};
 }`;
 		})));

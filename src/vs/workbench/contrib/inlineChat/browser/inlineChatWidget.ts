@@ -547,7 +547,7 @@ export class EditorBasedInlineChatWidget extends InlineChatWidget {
 		@ILayoutService layoutService: ILayoutService,
 		@IChatEntitlementService chatEntitlementService: IChatEntitlementService,
 	) {
-		const overflowWidgetsNode = layoutService.getContainer(getWindow(_parentEditor.getContainerDomNode())).appendChild($('.inline-chat-overflow.monaco-editor'));
+		const overflowWidgetsNode = layoutService.getContainer(getWindow(_parentEditor.getContainerDomNode())).appendChild($('.inline-chat-overflow.vsblockengine'));
 		super(location, {
 			...options,
 			chatWidgetViewOptions: {

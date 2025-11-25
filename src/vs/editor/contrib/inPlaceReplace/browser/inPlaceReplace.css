@@ -4,6 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 
-.monaco-editor.vs .valueSetReplacement {
-	outline: solid 2px var(--vscode-editorBracketMatch-border);
+.vsblockengine.vs .valueSetReplacement {
+	outline: solid 2px var(--vsblocks-editorBracketMatch-border);
 }

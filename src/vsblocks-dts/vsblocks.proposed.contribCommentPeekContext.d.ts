@@ -8,3 +8,8 @@
 // https://github.com/johnnycharlesw/vsblocks/issues/151533 @alexr00
 
 
+declare module 'vsblocks' {
+	export interface CommentPeekContext {
+		actions: CommentPeekAction[];
+	}
+}

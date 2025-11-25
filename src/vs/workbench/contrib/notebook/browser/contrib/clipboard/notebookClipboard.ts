@@ -346,7 +346,7 @@ export class NotebookClipboardContribution extends Disposable {
 		while (container
 			&&
 			container !== body) {
-			if ((container as HTMLElement).classList && (container as HTMLElement).classList.contains('monaco-editor')) {
+			if ((container as HTMLElement).classList && (container as HTMLElement).classList.contains('vsblockengine')) {
 				return true;
 			}
 

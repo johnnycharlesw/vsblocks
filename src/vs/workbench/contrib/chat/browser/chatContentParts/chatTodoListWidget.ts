@@ -370,7 +370,7 @@ export class ChatTodoListWidget extends Disposable {
 					titleElement.appendChild(separator);
 
 					const icon = dom.$('.codicon.codicon-check');
-					icon.style.color = 'var(--vscode-charts-green)';
+					icon.style.color = 'var(--vsblocks-charts-green)';
 					icon.style.marginRight = '4px';
 					icon.style.verticalAlign = 'middle';
 					titleElement.appendChild(icon);
@@ -388,7 +388,7 @@ export class ChatTodoListWidget extends Disposable {
 				titleElement.appendChild(separator);
 
 				const icon = dom.$('.codicon.codicon-record');
-				icon.style.color = 'var(--vscode-charts-blue)';
+				icon.style.color = 'var(--vsblocks-charts-blue)';
 				icon.style.marginRight = '4px';
 				icon.style.verticalAlign = 'middle';
 				titleElement.appendChild(icon);
@@ -436,12 +436,12 @@ export class ChatTodoListWidget extends Disposable {
 	private getStatusIconColor(status: string): string {
 		switch (status) {
 			case 'completed':
-				return 'var(--vscode-charts-green)';
+				return 'var(--vsblocks-charts-green)';
 			case 'in-progress':
-				return 'var(--vscode-charts-blue)';
+				return 'var(--vsblocks-charts-blue)';
 			case 'not-started':
 			default:
-				return 'var(--vscode-foreground)';
+				return 'var(--vsblocks-foreground)';
 		}
 	}
 }

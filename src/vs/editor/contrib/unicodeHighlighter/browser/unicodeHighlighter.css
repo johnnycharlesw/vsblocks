@@ -3,8 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .unicode-highlight {
-	border: 1px solid var(--vscode-editorUnicodeHighlight-border);
-	background-color: var(--vscode-editorUnicodeHighlight-background);
+.vsblockengine .unicode-highlight {
+	border: 1px solid var(--vsblocks-editorUnicodeHighlight-border);
+	background-color: var(--vsblocks-editorUnicodeHighlight-background);
 	box-sizing: border-box;
 }

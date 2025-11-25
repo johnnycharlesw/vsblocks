@@ -75,7 +75,7 @@ export class MultiDiffEditorWidgetImpl extends Disposable {
 					overflow: 'hidden',
 				}
 			}),
-			h('div.monaco-editor@overflowWidgetsDomNode', {
+			h('div.vsblockengine@overflowWidgetsDomNode', {
 			}),
 		]);
 		this._scrollable = this._register(new Scrollable({

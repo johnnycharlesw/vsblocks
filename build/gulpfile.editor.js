@@ -53,7 +53,7 @@ const extractEditorSrcTask = task.define('extract-editor-src', () => {
 		shakeLevel: 2, // 0-Files, 1-InnerFile, 2-ClassMembers
 		importIgnorePattern: /\.css$/,
 		destRoot: path.join(root, 'out-editor-src'),
-		tsOutDir: '../out-monaco-editor-core/esm/vs',
+		tsOutDir: '../out-vsblockengine-core/esm/vs',
 		redirects: {
 			'@vscode/tree-sitter-wasm': '../node_modules/@vscode/tree-sitter-wasm/wasm/web-tree-sitter',
 		}
@@ -63,7 +63,7 @@ const extractEditorSrcTask = task.define('extract-editor-src', () => {
 const compileEditorESMTask = task.define('compile-editor-esm', () => {
 
 	const src = 'out-editor-src';
-	const out = 'out-monaco-editor-core/esm';
+	const out = 'out-vsblockengine-core/esm';
 
 	const compile = compilation.createCompile(src, { build: true, emitError: true, transpileOnly: false, preserveEnglish: true });
 	const srcPipe = gulp.src(`${src}/**`, { base: `${src}` });
@@ -130,7 +130,7 @@ const finalEditorResourcesTask = task.define('final-editor-resources', () => {
 			gulp.src('build/monaco/LICENSE'),
 			gulp.src('build/monaco/ThirdPartyNotices.txt'),
 			gulp.src('src/vs/monaco.d.ts')
-		).pipe(gulp.dest('out-monaco-editor-core')),
+		).pipe(gulp.dest('out-vsblockengine-core')),
 
 		// place the .d.ts in the esm folder
 		gulp.src('src/vs/monaco.d.ts')
@@ -141,7 +141,7 @@ const finalEditorResourcesTask = task.define('final-editor-resources', () => {
 					contents: Buffer.from(toExternalDTS(data.contents.toString()))
 				}));
 			}))
-			.pipe(gulp.dest('out-monaco-editor-core/esm/vs/editor')),
+			.pipe(gulp.dest('out-vsblockengine-core/esm/vs/editor')),
 
 		// package.json
 		gulp.src('build/monaco/package.json')
@@ -165,7 +165,7 @@ const finalEditorResourcesTask = task.define('final-editor-resources', () => {
 						throw new Error('Unable to read versions from cgmanifest.json files');
 					}
 				} catch (error) {
-					throw new Error(`Failed to read cgmanifest.json files for monaco-editor-core dependencies: ${error.message}`);
+					throw new Error(`Failed to read cgmanifest.json files for vsblockengine-core dependencies: ${error.message}`);
 				}
 
 				setUnsetField(json, 'dependencies', {
@@ -176,15 +176,15 @@ const finalEditorResourcesTask = task.define('final-editor-resources', () => {
 				data.contents = Buffer.from(JSON.stringify(json, null, '  '));
 				this.emit('data', data);
 			}))
-			.pipe(gulp.dest('out-monaco-editor-core')),
+			.pipe(gulp.dest('out-vsblockengine-core')),
 
 		// version.txt
 		gulp.src('build/monaco/version.txt')
 			.pipe(es.through(function (data) {
-				data.contents = Buffer.from(`monaco-editor-core: https://github.com/johnnycharlesw/vsblocks/tree/${sha1}`);
+				data.contents = Buffer.from(`vsblockengine-core: https://github.com/johnnycharlesw/vsblocks/tree/${sha1}`);
 				this.emit('data', data);
 			}))
-			.pipe(gulp.dest('out-monaco-editor-core')),
+			.pipe(gulp.dest('out-vsblockengine-core')),
 
 		// README.md
 		gulp.src('build/monaco/README-npm.md')
@@ -195,7 +195,7 @@ const finalEditorResourcesTask = task.define('final-editor-resources', () => {
 					contents: data.contents
 				}));
 			}))
-			.pipe(gulp.dest('out-monaco-editor-core')),
+			.pipe(gulp.dest('out-vsblockengine-core')),
 	);
 });
 
@@ -210,7 +210,7 @@ gulp.task('editor-distro',
 	task.series(
 		task.parallel(
 			util.rimraf('out-editor-src'),
-			util.rimraf('out-monaco-editor-core'),
+			util.rimraf('out-vsblockengine-core'),
 		),
 		extractEditorSrcTask,
 		compileEditorESMTask,

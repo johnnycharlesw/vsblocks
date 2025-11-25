@@ -8,8 +8,8 @@
 	border-radius: 2px;
 }
 
-.suggest-input-container .monaco-editor-background,
-.suggest-input-container .monaco-editor,
+.suggest-input-container .vsblockengine-background,
+.suggest-input-container .vsblockengine,
 .suggest-input-container .mtk1 {
 	color: inherit;
 }
@@ -24,7 +24,7 @@
 	margin-top: 1px;
 }
 
-.suggest-input-container .monaco-editor,
-.suggest-input-container .monaco-editor .lines-content {
+.suggest-input-container .vsblockengine,
+.suggest-input-container .vsblockengine .lines-content {
 	background: none !important;
 }

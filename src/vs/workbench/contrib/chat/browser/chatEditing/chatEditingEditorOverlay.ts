@@ -252,7 +252,7 @@ class ChatEditorOverlayWidget extends Disposable {
 
 										const r = -100 * (ctrl.remaining / ctrl.total);
 
-										this.element.style.setProperty('--vscode-action-item-auto-timeout', `${r}%`);
+										this.element.style.setProperty('--vsblocks-action-item-auto-timeout', `${r}%`);
 
 										this.element.classList.toggle('auto', true);
 										listener.value = addDisposableGenericMouseMoveListener(this.element, () => ctrl.cancel());

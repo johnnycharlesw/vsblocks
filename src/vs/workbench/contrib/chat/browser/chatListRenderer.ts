@@ -1503,7 +1503,7 @@ export class ChatListItemRenderer extends Disposable implements ITreeRenderer<Ch
 					}
 
 					// Don't handle if there's a selection in code block
-					const monacoEditor = dom.findParentWithClass(clickedElement, 'monaco-editor');
+					const monacoEditor = dom.findParentWithClass(clickedElement, 'vsblockengine');
 					if (monacoEditor) {
 						const editorPart = Array.from(this.editorsInUse()).find(editor =>
 							editor.element.contains(monacoEditor));

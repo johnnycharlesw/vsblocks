@@ -5,26 +5,26 @@
 
 .chat-editor-overlay-widget {
 	padding: 0px;
-	color: var(--vscode-button-foreground);
-	background-color: var(--vscode-button-background);
+	color: var(--vsblocks-button-foreground);
+	background-color: var(--vsblocks-button-background);
 	border-radius: 2px;
-	border: 1px solid var(--vscode-contrastBorder);
+	border: 1px solid var(--vsblocks-contrastBorder);
 	display: flex;
 	align-items: center;
 	z-index: 10;
-	box-shadow: 0 2px 8px var(--vscode-widget-shadow);
+	box-shadow: 0 2px 8px var(--vsblocks-widget-shadow);
 	overflow: hidden;
 }
 
 @keyframes pulse {
 	0% {
-		box-shadow: 0 2px 8px 0 var(--vscode-widget-shadow);
+		box-shadow: 0 2px 8px 0 var(--vsblocks-widget-shadow);
 	}
 	50% {
-		box-shadow: 0 2px 8px 4px var(--vscode-widget-shadow);
+		box-shadow: 0 2px 8px 4px var(--vsblocks-widget-shadow);
 	}
 	100% {
-		box-shadow: 0 2px 8px 0 var(--vscode-widget-shadow);
+		box-shadow: 0 2px 8px 0 var(--vsblocks-widget-shadow);
 	}
 }
 
@@ -69,7 +69,7 @@
 
 .chat-editor-overlay-widget.busy .chat-editor-overlay-progress .codicon,
 .chat-editor-overlay-widget .action-item > .action-label.codicon {
-	color: var(--vscode-button-foreground);
+	color: var(--vsblocks-button-foreground);
 }
 
 .chat-diff-change-content-widget .monaco-action-bar .action-item.disabled,
@@ -79,7 +79,7 @@
 	> .action-label.codicon,
 	> .action-label,
 	> .action-label:hover {
-		color: var(--vscode-button-separator);
+		color: var(--vsblocks-button-separator);
 		opacity: 1;
 	}
 }
@@ -91,7 +91,7 @@
 
 .chat-editor-overlay-widget .monaco-action-bar .action-item.label-item > .action-label,
 .chat-editor-overlay-widget .monaco-action-bar .action-item.label-item > .action-label:hover {
-	color: var(--vscode-button-foreground);
+	color: var(--vsblocks-button-foreground);
 	opacity: 1;
 }
 
@@ -104,9 +104,9 @@
 	content: '';
 	position: absolute;
 	top: 0;
-	left: var(--vscode-action-item-auto-timeout, -100%);
+	left: var(--vsblocks-action-item-auto-timeout, -100%);
 	width: 100%;
 	height: 100%;
-	background-color: var(--vscode-toolbar-hoverBackground);
+	background-color: var(--vsblocks-toolbar-hoverBackground);
 	transition: left 0.5s linear;
 }

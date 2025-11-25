@@ -3,36 +3,36 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .lightBulbWidget {
+.vsblockengine .lightBulbWidget {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.monaco-editor .lightBulbWidget:hover{
+.vsblockengine .lightBulbWidget:hover{
 	cursor: pointer;
 }
 
-.monaco-editor .lightBulbWidget.codicon-light-bulb,
-.monaco-editor .lightBulbWidget.codicon-lightbulb-sparkle {
-	color: var(--vscode-editorLightBulb-foreground);
+.vsblockengine .lightBulbWidget.codicon-light-bulb,
+.vsblockengine .lightBulbWidget.codicon-lightbulb-sparkle {
+	color: var(--vsblocks-editorLightBulb-foreground);
 }
 
-.monaco-editor .lightBulbWidget.codicon-lightbulb-autofix,
-.monaco-editor .lightBulbWidget.codicon-lightbulb-sparkle-autofix {
-	color: var(--vscode-editorLightBulbAutoFix-foreground, var(--vscode-editorLightBulb-foreground));
+.vsblockengine .lightBulbWidget.codicon-lightbulb-autofix,
+.vsblockengine .lightBulbWidget.codicon-lightbulb-sparkle-autofix {
+	color: var(--vsblocks-editorLightBulbAutoFix-foreground, var(--vsblocks-editorLightBulb-foreground));
 }
 
-.monaco-editor .lightBulbWidget.codicon-sparkle-filled {
-	color: var(--vscode-editorLightBulbAi-foreground, var(--vscode-icon-foreground));
+.vsblockengine .lightBulbWidget.codicon-sparkle-filled {
+	color: var(--vsblocks-editorLightBulbAi-foreground, var(--vsblocks-icon-foreground));
 }
 
-.monaco-editor .lightBulbWidget:before {
+.vsblockengine .lightBulbWidget:before {
 	position: relative;
 	z-index: 2;
 }
 
-.monaco-editor .lightBulbWidget:after {
+.vsblockengine .lightBulbWidget:after {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -45,21 +45,21 @@
 }
 
 /* gutter decoration */
-.monaco-editor .glyph-margin-widgets .cgmr[class*="codicon-gutter-lightbulb"] {
+.vsblockengine .glyph-margin-widgets .cgmr[class*="codicon-gutter-lightbulb"] {
 	display: block;
 	cursor: pointer;
 }
 
-.monaco-editor .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb,
-.monaco-editor .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb-sparkle {
-	color: var(--vscode-editorLightBulb-foreground);
+.vsblockengine .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb,
+.vsblockengine .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb-sparkle {
+	color: var(--vsblocks-editorLightBulb-foreground);
 }
 
-.monaco-editor .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb-auto-fix,
-.monaco-editor .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb-aifix-auto-fix {
-	color: var(--vscode-editorLightBulbAutoFix-foreground, var(--vscode-editorLightBulb-foreground));
+.vsblockengine .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb-auto-fix,
+.vsblockengine .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb-aifix-auto-fix {
+	color: var(--vsblocks-editorLightBulbAutoFix-foreground, var(--vsblocks-editorLightBulb-foreground));
 }
 
-.monaco-editor .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb-sparkle-filled {
-	color: var(--vscode-editorLightBulbAi-foreground, var(--vscode-icon-foreground));
+.vsblockengine .glyph-margin-widgets .cgmr.codicon-gutter-lightbulb-sparkle-filled {
+	color: var(--vsblocks-editorLightBulbAi-foreground, var(--vsblocks-icon-foreground));
 }

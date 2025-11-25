@@ -3,4 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-// empty placeholder declaration for the `viewsWelcome`-contribution point
+declare module 'vsblocks' {
+	export interface CommentEditorActionsMenu {
+		actions: CommentEditorAction[];
+	}
+}

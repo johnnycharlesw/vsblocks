@@ -635,7 +635,7 @@ export class NotebookEditorWidget extends Disposable implements INotebookEditorD
 		this._register(this.instantiationService.createInstance(NotebookHorizontalTracker, this, this._list.scrollableElement));
 
 		this._overflowContainer = document.createElement('div');
-		this._overflowContainer.classList.add('notebook-overflow-widget-container', 'monaco-editor');
+		this._overflowContainer.classList.add('notebook-overflow-widget-container', 'vsblockengine');
 		DOM.append(parent, this._overflowContainer);
 	}
 
@@ -752,7 +752,7 @@ export class NotebookEditorWidget extends Disposable implements INotebookEditorD
 				border-radius: 4px;
 				width: 0px;
 				margin-left: ${focusIndicatorLeftMargin}px;
-				border-color: var(--vscode-notebook-inactiveFocusedCellBorder) !important;
+				border-color: var(--vsblocks-notebook-inactiveFocusedCellBorder) !important;
 			}
 
 			.monaco-workbench .notebookOverlay .monaco-list .monaco-list-row.focused .cell-focus-indicator-left .codeOutput-focus-indicator-container,
@@ -771,7 +771,7 @@ export class NotebookEditorWidget extends Disposable implements INotebookEditorD
 			styleSheets.push(`
 			.monaco-workbench .notebookOverlay .monaco-list .monaco-list-row.focused .cell-inner-container.cell-output-focus .cell-focus-indicator-left .codeOutput-focus-indicator,
 			.monaco-workbench .notebookOverlay .monaco-list:focus-within .monaco-list-row.focused .cell-inner-container .cell-focus-indicator-left .codeOutput-focus-indicator {
-				border-color: var(--vscode-notebook-focusedCellBorder) !important;
+				border-color: var(--vsblocks-notebook-focusedCellBorder) !important;
 			}
 
 			.monaco-workbench .notebookOverlay .monaco-list .monaco-list-row .cell-inner-container .cell-focus-indicator-left .output-focus-indicator {
@@ -868,12 +868,12 @@ export class NotebookEditorWidget extends Disposable implements INotebookEditorD
 		styleSheets.push(`
 			.notebookOverlay .monaco-list .monaco-list-row.code-cell-row.nb-multiCellHighlight:has(+ .monaco-list-row.nb-multiCellHighlight) .cell-focus-indicator-bottom {
 				height: ${bottomToolbarGap + cellBottomMargin}px;
-				background-color: var(--vscode-notebook-symbolHighlightBackground) !important;
+				background-color: var(--vsblocks-notebook-symbolHighlightBackground) !important;
 			}
 
 			.notebookOverlay .monaco-list .monaco-list-row.markdown-cell-row.nb-multiCellHighlight:has(+ .monaco-list-row.nb-multiCellHighlight) .cell-focus-indicator-bottom {
 				height: ${bottomToolbarGap + cellBottomMargin - 6}px;
-				background-color: var(--vscode-notebook-symbolHighlightBackground) !important;
+				background-color: var(--vsblocks-notebook-symbolHighlightBackground) !important;
 			}
 		`);
 

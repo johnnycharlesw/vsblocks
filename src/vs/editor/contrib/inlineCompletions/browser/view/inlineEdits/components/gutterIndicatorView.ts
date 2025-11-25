@@ -343,7 +343,7 @@ export class InlineEditsGutterIndicator extends Disposable {
 					zIndex: '20',
 					position: 'absolute',
 					backgroundColor: this._gutterIndicatorStyles.map(v => v.background),
-					['--vscodeIconForeground' as any]: this._gutterIndicatorStyles.map(v => v.foreground),
+					['--vsblocksIconForeground' as any]: this._gutterIndicatorStyles.map(v => v.foreground),
 					border: this._gutterIndicatorStyles.map(v => `1px solid ${v.border}`),
 					boxSizing: 'border-box',
 					borderRadius: '4px',

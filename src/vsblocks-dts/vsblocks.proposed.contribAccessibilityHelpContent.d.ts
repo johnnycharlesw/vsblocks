@@ -13,3 +13,13 @@
  *
  * The content is provided as a markdown string and can contain commands that will be resolved along with their keybindings.
  */
+
+// I finished it @johnnycharlesw
+declare module 'vsblocks' {
+	export interface ViewContribution {
+		/**
+		 * The accessibility help content for the view.
+		 */
+		accessibilityHelpContent?: string;
+	}
+}

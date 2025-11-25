@@ -46,7 +46,7 @@ export class Notebook {
 	}
 
 	async waitForTypeInEditor(text: string): Promise<any> {
-		const editor = `${activeRowSelector} .monaco-editor`;
+		const editor = `${activeRowSelector} .vsblockengine`;
 
 		await this.code.waitForElement(editor);
 
@@ -63,7 +63,7 @@ export class Notebook {
 	}
 
 	private async _waitForActiveCellEditorContents(accept: (contents: string) => boolean): Promise<any> {
-		const selector = `${activeRowSelector} .monaco-editor .view-lines`;
+		const selector = `${activeRowSelector} .vsblockengine .view-lines`;
 		return this.code.waitForTextContent(selector, undefined, c => accept(c.replace(/\u00a0/g, ' ')));
 	}
 

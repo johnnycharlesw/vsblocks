@@ -11,41 +11,41 @@
 
 /* All widgets */
 /* I am not a big fan of this rule */
-.monaco-editor .editor-widget input {
+.vsblockengine .editor-widget input {
 	color: inherit;
 }
 
 /* -------------------- Editor -------------------- */
 
-.monaco-editor {
+.vsblockengine {
 	position: relative;
 	overflow: visible;
 	-webkit-text-size-adjust: 100%;
-	color: var(--vscode-editor-foreground);
-	background-color: var(--vscode-editor-background);
+	color: var(--vsblocks-editor-foreground);
+	background-color: var(--vsblocks-editor-background);
 	overflow-wrap: initial;
 }
-.monaco-editor-background {
-	background-color: var(--vscode-editor-background);
+.vsblockengine-background {
+	background-color: var(--vsblocks-editor-background);
 }
-.monaco-editor .rangeHighlight {
-	background-color: var(--vscode-editor-rangeHighlightBackground);
+.vsblockengine .rangeHighlight {
+	background-color: var(--vsblocks-editor-rangeHighlightBackground);
 	box-sizing: border-box;
-	border: 1px solid var(--vscode-editor-rangeHighlightBorder);
+	border: 1px solid var(--vsblocks-editor-rangeHighlightBorder);
 }
-.monaco-editor.hc-black .rangeHighlight, .monaco-editor.hc-light .rangeHighlight {
+.vsblockengine.hc-black .rangeHighlight, .vsblockengine.hc-light .rangeHighlight {
 	border-style: dotted;
 }
-.monaco-editor .symbolHighlight {
-	background-color: var(--vscode-editor-symbolHighlightBackground);
+.vsblockengine .symbolHighlight {
+	background-color: var(--vsblocks-editor-symbolHighlightBackground);
 	box-sizing: border-box;
-	border: 1px solid var(--vscode-editor-symbolHighlightBorder);
+	border: 1px solid var(--vsblocks-editor-symbolHighlightBorder);
 }
-.monaco-editor.hc-black .symbolHighlight, .monaco-editor.hc-light .symbolHighlight {
+.vsblockengine.hc-black .symbolHighlight, .vsblockengine.hc-light .symbolHighlight {
 	border-style: dotted;
 }
 
-.monaco-editor .editorCanvas {
+.vsblockengine .editorCanvas {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -55,65 +55,65 @@
 
 /* -------------------- Misc -------------------- */
 
-.monaco-editor .overflow-guard {
+.vsblockengine .overflow-guard {
 	position: relative;
 	overflow: hidden;
 }
 
-.monaco-editor .view-overlays {
+.vsblockengine .view-overlays {
 	position: absolute;
 	top: 0;
 }
 
-.monaco-editor .view-overlays > div, .monaco-editor .margin-view-overlays > div {
+.vsblockengine .view-overlays > div, .vsblockengine .margin-view-overlays > div {
 	position: absolute;
 	width: 100%;
 }
 
 /*
-.monaco-editor .auto-closed-character {
+.vsblockengine .auto-closed-character {
 	opacity: 0.3;
 }
 */
 
 
-.monaco-editor .squiggly-error {
-	border-bottom: 4px double var(--vscode-editorError-border);
+.vsblockengine .squiggly-error {
+	border-bottom: 4px double var(--vsblocks-editorError-border);
 }
-.monaco-editor .squiggly-error::before {
+.vsblockengine .squiggly-error::before {
 	display: block;
 	content: '';
 	width: 100%;
 	height: 100%;
-	background: var(--vscode-editorError-background);
+	background: var(--vsblocks-editorError-background);
 }
-.monaco-editor .squiggly-warning {
-	border-bottom: 4px double var(--vscode-editorWarning-border);
+.vsblockengine .squiggly-warning {
+	border-bottom: 4px double var(--vsblocks-editorWarning-border);
 }
-.monaco-editor .squiggly-warning::before {
+.vsblockengine .squiggly-warning::before {
 	display: block;
 	content: '';
 	width: 100%;
 	height: 100%;
-	background: var(--vscode-editorWarning-background);
+	background: var(--vsblocks-editorWarning-background);
 }
-.monaco-editor .squiggly-info {
-	border-bottom: 4px double var(--vscode-editorInfo-border);
+.vsblockengine .squiggly-info {
+	border-bottom: 4px double var(--vsblocks-editorInfo-border);
 }
-.monaco-editor .squiggly-info::before {
+.vsblockengine .squiggly-info::before {
 	display: block;
 	content: '';
 	width: 100%;
 	height: 100%;
-	background: var(--vscode-editorInfo-background);
+	background: var(--vsblocks-editorInfo-background);
 }
-.monaco-editor .squiggly-hint {
-	border-bottom: 2px dotted var(--vscode-editorHint-border);
+.vsblockengine .squiggly-hint {
+	border-bottom: 2px dotted var(--vsblocks-editorHint-border);
 }
-.monaco-editor.showUnused .squiggly-unnecessary {
-	border-bottom: 2px dashed var(--vscode-editorUnnecessaryCode-border);
+.vsblockengine.showUnused .squiggly-unnecessary {
+	border-bottom: 2px dashed var(--vsblocks-editorUnnecessaryCode-border);
 }
-.monaco-editor.showDeprecated .squiggly-inline-deprecated {
+.vsblockengine.showDeprecated .squiggly-inline-deprecated {
 	text-decoration: line-through;
-	text-decoration-color: var(--vscode-editor-foreground, inherit);
+	text-decoration-color: var(--vsblocks-editor-foreground, inherit);
 }

@@ -844,7 +844,7 @@ suite('Editor Commands - ShiftCommand', () => {
 		);
 	});
 
-	test('issue microsoft/monaco-editor#443: Indentation of a single row deletes selected text in some cases', () => {
+	test('issue microsoft/vsblockengine#443: Indentation of a single row deletes selected text in some cases', () => {
 		testCommand(
 			[
 				'Hello world!',

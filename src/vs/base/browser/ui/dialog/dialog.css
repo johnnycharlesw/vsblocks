@@ -227,7 +227,7 @@
 	outline-offset: 2px !important;
 	outline-width: 1px;
 	outline-style: solid;
-	outline-color: var(--vscode-focusBorder);
+	outline-color: var(--vsblocks-focusBorder);
 	border-radius: 2px;
 }
 

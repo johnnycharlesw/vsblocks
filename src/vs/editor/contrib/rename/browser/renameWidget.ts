@@ -196,7 +196,7 @@ export class RenameWidget implements IRenameWidget, IContentWidget, IDisposable 
 	getDomNode(): HTMLElement {
 		if (!this._domNode) {
 			this._domNode = document.createElement('div');
-			this._domNode.className = 'monaco-editor rename-box';
+			this._domNode.className = 'vsblockengine rename-box';
 
 			this._domNode.appendChild(this._inputWithButton.domNode);
 
@@ -960,7 +960,7 @@ class InputWithButton implements IDisposable {
 				this.domNode.style.outlineWidth = '1px';
 				this.domNode.style.outlineStyle = 'solid';
 				this.domNode.style.outlineOffset = '-1px';
-				this.domNode.style.outlineColor = 'var(--vscode-focusBorder)';
+				this.domNode.style.outlineColor = 'var(--vsblocks-focusBorder)';
 			}));
 			this._disposables.add(dom.addDisposableListener(this.input, dom.EventType.BLUR, () => {
 				this.domNode.style.outline = 'none';

@@ -852,12 +852,12 @@ export class TextAreaEditContext extends AbstractEditContext {
 		const options = this._context.configuration.options;
 
 		if (options.get(EditorOption.glyphMargin)) {
-			tac.setClassName('monaco-editor-background textAreaCover ' + Margin.OUTER_CLASS_NAME);
+			tac.setClassName('vsblockengine-background textAreaCover ' + Margin.OUTER_CLASS_NAME);
 		} else {
 			if (options.get(EditorOption.lineNumbers).renderType !== RenderLineNumbersType.Off) {
-				tac.setClassName('monaco-editor-background textAreaCover ' + LineNumbersOverlay.CLASS_NAME);
+				tac.setClassName('vsblockengine-background textAreaCover ' + LineNumbersOverlay.CLASS_NAME);
 			} else {
-				tac.setClassName('monaco-editor-background textAreaCover');
+				tac.setClassName('vsblockengine-background textAreaCover');
 			}
 		}
 	}

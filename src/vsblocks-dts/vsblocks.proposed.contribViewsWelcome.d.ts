@@ -1,6 +1,12 @@
 /*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Copyright (c) John Charles Woods.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-
-// empty placeholder declaration for the `comments/comment/editorActions` menu
+declare module 'vsblocks' {
+	export interface ViewContribution {
+		/**
+		 * The welcome view contribution.
+		 */
+		welcomeView?: WelcomeView;
+	}
+}

@@ -103,8 +103,8 @@
 	margin: 0 7px 0 5px;
 	padding: 0 16px 0 10px;
 	border-left: 5px solid;
-	background: var(--vscode-textBlockQuote-background);
-	border-color: var(--vscode-textBlockQuote-border);
+	background: var(--vsblocks-textBlockQuote-background);
+	border-color: var(--vsblocks-textBlockQuote-border);
 }
 
 .monaco-workbench .part.editor > .content .walkThroughContent .monaco-tokenized-source {
@@ -131,37 +131,37 @@
 	display: initial;
 }
 
-.monaco-workbench.hc-black .part.editor > .content .walkThroughContent .monaco-editor,
-.monaco-workbench.hc-light .part.editor > .content .walkThroughContent .monaco-editor {
+.monaco-workbench.hc-black .part.editor > .content .walkThroughContent .vsblockengine,
+.monaco-workbench.hc-light .part.editor > .content .walkThroughContent .vsblockengine {
 	border-width: 1px;
 	border-style: solid;
 }
 
 .monaco-workbench .part.editor > .content .walkThroughContent a[href] {
-	color: var(--vscode-textLink-foreground);
+	color: var(--vsblocks-textLink-foreground);
 }
 
 .monaco-workbench .part.editor > .content .walkThroughContent a:hover,
 .monaco-workbench .part.editor > .content .walkThroughContent a[href]:active {
-	color: var(--vscode-textLink-activeForeground);
+	color: var(--vsblocks-textLink-activeForeground);
 }
 
 .monaco-workbench .part.editor > .content .walkThroughContent a[href]:focus {
-	outline-color: var(--vscode-focusBorder);
+	outline-color: var(--vsblocks-focusBorder);
 }
 
 .monaco-workbench .part.editor > .content .walkThroughContent code,
 .monaco-workbench .part.editor > .content .walkThroughContent .shortcut {
-	color: var(--vscode-textPreformat-foreground);
-	background-color: var(--vscode-textPreformat-background);
+	color: var(--vsblocks-textPreformat-foreground);
+	background-color: var(--vsblocks-textPreformat-background);
 	border-radius: 3px;
 }
 
-.monaco-workbench .part.editor > .content .walkThroughContent .monaco-editor {
-	border-color: var(--vscode-contrastBorder);
+.monaco-workbench .part.editor > .content .walkThroughContent .vsblockengine {
+	border-color: var(--vsblocks-contrastBorder);
 }
 
-.monaco-workbench .part.editor > .content .walkThroughContent .monaco-editor-background,
+.monaco-workbench .part.editor > .content .walkThroughContent .vsblockengine-background,
 .monaco-workbench .part.editor > .content .walkThroughContent .margin-view-overlays {
-	background: var(--vscode-walkThrough-embeddedEditorBackground);
+	background: var(--vsblocks-walkThrough-embeddedEditorBackground);
 }

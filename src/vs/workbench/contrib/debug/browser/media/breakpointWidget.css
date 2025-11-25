@@ -3,10 +3,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .zone-widget .zone-widget-container.breakpoint-widget {
+.vsblockengine .zone-widget .zone-widget-container.breakpoint-widget {
 	display: flex;
 	border-color: #007ACC;
-	background: var(--vscode-editor-background);
+	background: var(--vsblocks-editor-background);
 
 	.breakpoint-select-container {
 		display: flex;

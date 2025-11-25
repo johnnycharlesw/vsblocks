@@ -101,6 +101,6 @@ export function getSelectionHighlightDecorationOptions(hasSemanticHighlights: bo
 registerThemingParticipant((theme, collector) => {
 	const selectionHighlight = theme.getColor(editorSelectionHighlight);
 	if (selectionHighlight) {
-		collector.addRule(`.monaco-editor .selectionHighlight { background-color: ${selectionHighlight.transparent(0.5)}; }`);
+		collector.addRule(`.vsblockengine .selectionHighlight { background-color: ${selectionHighlight.transparent(0.5)}; }`);
 	}
 });

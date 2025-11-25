@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /* Uncomment to see lines flashing when they're painted */
-/*.monaco-editor .view-lines > .view-line {
+/*.vsblockengine .view-lines > .view-line {
 	background-color: none;
 	animation-name: flash-background;
 	animation-duration: 800ms;
@@ -20,68 +20,68 @@
 }
 
 .mtkoverflow {
-	background-color: var(--vscode-button-background, var(--vscode-editor-background));
-	color: var(--vscode-button-foreground, var(--vscode-editor-foreground));
+	background-color: var(--vsblocks-button-background, var(--vsblocks-editor-background));
+	color: var(--vsblocks-button-foreground, var(--vsblocks-editor-foreground));
 	border-width: 1px;
 	border-style: solid;
-	border-color: var(--vscode-contrastBorder);
+	border-color: var(--vsblocks-contrastBorder);
 	border-radius: 2px;
 	padding: 4px;
 	cursor: pointer;
 }
 .mtkoverflow:hover {
-	background-color: var(--vscode-button-hoverBackground);
+	background-color: var(--vsblocks-button-hoverBackground);
 }
 
-.monaco-editor.no-user-select .lines-content,
-.monaco-editor.no-user-select .view-line,
-.monaco-editor.no-user-select .view-lines {
+.vsblockengine.no-user-select .lines-content,
+.vsblockengine.no-user-select .view-line,
+.vsblockengine.no-user-select .view-lines {
 	user-select: none;
 	-webkit-user-select: none;
 }
 /* Use user-select: text for lookup feature on macOS */
 /* https://github.com/johnnycharlesw/vsblocks/issues/85632 */
-.monaco-editor.mac .lines-content:hover,
-.monaco-editor.mac .view-line:hover,
-.monaco-editor.mac .view-lines:hover {
+.vsblockengine.mac .lines-content:hover,
+.vsblockengine.mac .view-line:hover,
+.vsblockengine.mac .view-lines:hover {
 	user-select: text;
 	-webkit-user-select: text;
 	-ms-user-select: text;
 }
 
-.monaco-editor.enable-user-select {
+.vsblockengine.enable-user-select {
 	user-select: initial;
 	-webkit-user-select: initial;
 }
 
-.monaco-editor .view-lines {
+.vsblockengine .view-lines {
 	white-space: nowrap;
 }
 
-.monaco-editor .view-line {
+.vsblockengine .view-line {
 	box-sizing: border-box;
 	position: absolute;
 	width: 100%;
 }
 
 /* There are view-lines in view-zones. We have to make sure this rule does not apply to them, as they don't set a line height */
-.monaco-editor .lines-content > .view-lines > .view-line > span {
+.vsblockengine .lines-content > .view-lines > .view-line > span {
 	top: 0;
 	bottom: 0;
 	position: absolute;
 }
 
-.monaco-editor .mtkw {
-	color: var(--vscode-editorWhitespace-foreground) !important;
+.vsblockengine .mtkw {
+	color: var(--vsblocks-editorWhitespace-foreground) !important;
 }
 
-.monaco-editor .mtkz {
+.vsblockengine .mtkz {
 	display: inline-block;
-	color: var(--vscode-editorWhitespace-foreground) !important;
+	color: var(--vsblocks-editorWhitespace-foreground) !important;
 }
 
 /* TODO@tokenization bootstrap fix */
-/*.monaco-editor .view-line > span > span {
+/*.vsblockengine .view-line > span > span {
 	float: none;
 	min-height: inherit;
 	margin-left: inherit;

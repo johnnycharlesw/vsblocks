@@ -3293,7 +3293,7 @@ declare namespace monaco.editor {
 		lineNumbersMinChars?: number;
 		/**
 		 * Enable the rendering of the glyph margin.
-		 * Defaults to true invsblocks and to false in monaco-editor.
+		 * Defaults to true invsblocks and to false in vsblockengine.
 		 */
 		glyphMargin?: boolean;
 		/**
@@ -3506,7 +3506,7 @@ declare namespace monaco.editor {
 		wordWrapColumn?: number;
 		/**
 		 * Control indentation of wrapped lines. Can be: 'none', 'same', 'indent' or 'deepIndent'.
-		 * Defaults to 'same' invsblocks and to 'none' in monaco-editor.
+		 * Defaults to 'same' invsblocks and to 'none' in vsblockengine.
 		 */
 		wrappingIndent?: 'none' | 'same' | 'indent' | 'deepIndent';
 		/**

@@ -7,7 +7,7 @@
 	opacity: 0;
 	transition: opacity 0.2s ease-in-out;
 	display: flex;
-	box-shadow: 0 2px 8px var(--vscode-widget-shadow);
+	box-shadow: 0 2px 8px var(--vsblocks-widget-shadow);
 }
 
 .chat-diff-change-content-widget.hover {
@@ -17,14 +17,14 @@
 .chat-diff-change-content-widget .monaco-action-bar {
 	padding: 2px;
 	border-radius: 2px;
-	background-color: var(--vscode-button-background);
-	color: var(--vscode-button-foreground);
+	background-color: var(--vsblocks-button-background);
+	color: var(--vsblocks-button-foreground);
 }
 
 .chat-diff-change-content-widget .monaco-action-bar .action-item .action-label {
 	height: 14px;
 	border-radius: 2px;
-	color: var(--vscode-button-foreground);
+	color: var(--vsblocks-button-foreground);
 }
 
 .chat-diff-change-content-widget .monaco-action-bar .action-item .action-label.codicon {
@@ -32,7 +32,7 @@
 	padding: 2px;
 	font-size: 16px;
 	line-height: 16px;
-	color: var(--vscode-button-foreground);
+	color: var(--vsblocks-button-foreground);
 }
 
 .chat-diff-change-content-widget .monaco-action-bar .action-item .action-label.codicon[class*='codicon-'] {

@@ -106,6 +106,6 @@ registerThemingParticipant((theme, collector) => {
 	const lineHighlight = theme.getColor(editorLineHighlight);
 	const imeBackground = (lineHighlight && !lineHighlight.isTransparent() ? lineHighlight : background);
 	if (imeBackground) {
-		collector.addRule(`.monaco-editor .inputarea.ime-input { background-color: ${imeBackground}; }`);
+		collector.addRule(`.vsblockengine .inputarea.ime-input { background-color: ${imeBackground}; }`);
 	}
 });

@@ -16,7 +16,7 @@ EditorOptions.autoIndent.defaultValue = EditorAutoIndentStrategy.Advanced;
 EditorOptions.overviewRulerLanes.defaultValue = 2;
 
 // We need to register a formatter selector which simply picks the first available formatter.
-// See https://github.com/microsoft/monaco-editor/issues/2327
+// See https://github.com/microsoft/vsblockengine/issues/2327
 FormattingConflicts.setFormatterSelector((formatter, document, mode) => Promise.resolve(formatter[0]));
 
 const api = createMonacoBaseAPI();

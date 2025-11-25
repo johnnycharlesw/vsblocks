@@ -113,7 +113,7 @@ registerThemingParticipant((theme, collector) => {
 	];
 	const colorProvider = new ColorProvider();
 
-	collector.addRule(`.monaco-editor .${colorProvider.unexpectedClosingBracketClassName} { color: ${theme.getColor(editorBracketHighlightingUnexpectedBracketForeground)}; }`);
+	collector.addRule(`.vsblockengine .${colorProvider.unexpectedClosingBracketClassName} { color: ${theme.getColor(editorBracketHighlightingUnexpectedBracketForeground)}; }`);
 
 	const colorValues = colors
 		.map(c => theme.getColor(c))
@@ -122,6 +122,6 @@ registerThemingParticipant((theme, collector) => {
 
 	for (let level = 0; level < 30; level++) {
 		const color = colorValues[level % colorValues.length];
-		collector.addRule(`.monaco-editor .${colorProvider.getInlineClassNameOfLevel(level)} { color: ${color}; }`);
+		collector.addRule(`.vsblockengine .${colorProvider.getInlineClassNameOfLevel(level)} { color: ${color}; }`);
 	}
 });

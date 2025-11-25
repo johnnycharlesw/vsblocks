@@ -237,17 +237,17 @@ export class CurrentLineMarginHighlightOverlay extends AbstractLineHighlightOver
 registerThemingParticipant((theme, collector) => {
 	const lineHighlight = theme.getColor(editorLineHighlight);
 	if (lineHighlight) {
-		collector.addRule(`.monaco-editor .view-overlays .current-line { background-color: ${lineHighlight}; }`);
-		collector.addRule(`.monaco-editor .margin-view-overlays .current-line-margin { background-color: ${lineHighlight}; border: none; }`);
+		collector.addRule(`.vsblockengine .view-overlays .current-line { background-color: ${lineHighlight}; }`);
+		collector.addRule(`.vsblockengine .margin-view-overlays .current-line-margin { background-color: ${lineHighlight}; border: none; }`);
 	}
 	if (!lineHighlight || lineHighlight.isTransparent() || theme.defines(editorLineHighlightBorder)) {
 		const lineHighlightBorder = theme.getColor(editorLineHighlightBorder);
 		if (lineHighlightBorder) {
-			collector.addRule(`.monaco-editor .view-overlays .current-line-exact { border: 2px solid ${lineHighlightBorder}; }`);
-			collector.addRule(`.monaco-editor .margin-view-overlays .current-line-exact-margin { border: 2px solid ${lineHighlightBorder}; }`);
+			collector.addRule(`.vsblockengine .view-overlays .current-line-exact { border: 2px solid ${lineHighlightBorder}; }`);
+			collector.addRule(`.vsblockengine .margin-view-overlays .current-line-exact-margin { border: 2px solid ${lineHighlightBorder}; }`);
 			if (isHighContrast(theme.type)) {
-				collector.addRule(`.monaco-editor .view-overlays .current-line-exact { border-width: 1px; }`);
-				collector.addRule(`.monaco-editor .margin-view-overlays .current-line-exact-margin { border-width: 1px; }`);
+				collector.addRule(`.vsblockengine .view-overlays .current-line-exact { border-width: 1px; }`);
+				collector.addRule(`.vsblockengine .margin-view-overlays .current-line-exact-margin { border-width: 1px; }`);
 			}
 		}
 	}
