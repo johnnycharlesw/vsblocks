@@ -42,7 +42,7 @@ import { GroupKind } from '../common/taskConfiguration.js';
 import { IResolveSet, IResolvedVariables, ITaskExecuteResult, ITaskResolver, ITaskSummary, ITaskSystem, ITaskSystemInfo, ITaskSystemInfoResolver, ITaskTerminateResponse, TaskError, TaskErrors, TaskExecuteKind, Triggers, VerifiedTask } from '../common/taskSystem.js';
 import { CommandOptions, CommandString, ContributedTask, CustomTask, DependsOrder, ICommandConfiguration, IConfigurationProperties, IExtensionTaskSource, IPresentationOptions, IShellConfiguration, IShellQuotingOptions, ITaskEvent, InMemoryTask, PanelKind, RerunForActiveTerminalCommandId, RevealKind, RevealProblemKind, RuntimeType, ShellQuoting, TASK_TERMINAL_ACTIVE, Task, TaskEvent, TaskEventKind, TaskScope, TaskSourceKind, rerunTaskIcon } from '../common/tasks.js';
 import { ITerminalGroupService, ITerminalInstance, ITerminalService } from '../../terminal/browser/terminal.js';
-import { VSCodeOscProperty, VSCodeOscPt, VSCodeSequence } from '../../terminal/browser/terminalEscapeSequences.js';
+import { VSBlocksOscProperty, VSBlocksOscPt, VSBlocksSequence } from '../../terminal/browser/terminalEscapeSequences.js';
 import { TerminalProcessExtHostProxy } from '../../terminal/browser/terminalProcessExtHostProxy.js';
 import { ITerminalProfileResolverService, TERMINAL_VIEW_ID } from '../../terminal/common/terminal.js';
 import { IConfigurationResolverService } from '../../../services/configurationResolver/common/configurationResolver.js';
@@ -176,17 +176,17 @@ export class TerminalTaskSystem extends Disposable implements ITaskSystem {
 
 	taskShellIntegrationStartSequence(cwd: string | URI | undefined): string {
 		return (
-			VSCodeSequence(VSCodeOscPt.PromptStart) +
-			VSCodeSequence(VSCodeOscPt.Property, `${VSCodeOscProperty.Task}=True`) +
+			VSBlocksSequence(VSBlocksOscPt.PromptStart) +
+			VSBlocksSequence(VSBlocksOscPt.Property, `${VSBlocksOscProperty.Task}=True`) +
 			(cwd
-				? VSCodeSequence(VSCodeOscPt.Property, `${VSCodeOscProperty.Cwd}=${typeof cwd === 'string' ? cwd : cwd.fsPath}`)
+				? VSBlocksSequence(VSBlocksOscPt.Property, `${VSBlocksOscProperty.Cwd}=${typeof cwd === 'string' ? cwd : cwd.fsPath}`)
 				: ''
 			) +
-			VSCodeSequence(VSCodeOscPt.CommandStart)
+			VSBlocksSequence(VSBlocksOscPt.CommandStart)
 		);
 	}
 	get taskShellIntegrationOutputSequence(): string {
-		return VSCodeSequence(VSCodeOscPt.CommandExecuted);
+		return VSBlocksSequence(VSBlocksOscPt.CommandExecuted);
 	}
 
 	constructor(
@@ -1947,7 +1947,7 @@ function getWaitOnExitValue(presentationOptions: IPresentationOptions, configura
 
 function taskShellIntegrationWaitOnExitSequence(message: string): (exitCode: number) => string {
 	return (exitCode) => {
-		return `${VSCodeSequence(VSCodeOscPt.CommandFinished, exitCode.toString())}${message}`;
+		return `${VSBlocksSequence(VSBlocksOscPt.CommandFinished, exitCode.toString())}${message}`;
 	};
 }
 

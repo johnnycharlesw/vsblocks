@@ -128,7 +128,7 @@ suite('CodeEditorWidget', () => {
 		});
 	});
 
-	test('monaco-editor issue #2774 - Wrong order of events onDidChangeModelContent and onDidChangeCursorSelection on redo', () => {
+	test('vsblockengine issue #2774 - Wrong order of events onDidChangeModelContent and onDidChangeCursorSelection on redo', () => {
 		withTestCodeEditor('', {}, (editor, viewModel) => {
 			const disposables = new DisposableStore();
 

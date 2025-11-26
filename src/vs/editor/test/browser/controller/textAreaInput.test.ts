@@ -639,7 +639,7 @@ suite('TextAreaInput', () => {
 
 	test('macOS - Firefox - long press with mouse', async () => {
 		// macOS, English, long press e and choose using mouse
-		// See https://github.com/microsoft/monaco-editor/issues/2358
+		// See https://github.com/microsoft/vsblockengine/issues/2358
 		const recorded: IRecorded = {
 			env: { OS: OperatingSystem.Macintosh, browser: { isAndroid: false, isFirefox: true, isChrome: false, isSafari: false } },
 			initial: { value: 'aaaa', selectionStart: 2, selectionEnd: 2, selectionDirection: 'forward' },

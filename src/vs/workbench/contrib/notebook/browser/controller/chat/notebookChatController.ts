@@ -382,7 +382,7 @@ export class NotebookChatController extends Disposable implements INotebookEdito
 		this._widgetDisposableStore.clear();
 
 		const viewZoneContainer = document.createElement('div');
-		viewZoneContainer.classList.add('monaco-editor');
+		viewZoneContainer.classList.add('vsblockengine');
 		const widgetContainer = document.createElement('div');
 		widgetContainer.style.position = 'absolute';
 		viewZoneContainer.appendChild(widgetContainer);

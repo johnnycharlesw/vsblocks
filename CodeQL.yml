@@ -19,7 +19,7 @@ path_classifiers:
     # generated code.
     - out
     - "out-build"
-    - "out-vscode"
+    - "out-vsblocks"
     - "**/out/**"
     - ".build/distro/cli-patches/index.js"
 

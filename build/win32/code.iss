@@ -15,7 +15,7 @@ AppUpdatesURL=https://code.visualstudio.com/
 DefaultGroupName={#NameLong}
 AllowNoIcons=yes
 OutputDir={#OutputDir}
-OutputBaseFilename=VSCodeSetup
+OutputBaseFilename=VSBlocksSetup
 Compression=lzma
 SolidCompression=yes
 AppMutex={code:GetAppMutex}
@@ -1512,7 +1512,7 @@ var
 begin
   // Remove the old context menu package
   // Following condition can be removed after two versions.
-  if QualityIsInsiders() and AppxPackageInstalled('Microsoft.VSCodeInsiders', RemoveAppxPackageResultCode) then begin
+  if QualityIsInsiders() and AppxPackageInstalled('Microsoft.VSBlocksInsiders', RemoveAppxPackageResultCode) then begin
     Log('Deleting old appx ' + AppxPackageFullname + ' installation...');
     ShellExec('', 'powershell.exe', '-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -Command ' + AddQuotes('Remove-AppxPackage -Package ''' + AppxPackageFullname + ''''), '', SW_HIDE, ewWaitUntilTerminated, RemoveAppxPackageResultCode);
     DeleteFile(ExpandConstant('{app}\appx\code_insiders_explorer_{#Arch}.appx'));
@@ -1590,7 +1590,7 @@ begin
   until Length(Text)=0;
 end;
 
-function NeedsAddToPath(VSCode: string): boolean;
+function NeedsAddToPath(VSBlocks: string): boolean;
 var
   OrigPath: string;
 begin
@@ -1599,25 +1599,25 @@ begin
     Result := True;
     exit;
   end;
-  Result := Pos(';' + VSCode + ';', ';' + OrigPath + ';') = 0;
+  Result := Pos(';' + VSBlocks + ';', ';' + OrigPath + ';') = 0;
 end;
 
-function AddToPath(VSCode: string): string;
+function AddToPath(VSBlocks: string): string;
 var
   OrigPath: string;
 begin
   RegQueryStringValue({#EnvironmentRootKey}, '{#EnvironmentKey}', 'Path', OrigPath)
 
   if (Length(OrigPath) > 0) and (OrigPath[Length(OrigPath)] = ';') then
-    Result := OrigPath + VSCode
+    Result := OrigPath + VSBlocks
   else
-    Result := OrigPath + ';' + VSCode
+    Result := OrigPath + ';' + VSBlocks
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var
   Path: string;
-  VSCodePath: string;
+  VSBlocksPath: string;
   Parts: TArrayOfString;
   NewPath: string;
   i: Integer;
@@ -1635,10 +1635,10 @@ begin
     exit;
   end;
   NewPath := '';
-  VSCodePath := ExpandConstant('{app}\bin')
+  VSBlocksPath := ExpandConstant('{app}\bin')
   Explode(Parts, Path, ';');
   for i:=0 to GetArrayLength(Parts)-1 do begin
-    if CompareText(Parts[i], VSCodePath) <> 0 then begin
+    if CompareText(Parts[i], VSBlocksPath) <> 0 then begin
       NewPath := NewPath + Parts[i];
 
       if i < GetArrayLength(Parts) - 1 then begin

@@ -38,9 +38,9 @@ HoverParticipantRegistry.register(MarkerHoverParticipant);
 registerThemingParticipant((theme, collector) => {
 	const hoverBorder = theme.getColor(editorHoverBorder);
 	if (hoverBorder) {
-		collector.addRule(`.monaco-editor .monaco-hover .hover-row:not(:first-child):not(:empty) { border-top: 1px solid ${hoverBorder.transparent(0.5)}; }`);
-		collector.addRule(`.monaco-editor .monaco-hover hr { border-top: 1px solid ${hoverBorder.transparent(0.5)}; }`);
-		collector.addRule(`.monaco-editor .monaco-hover hr { border-bottom: 0px solid ${hoverBorder.transparent(0.5)}; }`);
+		collector.addRule(`.vsblockengine .monaco-hover .hover-row:not(:first-child):not(:empty) { border-top: 1px solid ${hoverBorder.transparent(0.5)}; }`);
+		collector.addRule(`.vsblockengine .monaco-hover hr { border-top: 1px solid ${hoverBorder.transparent(0.5)}; }`);
+		collector.addRule(`.vsblockengine .monaco-hover hr { border-bottom: 0px solid ${hoverBorder.transparent(0.5)}; }`);
 	}
 });
 AccessibleViewRegistry.register(new HoverAccessibleView());

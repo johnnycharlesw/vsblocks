@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as path from 'path';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { RefType } from './api/git';
 import { Model } from './model';
 

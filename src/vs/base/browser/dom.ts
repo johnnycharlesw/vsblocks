@@ -1456,7 +1456,7 @@ export function computeScreenAwareSize(window: Window, cssPx: number): number {
  * if the window was opened or if it was blocked by the browser's popup blocker.
  * If you want to tell if the browser blocked the new window, use {@link windowOpenWithSuccess}.
  *
- * See https://github.com/microsoft/monaco-editor/issues/601
+ * See https://github.com/microsoft/vsblockengine/issues/601
  * To protect against malicious code in the linked site, particularly phishing attempts,
  * the window.opener should be set to null to prevent the linked site from having access
  * to change the location of the current page.
@@ -1500,8 +1500,8 @@ export function windowOpenPopup(url: string): void {
  * executing inside a sandboxed iframe. If it is not necessary to know if the
  * browser blocked the new window, use {@link windowOpenNoOpener}.
  *
- * See https://github.com/microsoft/monaco-editor/issues/601
- * See https://github.com/microsoft/monaco-editor/issues/2474
+ * See https://github.com/microsoft/vsblockengine/issues/601
+ * See https://github.com/microsoft/vsblockengine/issues/2474
  * See https://mathiasbynens.github.io/rel-noopener/
  *
  * @param url the url to open

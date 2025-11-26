@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { OutputItem, RendererContext } from 'vscode-notebook-renderer';
-import { Event } from 'vscode';
+import { Event } from 'vsblocks';
 
 export interface IDisposable {
 	dispose(): void;

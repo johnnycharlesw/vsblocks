@@ -7,7 +7,7 @@ import {
 	window, languages, Uri, Disposable, commands, QuickPickItem,
 	extensions, workspace, Extension, WorkspaceFolder, QuickPickItemKind,
 	ThemeIcon, TextDocument, LanguageStatusSeverity, l10n, DocumentSelector
-} from 'vscode';
+} from 'vsblocks';
 import { JSONLanguageStatus, JSONSchemaSettings } from './jsonClient';
 
 type ShowSchemasInput = {

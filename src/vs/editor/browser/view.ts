@@ -165,7 +165,7 @@ export class View extends ViewEventHandler {
 
 		// These two dom nodes must be constructed up front, since references are needed in the layout provider (scrolling & co.)
 		this._linesContent = createFastDomNode(document.createElement('div'));
-		this._linesContent.setClassName('lines-content' + ' monaco-editor-background');
+		this._linesContent.setClassName('lines-content' + ' vsblockengine-background');
 		this._linesContent.setPosition('absolute');
 
 		this.domNode = createFastDomNode(document.createElement('div'));

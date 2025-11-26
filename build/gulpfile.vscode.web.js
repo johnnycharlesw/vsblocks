@@ -92,7 +92,7 @@ const vscodeWebEntryPoints = [
  * @param extensionsRoot {string} The location where extension will be read from
  * @param {object} product The parsed product.json file contents
  */
-const createVSCodeWebFileContentMapper = (extensionsRoot, product) => {
+const createVSBlocksWebFileContentMapper = (extensionsRoot, product) => {
 	/**
 	 * @param {string} path
 	 * @returns {((content: string) => string) | undefined}
@@ -118,9 +118,9 @@ const createVSCodeWebFileContentMapper = (extensionsRoot, product) => {
 		return undefined;
 	};
 };
-exports.createVSCodeWebFileContentMapper = createVSCodeWebFileContentMapper;
+exports.createVSBlocksWebFileContentMapper = createVSBlocksWebFileContentMapper;
 
-const bundleVSCodeWebTask = task.define('bundle-vscode-web', task.series(
+const bundleVSBlocksWebTask = task.define('bundle-vscode-web', task.series(
 	util.rimraf('out-vscode-web'),
 	optimize.bundleTask(
 		{
@@ -129,18 +129,18 @@ const bundleVSCodeWebTask = task.define('bundle-vscode-web', task.series(
 				src: 'out-build',
 				entryPoints: vscodeWebEntryPoints,
 				resources: vscodeWebResources,
-				fileContentMapper: createVSCodeWebFileContentMapper('.build/web/extensions', product)
+				fileContentMapper: createVSBlocksWebFileContentMapper('.build/web/extensions', product)
 			}
 		}
 	)
 ));
 
-const minifyVSCodeWebTask = task.define('minify-vscode-web', task.series(
-	bundleVSCodeWebTask,
+const minifyVSBlocksWebTask = task.define('minify-vscode-web', task.series(
+	bundleVSBlocksWebTask,
 	util.rimraf('out-vscode-web-min'),
 	optimize.minifyTask('out-vscode-web', `https://main.vscode-cdn.net/sourcemaps/${commit}/core`)
 ));
-gulp.task(minifyVSCodeWebTask);
+gulp.task(minifyVSBlocksWebTask);
 
 /**
  * @param {string} sourceFolderName
@@ -227,7 +227,7 @@ const dashed = (/** @type {string} */ str) => (str ? `-${str}` : ``);
 
 	const vscodeWebTaskCI = task.define(`vscode-web${dashed(minified)}-ci`, task.series(
 		compileWebExtensionsBuildTask,
-		minified ? minifyVSCodeWebTask : bundleVSCodeWebTask,
+		minified ? minifyVSBlocksWebTask : bundleVSBlocksWebTask,
 		util.rimraf(path.join(BUILD_ROOT, destinationFolderName)),
 		packageTask(sourceFolderName, destinationFolderName)
 	));

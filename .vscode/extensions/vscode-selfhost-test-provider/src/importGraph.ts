@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { join } from 'path';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { bulkhead } from 'cockatiel';
 import { promises as fs } from 'fs';
 

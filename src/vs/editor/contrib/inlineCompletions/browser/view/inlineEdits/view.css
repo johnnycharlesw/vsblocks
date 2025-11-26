@@ -7,16 +7,16 @@
 	@keyframes blink { 50% { border-color: orange; }  }
 */
 
-.monaco-editor {
+.vsblockengine {
 	.inline-edits-view-indicator {
 		display: flex;
 
 		z-index: 34; /* Below the find widget */
 		height: 20px;
 
-		color: var(--vscode-inlineEdit-gutterIndicator-primaryForeground);
-		background-color: var(--vscode-inlineEdit-gutterIndicator-background);
-		border: 1px solid var(--vscode-inlineEdit-gutterIndicator-primaryBorder);
+		color: var(--vsblocks-inlineEdit-gutterIndicator-primaryForeground);
+		background-color: var(--vsblocks-inlineEdit-gutterIndicator-background);
+		border: 1px solid var(--vsblocks-inlineEdit-gutterIndicator-primaryBorder);
 		border-radius: 3px;
 
 		align-items: center;
@@ -63,7 +63,7 @@
 			transform: none;
 			transition: transform 0.2s ease-in-out;
 			.codicon {
-				color: var(--vscode-inlineEdit-gutterIndicator-primaryForeground);
+				color: var(--vsblocks-inlineEdit-gutterIndicator-primaryForeground);
 			}
 		}
 
@@ -77,7 +77,7 @@
 	}
 
 	.inline-edits-view .editorContainer {
-		.preview .monaco-editor {
+		.preview .vsblockengine {
 			.view-overlays .current-line-exact {
 				border: none;
 			}
@@ -97,49 +97,49 @@
 	}
 
 	.inlineCompletions-line-insert {
-		background: var(--vscode-inlineEdit-modifiedChangedLineBackground);
+		background: var(--vsblocks-inlineEdit-modifiedChangedLineBackground);
 	}
 
 	.inlineCompletions-line-delete {
-		background: var(--vscode-inlineEdit-originalChangedLineBackground);
+		background: var(--vsblocks-inlineEdit-originalChangedLineBackground);
 	}
 
 	.inlineCompletions-char-insert {
-		background: var(--vscode-inlineEdit-modifiedChangedTextBackground);
+		background: var(--vsblocks-inlineEdit-modifiedChangedTextBackground);
 		cursor: pointer;
 	}
 
 	.inlineCompletions-char-delete {
-		background: var(--vscode-inlineEdit-originalChangedTextBackground);
+		background: var(--vsblocks-inlineEdit-originalChangedTextBackground);
 	}
 
 	.inlineCompletions-char-delete.diff-range-empty {
 		margin-left: -1px;
-		border-left: solid var(--vscode-inlineEdit-originalChangedTextBackground) 3px;
+		border-left: solid var(--vsblocks-inlineEdit-originalChangedTextBackground) 3px;
 	}
 
 	.inlineCompletions-char-insert.diff-range-empty {
-		border-left: solid var(--vscode-inlineEdit-modifiedChangedTextBackground) 3px;
+		border-left: solid var(--vsblocks-inlineEdit-modifiedChangedTextBackground) 3px;
 	}
 
 	.inlineCompletions-char-delete.single-line-inline { /* Editor Decoration */
-		border: 1px solid var(--vscode-editorHoverWidget-border);
+		border: 1px solid var(--vsblocks-editorHoverWidget-border);
 		margin: -2px 0 0 -2px;
 	}
 
 	.inlineCompletions-char-insert.single-line-inline { /* Inline Decoration */
-		border-top: 1px solid var(--vscode-inlineEdit-modifiedBorder); /* TODO: Do not set border inline but create overlaywidget (like deletion view) */
-		border-bottom: 1px solid var(--vscode-inlineEdit-modifiedBorder); /* TODO: Do not set border inline but create overlaywidget (like deletion view) */
+		border-top: 1px solid var(--vsblocks-inlineEdit-modifiedBorder); /* TODO: Do not set border inline but create overlaywidget (like deletion view) */
+		border-bottom: 1px solid var(--vsblocks-inlineEdit-modifiedBorder); /* TODO: Do not set border inline but create overlaywidget (like deletion view) */
 	}
 	.inlineCompletions-char-insert.single-line-inline.start {
 		border-top-left-radius: 4px;
 		border-bottom-left-radius: 4px;
-		border-left: 1px solid var(--vscode-inlineEdit-modifiedBorder); /* TODO: Do not set border inline but create overlaywidget (like deletion view) */
+		border-left: 1px solid var(--vsblocks-inlineEdit-modifiedBorder); /* TODO: Do not set border inline but create overlaywidget (like deletion view) */
 	}
 	.inlineCompletions-char-insert.single-line-inline.end {
 		border-top-right-radius: 4px;
 		border-bottom-right-radius: 4px;
-		border-right: 1px solid var(--vscode-inlineEdit-modifiedBorder); /* TODO: Do not set border inline but create overlaywidget (like deletion view) */
+		border-right: 1px solid var(--vsblocks-inlineEdit-modifiedBorder); /* TODO: Do not set border inline but create overlaywidget (like deletion view) */
 	}
 
 	.inlineCompletions-char-delete.single-line-inline.empty,
@@ -154,11 +154,11 @@
 	/* line replacement bubbles */
 
 	.inlineCompletions-modified-bubble {
-		background: var(--vscode-inlineEdit-modifiedChangedTextBackground);
+		background: var(--vsblocks-inlineEdit-modifiedChangedTextBackground);
 	}
 
 	.inlineCompletions-original-bubble {
-		background: var(--vscode-inlineEdit-originalChangedTextBackground);
+		background: var(--vsblocks-inlineEdit-originalChangedTextBackground);
 	}
 
 	.inlineCompletions-modified-bubble,
@@ -181,17 +181,17 @@
 	.inline-edit.modified-background.ghost-text-decoration,
 	.inline-edit.modified-background.ghost-text-decoration-preview,
 	.inline-edit.modified-background.suggest-preview-text .ghost-text {
-		background: var(--vscode-inlineEdit-modifiedChangedTextBackground) !important;
+		background: var(--vsblocks-inlineEdit-modifiedChangedTextBackground) !important;
 		display: inline-block !important;
 	}
 
 	.inlineCompletions-original-lines {
-		background: var(--vscode-editor-background);
+		background: var(--vsblocks-editor-background);
 	}
 }
 
 .monaco-menu-option {
-	color: var(--vscode-editorActionList-foreground);
+	color: var(--vsblocks-editorActionList-foreground);
 	font-size: 13px;
 	padding: 0 4px;
 	line-height: 28px;
@@ -207,13 +207,13 @@
 	}
 
 	&.active {
-		background: var(--vscode-editorActionList-focusBackground);
-		color: var(--vscode-editorActionList-focusForeground);
-		outline: 1px solid var(--vscode-menu-selectionBorder, transparent);
+		background: var(--vsblocks-editorActionList-focusBackground);
+		color: var(--vsblocks-editorActionList-focusForeground);
+		outline: 1px solid var(--vsblocks-menu-selectionBorder, transparent);
 		outline-offset: -1px;
 
 		.monaco-keybinding-key {
-			color: var(--vscode-editorActionList-focusForeground);
+			color: var(--vsblocks-editorActionList-focusForeground);
 		}
 	}
 }

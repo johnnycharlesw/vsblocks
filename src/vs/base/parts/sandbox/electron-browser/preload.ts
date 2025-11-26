@@ -71,7 +71,7 @@
 	//#region Resolve Shell Environment
 
 	/**
-	 * If VSCode is not run from a terminal, we should resolve additional
+	 * If VSBlocks is not run from a terminal, we should resolve additional
 	 * shell specific environment from the OS shell to ensure we are seeing
 	 * all development related environment variables. We do this from the
 	 * main process because it may involve spawning a shell.
@@ -246,7 +246,7 @@
 		}
 	};
 
-	// Use `contextBridge` APIs to expose globals to VSCode
+	// Use `contextBridge` APIs to expose globals to VSBlocks
 	// only if context isolation is enabled, otherwise just
 	// add to the DOM global.
 	if (process.contextIsolated) {

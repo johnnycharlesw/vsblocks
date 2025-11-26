@@ -6,7 +6,7 @@
 import { join, relative } from 'path';
 import * as ts from 'typescript';
 import { TextDecoder } from 'util';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { Action, extractTestFromNode } from './sourceUtils';
 
 const textDecoder = new TextDecoder('utf-8');
@@ -14,7 +14,7 @@ const diagnosticCollection = vscode.languages.createDiagnosticCollection('selfho
 
 type ContentGetter = (uri: vscode.Uri) => Promise<string>;
 
-export const itemData = new WeakMap<vscode.TestItem, VSCodeTest>();
+export const itemData = new WeakMap<vscode.TestItem, VSBlocksTest>();
 
 export const clearFileDiagnostics = (uri: vscode.Uri) => diagnosticCollection.delete(uri);
 
@@ -173,4 +173,4 @@ export class TestSuite extends TestConstruct { }
 
 export class TestCase extends TestConstruct { }
 
-export type VSCodeTest = TestFile | TestSuite | TestCase;
+export type VSBlocksTest = TestFile | TestSuite | TestCase;

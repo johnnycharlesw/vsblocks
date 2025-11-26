@@ -141,7 +141,7 @@ export class KeybindingsEditor extends EditorPane implements IKeybindingsEditorP
 
 		this.sortByPrecedenceAction = this._register(new Action(KEYBINDINGS_EDITOR_COMMAND_SORTBY_PRECEDENCE, localize('sortByPrecedeneLabel', "Sort by Precedence (Highest first)"), ThemeIcon.asClassName(keybindingsSortIcon)));
 		this.sortByPrecedenceAction.checked = false;
-		this.overflowWidgetsDomNode = $('.keybindings-overflow-widgets-container.monaco-editor');
+		this.overflowWidgetsDomNode = $('.keybindings-overflow-widgets-container.vsblockengine');
 	}
 
 	override create(parent: HTMLElement): void {

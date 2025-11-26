@@ -875,7 +875,7 @@ class CSSNameHelper {
 	}
 
 	public static getSelector(key: string, parentKey: string | undefined, ruleType: ModelDecorationCSSRuleType): string {
-		let selector = '.monaco-editor .' + this.getClassName(key, ruleType);
+		let selector = '.vsblockengine .' + this.getClassName(key, ruleType);
 		if (parentKey) {
 			selector = selector + '.' + this.getClassName(parentKey, ruleType);
 		}

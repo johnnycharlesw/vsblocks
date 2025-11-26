@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { Uri } from 'vscode';
+import { Uri } from 'vsblocks';
 import { Change, Status } from './api/git';
 
 export interface GitUriParams {

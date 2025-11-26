@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 
 .chat-codeblock-pill-widget {
-	border: 1px solid var(--vscode-chat-requestBorder, var(--vscode-input-background, transparent));
+	border: 1px solid var(--vsblocks-chat-requestBorder, var(--vsblocks-input-background, transparent));
 	border-radius: 4px;
 	text-wrap: nowrap;
 	width: fit-content;
 	font-weight: normal;
 	text-decoration: none;
-	font-size: var(--vscode-chat-font-size-body-xs);
+	font-size: var(--vsblocks-chat-font-size-body-xs);
 	padding: 0 3px;
 	cursor: pointer;
 }
@@ -25,7 +25,7 @@
 }
 
 .chat-codeblock-pill-widget:hover {
-	background-color: var(--vscode-list-hoverBackground);
+	background-color: var(--vsblocks-list-hoverBackground);
 }
 
 .chat-codeblock-pill-widget .icon {
@@ -48,7 +48,7 @@
 span.label-detail {
 	padding-left: 4px;
 	font-style: italic;
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 
 	&:empty {
 		display: none;
@@ -58,11 +58,11 @@ span.label-detail {
 span.label-added {
 	font-weight: bold;
 	padding-left: 4px;
-	color: var(--vscode-chat-linesAddedForeground);
+	color: var(--vsblocks-chat-linesAddedForeground);
 }
 
 span.label-removed {
 	font-weight: bold;
 	padding-left: 4px;
-	color: var(--vscode-chat-linesRemovedForeground);
+	color: var(--vsblocks-chat-linesRemovedForeground);
 }

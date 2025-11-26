@@ -5,7 +5,7 @@
 
 /* Ensure consistent title background regardless of number of views */
 .composite.viewlet[id="workbench.view.chat.sessions"] .pane-header.expanded.not-collapsible {
-	background-color: var(--vscode-sideBarSectionHeader-background) !important;
+	background-color: var(--vsblocks-sideBarSectionHeader-background) !important;
 }
 
 .chat-sessions-view {
@@ -31,7 +31,7 @@
 .chat-sessions-message {
 	padding: 20px;
 	text-align: center;
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 }
 
 .chat-sessions-message .no-sessions-message {
@@ -68,7 +68,7 @@
 	outline-width: 1px;
 	outline-style: solid;
 	outline-offset: -1px;
-	outline-color: var(--vscode-focusBorder);
+	outline-color: var(--vsblocks-focusBorder);
 	opacity: 1;
 	border: none !important; /* Remove any default border */
 }
@@ -105,11 +105,11 @@
 }
 
 .chat-sessions-tree-container .chat-session-item .description-row a {
-	color: var(--vscode-foreground);
+	color: var(--vsblocks-foreground);
 }
 
 .chat-sessions-tree-container .chat-session-item .description-row .description:hover p {
-	background: var(--vscode-toolbar-hoverBackground);
+	background: var(--vsblocks-toolbar-hoverBackground);
 }
 
 .chat-sessions-tree-container .chat-session-item .description-row .description {
@@ -124,12 +124,12 @@
 }
 
 .chat-sessions-tree-container .chat-session-item .description-row .statistics .insertions {
-	color: var(--vscode-chat-linesAddedForeground);
+	color: var(--vsblocks-chat-linesAddedForeground);
 	padding-left: 4px;
 }
 
 .chat-sessions-tree-container .chat-session-item .description-row .statistics .deletions {
-	color: var(--vscode-chat-linesRemovedForeground);
+	color: var(--vsblocks-chat-linesRemovedForeground);
 	padding-left: 4px;
 }
 
@@ -250,5 +250,5 @@
 }
 
 .chat-sessions-tree-container .chat-session-item[data-history-item="true"]:hover {
-	background-color: var(--vscode-list-hoverBackground);
+	background-color: var(--vsblocks-list-hoverBackground);
 }

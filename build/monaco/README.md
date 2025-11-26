@@ -1,4 +1,4 @@
-# Steps to publish a new version of monaco-editor-core
+# Steps to publish a new version of vsblockengine-core
 
 ## Generate monaco.d.ts
 
@@ -8,7 +8,7 @@
 
 * increase version in `build/monaco/package.json`
 
-## Generate npm contents for monaco-editor-core
+## Generate npm contents for vsblockengine-core
 
 * Be sure to have all changes committed **and pushed to the remote**
 * (the generated files contain the HEAD sha and that should be available on the remote)
@@ -16,5 +16,5 @@
 
 ## Publish
 
-* `cd out-monaco-editor-core`
+* `cd out-vsblockengine-core`
 * `npm publish`

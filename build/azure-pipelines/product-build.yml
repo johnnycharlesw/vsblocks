@@ -174,7 +174,7 @@ extends:
         enabled: true
         configFile: $(Build.SourcesDirectory)/build/azure-pipelines/config/tsaoptions.json
       binskim:
-        analyzeTargetGlob: '+:file|$(Agent.BuildDirectory)/VSCode-*/**/*.exe;+:file|$(Agent.BuildDirectory)/VSCode-*/**/*.node;+:file|$(Agent.BuildDirectory)/VSCode-*/**/*.dll;-:file|$(Build.SourcesDirectory)/.build/**/system-setup/VSCodeSetup*.exe;-:file|$(Build.SourcesDirectory)/.build/**/user-setup/VSCodeUserSetup*.exe'
+        analyzeTargetGlob: '+:file|$(Agent.BuildDirectory)/VSBlocks-*/**/*.exe;+:file|$(Agent.BuildDirectory)/VSBlocks-*/**/*.node;+:file|$(Agent.BuildDirectory)/VSBlocks-*/**/*.dll;-:file|$(Build.SourcesDirectory)/.build/**/system-setup/VSBlocksSetup*.exe;-:file|$(Build.SourcesDirectory)/.build/**/user-setup/VSBlocksUserSetup*.exe'
       codeql:
         runSourceLanguagesInSourceAnalysis: true
         compiled:
@@ -404,7 +404,7 @@ extends:
                       targetPath: $(SYSTEM_SETUP_PATH)
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_setup
                       displayName: Publish system setup
-                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
+                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSBlocks-win32-$(VSCODE_ARCH)
                       sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) System Setup"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['SYSTEM_SETUP_PATH'], ''))
@@ -412,7 +412,7 @@ extends:
                       targetPath: $(USER_SETUP_PATH)
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_user-setup
                       displayName: Publish user setup
-                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
+                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSBlocks-win32-$(VSCODE_ARCH)
                       sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) User Setup"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['USER_SETUP_PATH'], ''))
@@ -420,7 +420,7 @@ extends:
                       targetPath: $(CLIENT_PATH)
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_archive
                       displayName: Publish archive
-                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
+                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSBlocks-win32-$(VSCODE_ARCH)
                       sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH)"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['CLIENT_PATH'], ''))
@@ -471,7 +471,7 @@ extends:
                       targetPath: $(SYSTEM_SETUP_PATH)
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_setup
                       displayName: Publish system setup
-                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
+                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSBlocks-win32-$(VSCODE_ARCH)
                       sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) System Setup"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['SYSTEM_SETUP_PATH'], ''))
@@ -479,7 +479,7 @@ extends:
                       targetPath: $(USER_SETUP_PATH)
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_user-setup
                       displayName: Publish user setup
-                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
+                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSBlocks-win32-$(VSCODE_ARCH)
                       sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH) User Setup"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['USER_SETUP_PATH'], ''))
@@ -487,7 +487,7 @@ extends:
                       targetPath: $(CLIENT_PATH)
                       artifactName: $(ARTIFACT_PREFIX)vscode_client_win32_$(VSCODE_ARCH)_archive
                       displayName: Publish archive
-                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSCode-win32-$(VSCODE_ARCH)
+                      sbomBuildDropPath: $(Agent.BuildDirectory)/VSBlocks-win32-$(VSCODE_ARCH)
                       sbomPackageName: "VSBlocks Windows $(VSCODE_ARCH)"
                       sbomPackageVersion: $(Build.SourceVersion)
                       condition: and(succeededOrFailed(), ne(variables['CLIENT_PATH'], ''))
@@ -787,7 +787,7 @@ extends:
               - job: ApproveRelease
                 displayName: "Approve Release"
                 variables:
-                  - group: VSCodePeerApproval
+                  - group: VSBlocksPeerApproval
                   - name: skipComponentGovernanceDetection
                     value: true
 

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import VsCodeTelemetryReporter from '@vscode/extension-telemetry';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { Api, getExtensionApi } from './api';
 import { CommandManager } from './commands/commandManager';
 import { registerBaseCommands } from './commands/index';

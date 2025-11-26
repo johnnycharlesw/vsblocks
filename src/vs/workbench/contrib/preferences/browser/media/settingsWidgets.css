@@ -24,9 +24,9 @@
 }
 
 .settings-editor > .settings-body .settings-tree-container .setting-item-bool .setting-value-checkbox {
-	background-color: var(--vscode-settings-checkboxBackground) !important;
-	color: var(--vscode-settings-checkboxForeground) !important;
-	border-color: var(--vscode-settings-checkboxBorder) !important;
+	background-color: var(--vsblocks-settings-checkboxBackground) !important;
+	color: var(--vsblocks-settings-checkboxForeground) !important;
+	border-color: var(--vsblocks-settings-checkboxBorder) !important;
 }
 .settings-editor > .settings-body .settings-tree-container .setting-item-bool .setting-list-object-input-key-checkbox {
 	margin-left: 4px;
@@ -113,23 +113,23 @@
 	display: flex;
 }
 .settings-editor > .settings-body .settings-tree-container .setting-item.setting-item-list .setting-list-row:hover {
-	background-color: var(--vscode-list-hoverBackground);
-	color: var(--vscode-list-hoverForeground);
+	background-color: var(--vsblocks-list-hoverBackground);
+	color: var(--vsblocks-list-hoverForeground);
 }
 .settings-editor > .settings-body .settings-tree-container .setting-item.setting-item-list .setting-list-row.selected:focus {
-	background-color: var(--vscode-list-activeSelectionBackground);
-	color: var(--vscode-list-activeSelectionForeground);
+	background-color: var(--vsblocks-list-activeSelectionBackground);
+	color: var(--vsblocks-list-activeSelectionForeground);
 }
 .settings-editor > .settings-body .settings-tree-container .setting-item.setting-item-list .setting-list-row.selected:not(:focus) {
-	background-color: var(--vscode-list-inactiveSelectionBackground);
-	color: var(--vscode-list-inactiveSelectionForeground);
+	background-color: var(--vsblocks-list-inactiveSelectionBackground);
+	color: var(--vsblocks-list-inactiveSelectionForeground);
 }
 .settings-editor > .settings-body .settings-tree-container .setting-item.setting-item-list .setting-list-row.draggable {
 	cursor: pointer;
 	user-select: none;
 }
 .settings-editor > .settings-body .settings-tree-container .setting-item.setting-item-list .setting-list-row.drag-hover {
-	background-color: var(--vscode-list-dropBackground);
+	background-color: var(--vsblocks-list-dropBackground);
 }
 .settings-editor > .settings-body .settings-tree-container .setting-item.setting-item-list .setting-list-row.drag-hover * {
 	pointer-events: none;
@@ -300,19 +300,19 @@
 }
 
 .settings-tabs-widget > .monaco-action-bar .action-item .action-label {
-	color: var(--vscode-panelTitle-inactiveForeground);
+	color: var(--vsblocks-panelTitle-inactiveForeground);
 }
 
 .settings-tabs-widget > .monaco-action-bar .action-item .action-label.checked,
 .settings-tabs-widget > .monaco-action-bar .action-item .action-label:hover {
-	color: var(--vscode-panelTitle-activeForeground);
-	border-bottom: 1px solid var(--vscode-panelTitle-activeBorder);
-	outline: 1px solid var(--vscode-contrastActiveBorder, transparent);
+	color: var(--vsblocks-panelTitle-activeForeground);
+	border-bottom: 1px solid var(--vsblocks-panelTitle-activeBorder);
+	outline: 1px solid var(--vsblocks-contrastActiveBorder, transparent);
 	outline-offset: -1px;
 }
 
 .settings-tabs-widget > .monaco-action-bar .action-item .action-label:focus {
-	border-bottom: 1px solid var(--vscode-focusBorder);
+	border-bottom: 1px solid var(--vsblocks-focusBorder);
 	outline: 1px solid transparent;
 	outline-offset: -1px;
 }
@@ -358,27 +358,27 @@
 	padding-left:10px;
 }
 
-.monaco-editor .view-zones > .settings-header-widget {
+.vsblockengine .view-zones > .settings-header-widget {
 	z-index: 1;
 }
 
-.monaco-editor .settings-header-widget .title-container {
+.vsblockengine .settings-header-widget .title-container {
 	display: flex;
 	user-select: none;
 	-webkit-user-select: none;
 }
 
-.monaco-editor .settings-header-widget .title-container .title {
+.vsblockengine .settings-header-widget .title-container .title {
 	font-weight: bold;
 	white-space: nowrap;
 	text-transform: uppercase;
 }
 
-.monaco-editor .settings-header-widget .title-container .message {
+.vsblockengine .settings-header-widget .title-container .message {
 	white-space: nowrap;
 }
 
-.monaco-editor .dim-configuration {
+.vsblockengine .dim-configuration {
 	color: #b1b1b1;
 }
 

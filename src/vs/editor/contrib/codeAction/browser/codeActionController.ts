@@ -423,7 +423,7 @@ export class CodeActionController extends Disposable implements IEditorContribut
 registerThemingParticipant((theme, collector) => {
 	const addBackgroundColorRule = (selector: string, color: Color | undefined): void => {
 		if (color) {
-			collector.addRule(`.monaco-editor ${selector} { background-color: ${color}; }`);
+			collector.addRule(`.vsblockengine ${selector} { background-color: ${color}; }`);
 		}
 	};
 
@@ -431,6 +431,6 @@ registerThemingParticipant((theme, collector) => {
 	const findMatchHighlightBorder = theme.getColor(editorFindMatchHighlightBorder);
 
 	if (findMatchHighlightBorder) {
-		collector.addRule(`.monaco-editor .quickfix-edit-highlight { border: 1px ${isHighContrast(theme.type) ? 'dotted' : 'solid'} ${findMatchHighlightBorder}; box-sizing: border-box; }`);
+		collector.addRule(`.vsblockengine .quickfix-edit-highlight { border: 1px ${isHighContrast(theme.type) ? 'dotted' : 'solid'} ${findMatchHighlightBorder}; box-sizing: border-box; }`);
 	}
 });

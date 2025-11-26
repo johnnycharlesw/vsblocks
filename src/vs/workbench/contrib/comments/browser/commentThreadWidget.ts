@@ -385,8 +385,8 @@ export class CommentThreadWidget<T extends IRange | ICellRange = IRange> extends
 	applyTheme(theme: IColorTheme, fontInfo: FontInfo) {
 		const content: string[] = [];
 
-		content.push(`.monaco-editor .review-widget > .body { border-top: 1px solid var(${commentThreadStateColorVar}) }`);
-		content.push(`.monaco-editor .review-widget > .head { background-color: var(${commentThreadStateBackgroundColorVar}) }`);
+		content.push(`.vsblockengine .review-widget > .body { border-top: 1px solid var(${commentThreadStateColorVar}) }`);
+		content.push(`.vsblockengine .review-widget > .head { background-color: var(${commentThreadStateBackgroundColorVar}) }`);
 
 		const linkColor = theme.getColor(textLinkForeground);
 		if (linkColor) {
@@ -401,7 +401,7 @@ export class CommentThreadWidget<T extends IRange | ICellRange = IRange> extends
 		const focusColor = theme.getColor(focusBorder);
 		if (focusColor) {
 			content.push(`.review-widget .body .comment-body a:focus { outline: 1px solid ${focusColor}; }`);
-			content.push(`.review-widget .body .monaco-editor.focused { outline: 1px solid ${focusColor}; }`);
+			content.push(`.review-widget .body .vsblockengine.focused { outline: 1px solid ${focusColor}; }`);
 		}
 
 		const blockQuoteBackground = theme.getColor(textBlockQuoteBackground);
@@ -422,7 +422,7 @@ export class CommentThreadWidget<T extends IRange | ICellRange = IRange> extends
 		const hcBorder = theme.getColor(contrastBorder);
 		if (hcBorder) {
 			content.push(`.review-widget .body .comment-form .review-thread-reply-button { outline-color: ${hcBorder}; }`);
-			content.push(`.review-widget .body .monaco-editor { outline: 1px solid ${hcBorder}; }`);
+			content.push(`.review-widget .body .vsblockengine { outline: 1px solid ${hcBorder}; }`);
 		}
 
 		const errorBorder = theme.getColor(inputValidationErrorBorder);

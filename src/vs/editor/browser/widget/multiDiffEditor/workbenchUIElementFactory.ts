@@ -10,7 +10,7 @@ import { URI } from '../../../../base/common/uri.js';
  * This solves the problem that the editor layer cannot depend on the workbench layer.
  *
  * Maybe the multi diff editor widget should be moved to the workbench layer?
- * This would make monaco-editor consumption much more difficult though.
+ * This would make vsblockengine consumption much more difficult though.
  */
 export interface IWorkbenchUIElementFactory {
 	createResourceLabel?(element: HTMLElement): IResourceLabel;

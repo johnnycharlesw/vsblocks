@@ -12,7 +12,7 @@ import {
 } from '@jridgewell/trace-mapping';
 import * as styles from 'ansi-styles';
 import { ChildProcessWithoutNullStreams } from 'child_process';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { istanbulCoverageContext, PerTestCoverageTracker } from './coverageProvider';
 import { attachTestMessageMetadata } from './metadata';
 import { snapshotComment } from './snapshot';

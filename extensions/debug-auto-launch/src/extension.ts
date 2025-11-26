@@ -6,7 +6,7 @@
 import { promises as fs } from 'fs';
 import { createServer, Server } from 'net';
 import { dirname } from 'path';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 
 const enum State {
 	Disabled = 'disabled',

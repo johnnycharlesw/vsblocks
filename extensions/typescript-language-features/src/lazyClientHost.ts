@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { CommandManager } from './commands/commandManager';
 import { IExperimentationTelemetryReporter } from './experimentTelemetryReporter';
 import { OngoingRequestCancellerFactory } from './tsServer/cancellation';

@@ -315,7 +315,7 @@ export class McpWorkbenchService extends Disposable implements IMcpWorkbenchServ
 		}
 
 		if (vscodeGalleryMcpServerNames.length) {
-			const galleryServers = await this.mcpGalleryService.getMcpServersFromVSCodeGallery(vscodeGalleryMcpServerNames);
+			const galleryServers = await this.mcpGalleryService.getMcpServersFromVSBlocksGallery(vscodeGalleryMcpServerNames);
 			if (galleryServers.length) {
 				await this.syncInstalledMcpServersWithGallery(galleryServers, true, resetGallery);
 			}
@@ -650,7 +650,7 @@ export class McpWorkbenchService extends Disposable implements IMcpWorkbenchServ
 			const { name, inputs, gallery, ...config } = parsed;
 
 			if (gallery || !config || Object.keys(config).length === 0) {
-				const [galleryServer] = await this.mcpGalleryService.getMcpServersFromVSCodeGallery([name]);
+				const [galleryServer] = await this.mcpGalleryService.getMcpServersFromVSBlocksGallery([name]);
 				if (!galleryServer) {
 					throw new Error(`MCP server '${name}' not found in gallery`);
 				}

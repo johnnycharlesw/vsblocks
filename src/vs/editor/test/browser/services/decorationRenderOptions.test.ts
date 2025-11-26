@@ -60,13 +60,13 @@ suite('Decoration Render Options', () => {
 		const s = store.add(new TestCodeEditorService(themeService));
 		const styleSheet = s.globalStyleSheet;
 		s.registerDecorationType('test', 'example', options);
-		assert.strictEqual(readStyleSheet(styleSheet), '.monaco-editor .ced-example-0 {background-color:#ff0000;border-color:transparent;box-sizing: border-box;}');
+		assert.strictEqual(readStyleSheet(styleSheet), '.vsblockengine .ced-example-0 {background-color:#ff0000;border-color:transparent;box-sizing: border-box;}');
 
 		themeService.setTheme(new TestColorTheme({
 			editorBackground: '#EE0000',
 			editorBorder: '#00FFFF'
 		}));
-		assert.strictEqual(readStyleSheet(styleSheet), '.monaco-editor .ced-example-0 {background-color:#ee0000;border-color:#00ffff;box-sizing: border-box;}');
+		assert.strictEqual(readStyleSheet(styleSheet), '.vsblockengine .ced-example-0 {background-color:#ee0000;border-color:#00ffff;box-sizing: border-box;}');
 
 		s.removeDecorationType('example');
 		assert.strictEqual(readStyleSheet(styleSheet), '');
@@ -94,10 +94,10 @@ suite('Decoration Render Options', () => {
 		const styleSheet = s.globalStyleSheet;
 		s.registerDecorationType('test', 'example', options);
 		const expected = [
-			'.vs-dark.monaco-editor .ced-example-4::after, .hc-black.monaco-editor .ced-example-4::after {color:#444444 !important;}',
-			'.vs-dark.monaco-editor .ced-example-1, .hc-black.monaco-editor .ced-example-1 {color:#000000 !important;}',
-			'.vs.monaco-editor .ced-example-1, .hc-light.monaco-editor .ced-example-1 {color:#FF00FF !important;}',
-			'.monaco-editor .ced-example-1 {color:#ff0000 !important;}'
+			'.vs-dark.vsblockengine .ced-example-4::after, .hc-black.vsblockengine .ced-example-4::after {color:#444444 !important;}',
+			'.vs-dark.vsblockengine .ced-example-1, .hc-black.vsblockengine .ced-example-1 {color:#000000 !important;}',
+			'.vs.vsblockengine .ced-example-1, .hc-light.vsblockengine .ced-example-1 {color:#FF00FF !important;}',
+			'.vsblockengine .ced-example-1 {color:#ff0000 !important;}'
 		].join('\n');
 		assert.strictEqual(readStyleSheet(styleSheet), expected);
 

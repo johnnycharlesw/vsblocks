@@ -3,8 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .bracket-match {
+.vsblockengine .bracket-match {
 	box-sizing: border-box;
-	background-color: var(--vscode-editorBracketMatch-background);
-	border: 1px solid var(--vscode-editorBracketMatch-border);
+	background-color: var(--vsblocks-editorBracketMatch-background);
+	border: 1px solid var(--vsblocks-editorBracketMatch-border);
 }

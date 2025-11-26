@@ -41,12 +41,12 @@
 }
 
 /* Editor decorations */
-.monaco-editor .keybindingInfo {
+.vsblockengine .keybindingInfo {
 	box-shadow:	inset 0 0 0 1px #B9B9B9;
 	background-color: rgba(100, 100, 250, 0.2);
 }
 
-.monaco-editor .keybindingError {
+.vsblockengine .keybindingError {
 	box-shadow:	inset 0 0 0 1px #B9B9B9;
 	background-color: rgba(250, 100, 100, 0.2);
 }

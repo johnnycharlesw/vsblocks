@@ -322,7 +322,7 @@
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlide .getting-started-category .featured {
-	border-top: 30px solid var(--vscode-activityBarBadge-background);
+	border-top: 30px solid var(--vsblocks-activityBarBadge-background);
 	width: 30px;
 	box-sizing: border-box;
 	height: 20px;
@@ -415,11 +415,11 @@
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step.expanded {
 	cursor: default !important;
-	border: 1px solid var(--vscode-welcomePage-tileBorder);
+	border: 1px solid var(--vsblocks-welcomePage-tileBorder);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step.expanded h3 {
-	color: var(--vscode-walkthrough-stepTitle-foreground);
+	color: var(--vsblocks-walkthrough-stepTitle-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step.expanded > .codicon {
@@ -429,11 +429,11 @@
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step:not(.expanded) {
 	height: 48px;
 	background: none;
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step:not(.expanded):hover {
-	background: var(--vscode-welcomePage-tileHoverBackground);
+	background: var(--vsblocks-welcomePage-tileHoverBackground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step:not(.expanded) .step-title {
@@ -473,7 +473,7 @@
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step .shortcut-message {
 	display: flex;
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 	font-size: 12px;
 	margin-top: 12px;
 	white-space: pre;
@@ -709,12 +709,12 @@
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button:focus-visible {
-	outline: 1px solid var(--vscode-focusBorder);
+	outline: 1px solid var(--vsblocks-focusBorder);
 	outline-offset: 0;
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .step-list-container button:focus-visible {
-	box-shadow: inset 0 0 0 1px var(--vscode-focusBorder);
+	box-shadow: inset 0 0 0 1px var(--vsblocks-focusBorder);
 	outline: none;
 }
 
@@ -921,89 +921,89 @@
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .hide-category-button:hover {
-	background-color: var(--vscode-toolbar-hoverBackground);
+	background-color: var(--vsblocks-toolbar-hoverBackground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer {
-	background: var(--vscode-welcomePage-background);
-	color: var(--vscode-foreground);
+	background: var(--vsblocks-welcomePage-background);
+	color: var(--vsblocks-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .description {
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 	line-height: 1.4em;
 	font-size: 1.4em;
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .category-progress .message {
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .gettingStartedDetailsContent > .getting-started-footer {
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .icon-widget {
-	color: var(--vscode-textLink-foreground);
+	color: var(--vsblocks-textLink-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step .codicon-getting-started-step-checked {
-	color: var(--vscode-textLink-foreground);
+	color: var(--vsblocks-textLink-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step.expanded .codicon-getting-started-step-unchecked {
-	color: var(--vscode-textLink-foreground);
+	color: var(--vsblocks-textLink-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button {
-	background: var(--vscode-welcomePage-tileBackground);
+	background: var(--vsblocks-welcomePage-tileBackground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button:hover {
-	background: var(--vscode-welcomePage-tileHoverBackground);
-	outline-color: var(--vscode-contrastActiveBorder, var(--vscode-focusBorder));
+	background: var(--vsblocks-welcomePage-tileHoverBackground);
+	outline-color: var(--vsblocks-contrastActiveBorder, var(--vsblocks-focusBorder));
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button.expanded:hover {
-	background: var(--vscode-welcomePage-tileBackground);
+	background: var(--vsblocks-welcomePage-tileBackground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button.emphasis {
-	color: var(--vscode-button-foreground);
+	color: var(--vsblocks-button-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button.emphasis {
-	background: var(--vscode-button-background);
+	background: var(--vsblocks-button-background);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideDetails .getting-started-step .codicon-getting-started-step-unchecked {
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button.emphasis:hover {
-	background: var(--vscode-button-hoverBackground);
+	background: var(--vsblocks-button-hoverBackground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer a:not(.hide-category-button) {
-	color: var(--vscode-textLink-foreground);
+	color: var(--vsblocks-textLink-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .button-link {
-	color: var(--vscode-textLink-foreground);
+	color: var(--vsblocks-textLink-foreground);
 	text-decoration: var(--text-link-decoration);
 }
 
 /* Make arrow icons consistent with the next and back buttons in color */
 .monaco-workbench .part.editor > .content .gettingStartedContainer .codicon.codicon-arrow-left,
 .monaco-workbench .part.editor > .content .gettingStartedContainer .codicon.codicon-arrow-right {
-	color: var(--vscode-textLink-foreground);
+	color: var(--vsblocks-textLink-foreground);
 	font-size: 18px;
 }
 
 /* Make arrow icons change color on hover, consistent with button-link hover */
 .monaco-workbench .part.editor > .content .gettingStartedContainer .codicon.codicon-arrow-left:hover,
 .monaco-workbench .part.editor > .content .gettingStartedContainer .codicon.codicon-arrow-right:hover {
-	color: var(--vscode-textLink-activeForeground);
+	color: var(--vsblocks-textLink-activeForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .start-container .button-link {
@@ -1011,27 +1011,27 @@
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer a:not(.hide-category-button):hover {
-	color: var(--vscode-textLink-activeForeground);
+	color: var(--vsblocks-textLink-activeForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer a:not(.hide-category-button):active {
-	color: var(--vscode-textLink-activeForeground);
+	color: var(--vsblocks-textLink-activeForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button.button-link:hover {
-	color: var(--vscode-textLink-activeForeground);
+	color: var(--vsblocks-textLink-activeForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button.button-link:hover .codicon {
-	color: var(--vscode-textLink-activeForeground);
+	color: var(--vsblocks-textLink-activeForeground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer a:not(.codicon-close):focus {
-	outline-color: var(--vscode-focusBorder);
+	outline-color: var(--vsblocks-focusBorder);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button {
-	border: 1px solid var(--vscode-contrastBorder);
+	border: 1px solid var(--vsblocks-contrastBorder);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer button.button-link {
@@ -1039,33 +1039,33 @@
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideCategories .progress-bar-outer {
-	background-color: var(--vscode-welcomePage-progress-background);
+	background-color: var(--vsblocks-welcomePage-progress-background);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlideCategories .progress-bar-inner {
-	background-color: var(--vscode-welcomePage-progress-foreground);
+	background-color: var(--vsblocks-welcomePage-progress-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlide .getting-started-category .new-badge {
-	color: var(--vscode-activityBarBadge-foreground);
+	color: var(--vsblocks-activityBarBadge-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlide .getting-started-category .featured .featured-icon {
-	color: var(--vscode-activityBarBadge-foreground);
+	color: var(--vsblocks-activityBarBadge-foreground);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlide .getting-started-category .new-badge {
-	background-color: var(--vscode-activityBarBadge-background);
+	background-color: var(--vsblocks-activityBarBadge-background);
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlide .getting-started-checkbox {
-	background-color: var(--vscode-checkbox-background) !important;
+	background-color: var(--vsblocks-checkbox-background) !important;
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlide .getting-started-checkbox {
-	color: var(--vscode-checkbox-foreground) !important;
+	color: var(--vsblocks-checkbox-foreground) !important;
 }
 
 .monaco-workbench .part.editor > .content .gettingStartedContainer .gettingStartedSlide .getting-started-checkbox {
-	border-color: var(--vscode-checkbox-border) !important;
+	border-color: var(--vsblocks-checkbox-border) !important;
 }

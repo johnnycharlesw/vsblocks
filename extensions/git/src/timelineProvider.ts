@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { CancellationToken, ConfigurationChangeEvent, Disposable, env, Event, EventEmitter, MarkdownString, ThemeIcon, Timeline, TimelineChangeEvent, TimelineItem, TimelineOptions, TimelineProvider, Uri, workspace, l10n, Command } from 'vscode';
+import { CancellationToken, ConfigurationChangeEvent, Disposable, env, Event, EventEmitter, MarkdownString, ThemeIcon, Timeline, TimelineChangeEvent, TimelineItem, TimelineOptions, TimelineProvider, Uri, workspace, l10n, Command } from 'vsblocks';
 import { Model } from './model';
 import { Repository, Resource } from './repository';
 import { debounce } from './decorators';

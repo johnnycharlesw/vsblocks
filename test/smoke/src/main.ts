@@ -141,7 +141,7 @@ function getTestTypeSuffix(): string {
 }
 
 const testRepoUrl = 'https://github.com/johnnycharlesw/vsblocks-smoketest-express';
-const workspacePath = path.join(testDataPath, `vscode-smoketest-express-${getTestTypeSuffix()}`);
+const workspacePath = path.join(testDataPath, `vsblocks-smoketest-express-${getTestTypeSuffix()}`);
 const extensionsPath = path.join(testDataPath, 'extensions-dir');
 fs.mkdirSync(extensionsPath, { recursive: true });
 
@@ -201,7 +201,7 @@ if (!opts.web) {
 	}
 
 	if (!fs.existsSync(electronPath || '')) {
-		fail(`Cannot find VSCode at ${electronPath}. Please run VSCode once first (scripts/code.sh, scripts\\code.bat) and try again.`);
+		fail(`Cannot find VSBlocks at ${electronPath}. Please run VSBlocks once first (scripts/code.sh, scripts\\code.bat) and try again.`);
 	}
 
 	quality = parseQuality();
@@ -328,7 +328,7 @@ async function ensureStableCode(): Promise<void> {
 			// VSBlocks.app/Contents/MacOS/Electron
 			stableCodePath = path.dirname(path.dirname(path.dirname(stableCodeExecutable)));
 		} else {
-			// VSCode/Code.exe (Windows) | VSCode/code (Linux)
+			// VSBlocks/Code.exe (Windows) | VSBlocks/code (Linux)
 			stableCodePath = path.dirname(stableCodeExecutable);
 		}
 
@@ -336,7 +336,7 @@ async function ensureStableCode(): Promise<void> {
 	}
 
 	if (!fs.existsSync(stableCodePath)) {
-		throw new Error(`Cannot find Stable VSCode at ${stableCodePath}.`);
+		throw new Error(`Cannot find Stable VSBlocks at ${stableCodePath}.`);
 	}
 
 	logger.log(`Using stable build ${stableCodePath} for migration tests`);
@@ -359,7 +359,7 @@ async function setup(): Promise<void> {
 
 // Before all tests run setup
 before(async function () {
-	this.timeout(5 * 60 * 1000); // increase since we download VSCode
+	this.timeout(5 * 60 * 1000); // increase since we download VSBlocks
 
 	const options: ApplicationOptions = {
 		quality,
@@ -409,7 +409,7 @@ after(async function () {
 	}
 });
 
-describe(`VSCode Smoke Tests (${opts.web ? 'Web' : 'Electron'})`, () => {
+describe(`VSBlocks Smoke Tests (${opts.web ? 'Web' : 'Electron'})`, () => {
 	if (!opts.web) { setupDataLossTests(() => { return { stableCodePath: opts['stable-build'], stableCodeVersion: opts['stable-version'] } /* Do not change, deferred for a reason! */; }, logger); }
 	setupPreferencesTests(logger);
 	setupSearchTests(logger);

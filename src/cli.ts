@@ -23,4 +23,4 @@ process.env['VSCODE_CLI'] = '1';
 await bootstrapESM();
 
 // Load Server
-await import('./vs/code/node/cli.js');
+await import('./vs/blocks/node/cli.js');

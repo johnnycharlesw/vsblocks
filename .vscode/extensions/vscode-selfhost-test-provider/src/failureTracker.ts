@@ -7,7 +7,7 @@ import { spawn } from 'child_process';
 import { existsSync, mkdirSync, renameSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
 import { dirname, join } from 'path';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 
 interface IGitState {
 	commitId: string;

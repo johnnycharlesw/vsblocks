@@ -732,7 +732,7 @@ export class ChatWidget extends Disposable implements IChatWidget {
 			const fontFamily = this.chatLayoutService.fontFamily.read(reader);
 			const fontSize = this.chatLayoutService.fontSize.read(reader);
 
-			this.container.style.setProperty('--vscode-chat-font-family', fontFamily);
+			this.container.style.setProperty('--vsblocks-chat-font-family', fontFamily);
 			this.container.style.fontSize = `${fontSize}px`;
 
 			this.tree.rerender();
@@ -1467,7 +1467,7 @@ export class ChatWidget extends Disposable implements IChatWidget {
 
 		// Create a dom element to hold UI from editor widgets embedded in chat messages
 		const overflowWidgetsContainer = document.createElement('div');
-		overflowWidgetsContainer.classList.add('chat-overflow-widget-container', 'monaco-editor');
+		overflowWidgetsContainer.classList.add('chat-overflow-widget-container', 'vsblockengine');
 		listContainer.append(overflowWidgetsContainer);
 
 		this.renderer = this._register(scopedInstantiationService.createInstance(
@@ -1966,9 +1966,9 @@ export class ChatWidget extends Disposable implements IChatWidget {
 	}
 
 	private onDidStyleChange(): void {
-		this.container.style.setProperty('--vscode-interactive-result-editor-background-color', this.editorOptions.configuration.resultEditor.backgroundColor?.toString() ?? '');
-		this.container.style.setProperty('--vscode-interactive-session-foreground', this.editorOptions.configuration.foreground?.toString() ?? '');
-		this.container.style.setProperty('--vscode-chat-list-background', this.themeService.getColorTheme().getColor(this.styles.listBackground)?.toString() ?? '');
+		this.container.style.setProperty('--vsblocks-interactive-result-editor-background-color', this.editorOptions.configuration.resultEditor.backgroundColor?.toString() ?? '');
+		this.container.style.setProperty('--vsblocks-interactive-session-foreground', this.editorOptions.configuration.foreground?.toString() ?? '');
+		this.container.style.setProperty('--vsblocks-chat-list-background', this.themeService.getColorTheme().getColor(this.styles.listBackground)?.toString() ?? '');
 	}
 
 

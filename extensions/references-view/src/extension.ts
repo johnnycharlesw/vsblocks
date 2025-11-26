@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import * as calls from './calls';
 import * as references from './references';
 import { SymbolTree, SymbolTreeInput } from './references-view';

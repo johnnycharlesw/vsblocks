@@ -145,7 +145,7 @@ export interface IEditorOptions {
 	lineNumbersMinChars?: number;
 	/**
 	 * Enable the rendering of the glyph margin.
-	 * Defaults to true in vscode and to false in monaco-editor.
+	 * Defaults to true in vscode and to false in vsblockengine.
 	 */
 	glyphMargin?: boolean;
 	/**
@@ -358,7 +358,7 @@ export interface IEditorOptions {
 	wordWrapColumn?: number;
 	/**
 	 * Control indentation of wrapped lines. Can be: 'none', 'same', 'indent' or 'deepIndent'.
-	 * Defaults to 'same' in vscode and to 'none' in monaco-editor.
+	 * Defaults to 'same' in vscode and to 'none' in vsblockengine.
 	 */
 	wrappingIndent?: 'none' | 'same' | 'indent' | 'deepIndent';
 	/**
@@ -1663,7 +1663,7 @@ class EditorClassName extends ComputedEditorOption<EditorOption.editorClassName,
 	}
 
 	public compute(env: IEnvironmentalOptions, options: IComputedEditorOptions, _: string): string {
-		const classNames = ['monaco-editor'];
+		const classNames = ['vsblockengine'];
 		if (options.get(EditorOption.extraEditorClassName)) {
 			classNames.push(options.get(EditorOption.extraEditorClassName));
 		}

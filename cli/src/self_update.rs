@@ -103,7 +103,7 @@ impl<'a> SelfUpdate<'a> {
 		// Try to rename the old CLI to the tempdir, where it can get cleaned up by the
 		// OS later. However, this can fail if the tempdir is on a different drive
 		// than the installation dir. In this case just rename it to ".old".
-		if fs::rename(&target_path, tempdir.path().join("old-code-cli")).is_err() {
+		if fs::rename(&target_path, tempdir.path().join("old-blocks-cli")).is_err() {
 			fs::rename(
 				&target_path,
 				target_path.with_extension(OLD_UPDATE_EXTENSION),

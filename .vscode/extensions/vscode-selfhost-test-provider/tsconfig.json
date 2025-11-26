@@ -9,8 +9,8 @@
 	},
 	"include": [
 		"src/**/*",
-		"../../../src/vscode-dts/vscode.d.ts",
-		"../../../src/vscode-dts/vscode.proposed.testObserver.d.ts",
-		"../../../src/vscode-dts/vscode.proposed.testRelatedCode.d.ts"
+		"../../../src/vsblocks-dts/vscode.d.ts",
+		"../../../src/vsblocks-dts/vsblocks.proposed.testObserver.d.ts",
+		"../../../src/vsblocks-dts/vsblocks.proposed.testRelatedCode.d.ts"
 	]
 }

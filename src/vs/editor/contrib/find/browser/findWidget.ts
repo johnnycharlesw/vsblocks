@@ -1382,24 +1382,24 @@ export class SimpleButton extends Widget {
 registerThemingParticipant((theme, collector) => {
 	const findMatchHighlightBorder = theme.getColor(editorFindMatchHighlightBorder);
 	if (findMatchHighlightBorder) {
-		collector.addRule(`.monaco-editor .findMatch { border: 1px ${isHighContrast(theme.type) ? 'dotted' : 'solid'} ${findMatchHighlightBorder}; box-sizing: border-box; }`);
+		collector.addRule(`.vsblockengine .findMatch { border: 1px ${isHighContrast(theme.type) ? 'dotted' : 'solid'} ${findMatchHighlightBorder}; box-sizing: border-box; }`);
 	}
 
 	const findRangeHighlightBorder = theme.getColor(editorFindRangeHighlightBorder);
 	if (findRangeHighlightBorder) {
-		collector.addRule(`.monaco-editor .findScope { border: 1px ${isHighContrast(theme.type) ? 'dashed' : 'solid'} ${findRangeHighlightBorder}; }`);
+		collector.addRule(`.vsblockengine .findScope { border: 1px ${isHighContrast(theme.type) ? 'dashed' : 'solid'} ${findRangeHighlightBorder}; }`);
 	}
 
 	const hcBorder = theme.getColor(contrastBorder);
 	if (hcBorder) {
-		collector.addRule(`.monaco-editor .find-widget { border: 1px solid ${hcBorder}; }`);
+		collector.addRule(`.vsblockengine .find-widget { border: 1px solid ${hcBorder}; }`);
 	}
 	const findMatchForeground = theme.getColor(editorFindMatchForeground);
 	if (findMatchForeground) {
-		collector.addRule(`.monaco-editor .findMatchInline { color: ${findMatchForeground}; }`);
+		collector.addRule(`.vsblockengine .findMatchInline { color: ${findMatchForeground}; }`);
 	}
 	const findMatchHighlightForeground = theme.getColor(editorFindMatchHighlightForeground);
 	if (findMatchHighlightForeground) {
-		collector.addRule(`.monaco-editor .currentFindMatchInline { color: ${findMatchHighlightForeground}; }`);
+		collector.addRule(`.vsblockengine .currentFindMatchInline { color: ${findMatchHighlightForeground}; }`);
 	}
 });

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { IstanbulCoverageContext } from 'istanbul-to-vscode';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { SearchStrategy, SourceLocationMapper, SourceMapStore } from './testOutputScanner';
 import { IScriptCoverage, OffsetToPosition, RangeCoverageTracker } from './v8CoverageWrangling';
 

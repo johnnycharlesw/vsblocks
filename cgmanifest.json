@@ -598,7 +598,7 @@
 			"component": {
 				"type": "git",
 				"git": {
-					"name": "vscode-codicons",
+					"name": "vsblocks-codicons",
 					"repositoryUrl": "https://github.com/johnnycharlesw/vsblocks-codicons",
 					"commitHash": "ccdcf91d57d3a5a1d6b620d95d518bab4d75984d"
 				}
@@ -646,7 +646,7 @@
 			"component": {
 				"type": "git",
 				"git": {
-					"name": "vscode-win32-app-container-tokens",
+					"name": "vsblocks-win32-app-container-tokens",
 					"repositoryUrl": "https://github.com/johnnycharlesw/vsblocks-win32-app-container-tokens",
 					"commitHash": "5b871f95fd9cb8efa8ee9a80600510d5e5339137"
 				}

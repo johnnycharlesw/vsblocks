@@ -2,8 +2,8 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { default as VSCodeTelemetryReporter } from '@vscode/extension-telemetry';
-import * as vscode from 'vscode';
+import { default as VSBlocksTelemetryReporter } from '@vscode/extension-telemetry';
+import * as vscode from 'vsblocks';
 
 interface IPackageInfo {
 	name: string;
@@ -24,12 +24,12 @@ const nullReporter = new class NullTelemetryReporter implements TelemetryReporte
 };
 
 class ExtensionReporter implements TelemetryReporter {
-	private readonly _reporter: VSCodeTelemetryReporter;
+	private readonly _reporter: VSBlocksTelemetryReporter;
 
 	constructor(
 		packageInfo: IPackageInfo
 	) {
-		this._reporter = new VSCodeTelemetryReporter(packageInfo.aiKey);
+		this._reporter = new VSBlocksTelemetryReporter(packageInfo.aiKey);
 	}
 	sendTelemetryEvent(eventName: string, properties?: {
 		[key: string]: string;

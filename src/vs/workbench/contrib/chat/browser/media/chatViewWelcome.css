@@ -106,7 +106,7 @@ div.chat-welcome-view {
 		margin-top: 10px;
 
 		a {
-			color: var(--vscode-textLink-foreground);
+			color: var(--vsblocks-textLink-foreground);
 		}
 	}
 
@@ -115,10 +115,10 @@ div.chat-welcome-view {
 		text-align: center;
 		max-width: 100%;
 		margin: 0 auto;
-		color: var(--vscode-input-placeholderForeground);
+		color: var(--vsblocks-input-placeholderForeground);
 
 		a {
-			color: var(--vscode-textLink-foreground);
+			color: var(--vsblocks-textLink-foreground);
 		}
 		p{
 			margin-top: 8px;
@@ -161,19 +161,19 @@ div.chat-welcome-view {
 		font-size: 16px;
 
 		a {
-			color: var(--vscode-input-placeholderForeground);
+			color: var(--vsblocks-input-placeholderForeground);
 		}
 	}
 
 	& > .chat-welcome-view-additional-message {
-		color: var(--vscode-input-placeholderForeground);
+		color: var(--vsblocks-input-placeholderForeground);
 		text-align: center;
 		max-width: 400px;
 		margin-top: 8px;
 		padding: 0 12px;
 		font-size: 12px;
 		a {
-			color: var(--vscode-textLink-foreground);
+			color: var(--vsblocks-textLink-foreground);
 		}
 	}
 
@@ -181,21 +181,21 @@ div.chat-welcome-view {
 	.interactive-session .chat-welcome-view-container.has-chat-history & > .chat-welcome-view-disclaimer {
 		text-align: center;
 		max-width: 400px;
-		color: var(--vscode-input-placeholderForeground);
+		color: var(--vsblocks-input-placeholderForeground);
 		margin: 16px auto;
 		padding: 0 12px;
 		a {
-			color: var(--vscode-textLink-foreground);
+			color: var(--vsblocks-textLink-foreground);
 		}
 	}
 
 	.interactive-session .chat-welcome-view-container:not(.has-chat-history) & > .chat-welcome-view-disclaimer {
-		color: var(--vscode-input-placeholderForeground);
+		color: var(--vsblocks-input-placeholderForeground);
 		text-align: center;
 		margin: -16px auto;
 		max-width: 400px;
 		a {
-			color: var(--vscode-textLink-foreground);
+			color: var(--vsblocks-textLink-foreground);
 		}
 	}
 
@@ -211,9 +211,9 @@ div.chat-welcome-view {
 			align-items: center;
 			padding: 2px;
 			border-radius: 8px;
-			background-color: var(--vscode-editorWidget-background);
+			background-color: var(--vsblocks-editorWidget-background);
 			cursor: pointer;
-			border: 1px solid var(--vscode-chat-requestBorder, var(--vscode-input-background, transparent));
+			border: 1px solid var(--vsblocks-chat-requestBorder, var(--vsblocks-input-background, transparent));
 			border-radius: 4px;
 			max-width: 200px;
 			width: fit-content;
@@ -223,14 +223,14 @@ div.chat-welcome-view {
 				display: flex;
 				align-items: center;
 				font-size: 4px;
-				color: var(--vscode-icon-foreground) !important;
+				color: var(--vsblocks-icon-foreground) !important;
 				align-items: center;
 				padding: 4px;
 			}
 
 			& > .chat-welcome-view-suggested-prompt-label {
 				font-size: 14px;
-				color: var(--vscode-editorWidget-foreground);
+				color: var(--vsblocks-editorWidget-foreground);
 				padding: 4px 4px 4px 0;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -241,8 +241,8 @@ div.chat-welcome-view {
 		}
 
 		& > .chat-welcome-view-suggested-prompt:hover {
-			background-color: var(--vscode-list-hoverBackground);
-			border-color: var(--vscode-focusBorder);
+			background-color: var(--vsblocks-list-hoverBackground);
+			border-color: var(--vsblocks-focusBorder);
 		}
 	}
 }
@@ -260,7 +260,7 @@ div.chat-welcome-view {
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
 		min-height: 22px;
-		color: var(--vscode-descriptionForeground);
+		color: var(--vsblocks-descriptionForeground);
 
 		.chat-welcome-history-header-toolbar {
 			padding-right: 15px;
@@ -306,7 +306,7 @@ div.chat-welcome-view {
 		outline: none;
 
 		&:hover {
-			background: var(--vscode-list-hoverBackground);
+			background: var(--vsblocks-list-hoverBackground);
 		}
 
 		.chat-welcome-history-title {
@@ -319,7 +319,7 @@ div.chat-welcome-view {
 
 		.chat-welcome-history-date {
 			font-size: 11px;
-			color: var(--vscode-descriptionForeground);
+			color: var(--vsblocks-descriptionForeground);
 			flex: 0 0 auto;
 			margin-left: 8px;
 		}

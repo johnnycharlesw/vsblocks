@@ -5,7 +5,7 @@
 
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { DeferredPromise } from './deferredPromise';
 import { splitNewLines } from './split';
 

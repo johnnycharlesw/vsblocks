@@ -6,7 +6,7 @@
 import { randomBytes } from 'crypto';
 import { tmpdir } from 'os';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { V8CoverageFile } from './coverageProvider';
 import { FailingDeepStrictEqualAssertFixer } from './failingDeepStrictEqualAssertFixer';
 import { FailureTracker } from './failureTracker';
@@ -19,7 +19,7 @@ import {
 	guessWorkspaceFolder,
 	itemData,
 } from './testTree';
-import { BrowserTestRunner, PlatformTestRunner, VSCodeTestRunner } from './vscodeTestRunner';
+import { BrowserTestRunner, PlatformTestRunner, VSBlocksTestRunner } from './vscodeTestRunner';
 import { ImportGraph } from './importGraph';
 
 const TEST_FILE_PATTERN = 'src/vs/**/*.{test,integrationTest}.ts';
@@ -94,7 +94,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	});
 
 	const createRunHandler = (
-		runnerCtor: { new(folder: vscode.WorkspaceFolder): VSCodeTestRunner },
+		runnerCtor: { new(folder: vscode.WorkspaceFolder): VSBlocksTestRunner },
 		kind: vscode.TestRunProfileKind,
 		args: string[] = []
 	) => {

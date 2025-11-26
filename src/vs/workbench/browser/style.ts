@@ -48,7 +48,7 @@ registerThemingParticipant((theme, collector) => {
 			body.web {
 				touch-action: none;
 			}
-			.monaco-workbench .monaco-editor .view-lines {
+			.monaco-workbench .vsblockengine .view-lines {
 				user-select: text;
 				-webkit-user-select: text;
 			}

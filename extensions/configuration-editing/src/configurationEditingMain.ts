@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { getLocation, JSONPath, parse, visit, Location } from 'jsonc-parser';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { SettingsDocument } from './settingsDocumentHelper';
 import { provideInstalledExtensionProposals } from './extensionsProposals';
 import './importExportProfiles';

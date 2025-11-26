@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { JUPYTER_NOTEBOOK_MARKDOWN_SELECTOR } from './constants';
 import { basename, extname } from 'path';
 

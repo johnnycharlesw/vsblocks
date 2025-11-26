@@ -8,14 +8,14 @@
 }
 
 .monaco-workbench .terminal .terminal-command-decoration.quick-fix {
-	color: var(--vscode-editorLightBulb-foreground) !important;
-	background-color: var(--vscode-terminal-background, var(--vscode-panel-background));
+	color: var(--vsblocks-editorLightBulb-foreground) !important;
+	background-color: var(--vsblocks-terminal-background, var(--vsblocks-panel-background));
 }
 
 .monaco-workbench .editor-instance .terminal .terminal-command-decoration.quick-fix {
-	background-color: var(--vscode-terminal-background, var(--vscode-editor-background));
+	background-color: var(--vsblocks-terminal-background, var(--vsblocks-editor-background));
 }
 
 .monaco-workbench .terminal .terminal-command-decoration.quick-fix.explainOnly {
-	color: var(--vscode-editorLightBulbAutoFix-foreground) !important;
+	color: var(--vsblocks-editorLightBulbAutoFix-foreground) !important;
 }

@@ -225,9 +225,9 @@ function fromLocalNormal(extensionPath: string): Stream {
 	return result.pipe(createStatsStream(path.basename(extensionPath)));
 }
 
-const userAgent = 'VSCode Build';
+const userAgent = 'VSBlocks Build';
 const baseHeaders = {
-	'X-Market-Client-Id': 'VSCode Build',
+	'X-Market-Client-Id': 'VSBlocks Build',
 	'User-Agent': userAgent,
 	'X-Market-User-Id': '291C1CD0-051A-4123-9B4B-30D60EF52EE2',
 };

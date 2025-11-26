@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import type * as nbformat from '@jupyterlab/nbformat';
-import { extensions, NotebookCellData, NotebookCellExecutionSummary, NotebookCellKind, NotebookCellOutput, NotebookCellOutputItem, NotebookData } from 'vscode';
+import { extensions, NotebookCellData, NotebookCellExecutionSummary, NotebookCellKind, NotebookCellOutput, NotebookCellOutputItem, NotebookData } from 'vsblocks';
 import { CellMetadata, CellOutputMetadata } from './common';
 import { textMimeTypes } from './constants';
 
@@ -322,7 +322,7 @@ function createNotebookCellDataFromCodeCell(cell: nbformat.ICodeCell, cellLangua
 		? { executionOrder: cell.execution_count as number }
 		: {};
 
-	const vscodeCustomMetadata = cell.metadata['vscode'] as { [key: string]: any } | undefined;
+	const vscodeCustomMetadata = cell.metadata['vsblocks'] as { [key: string]: any } | undefined;
 	const cellLanguageId = vscodeCustomMetadata && vscodeCustomMetadata.languageId && typeof vscodeCustomMetadata.languageId === 'string' ? vscodeCustomMetadata.languageId : cellLanguage;
 	const cellData = new NotebookCellData(NotebookCellKind.Code, source, cellLanguageId);
 

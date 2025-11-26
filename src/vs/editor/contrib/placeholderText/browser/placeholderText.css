@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor {
+.vsblockengine {
 	.editorPlaceholder {
 		top: 0px;
 		position: absolute;
@@ -12,6 +12,6 @@
 		text-wrap: nowrap;
 		pointer-events: none;
 
-		color: var(--vscode-editor-placeholder-foreground);
+		color: var(--vsblocks-editor-placeholder-foreground);
 	}
 }

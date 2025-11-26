@@ -199,7 +199,7 @@ suite('Monarch', () => {
 	});
 
 
-	test('microsoft/monaco-editor#1235: Empty Line Handling', () => {
+	test('microsoft/vsblockengine#1235: Empty Line Handling', () => {
 		const disposables = new DisposableStore();
 		const configurationService = new StandaloneConfigurationService(new NullLogService());
 		const languageService = disposables.add(new LanguageService());
@@ -258,7 +258,7 @@ suite('Monarch', () => {
 		disposables.dispose();
 	});
 
-	test('microsoft/monaco-editor#2265: Exit a state at end of line', () => {
+	test('microsoft/vsblockengine#2265: Exit a state at end of line', () => {
 		const disposables = new DisposableStore();
 		const configurationService = new StandaloneConfigurationService(new NullLogService());
 		const languageService = disposables.add(new LanguageService());
@@ -366,7 +366,7 @@ suite('Monarch', () => {
 		disposables.dispose();
 	});
 
-	test('microsoft/monaco-editor#2424: Allow to target @@', () => {
+	test('microsoft/vsblockengine#2424: Allow to target @@', () => {
 		const disposables = new DisposableStore();
 		const configurationService = new StandaloneConfigurationService(new NullLogService());
 		const languageService = disposables.add(new LanguageService());
@@ -397,7 +397,7 @@ suite('Monarch', () => {
 		disposables.dispose();
 	});
 
-	test('microsoft/monaco-editor#3025: Check maxTokenizationLineLength before tokenizing', async () => {
+	test('microsoft/vsblockengine#3025: Check maxTokenizationLineLength before tokenizing', async () => {
 		const disposables = new DisposableStore();
 
 		const configurationService = new StandaloneConfigurationService(new NullLogService());
@@ -434,7 +434,7 @@ suite('Monarch', () => {
 		disposables.dispose();
 	});
 
-	test('microsoft/monaco-editor#3128: allow state access within rules', () => {
+	test('microsoft/vsblockengine#3128: allow state access within rules', () => {
 		const disposables = new DisposableStore();
 		const configurationService = new StandaloneConfigurationService(new NullLogService());
 		const languageService = disposables.add(new LanguageService());
@@ -483,7 +483,7 @@ suite('Monarch', () => {
 		disposables.dispose();
 	});
 
-	test('microsoft/monaco-editor#4775: Raw-strings in c++ can break monarch', () => {
+	test('microsoft/vsblockengine#4775: Raw-strings in c++ can break monarch', () => {
 		const disposables = new DisposableStore();
 		const configurationService = new StandaloneConfigurationService(new NullLogService());
 		const languageService = disposables.add(new LanguageService());

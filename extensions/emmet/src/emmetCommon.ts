@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { DefaultCompletionItemProvider } from './defaultCompletionProvider';
 import { expandEmmetAbbreviation, wrapWithAbbreviation } from './abbreviationActions';
 import { removeTag } from './removeTag';

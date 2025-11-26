@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { API as GitAPI, Repository } from './typings/git.js';
 import { getOctokit } from './auth.js';
 import { TextEncoder } from 'util';

@@ -1563,7 +1563,7 @@ express or implied warranty, and with no claim as to its
 suitability for any purpose.
 
 The file syntaxes/markdown-latex-combined.tmLanguage.json is generated from the Markdown grammar
-included in VSCode and falls under the license described in markdown-latex-combined-license.txt.
+included in VSBlocks and falls under the license described in markdown-latex-combined-license.txt.
 
 The file syntaxes/cpp-grammar-bailout.tmLanguage.json is generated from https://github.com/jeff-hykin/better-cpp-syntax
 and falls under the license described in cpp-bailout-license.txt.
@@ -2077,7 +2077,7 @@ suitability for any purpose.
 johnnycharlesw/vsblocks-JSON.tmLanguage 0.0.0 - MIT
 https://github.com/johnnycharlesw/vsblocks-JSON.tmLanguage
 
-vscode-JSON.tmLanguage
+vsblocks-JSON.tmLanguage
 
 Copyright (c) Microsoft Corporation
 

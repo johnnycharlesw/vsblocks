@@ -1176,7 +1176,7 @@ export class TerminalInstance extends Disposable implements ITerminalInstance {
 
 	private _setShellIntegrationContextKey(): void {
 		if (this.xterm) {
-			this._terminalShellIntegrationEnabledContextKey.set(this.xterm.shellIntegration.status === ShellIntegrationStatus.VSCode);
+			this._terminalShellIntegrationEnabledContextKey.set(this.xterm.shellIntegration.status === ShellIntegrationStatus.VSBlocks);
 		}
 	}
 

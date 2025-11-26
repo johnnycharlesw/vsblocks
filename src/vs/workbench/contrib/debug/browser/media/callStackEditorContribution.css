@@ -3,10 +3,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .view-overlays .debug-top-stack-frame-line {
-	background-color: var(--vscode-editor-stackFrameHighlightBackground);
+.vsblockengine .view-overlays .debug-top-stack-frame-line {
+	background-color: var(--vsblocks-editor-stackFrameHighlightBackground);
 }
 
-.monaco-editor .view-overlays .debug-focused-stack-frame-line {
-	background-color: var(--vscode-editor-focusedStackFrameHighlightBackground);
+.vsblockengine .view-overlays .debug-focused-stack-frame-line {
+	background-color: var(--vsblocks-editor-focusedStackFrameHighlightBackground);
 }

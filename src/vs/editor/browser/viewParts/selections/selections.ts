@@ -66,7 +66,7 @@ export class SelectionsOverlay extends DynamicViewOverlay {
 	private static readonly SELECTION_BOTTOM_LEFT = 'bottom-left-radius';
 	private static readonly SELECTION_TOP_RIGHT = 'top-right-radius';
 	private static readonly SELECTION_BOTTOM_RIGHT = 'bottom-right-radius';
-	private static readonly EDITOR_BACKGROUND_CLASS_NAME = 'monaco-editor-background';
+	private static readonly EDITOR_BACKGROUND_CLASS_NAME = 'vsblockengine-background';
 
 	private static readonly ROUNDED_PIECE_WIDTH = 10;
 
@@ -400,7 +400,7 @@ export class SelectionsOverlay extends DynamicViewOverlay {
 registerThemingParticipant((theme, collector) => {
 	const editorSelectionForegroundColor = theme.getColor(editorSelectionForeground);
 	if (editorSelectionForegroundColor && !editorSelectionForegroundColor.isTransparent()) {
-		collector.addRule(`.monaco-editor .view-line span.inline-selected-text { color: ${editorSelectionForegroundColor}; }`);
+		collector.addRule(`.vsblockengine .view-line span.inline-selected-text { color: ${editorSelectionForegroundColor}; }`);
 	}
 });
 

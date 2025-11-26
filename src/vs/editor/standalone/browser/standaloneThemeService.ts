@@ -398,7 +398,7 @@ export class StandaloneThemeService extends Disposable implements IStandaloneThe
 				colorVariables.push(`${asCssVariableName(item.id)}: ${color.toString()};`);
 			}
 		}
-		ruleCollector.addRule(`.monaco-editor, .monaco-diff-editor, .monaco-component { ${colorVariables.join('\n')} }`);
+		ruleCollector.addRule(`.vsblockengine, .monaco-diff-editor, .monaco-component { ${colorVariables.join('\n')} }`);
 
 		const colorMap = this._colorMapOverride || this._theme.tokenTheme.getColorMap();
 		ruleCollector.addRule(generateTokensCSSForColorMap(colorMap));
@@ -407,7 +407,7 @@ export class StandaloneThemeService extends Disposable implements IStandaloneThe
 		// Monaco editor elements so that VSBlocks's built-in high contrast themes
 		// (hc-black / hc-light) are used instead of the OS forcing system colors.
 		if (mainWindow.matchMedia(`(forced-colors: active)`).matches) {
-			ruleCollector.addRule(`.monaco-editor, .monaco-diff-editor, .monaco-component { forced-color-adjust: none; }`);
+			ruleCollector.addRule(`.vsblockengine, .monaco-diff-editor, .monaco-component { forced-color-adjust: none; }`);
 		}
 
 		this._themeCSS = cssRules.join('\n');

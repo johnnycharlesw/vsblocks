@@ -757,7 +757,7 @@ export class NativeHostMainService extends Disposable implements INativeHostMain
 				return join(dirname(process.execPath), 'bin', `${this.productService.applicationName}.cmd`);
 			}
 
-			return join(this.environmentMainService.appRoot, 'scripts', 'code-cli.bat');
+			return join(this.environmentMainService.appRoot, 'scripts', 'blocks-cli.bat');
 		}
 
 		// Linux
@@ -766,7 +766,7 @@ export class NativeHostMainService extends Disposable implements INativeHostMain
 				return join(dirname(process.execPath), 'bin', `${this.productService.applicationName}`);
 			}
 
-			return join(this.environmentMainService.appRoot, 'scripts', 'code-cli.sh');
+			return join(this.environmentMainService.appRoot, 'scripts', 'blocks-cli.sh');
 		}
 
 		// macOS
@@ -774,7 +774,7 @@ export class NativeHostMainService extends Disposable implements INativeHostMain
 			return join(this.environmentMainService.appRoot, 'bin', 'code');
 		}
 
-		return join(this.environmentMainService.appRoot, 'scripts', 'code-cli.sh');
+		return join(this.environmentMainService.appRoot, 'scripts', 'blocks-cli.sh');
 	}
 
 	async getOSStatistics(): Promise<IOSStatistics> {

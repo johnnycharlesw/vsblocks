@@ -47,7 +47,7 @@ export class UnfocusedViewDimmingContribution extends Disposable implements IWor
 					// Terminals
 					rules.add(`.monaco-workbench .pane-body.integrated-terminal .terminal-wrapper:not(:focus-within) { ${filterRule} }`);
 					// Text editors
-					rules.add(`.monaco-workbench .editor-instance:not(:focus-within) .monaco-editor { ${filterRule} }`);
+					rules.add(`.monaco-workbench .editor-instance:not(:focus-within) .vsblockengine { ${filterRule} }`);
 					// Breadcrumbs
 					rules.add(`.monaco-workbench .editor-instance:not(:focus-within) .breadcrumbs-below-tabs { ${filterRule} }`);
 					// Terminal editors
@@ -57,7 +57,7 @@ export class UnfocusedViewDimmingContribution extends Disposable implements IWor
 					// Keybindings editor
 					rules.add(`.monaco-workbench .editor-instance:not(:focus-within) .keybindings-editor { ${filterRule} }`);
 					// Editor placeholder (error case)
-					rules.add(`.monaco-workbench .editor-instance:not(:focus-within) .monaco-editor-pane-placeholder { ${filterRule} }`);
+					rules.add(`.monaco-workbench .editor-instance:not(:focus-within) .vsblockengine-pane-placeholder { ${filterRule} }`);
 					// Welcome editor
 					rules.add(`.monaco-workbench .editor-instance:not(:focus-within) .gettingStartedContainer { ${filterRule} }`);
 					cssTextContent = [...rules].join('\n');

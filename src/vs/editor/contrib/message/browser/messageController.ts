@@ -167,7 +167,7 @@ class MessageWidget implements IContentWidget {
 		this._position = { lineNumber, column };
 
 		this._domNode = document.createElement('div');
-		this._domNode.classList.add('monaco-editor-overlaymessage');
+		this._domNode.classList.add('vsblockengine-overlaymessage');
 		this._domNode.style.marginLeft = '-6px';
 
 		const anchorTop = document.createElement('div');

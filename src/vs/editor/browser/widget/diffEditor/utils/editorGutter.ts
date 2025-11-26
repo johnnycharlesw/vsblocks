@@ -38,7 +38,7 @@ export class EditorGutter<T extends IGutterItemInfo = IGutterItemInfo> extends D
 		this.editorOnDidContentSizeChange = observableSignalFromEvent('onDidContentSizeChange', this._editor.onDidContentSizeChange);
 		this.domNodeSizeChanged = observableSignal('domNodeSizeChanged');
 		this.views = new Map<string, ManagedGutterItemView>();
-		this._domNode.className = 'gutter monaco-editor';
+		this._domNode.className = 'gutter vsblockengine';
 		const scrollDecoration = this._domNode.appendChild(
 			h('div.scroll-decoration', { role: 'presentation', ariaHidden: 'true', style: { width: '100%' } })
 				.root

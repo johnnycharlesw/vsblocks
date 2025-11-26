@@ -122,7 +122,7 @@ interface IRawGalleryMcpServerDetail {
 	readonly remotes?: McpServerRemotes;
 }
 
-interface IVSCodeGalleryMcpServerDetail {
+interface IVSBlocksGalleryMcpServerDetail {
 	readonly name: string;
 	readonly displayName: string;
 	readonly description: string;
@@ -250,8 +250,8 @@ export class McpGalleryService extends Disposable implements IMcpGalleryService 
 		return mcpServers;
 	}
 
-	async getMcpServersFromVSCodeGallery(names: string[]): Promise<IGalleryMcpServer[]> {
-		const servers = await this.fetchMcpServersFromVSCodeGallery();
+	async getMcpServersFromVSBlocksGallery(names: string[]): Promise<IGalleryMcpServer[]> {
+		const servers = await this.fetchMcpServersFromVSBlocksGallery();
 		return servers.filter(item => names.includes(item.name));
 	}
 
@@ -400,7 +400,7 @@ export class McpGalleryService extends Disposable implements IMcpGalleryService 
 	private async queryGalleryMcpServers(query: Query, mcpGalleryManifest: IMcpGalleryManifest, token: CancellationToken): Promise<{ servers: IGalleryMcpServer[]; metadata?: IRawGalleryServerListMetadata }> {
 		if (mcpGalleryManifest.url === this.productService.extensionsGallery?.mcpUrl) {
 			return {
-				servers: await this.fetchMcpServersFromVSCodeGallery()
+				servers: await this.fetchMcpServersFromVSBlocksGallery()
 			};
 		}
 		const { servers, metadata } = await this.queryRawGalleryMcpServers(query, mcpGalleryManifest, token);
@@ -524,7 +524,7 @@ export class McpGalleryService extends Disposable implements IMcpGalleryService 
 		return from;
 	}
 
-	private async fetchMcpServersFromVSCodeGallery(): Promise<IGalleryMcpServer[]> {
+	private async fetchMcpServersFromVSBlocksGallery(): Promise<IGalleryMcpServer[]> {
 		const mcpGalleryUrl = this.productService.extensionsGallery?.mcpUrl;
 		if (!mcpGalleryUrl) {
 			return [];
@@ -535,7 +535,7 @@ export class McpGalleryService extends Disposable implements IMcpGalleryService 
 			url: mcpGalleryUrl,
 		}, CancellationToken.None);
 
-		const result = await asJson<{ servers: IVSCodeGalleryMcpServerDetail[] }>(context);
+		const result = await asJson<{ servers: IVSBlocksGalleryMcpServerDetail[] }>(context);
 		if (!result) {
 			return [];
 		}

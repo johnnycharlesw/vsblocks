@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor-pane-placeholder {
+.vsblockengine-pane-placeholder {
 	padding: 0 16px 0 16px;
 	box-sizing: border-box;
 	display: flex;
@@ -13,33 +13,33 @@
 	gap: 10px;
 }
 
-.monaco-editor-pane-placeholder:focus {
+.vsblockengine-pane-placeholder:focus {
 	outline: none !important;
 }
 
-.monaco-editor-pane-placeholder .editor-placeholder-icon-container .codicon {
+.vsblockengine-pane-placeholder .editor-placeholder-icon-container .codicon {
 	font-size: 48px !important;
 }
 
-.monaco-editor-pane-placeholder .editor-placeholder-icon-container .codicon.codicon-error {
-	color: var(--vscode-editorError-foreground);
+.vsblockengine-pane-placeholder .editor-placeholder-icon-container .codicon.codicon-error {
+	color: var(--vsblocks-editorError-foreground);
 }
 
-.monaco-editor-pane-placeholder .editor-placeholder-icon-container .codicon.codicon-warning {
-	color: var(--vscode-editorWarning-foreground);
+.vsblockengine-pane-placeholder .editor-placeholder-icon-container .codicon.codicon-warning {
+	color: var(--vsblocks-editorWarning-foreground);
 }
 
-.monaco-editor-pane-placeholder .editor-placeholder-icon-container .codicon.codicon-info,
-.monaco-editor-pane-placeholder .editor-placeholder-icon-container .codicon.codicon-workspace-untrusted {
-	color: var(--vscode-editorInfo-foreground);
+.vsblockengine-pane-placeholder .editor-placeholder-icon-container .codicon.codicon-info,
+.vsblockengine-pane-placeholder .editor-placeholder-icon-container .codicon.codicon-workspace-untrusted {
+	color: var(--vsblocks-editorInfo-foreground);
 }
 
-.monaco-editor-pane-placeholder.max-height-200px .editor-placeholder-icon-container {
+.vsblockengine-pane-placeholder.max-height-200px .editor-placeholder-icon-container {
 	/* Hide the icon when height is limited */
 	display: none;
 }
 
-.monaco-editor-pane-placeholder .editor-placeholder-label-container {
+.vsblockengine-pane-placeholder .editor-placeholder-label-container {
 	font-size: 14px;
 	max-width: 450px;
 	text-align: center;
@@ -48,15 +48,15 @@
 	-webkit-user-select: text;
 }
 
-.monaco-editor-pane-placeholder .editor-placeholder-buttons-container {
+.vsblockengine-pane-placeholder .editor-placeholder-buttons-container {
 	display: flex;
 }
 
-.monaco-editor-pane-placeholder .editor-placeholder-buttons-container > .monaco-button {
+.vsblockengine-pane-placeholder .editor-placeholder-buttons-container > .monaco-button {
 	margin: 4px 5px;
 }
 
-.monaco-editor-pane-placeholder .editor-placeholder-buttons-container > .monaco-button {
+.vsblockengine-pane-placeholder .editor-placeholder-buttons-container > .monaco-button {
 	font-size: 14px;
 	width: fit-content;
 	padding: 6px 11px;

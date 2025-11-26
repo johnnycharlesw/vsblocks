@@ -33,7 +33,7 @@ const supportsCut = (platform.isNative || document.queryCommandSupported('cut'))
 const supportsCopy = (platform.isNative || document.queryCommandSupported('copy'));
 // Firefox only supports navigator.clipboard.readText() in browser extensions.
 // See https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/readText#Browser_compatibility
-// When loading over http, navigator.clipboard can be undefined. See https://github.com/microsoft/monaco-editor/issues/2313
+// When loading over http, navigator.clipboard can be undefined. See https://github.com/microsoft/vsblockengine/issues/2313
 const supportsPaste = (typeof navigator.clipboard === 'undefined' || browser.isFirefox) ? document.queryCommandSupported('paste') : true;
 
 function registerCommand<T extends Command>(command: T): T {

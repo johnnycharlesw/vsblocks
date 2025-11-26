@@ -1671,7 +1671,7 @@ suite('Editor Controller', () => {
 		model.undo();
 	}
 
-	test('issue microsoft/monaco-editor#443: Indentation of a single row deletes selected text in some cases', () => {
+	test('issue microsoft/vsblockengine#443: Indentation of a single row deletes selected text in some cases', () => {
 		const model = createTextModel(
 			[
 				'Hello world!',
@@ -4180,7 +4180,7 @@ suite('Editor Controller', () => {
 		});
 	});
 
-	test('issue microsoft/monaco-editor#108 part 1/2: Auto indentation on Enter with selection is half broken', () => {
+	test('issue microsoft/vsblockengine#108 part 1/2: Auto indentation on Enter with selection is half broken', () => {
 		usingCursor({
 			text: [
 				'function baz() {',
@@ -4203,7 +4203,7 @@ suite('Editor Controller', () => {
 		});
 	});
 
-	test('issue microsoft/monaco-editor#108 part 2/2: Auto indentation on Enter with selection is half broken', () => {
+	test('issue microsoft/vsblockengine#108 part 2/2: Auto indentation on Enter with selection is half broken', () => {
 		usingCursor({
 			text: [
 				'function baz() {',

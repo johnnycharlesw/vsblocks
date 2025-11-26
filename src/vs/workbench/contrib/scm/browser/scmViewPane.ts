@@ -2344,7 +2344,7 @@ export class SCMViewPane extends ViewPane {
 	}
 
 	private createTree(container: HTMLElement, viewState?: IAsyncDataTreeViewState): void {
-		const overflowWidgetsDomNode = $('.scm-overflow-widgets-container.monaco-editor');
+		const overflowWidgetsDomNode = $('.scm-overflow-widgets-container.vsblockengine');
 
 		this.inputRenderer = this.instantiationService.createInstance(InputRenderer, this.layoutCache, overflowWidgetsDomNode, (input, height) => {
 			try {

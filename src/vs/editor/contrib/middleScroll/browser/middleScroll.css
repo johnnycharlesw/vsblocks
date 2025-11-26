@@ -3,13 +3,13 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor {
+.vsblockengine {
 	.scroll-editor-on-middle-click-dot {
 		cursor: all-scroll;
 		position: absolute;
 		z-index: 1;
-		background-color: var(--vscode-editor-foreground, white);
-		border: 1px solid var(--vscode-editor-background, black);
+		background-color: var(--vsblocks-editor-foreground, white);
+		border: 1px solid var(--vsblocks-editor-background, black);
 		opacity: 0.5;
 		width: 5px;
 		height: 5px;

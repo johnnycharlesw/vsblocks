@@ -3,13 +3,13 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .blockDecorations-container {
+.vsblockengine .blockDecorations-container {
 	position: absolute;
 	top: 0;
 	pointer-events: none;
 }
 
-.monaco-editor .blockDecorations-block {
+.vsblockengine .blockDecorations-block {
 	position: absolute;
 	box-sizing: border-box;
 }

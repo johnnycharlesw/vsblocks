@@ -69,11 +69,11 @@
 }
 
 .monaco-workbench .notebookOverlay > .cell-list-container .folded-cell-run-section-button:hover {
-	background-color: var(--vscode-editorStickyScrollHover-background);
+	background-color: var(--vsblocks-editorStickyScrollHover-background);
 	cursor: pointer;
 }
 
-.monaco-workbench .notebookOverlay .cell-editor-container .monaco-editor .margin-view-overlays .codicon-folding-expanded,
-.monaco-workbench .notebookOverlay .cell-editor-container .monaco-editor .margin-view-overlays .codicon-folding-collapsed {
+.monaco-workbench .notebookOverlay .cell-editor-container .vsblockengine .margin-view-overlays .codicon-folding-expanded,
+.monaco-workbench .notebookOverlay .cell-editor-container .vsblockengine .margin-view-overlays .codicon-folding-collapsed {
 	margin-left: 0;
 }

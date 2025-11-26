@@ -9,9 +9,9 @@
 
 		align-items: center;
 		height: 24px;
-		background: var(--vscode-multiDiffEditor-headerBackground);
-		border-top: 1px solid var(--vscode-multiDiffEditor-border);
-		color: var(--vscode-foreground);
+		background: var(--vsblocks-multiDiffEditor-headerBackground);
+		border-top: 1px solid var(--vsblocks-multiDiffEditor-border);
+		color: var(--vsblocks-foreground);
 		padding: 0 5px;
 	}
 
@@ -32,7 +32,7 @@
 
 	&.collapsed {
 		.header {
-			border-bottom: 1px solid var(--vscode-multiDiffEditor-border);
+			border-bottom: 1px solid var(--vsblocks-multiDiffEditor-border);
 		}
 
 		.editorParent {
@@ -64,8 +64,8 @@
 	}
 }
 
-.monaco-editor .call-stack-go-to-file-link {
+.vsblockengine .call-stack-go-to-file-link {
 	text-decoration: underline;
 	cursor: pointer;
-	color: var(--vscode-editorLink-activeForeground) !important;
+	color: var(--vsblocks-editorLink-activeForeground) !important;
 }

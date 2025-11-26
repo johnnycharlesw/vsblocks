@@ -207,7 +207,7 @@ async function loadTests(opts) {
 		'cleans up old snapshots', // self-testing
 		'issue #149412: VSBlocks hangs when bad semantic token data is received', // https://github.com/johnnycharlesw/vsblocks/issues/192440
 		'issue #134973: invalid semantic tokens should be handled better', // https://github.com/johnnycharlesw/vsblocks/issues/192440
-		'issue #148651: VSCode UI process can hang if a semantic token with negative values is returned by language service', // https://github.com/johnnycharlesw/vsblocks/issues/192440
+		'issue #148651: VSBlocks UI process can hang if a semantic token with negative values is returned by language service', // https://github.com/johnnycharlesw/vsblocks/issues/192440
 		'issue #149130: vscode freezes because of Bracket Pair Colorization', // https://github.com/johnnycharlesw/vsblocks/issues/192440
 		'property limits', // https://github.com/johnnycharlesw/vsblocks/issues/192443
 		'Error events', // https://github.com/johnnycharlesw/vsblocks/issues/192443
@@ -419,10 +419,10 @@ const setTimeout0 = (() => {
 		const pending = [];
 
 		$globalThis.addEventListener('message', (e) => {
-			if (e.data && e.data.vscodeScheduleAsyncWork) {
+			if (e.data && e.data.vsblocksScheduleAsyncWork) {
 				for (let i = 0, len = pending.length; i < len; i++) {
 					const candidate = pending[i];
-					if (candidate.id === e.data.vscodeScheduleAsyncWork) {
+					if (candidate.id === e.data.vsblocksksScheduleAsyncWork) {
 						pending.splice(i, 1);
 						candidate.callback();
 						return;
@@ -437,7 +437,7 @@ const setTimeout0 = (() => {
 				id: myId,
 				callback: callback
 			});
-			$globalThis.postMessage({ vscodeScheduleAsyncWork: myId }, '*');
+			$globalThis.postMessage({ vsblocksScheduleAsyncWork: myId }, '*');
 		};
 	}
 	return (callback) => setTimeout(callback);

@@ -33,17 +33,17 @@ export class McpGalleryManifestService extends Disposable implements IMcpGallery
 
 	protected createMcpGalleryManifest(url: string): IMcpGalleryManifest {
 		url = url.endsWith('/') ? url.slice(0, -1) : url;
-		const isVSCodeGalleryUrl = this.productService.extensionsGallery?.mcpUrl === url;
+		const isVSBlocksGalleryUrl = this.productService.extensionsGallery?.mcpUrl === url;
 		const isProductGalleryUrl = this.productService.mcpGallery?.serviceUrl === url;
-		const version = isVSCodeGalleryUrl ? undefined : 'v0';
-		const serversUrl = isVSCodeGalleryUrl ? url : `${url}/${version}/servers`;
+		const version = isVSBlocksGalleryUrl ? undefined : 'v0';
+		const serversUrl = isVSBlocksGalleryUrl ? url : `${url}/${version}/servers`;
 		const resources = [
 			{
 				id: serversUrl,
 				type: McpGalleryResourceType.McpServersQueryService
 			}
 		];
-		if (!isVSCodeGalleryUrl) {
+		if (!isVSBlocksGalleryUrl) {
 			resources.push({
 				id: `${serversUrl}/{id}`,
 				type: McpGalleryResourceType.McpServerResourceUri

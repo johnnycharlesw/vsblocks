@@ -400,7 +400,7 @@ import { registerWorkbenchContribution2, WorkbenchPhase } from '../common/contri
 		id: argvDefinitionFileSchemaId,
 		allowComments: true,
 		allowTrailingCommas: true,
-		description: 'VSCode static command line definition file',
+		description: 'VSBlocks static command line definition file',
 		type: 'object',
 		additionalProperties: false,
 		properties: {

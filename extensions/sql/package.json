@@ -21,8 +21,8 @@
           ".dsql"
         ],
         "aliases": [
-          "MS SQL",
-          "T-SQL"
+          "MariaDB SQL",
+          "MySQL"
         ],
         "configuration": "./language-configuration.json"
       }

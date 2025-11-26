@@ -3,8 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .linked-editing-decoration {
-	background-color: var(--vscode-editor-linkedEditingBackground);
+.vsblockengine .linked-editing-decoration {
+	background-color: var(--vsblocks-editor-linkedEditingBackground);
 
 	/* Ensure decoration is visible even if range is empty */
 	min-width: 1px;

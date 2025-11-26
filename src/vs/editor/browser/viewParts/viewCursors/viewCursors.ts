@@ -408,9 +408,9 @@ registerThemingParticipant((theme, collector) => {
 			if (!caretBackground) {
 				caretBackground = caret.opposite();
 			}
-			collector.addRule(`.monaco-editor .cursors-layer ${cursorTheme.class} { background-color: ${caret}; border-color: ${caret}; color: ${caretBackground}; }`);
+			collector.addRule(`.vsblockengine .cursors-layer ${cursorTheme.class} { background-color: ${caret}; border-color: ${caret}; color: ${caretBackground}; }`);
 			if (isHighContrast(theme.type)) {
-				collector.addRule(`.monaco-editor .cursors-layer.has-selection ${cursorTheme.class} { border-left: 1px solid ${caretBackground}; border-right: 1px solid ${caretBackground}; }`);
+				collector.addRule(`.vsblockengine .cursors-layer.has-selection ${cursorTheme.class} { border-left: 1px solid ${caretBackground}; border-right: 1px solid ${caretBackground}; }`);
 			}
 		}
 	}

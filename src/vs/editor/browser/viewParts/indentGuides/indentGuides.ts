@@ -321,25 +321,25 @@ registerThemingParticipant((theme, collector) => {
 	if (colorValues.length > 0) {
 		for (let level = 0; level < 30; level++) {
 			const colors = colorValues[level % colorValues.length];
-			collector.addRule(`.monaco-editor .${colorProvider.getInlineClassNameOfLevel(level).replace(/ /g, '.')} { --guide-color: ${colors.guideColor}; --guide-color-active: ${colors.guideColorActive}; }`);
+			collector.addRule(`.vsblockengine .${colorProvider.getInlineClassNameOfLevel(level).replace(/ /g, '.')} { --guide-color: ${colors.guideColor}; --guide-color-active: ${colors.guideColorActive}; }`);
 		}
 
-		collector.addRule(`.monaco-editor .vertical { box-shadow: 1px 0 0 0 var(--guide-color) inset; }`);
-		collector.addRule(`.monaco-editor .horizontal-top { border-top: 1px solid var(--guide-color); }`);
-		collector.addRule(`.monaco-editor .horizontal-bottom { border-bottom: 1px solid var(--guide-color); }`);
+		collector.addRule(`.vsblockengine .vertical { box-shadow: 1px 0 0 0 var(--guide-color) inset; }`);
+		collector.addRule(`.vsblockengine .horizontal-top { border-top: 1px solid var(--guide-color); }`);
+		collector.addRule(`.vsblockengine .horizontal-bottom { border-bottom: 1px solid var(--guide-color); }`);
 
-		collector.addRule(`.monaco-editor .vertical.${colorProvider.activeClassName} { box-shadow: 1px 0 0 0 var(--guide-color-active) inset; }`);
-		collector.addRule(`.monaco-editor .horizontal-top.${colorProvider.activeClassName} { border-top: 1px solid var(--guide-color-active); }`);
-		collector.addRule(`.monaco-editor .horizontal-bottom.${colorProvider.activeClassName} { border-bottom: 1px solid var(--guide-color-active); }`);
+		collector.addRule(`.vsblockengine .vertical.${colorProvider.activeClassName} { box-shadow: 1px 0 0 0 var(--guide-color-active) inset; }`);
+		collector.addRule(`.vsblockengine .horizontal-top.${colorProvider.activeClassName} { border-top: 1px solid var(--guide-color-active); }`);
+		collector.addRule(`.vsblockengine .horizontal-bottom.${colorProvider.activeClassName} { border-bottom: 1px solid var(--guide-color-active); }`);
 	}
 
 	if (indentColorValues.length > 0) {
 		for (let level = 0; level < 30; level++) {
 			const colors = indentColorValues[level % indentColorValues.length];
-			collector.addRule(`.monaco-editor .lines-content .core-guide-indent.lvl-${level} { --indent-color: ${colors.indentColor}; --indent-color-active: ${colors.indentColorActive}; }`);
+			collector.addRule(`.vsblockengine .lines-content .core-guide-indent.lvl-${level} { --indent-color: ${colors.indentColor}; --indent-color-active: ${colors.indentColorActive}; }`);
 		}
 
-		collector.addRule(`.monaco-editor .lines-content .core-guide-indent { box-shadow: 1px 0 0 0 var(--indent-color) inset; }`);
-		collector.addRule(`.monaco-editor .lines-content .core-guide-indent.indent-active { box-shadow: 1px 0 0 0 var(--indent-color-active) inset; }`);
+		collector.addRule(`.vsblockengine .lines-content .core-guide-indent { box-shadow: 1px 0 0 0 var(--indent-color) inset; }`);
+		collector.addRule(`.vsblockengine .lines-content .core-guide-indent.indent-active { box-shadow: 1px 0 0 0 var(--indent-color-active) inset; }`);
 	}
 });

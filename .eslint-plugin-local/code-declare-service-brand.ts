@@ -8,7 +8,7 @@ import * as eslint from 'eslint';
 export = new class DeclareServiceBrand implements eslint.Rule.RuleModule {
 
 	readonly meta: eslint.Rule.RuleMetaData = {
-		fixable: 'code',
+		fixable: 'blocks',
 		schema: false,
 	};
 

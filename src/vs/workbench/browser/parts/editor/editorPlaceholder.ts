@@ -68,7 +68,7 @@ export abstract class EditorPlaceholder extends EditorPane {
 	protected createEditor(parent: HTMLElement): void {
 
 		// Container
-		this.container = $('.monaco-editor-pane-placeholder', {
+		this.container = $('.vsblockengine-pane-placeholder', {
 			tabIndex: 0 // enable focus support from the editor part (do not remove)
 		});
 		this.container.style.outline = 'none';

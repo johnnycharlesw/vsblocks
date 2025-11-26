@@ -221,8 +221,8 @@ registerThemingParticipant((theme, collector) => {
 	const editorLineNumbersColor = theme.getColor(editorLineNumbers);
 	const editorDimmedLineNumberColor = theme.getColor(editorDimmedLineNumber);
 	if (editorDimmedLineNumberColor) {
-		collector.addRule(`.monaco-editor .line-numbers.dimmed-line-number { color: ${editorDimmedLineNumberColor}; }`);
+		collector.addRule(`.vsblockengine .line-numbers.dimmed-line-number { color: ${editorDimmedLineNumberColor}; }`);
 	} else if (editorLineNumbersColor) {
-		collector.addRule(`.monaco-editor .line-numbers.dimmed-line-number { color: ${editorLineNumbersColor.transparent(0.4)}; }`);
+		collector.addRule(`.vsblockengine .line-numbers.dimmed-line-number { color: ${editorLineNumbersColor.transparent(0.4)}; }`);
 	}
 });

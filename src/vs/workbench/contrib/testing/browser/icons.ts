@@ -71,10 +71,10 @@ registerThemingParticipant((theme, collector) => {
 	}
 
 	collector.addRule(`
-		.monaco-editor .glyph-margin-widgets ${ThemeIcon.asCSSSelector(testingRunIcon)},
-		.monaco-editor .glyph-margin-widgets ${ThemeIcon.asCSSSelector(testingRunAllIcon)},
-		.monaco-editor .glyph-margin-widgets ${ThemeIcon.asCSSSelector(testingDebugIcon)},
-		.monaco-editor .glyph-margin-widgets ${ThemeIcon.asCSSSelector(testingDebugAllIcon)} {
+		.vsblockengine .glyph-margin-widgets ${ThemeIcon.asCSSSelector(testingRunIcon)},
+		.vsblockengine .glyph-margin-widgets ${ThemeIcon.asCSSSelector(testingRunAllIcon)},
+		.vsblockengine .glyph-margin-widgets ${ThemeIcon.asCSSSelector(testingDebugIcon)},
+		.vsblockengine .glyph-margin-widgets ${ThemeIcon.asCSSSelector(testingDebugAllIcon)} {
 			color: ${theme.getColor(testingColorRunAction)};
 		}
 	`);

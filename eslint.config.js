@@ -76,20 +76,20 @@ export default tseslint.config(
 			], // non-complete list of globals that are easy to access unintentionally
 			'no-var': 'warn',
 			'semi': 'off',
-			'local/code-translation-remind': 'warn',
-			'local/code-no-native-private': 'warn',
-			'local/code-parameter-properties-must-have-explicit-accessibility': 'warn',
-			'local/code-no-nls-in-standalone-editor': 'warn',
-			'local/code-no-potentially-unsafe-disposables': 'warn',
-			'local/code-no-dangerous-type-assertions': 'warn',
-			'local/code-no-standalone-editor': 'warn',
-			'local/code-no-unexternalized-strings': 'warn',
-			'local/code-must-use-super-dispose': 'warn',
-			'local/code-declare-service-brand': 'warn',
-			'local/code-no-reader-after-await': 'warn',
-			'local/code-no-observable-get-in-reactive-context': 'warn',
-			'local/code-no-deep-import-of-internal': ['error', { '.*Internal': true, 'searchExtTypesInternal': false }],
-			'local/code-layering': [
+			'local/blocks-translation-remind': 'warn',
+			'local/blocks-no-native-private': 'warn',
+			'local/blocks-parameter-properties-must-have-explicit-accessibility': 'warn',
+			'local/blocks-no-nls-in-standalone-editor': 'warn',
+			'local/blocks-no-potentially-unsafe-disposables': 'warn',
+			'local/blocks-no-dangerous-type-assertions': 'warn',
+			'local/blocks-no-standalone-editor': 'warn',
+			'local/blocks-no-unexternalized-strings': 'warn',
+			'local/blocks-must-use-super-dispose': 'warn',
+			'local/blocks-declare-service-brand': 'warn',
+			'local/blocks-no-reader-after-await': 'warn',
+			'local/blocks-no-observable-get-in-reactive-context': 'warn',
+			'local/blocks-no-deep-import-of-internal': ['error', { '.*Internal': true, 'searchExtTypesInternal': false }],
+			'local/blocks-layering': [
 				'warn',
 				{
 					'common': [],
@@ -143,17 +143,17 @@ export default tseslint.config(
 		rules: {
 			'@stylistic/ts/semi': 'warn',
 			'@stylistic/ts/member-delimiter-style': 'warn',
-			'local/code-no-unused-expressions': [
+			'local/blocks-no-unused-expressions': [
 				'warn',
 				{
 					'allowTernary': true
 				}
 			],
 			'jsdoc/no-types': 'warn',
-			'local/code-no-static-self-ref': 'warn'
+			'local/blocks-no-static-self-ref': 'warn'
 		}
 	},
-	// vscode TS
+	// vsblocks TS
 	{
 		files: [
 			'src/**/*.ts',
@@ -188,11 +188,11 @@ export default tseslint.config(
 			'local': pluginLocal,
 		},
 		rules: {
-			'local/code-must-use-super-dispose': 'off',
-			'local/code-no-test-only': 'error',
-			'local/code-no-test-async-suite': 'warn',
-			'local/code-no-unexternalized-strings': 'off',
-			'local/code-must-use-result': [
+			'local/blocks-must-use-super-dispose': 'off',
+			'local/blocks-no-test-only': 'error',
+			'local/blocks-no-test-async-suite': 'warn',
+			'local/blocks-no-unexternalized-strings': 'off',
+			'local/blocks-must-use-result': [
 				'warn',
 				[
 					{
@@ -206,7 +206,7 @@ export default tseslint.config(
 			]
 		}
 	},
-	// vscode tests specific rules
+	// vsblocks tests specific rules
 	{
 		files: [
 			'src/vs/**/*.test.ts'
@@ -218,7 +218,7 @@ export default tseslint.config(
 			'local': pluginLocal,
 		},
 		rules: {
-			'local/code-ensure-no-disposables-leak-in-test': [
+			'local/blocks-ensure-no-disposables-leak-in-test': [
 				'warn',
 				{
 					// Files should (only) be removed from the list they adopt the leak detector
@@ -229,11 +229,11 @@ export default tseslint.config(
 			]
 		}
 	},
-	// vscode API
+	// vsblocks API
 	{
 		files: [
-			'**/vscode.d.ts',
-			'**/vscode.proposed.*.d.ts'
+			'**/vsblocks.d.ts',
+			'**/vsblocks.proposed.*.d.ts'
 		],
 		languageOptions: {
 			parser: tseslint.parser,
@@ -249,15 +249,15 @@ export default tseslint.config(
 					'message': 'Use Array<...> for arrays of union types.'
 				},
 			],
-			'local/vscode-dts-create-func': 'warn',
-			'local/vscode-dts-literal-or-types': 'warn',
-			'local/vscode-dts-string-type-literals': 'warn',
-			'local/vscode-dts-interface-naming': 'warn',
-			'local/vscode-dts-cancellation': 'warn',
-			'local/vscode-dts-use-export': 'warn',
-			'local/vscode-dts-use-thenable': 'warn',
-			'local/vscode-dts-vscode-in-comments': 'warn',
-			'local/vscode-dts-provider-naming': [
+			'local/vsblocks-dts-create-func': 'warn',
+			'local/vsblocks-dts-literal-or-types': 'warn',
+			'local/vsblocks-dts-string-type-literals': 'warn',
+			'local/vsblocks-dts-interface-naming': 'warn',
+			'local/vsblocks-dts-cancellation': 'warn',
+			'local/vsblocks-dts-use-export': 'warn',
+			'local/vsblocks-dts-use-thenable': 'warn',
+			'local/vsblocks-dts-vsblocks-in-comments': 'warn',
+			'local/vsblocks-dts-provider-naming': [
 				'warn',
 				{
 					'allowed': [
@@ -272,7 +272,7 @@ export default tseslint.config(
 					]
 				}
 			],
-			'local/vscode-dts-event-naming': [
+			'local/vsblocks-dts-event-naming': [
 				'warn',
 				{
 					'allowed': [
@@ -315,10 +315,10 @@ export default tseslint.config(
 			]
 		}
 	},
-	// vscode.d.ts
+	// vsblocks.d.ts
 	{
 		files: [
-			'**/vscode.d.ts'
+			'**/vsblocks.d.ts'
 		],
 		languageOptions: {
 			parser: tseslint.parser,
@@ -372,7 +372,7 @@ export default tseslint.config(
 			'local': pluginLocal,
 		},
 		rules: {
-			'local/code-amd-node-module': 'warn'
+			'local/blocks-amd-node-module': 'warn'
 		}
 	},
 	// node/electron layer
@@ -418,7 +418,7 @@ export default tseslint.config(
 			'local': pluginLocal,
 		},
 		rules: {
-			'local/code-no-global-document-listener': 'warn',
+			'local/blocks-no-global-document-listener': 'warn',
 			'no-restricted-syntax': [
 				'warn',
 				{
@@ -776,7 +776,7 @@ export default tseslint.config(
 					]
 				}
 			],
-			'local/code-import-patterns': [
+			'local/blocks-import-patterns': [
 				'warn',
 				{
 					// imports that are allowed in all files of layers:
@@ -794,7 +794,7 @@ export default tseslint.config(
 					'allow': [
 						'@parcel/watcher',
 						'@vscode/sqlite3',
-						'@vscode/vscode-languagedetection',
+						'@vscode/vsblocks-languagedetection',
 						'@vscode/ripgrep',
 						'@vscode/iconv-lite-umd',
 						'@vscode/policy-watcher',
@@ -830,8 +830,8 @@ export default tseslint.config(
 						'url',
 						'util',
 						'v8-inspect-profiler',
-						'vscode-regexpp',
-						'vscode-textmate',
+						'vsblocks-regexpp',
+						'vsblocks-textmate',
 						'worker_threads',
 						'@xterm/addon-clipboard',
 						'@xterm/addon-image',
@@ -1003,7 +1003,7 @@ export default tseslint.config(
 				{
 					'target': 'src/vs/workbench/api/~',
 					'restrictions': [
-						'vscode',
+						'vsblocks',
 						'vs/base/~',
 						'vs/base/parts/*/~',
 						'vs/platform/*/~',
@@ -1031,8 +1031,8 @@ export default tseslint.config(
 							'pattern': 'vs/workbench/contrib/*/~'
 						}, // TODO@layers
 						'tas-client-umd', // node module allowed even in /common/
-						'vscode-textmate', // node module allowed even in /common/
-						'@vscode/vscode-languagedetection', // node module allowed even in /common/
+						'vsblocks-textmate', // node module allowed even in /common/
+						'@vscode/vsblocks-languagedetection', // node module allowed even in /common/
 						'@vscode/tree-sitter-wasm', // type import
 						{
 							'when': 'hasBrowser',
@@ -1053,7 +1053,7 @@ export default tseslint.config(
 						'vs/workbench/contrib/*/~',
 						'vs/workbench/contrib/terminal/terminalContribChatExports*',
 						'vs/workbench/contrib/terminal/terminalContribExports*',
-						'vscode-notebook-renderer', // Type only import
+						'vsblocks-notebook-renderer', // Type only import
 						'@vscode/tree-sitter-wasm', // type import
 						{
 							'when': 'hasBrowser',
@@ -1065,7 +1065,7 @@ export default tseslint.config(
 						}, // node module allowed even in /browser/
 						{
 							'when': 'hasBrowser',
-							'pattern': 'vscode-textmate'
+							'pattern': 'vsblocks-textmate'
 						} // node module allowed even in /browser/
 					]
 				},
@@ -1083,7 +1083,7 @@ export default tseslint.config(
 						// Only allow terminalContrib to import from itself, this works because
 						// terminalContrib is one extra folder deep
 						'vs/workbench/contrib/terminalContrib/*/~',
-						'vscode-notebook-renderer', // Type only import
+						'vsblocks-notebook-renderer', // Type only import
 						{
 							'when': 'hasBrowser',
 							'pattern': '@xterm/xterm'
@@ -1094,20 +1094,20 @@ export default tseslint.config(
 						}, // node module allowed even in /browser/
 						{
 							'when': 'hasBrowser',
-							'pattern': 'vscode-textmate'
+							'pattern': 'vsblocks-textmate'
 						}, // node module allowed even in /browser/
 						'@xterm/headless' // node module allowed even in /common/ and /browser/
 					]
 				},
 				{
-					'target': 'src/vs/code/~',
+					'target': 'src/vs/blocks/~',
 					'restrictions': [
 						'vs/base/~',
 						'vs/base/parts/*/~',
 						'vs/platform/*/~',
 						'vs/editor/~',
 						'vs/editor/contrib/*/~',
-						'vs/code/~',
+						'vs/blocks/~',
 						{
 							'when': 'hasBrowser',
 							'pattern': 'vs/workbench/workbench.web.main.js'
@@ -1240,7 +1240,7 @@ export default tseslint.config(
 					'restrictions': []
 				},
 				{
-					'target': 'src/vscode-dts/**',
+					'target': 'src/vsblocks-dts/**',
 					'restrictions': []
 				},
 				{
@@ -1273,7 +1273,7 @@ export default tseslint.config(
 			'local': pluginLocal,
 		},
 		rules: {
-			'local/code-import-patterns': [
+			'local/blocks-import-patterns': [
 				'warn',
 				{
 					'target': 'test/smoke/**',
@@ -1343,7 +1343,7 @@ export default tseslint.config(
 			'local': pluginLocal,
 		},
 		rules: {
-			'local/code-no-runtime-import': [
+			'local/blocks-no-runtime-import': [
 				'error',
 				{
 					'src/vs/workbench/contrib/notebook/browser/view/renderers/webviewPreloads.ts': [
@@ -1351,7 +1351,7 @@ export default tseslint.config(
 					]
 				}
 			],
-			'local/code-limited-top-functions': [
+			'local/blocks-limited-top-functions': [
 				'error',
 				{
 					'src/vs/workbench/contrib/notebook/browser/view/renderers/webviewPreloads.ts': [

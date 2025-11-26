@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { EventEmitter, LogOutputChannel, Memento, Uri, workspace } from 'vscode';
+import { EventEmitter, LogOutputChannel, Memento, Uri, workspace } from 'vsblocks';
 import { Repository as GitHubRepository, RepositoryRuleset } from '@octokit/graphql-schema';
 import { AuthenticationError, OctokitService } from './auth.js';
 import { API, BranchProtection, BranchProtectionProvider, BranchProtectionRule, Repository } from './typings/git.js';

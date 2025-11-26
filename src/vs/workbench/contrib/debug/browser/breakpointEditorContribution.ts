@@ -813,7 +813,7 @@ class InlineBreakpointWidget implements IContentWidget, IDisposable {
 }
 
 registerThemingParticipant((theme, collector) => {
-	const scope = '.monaco-editor .glyph-margin-widgets, .monaco-workbench .debug-breakpoints, .monaco-workbench .disassembly-view, .monaco-editor .contentWidgets';
+	const scope = '.vsblockengine .glyph-margin-widgets, .monaco-workbench .debug-breakpoints, .monaco-workbench .disassembly-view, .vsblockengine .contentWidgets';
 	const debugIconBreakpointColor = theme.getColor(debugIconBreakpointForeground);
 	if (debugIconBreakpointColor) {
 		collector.addRule(`${scope} {
@@ -855,7 +855,7 @@ registerThemingParticipant((theme, collector) => {
 	const debugIconBreakpointCurrentStackframeForegroundColor = theme.getColor(debugIconBreakpointCurrentStackframeForeground);
 	if (debugIconBreakpointCurrentStackframeForegroundColor) {
 		collector.addRule(`
-		.monaco-editor .debug-top-stack-frame-column {
+		.vsblockengine .debug-top-stack-frame-column {
 			color: ${debugIconBreakpointCurrentStackframeForegroundColor} !important;
 		}
 		${scope} {

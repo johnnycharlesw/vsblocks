@@ -1,9 +1,9 @@
 {
-  "name": "monaco-editor-core",
+  "name": "vsblockengine-core",
   "private": true,
   "version": "0.0.0",
   "description": "A browser based code editor",
-  "author": "Microsoft Corporation",
+  "author": "John Charles Woods",
   "license": "MIT",
   "typings": "./esm/vs/editor/editor.api.d.ts",
   "module": "./esm/vs/editor/editor.main.js",

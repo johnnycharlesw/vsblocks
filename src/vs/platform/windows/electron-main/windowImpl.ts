@@ -661,7 +661,7 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 
 			const options = instantiationService.invokeFunction(defaultBrowserWindowOptions, this.windowState, undefined, {
 				preload: FileAccess.asFileUri('vs/base/parts/sandbox/electron-browser/preload.js').fsPath,
-				additionalArguments: [`--vscode-window-config=${this.configObjectUrl.resource.toString()}`],
+				additionalArguments: [`--vsblocks-window-config=${this.configObjectUrl.resource.toString()}`],
 				v8CacheOptions: this.environmentMainService.useCodeCache ? 'bypassHeatCheck' : 'none',
 			});
 

@@ -5,14 +5,14 @@
 
 .floating-menu-overlay-widget {
 	padding: 0px;
-	color: var(--vscode-button-foreground);
-	background-color: var(--vscode-button-background);
+	color: var(--vsblocks-button-foreground);
+	background-color: var(--vsblocks-button-background);
 	border-radius: 2px;
-	border: 1px solid var(--vscode-contrastBorder);
+	border: 1px solid var(--vsblocks-contrastBorder);
 	display: flex;
 	align-items: center;
 	z-index: 10;
-	box-shadow: 0 2px 8px var(--vscode-widget-shadow);
+	box-shadow: 0 2px 8px var(--vsblocks-widget-shadow);
 	overflow: hidden;
 
 	.action-item > .action-label {
@@ -22,7 +22,7 @@
 	}
 
 	.action-item > .action-label.codicon {
-		color: var(--vscode-button-foreground);
+		color: var(--vsblocks-button-foreground);
 	}
 
 	.action-item > .action-label.codicon:not(.separator) {
@@ -39,6 +39,6 @@
 	}
 
 	.action-item .action-label.separator {
-		background-color: var(--vscode-menu-separatorBackground);
+		background-color: var(--vsblocks-menu-separatorBackground);
 	}
 }

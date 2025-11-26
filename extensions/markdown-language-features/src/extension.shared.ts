@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { MdLanguageClient } from './client/client';
 import { CommandManager } from './commandManager';
 import { registerMarkdownCommands } from './commands/index';

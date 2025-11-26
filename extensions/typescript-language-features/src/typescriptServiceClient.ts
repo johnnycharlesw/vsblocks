@@ -5,14 +5,14 @@
 
 import { homedir } from 'os';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import { ServiceConfigurationProvider, SyntaxServerConfiguration, TsServerLogLevel, TypeScriptServiceConfiguration, areServiceConfigurationsEqual } from './configuration/configuration';
 import * as fileSchemes from './configuration/fileSchemes';
 import { Schemes } from './configuration/schemes';
 import { IExperimentationTelemetryReporter } from './experimentTelemetryReporter';
 import { DiagnosticKind, DiagnosticsManager } from './languageFeatures/diagnostics';
 import { Logger } from './logging/logger';
-import { TelemetryReporter, VSCodeTelemetryReporter } from './logging/telemetry';
+import { TelemetryReporter, VSBlocksTelemetryReporter } from './logging/telemetry';
 import Tracer from './logging/tracer';
 import { ProjectType, inferredProjectCompilerOptions } from './tsconfig';
 import { API } from './tsServer/api';
@@ -226,7 +226,7 @@ export default class TypeScriptServiceClient extends Disposable implements IType
 			}
 		}, this, this._disposables);
 
-		this.telemetryReporter = new VSCodeTelemetryReporter(services.experimentTelemetryReporter, () => {
+		this.telemetryReporter = new VSBlocksTelemetryReporter(services.experimentTelemetryReporter, () => {
 			if (this.serverState.type === ServerState.Type.Running) {
 				if (this.serverState.tsserverVersion) {
 					return this.serverState.tsserverVersion;
@@ -585,7 +585,7 @@ export default class TypeScriptServiceClient extends Disposable implements IType
 			: undefined;
 
 		const configureOptions: Proto.ConfigureRequestArguments = {
-			hostInfo: 'vscode',
+			hostInfo: 'vsblocks',
 			preferences: {
 				providePrefixAndSuffixTextForRename: true,
 				allowRenameOfImportPath: true,

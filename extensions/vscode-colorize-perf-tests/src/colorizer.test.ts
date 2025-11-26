@@ -6,7 +6,7 @@
 import * as fs from 'fs';
 import 'mocha';
 import { basename, join, normalize } from 'path';
-import { commands, ConfigurationTarget, Uri, workspace } from 'vscode';
+import { commands, ConfigurationTarget, Uri, workspace } from 'vsblocks';
 
 interface BestsAndWorsts {
 	bestParse?: number;

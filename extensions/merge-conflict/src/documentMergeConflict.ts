@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import * as interfaces from './interfaces';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import type TelemetryReporter from '@vscode/extension-telemetry';
 
 export class DocumentMergeConflict implements interfaces.IDocumentMergeConflict {

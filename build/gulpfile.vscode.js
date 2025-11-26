@@ -122,7 +122,7 @@ const bootstrapEntryPoints = [
 	'out-build/bootstrap-fork.js'
 ];
 
-const bundleVSCodeTask = task.define('bundle-vscode', task.series(
+const bundleVSBlocksTask = task.define('bundle-vscode', task.series(
 	util.rimraf('out-vscode'),
 	// Optimize: bundles source files automatically based on
 	// import statements based on the passed in entry points.
@@ -143,15 +143,15 @@ const bundleVSCodeTask = task.define('bundle-vscode', task.series(
 		}
 	)
 ));
-gulp.task(bundleVSCodeTask);
+gulp.task(bundleVSBlocksTask);
 
 const sourceMappingURLBase = `https://main.vscode-cdn.net/sourcemaps/${commit}`;
-const minifyVSCodeTask = task.define('minify-vscode', task.series(
-	bundleVSCodeTask,
+const minifyVSBlocksTask = task.define('minify-vscode', task.series(
+	bundleVSBlocksTask,
 	util.rimraf('out-vscode-min'),
 	optimize.minifyTask('out-vscode', `${sourceMappingURLBase}/core`)
 ));
-gulp.task(minifyVSCodeTask);
+gulp.task(minifyVSBlocksTask);
 
 const coreCI = task.define('core-ci', task.series(
 	gulp.task('compile-build-with-mangling'),
@@ -487,7 +487,7 @@ BUILD_TARGETS.forEach(buildTarget => {
 
 	const [vscode, vscodeMin] = ['', 'min'].map(minified => {
 		const sourceFolderName = `out-vscode${dashed(minified)}`;
-		const destinationFolderName = `VSCode${dashed(platform)}${dashed(arch)}`;
+		const destinationFolderName = `VSBlocks${dashed(platform)}${dashed(arch)}`;
 
 		const tasks = [
 			compileNativeExtensionsBuildTask,
@@ -507,7 +507,7 @@ BUILD_TARGETS.forEach(buildTarget => {
 			cleanExtensionsBuildTask,
 			compileNonNativeExtensionsBuildTask,
 			compileExtensionMediaBuildTask,
-			minified ? minifyVSCodeTask : bundleVSCodeTask,
+			minified ? minifyVSBlocksTask : bundleVSBlocksTask,
 			vscodeTaskCI
 		));
 		gulp.task(vscodeTask);

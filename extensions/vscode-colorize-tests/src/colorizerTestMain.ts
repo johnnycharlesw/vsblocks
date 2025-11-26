@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as jsoncParser from 'jsonc-parser';
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 
 export function activate(context: vscode.ExtensionContext): any {
 

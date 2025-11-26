@@ -151,7 +151,7 @@
 .extension-list-item > .details > .description {
 	padding-right: 11px;
 	line-height: normal;
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 }
 
 .monaco-list-row.selected .extension-list-item > .details > .description{
@@ -184,7 +184,7 @@
 
 .extension-list-item > .details > .footer .publisher > .publisher-name {
 	font-size: 90%;
-	color: var(--vscode-descriptionForeground);
+	color: var(--vsblocks-descriptionForeground);
 	font-weight: 600;
 }
 
@@ -224,11 +224,11 @@
 }
 
 .monaco-list-row.disabled:not(.selected) .extension-list-item > .details > .footer .publisher > .publisher-name {
-	color: var(--vscode-disabledForeground);
+	color: var(--vsblocks-disabledForeground);
 }
 
 .monaco-list-row.disabled:not(.selected) .extension-list-item {
-	color: var(--vscode-disabledForeground);
+	color: var(--vsblocks-disabledForeground);
 }
 
 .monaco-list-row.disabled:not(.selected) .extension-list-item .details .header .name,

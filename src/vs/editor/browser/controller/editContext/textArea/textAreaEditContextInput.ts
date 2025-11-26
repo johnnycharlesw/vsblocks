@@ -284,7 +284,7 @@ export class TextAreaInput extends Disposable {
 			}
 			const currentComposition = this._currentComposition;
 			if (!currentComposition) {
-				// https://github.com/microsoft/monaco-editor/issues/1663
+				// https://github.com/microsoft/vsblockengine/issues/1663
 				// On iOS 13.2, Chinese system IME randomly trigger an additional compositionend event with empty data
 				return;
 			}
@@ -753,7 +753,7 @@ export class TextAreaWrapper extends Disposable implements ICompleteTextAreaWrap
 
 		if (currentIsFocused && currentSelectionStart === selectionStart && currentSelectionEnd === selectionEnd) {
 			// No change
-			// Firefox iframe bug https://github.com/microsoft/monaco-editor/issues/643#issuecomment-367871377
+			// Firefox iframe bug https://github.com/microsoft/vsblockengine/issues/643#issuecomment-367871377
 			if (browser.isFirefox && activeWindow.parent !== activeWindow) {
 				textArea.focus();
 			}

@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-.monaco-editor .selection-anchor {
+.vsblockengine .selection-anchor {
 	background-color: #007ACC;
 	width: 2px !important;
 }

@@ -41,8 +41,8 @@ export class SashSettingsController extends Disposable implements IWorkbenchCont
 
 		this.styleSheet.textContent = `
 			.monaco-workbench {
-				--vscode-sash-size: ${size}px;
-				--vscode-sash-hover-size: ${hoverSize}px;
+				--vsblocks-sash-size: ${size}px;
+				--vsblocks-sash-hover-size: ${hoverSize}px;
 			}
 		`;
 

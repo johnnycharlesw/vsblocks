@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from 'vsblocks';
 import * as cp from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -11,7 +11,7 @@ import * as os from 'os';
 import * as net from 'net';
 import * as http from 'http';
 import * as crypto from 'crypto';
-import { downloadAndUnzipVSCodeServer } from './download';
+import { downloadAndUnzipVSBlocksServer } from './download';
 import { terminateProcess } from './util/processes';
 
 let extHostProcess: cp.ChildProcess | undefined;
@@ -176,8 +176,8 @@ export function activate(context: vscode.ExtensionContext) {
 				let serverLocation = env['VSCODE_REMOTE_SERVER_PATH']; // support environment variable to specify location of server on disk
 				if (!serverLocation) {
 					const serverBin = path.join(remoteDataDir, 'bin');
-					progress.report({ message: 'Installing VSCode Server' });
-					serverLocation = await downloadAndUnzipVSCodeServer(updateUrl, commit, quality, serverBin, m => outputChannel.appendLine(m));
+					progress.report({ message: 'Installing VSBlocks Server' });
+					serverLocation = await downloadAndUnzipVSBlocksServer(updateUrl, commit, quality, serverBin, m => outputChannel.appendLine(m));
 				}
 
 				outputChannel.appendLine(`Using server build at ${serverLocation}`);

@@ -63,7 +63,7 @@ steps:
       $ErrorActionPreference = "Stop"
       $TestDir = "$(agent.builddirectory)\test"
       New-Item -ItemType Directory -Path $TestDir -Force
-      Copy-Item -Path "$(agent.builddirectory)\VSCode-win32-$(VSCODE_ARCH)" -Destination "$TestDir\VSCode-win32-$(VSCODE_ARCH)" -Recurse -Force
+      Copy-Item -Path "$(agent.builddirectory)\VSBlocks-win32-$(VSCODE_ARCH)" -Destination "$TestDir\VSBlocks-win32-$(VSCODE_ARCH)" -Recurse -Force
       Copy-Item -Path "$(agent.builddirectory)\vscode-server-win32-$(VSCODE_ARCH)" -Destination "$TestDir\vscode-server-win32-$(VSCODE_ARCH)" -Recurse -Force
       Copy-Item -Path "$(agent.builddirectory)\vscode-server-win32-$(VSCODE_ARCH)-web" -Destination "$TestDir\vscode-server-win32-$(VSCODE_ARCH)-web" -Recurse -Force
     displayName: Copy builds to test directory
@@ -75,7 +75,7 @@ steps:
         # to run with these builds instead of running out of sources.
         . build/azure-pipelines/win32/exec.ps1
         $ErrorActionPreference = "Stop"
-        $AppRoot = "$(agent.builddirectory)\test\VSCode-win32-$(VSCODE_ARCH)"
+        $AppRoot = "$(agent.builddirectory)\test\VSBlocks-win32-$(VSCODE_ARCH)"
         $AppProductJson = Get-Content -Raw -Path "$AppRoot\resources\app\product.json" | ConvertFrom-Json
         $AppNameShort = $AppProductJson.nameShort
         $env:INTEGRATION_TEST_ELECTRON_PATH = "$AppRoot\$AppNameShort.exe"
@@ -97,7 +97,7 @@ steps:
     - powershell: |
         . build/azure-pipelines/win32/exec.ps1
         $ErrorActionPreference = "Stop"
-        $AppRoot = "$(agent.builddirectory)\test\VSCode-win32-$(VSCODE_ARCH)"
+        $AppRoot = "$(agent.builddirectory)\test\VSBlocks-win32-$(VSCODE_ARCH)"
         $AppProductJson = Get-Content -Raw -Path "$AppRoot\resources\app\product.json" | ConvertFrom-Json
         $AppNameShort = $AppProductJson.nameShort
         $env:INTEGRATION_TEST_ELECTRON_PATH = "$AppRoot\$AppNameShort.exe"
@@ -117,7 +117,7 @@ steps:
     condition: succeededOrFailed()
 
   - ${{ if eq(parameters.VSCODE_RUN_ELECTRON_TESTS, true) }}:
-    - powershell: npm run smoketest-no-compile -- --tracing --build "$(agent.builddirectory)\test\VSCode-win32-$(VSCODE_ARCH)"
+    - powershell: npm run smoketest-no-compile -- --tracing --build "$(agent.builddirectory)\test\VSBlocks-win32-$(VSCODE_ARCH)"
       displayName: 🧪 Run smoke tests (Electron)
       timeoutInMinutes: 20
 
@@ -129,7 +129,7 @@ steps:
       timeoutInMinutes: 20
 
   - ${{ if eq(parameters.VSCODE_RUN_REMOTE_TESTS, true) }}:
-    - powershell: npm run smoketest-no-compile -- --tracing --remote --build "$(agent.builddirectory)\test\VSCode-win32-$(VSCODE_ARCH)"
+    - powershell: npm run smoketest-no-compile -- --tracing --remote --build "$(agent.builddirectory)\test\VSBlocks-win32-$(VSCODE_ARCH)"
       env:
         VSCODE_REMOTE_SERVER_PATH: $(agent.builddirectory)\test\vscode-server-win32-$(VSCODE_ARCH)
       displayName: 🧪 Run smoke tests (Remote)

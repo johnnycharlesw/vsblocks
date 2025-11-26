@@ -8,8 +8,8 @@ import { Editors } from './editors';
 import { Code } from './code';
 import { QuickAccess } from './quickaccess';
 
-const SEARCH_BOX_NATIVE_EDIT_CONTEXT = '.settings-editor .suggest-input-container .monaco-editor .native-edit-context';
-const SEARCH_BOX_TEXTAREA = '.settings-editor .suggest-input-container .monaco-editor textarea';
+const SEARCH_BOX_NATIVE_EDIT_CONTEXT = '.settings-editor .suggest-input-container .vsblockengine .native-edit-context';
+const SEARCH_BOX_TEXTAREA = '.settings-editor .suggest-input-container .vsblockengine textarea';
 
 export class SettingsEditor {
 	constructor(private code: Code, private editors: Editors, private editor: Editor, private quickaccess: QuickAccess) { }

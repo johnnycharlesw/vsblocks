@@ -265,7 +265,7 @@ function isListElementDescendantOfClass(e: HTMLElement, className: string): bool
 }
 
 export function isMonacoEditor(e: HTMLElement): boolean {
-	return isListElementDescendantOfClass(e, 'monaco-editor');
+	return isListElementDescendantOfClass(e, 'vsblockengine');
 }
 
 export function isMonacoCustomToggle(e: HTMLElement): boolean {

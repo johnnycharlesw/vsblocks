@@ -235,7 +235,7 @@ describe('API Integration Tests', function (): void {
 		});
 		it('Monaco editor container should have an ARIA role', async () => {
 			const role = await page.evaluate(() => {
-				const container = document.querySelector('.monaco-editor');
+				const container = document.querySelector('.vsblockengine');
 				return container?.getAttribute('role');
 			});
 			assert.isDefined(role, 'Monaco editor container should have a role attribute');
@@ -243,7 +243,7 @@ describe('API Integration Tests', function (): void {
 
 		it('Monaco editor should have an ARIA label', async () => {
 			const ariaLabel = await page.evaluate(() => {
-				const container = document.querySelector('.monaco-editor');
+				const container = document.querySelector('.vsblockengine');
 				return container?.getAttribute('aria-label');
 			});
 			assert.isDefined(ariaLabel, 'Monaco editor container should have an aria-label attribute');

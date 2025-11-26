@@ -397,15 +397,15 @@ export class Repl extends FilterViewPane implements IHistoryNavigationWidget {
 					line-height: ${replInputLineHeight}px
 				}
 
-				.repl .repl-input-wrapper .monaco-editor .lines-content {
+				.repl .repl-input-wrapper .vsblockengine .lines-content {
 					background-color: ${this.replOptions.replConfiguration.backgroundColor};
 				}
 			`;
 			const cssFontFamily = this.replOptions.replConfiguration.fontFamily === 'default' ? 'var(--monaco-monospace-font)' : this.replOptions.replConfiguration.fontFamily;
-			this.container.style.setProperty(`--vscode-repl-font-family`, cssFontFamily);
-			this.container.style.setProperty(`--vscode-repl-font-size`, `${this.replOptions.replConfiguration.fontSize}px`);
-			this.container.style.setProperty(`--vscode-repl-font-size-for-twistie`, `${this.replOptions.replConfiguration.fontSizeForTwistie}px`);
-			this.container.style.setProperty(`--vscode-repl-line-height`, this.replOptions.replConfiguration.cssLineHeight);
+			this.container.style.setProperty(`--vsblocks-repl-font-family`, cssFontFamily);
+			this.container.style.setProperty(`--vsblocks-repl-font-size`, `${this.replOptions.replConfiguration.fontSize}px`);
+			this.container.style.setProperty(`--vsblocks-repl-font-size-for-twistie`, `${this.replOptions.replConfiguration.fontSizeForTwistie}px`);
+			this.container.style.setProperty(`--vsblocks-repl-line-height`, this.replOptions.replConfiguration.cssLineHeight);
 
 			this.tree?.rerender();
 
